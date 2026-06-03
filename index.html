@@ -169,6 +169,7 @@ setTimeout(() => {
       });
     }
 const markers = [];
+    const prefectureCounts = {};
     const allSpots = [];
 const activeCategories = new Set([
   "温泉",
@@ -254,6 +255,12 @@ const activeCategories = new Set([
           const lat = Number(data["緯度"]);
           const lng = Number(data["経度"]);
           const category = data["カテゴリ"];
+          const prefecture = data["都道府県"];
+
+if (prefecture) {
+  prefectureCounts[prefecture] =
+    (prefectureCounts[prefecture] || 0) + 1;
+}
           const markerIcon = icons[category] || icon("blue");
 
           let popup = `
@@ -333,6 +340,8 @@ marker.category = category;
 marker.addTo(map);
 
 markers.push(marker);
+          
+          setTimeout(updatePrefectureList, 500);
         });
       });
 
@@ -423,6 +432,23 @@ function sendThanks(button) {
 }
     
 function searchPlace() {
+
+  function updatePrefectureList() {
+
+  const legend = document.querySelector('.legend');
+
+  if (!legend) return;
+
+  let html = '<hr><div class="legend-title">🗾 都道府県別</div>';
+
+  Object.entries(prefectureCounts)
+    .sort((a, b) => b[1] - a[1])
+    .forEach(([pref, count]) => {
+      html += `${pref} ${count}件<br>`;
+    });
+
+  legend.insertAdjacentHTML('beforeend', html);
+}
 
   const keyword = document
     .getElementById("searchInput")
