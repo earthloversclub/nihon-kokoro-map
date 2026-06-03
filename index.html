@@ -92,11 +92,32 @@
   color: #b24a68;
   font-size: 14px;
 }
+#searchBox {
+  position: absolute;
+  top: 70px;
+  left: 60px;
+  z-index: 1000;
+  background: white;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+#searchInput {
+  width: 180px;
+  padding: 5px;
+}
+    
   </style>
 </head>
 
 <body>
   <header>🌏地球大好きっ子クラブ🌎<br>🌈日本の心の宝地図🌈</header>
+  
+<div id="searchBox">
+  <input type="text" id="searchInput" placeholder="地名やタイトルを検索">
+  <button onclick="searchPlace()">検索</button>
+</div>
 
   <div id="map"></div>
 <div id="imageModal" class="image-modal">
@@ -126,6 +147,7 @@
       });
     }
 const markers = [];
+    const allSpots = [];
 const activeCategories = new Set([
   "温泉",
   "絶景",
@@ -249,6 +271,11 @@ if (data["画像"]) {
          const marker = L.marker([lat, lng], { icon: markerIcon })
   .bindPopup(popup);
 
+          allSpots.push({
+  title: data["タイトル"] || data["名前"],
+  marker: marker
+});
+
 marker.category = category;
 
 marker.addTo(map);
@@ -334,6 +361,27 @@ function sendThanks(button) {
 
   message.textContent = "ありがとうを届けました🌈";
 }
+function searchPlace() {
+
+  const keyword = document
+    .getElementById("searchInput")
+    .value
+    .trim()
+    .toLowerCase();
+
+  const found = allSpots.find(spot =>
+    spot.title &&
+    spot.title.toLowerCase().includes(keyword)
+  );
+
+  if (found) {
+    map.setView(found.marker.getLatLng(), 12);
+    found.marker.openPopup();
+  } else {
+    alert("見つかりませんでした");
+  }
+}
+    
   </script>
 </body>
 </html>
