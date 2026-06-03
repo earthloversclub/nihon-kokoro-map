@@ -403,6 +403,9 @@ markers.push(marker);
     };
 
     legend.addTo(map);
+
+    setTimeout(updatePrefectureList, 1000);
+    
     function openImageModal(src) {
   document.getElementById('modalImage').src = src;
   document.getElementById('imageModal').style.display = 'flex';
