@@ -132,7 +132,11 @@
     const map = L.map('map', { zoomControl: false }).setView([37.8, 138.5], 5);
 
     L.control.zoom({ position: 'bottomleft' }).addTo(map);
-
+    
+setTimeout(() => {
+  document.querySelector('.leaflet-control-zoom').style.marginBottom = '30px';
+}, 500);
+    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap'
     }).addTo(map);
