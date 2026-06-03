@@ -341,7 +341,6 @@ marker.addTo(map);
 
 markers.push(marker);
           
-          setTimeout(updatePrefectureList, 500);
         });
       });
 
@@ -431,9 +430,7 @@ function sendThanks(button) {
   }
 }
     
-function searchPlace() {
-
-  function updatePrefectureList() {
+function updatePrefectureList() {
 
   const legend = document.querySelector('.legend');
 
@@ -449,6 +446,8 @@ function searchPlace() {
 
   legend.insertAdjacentHTML('beforeend', html);
 }
+
+function searchPlace() {
 
   const keyword = document
     .getElementById("searchInput")
