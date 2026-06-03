@@ -26,6 +26,21 @@
       height: calc(100vh - 52px);
       width: 100%;
     }
+
+    .legend {
+      background: white;
+      padding: 10px 12px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .legend-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: #256b3b;
+    }
   </style>
 </head>
 
@@ -38,38 +53,68 @@
 
   <script>
     const map = L.map('map').setView([37.8, 138.5], 5);
-const onsenIcon = L.divIcon({
-  html: '<div style="font-size:40px;">♨️</div>',
-  className: '',
-  iconSize: [50, 50]
-});
 
-const zekkeiIcon = L.divIcon({
-  html: '<div style="font-size:40px;">🗻</div>',
-  className: '',
-  iconSize: [50, 50]
-});
-
-const gourmetIcon = L.divIcon({
-  html: '<div style="font-size:40px;">🍴</div>',
-  className: '',
-  iconSize: [50, 50]
-});
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap'
     }).addTo(map);
 
-L.marker([36.6200, 138.5969], {icon: onsenIcon})
-  .addTo(map)
-  .bindPopup('♨️ 草津温泉<br>日本を代表する名湯');
+    const redIcon = new L.Icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34]
+    });
 
-L.marker([35.3606, 138.7274], {icon: zekkeiIcon})
-  .addTo(map)
-  .bindPopup('🗻 富士山<br>日本一の絶景');
+    const blueIcon = new L.Icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34]
+    });
 
-L.marker([35.0956, 138.8635], {icon: gourmetIcon})
-  .addTo(map)
-  .bindPopup('🍴 沼津港<br>新鮮な海鮮グルメ');
+    const orangeIcon = new L.Icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34]
+    });
+
+    L.marker([36.6200, 138.5969], { icon: redIcon })
+      .addTo(map)
+      .bindPopup('♨️ 草津温泉<br>日本を代表する名湯');
+
+    L.marker([35.3606, 138.7274], { icon: blueIcon })
+      .addTo(map)
+      .bindPopup('🗻 富士山<br>日本一の絶景');
+
+    L.marker([35.0956, 138.8635], { icon: orangeIcon })
+      .addTo(map)
+      .bindPopup('🍴 沼津港<br>新鮮な海鮮グルメ');
+
+    const legend = L.control({ position: 'bottomleft' });
+
+    legend.onAdd = function () {
+      const div = L.DomUtil.create('div', 'legend');
+      div.innerHTML = `
+        <div class="legend-title">📖 カテゴリ</div>
+        🔴 温泉<br>
+        🔵 絶景<br>
+        🟢 風景<br>
+        🟠 グルメ<br>
+        🟣 レジャー<br>
+        🟡 自然農<br>
+        ⛩️ 神社・伝統<br>
+        🐾 動物との出会い<br>
+        🎆 お祭り・イベント<br>
+        💖 心のプラスワン
+      `;
+      return div;
+    };
+
+    legend.addTo(map);
   </script>
 </body>
 </html>
