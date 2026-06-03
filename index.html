@@ -4,14 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🌈日本の心の宝地図🌈</title>
-
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
   <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-    }
+    body { margin: 0; font-family: sans-serif; }
 
     header {
       padding: 12px;
@@ -28,20 +24,25 @@
     }
 
     .legend {
-  background: white;
-  padding: 8px 10px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-  font-size: 12px;
-  line-height: 1.5;
-}
-.leaflet-bottom {
-  bottom: 40px;
-}
+      background: white;
+      padding: 8px 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
     .legend-title {
       font-weight: bold;
       margin-bottom: 4px;
       color: #256b3b;
+    }
+
+    .popup-img {
+      width: 180px;
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 6px;
     }
   </style>
 </head>
@@ -54,54 +55,116 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <script>
-    const map = L.map('map', {
-  zoomControl: false
-}).setView([37.8, 138.5], 5);
-L.control.zoom({
-  position: 'bottomleft'
-}).addTo(map);
-    
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; OpenStreetMap'
-}).addTo(map);
-    
-    const redIcon = new L.Icon({
-      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34]
-    });
+    const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?output=csv";
 
-    const blueIcon = new L.Icon({
-      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
-      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34]
-    });
+    const map = L.map('map', { zoomControl: false }).setView([37.8, 138.5], 5);
 
-    const orangeIcon = new L.Icon({
-      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
-      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34]
-    });
+    L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
-    L.marker([36.6200, 138.5969], { icon: redIcon })
-      .addTo(map)
-      .bindPopup('♨️ 草津温泉<br>日本を代表する名湯');
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
 
-    L.marker([35.3606, 138.7274], { icon: blueIcon })
-      .addTo(map)
-      .bindPopup('🗻 富士山<br>日本一の絶景');
+    function icon(color) {
+      return new L.Icon({
+        iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-${color}.png`,
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34]
+      });
+    }
 
-    L.marker([35.0956, 138.8635], { icon: orangeIcon })
-      .addTo(map)
-      .bindPopup('🍴 沼津港<br>新鮮な海鮮グルメ');
+    const icons = {
+      "温泉": icon("red"),
+      "絶景": icon("blue"),
+      "風景": icon("green"),
+      "グルメ": icon("orange"),
+      "レジャー": icon("violet"),
+      "自然農": icon("yellow"),
+      "神社・伝統": icon("gold"),
+      "動物": icon("grey"),
+      "イベント": icon("black"),
+      "幸せシェア": icon("pink")
+    };
 
-   const legend = L.control({ position: 'topleft' });
+    function parseCSV(text) {
+      const rows = [];
+      let row = [], cell = '', quote = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        const next = text[i + 1];
+
+        if (c === '"' && quote && next === '"') {
+          cell += '"';
+          i++;
+        } else if (c === '"') {
+          quote = !quote;
+        } else if (c === ',' && !quote) {
+          row.push(cell);
+          cell = '';
+        } else if ((c === '\n' || c === '\r') && !quote) {
+          if (cell || row.length) {
+            row.push(cell);
+            rows.push(row);
+            row = [];
+            cell = '';
+          }
+          if (c === '\r' && next === '\n') i++;
+        } else {
+          cell += c;
+        }
+      }
+
+      if (cell || row.length) {
+        row.push(cell);
+        rows.push(row);
+      }
+
+      return rows;
+    }
+
+    fetch(sheetUrl)
+      .then(response => response.text())
+      .then(csv => {
+        const rows = parseCSV(csv);
+        const headers = rows[0];
+
+        rows.slice(1).forEach(row => {
+          const data = {};
+          headers.forEach((h, i) => data[h] = row[i]);
+
+          if (!data["緯度"] || !data["経度"]) return;
+
+          const lat = Number(data["緯度"]);
+          const lng = Number(data["経度"]);
+          const category = data["カテゴリ"];
+          const markerIcon = icons[category] || icon("blue");
+
+          let popup = `
+            <strong>${data["タイトル"] || data["名前"]}</strong><br>
+            ${category ? "カテゴリ：" + category + "<br>" : ""}
+            ${data["説明"] ? data["説明"] + "<br>" : ""}
+            ${data["投稿者"] ? "投稿者：" + data["投稿者"] + "<br>" : ""}
+            ${data["投稿日"] ? "投稿日：" + data["投稿日"] + "<br>" : ""}
+          `;
+
+          if (data["画像"]) {
+            popup += `<img class="popup-img" src="${data["画像"]}">`;
+          }
+
+          if (data["動画"]) {
+            popup += `<br><a href="${data["動画"]}" target="_blank">動画を見る</a>`;
+          }
+
+          L.marker([lat, lng], { icon: markerIcon })
+            .addTo(map)
+            .bindPopup(popup);
+        });
+      });
+
+    const legend = L.control({ position: 'topleft' });
 
     legend.onAdd = function () {
       const div = L.DomUtil.create('div', 'legend');
