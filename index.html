@@ -71,6 +71,23 @@
       margin-top: 6px;
       cursor: pointer;
     }
+    
+    .thanks-btn {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 20px;
+  background: #ffe8f0;
+  color: #b24a68;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.thanks-message {
+  margin-top: 6px;
+  color: #2f7a4f;
+  font-size: 13px;
+}
   </style>
 </head>
 
@@ -198,7 +215,10 @@ const activeCategories = new Set([
   ${data["投稿者"] ? "投稿者：" + data["投稿者"] + "<br>" : ""}
   ${data["投稿日"] ? "投稿日：" + data["投稿日"] + "<br>" : ""}
 
-  ❤️ ${data["いいね"] || 0}
+  <button class="thanks-btn" onclick="sendThanks(this)">
+  🌸 ありがとうを届ける
+</button>
+<div class="thanks-message"></div>
 `;
 
           function convertDriveImageUrl(url) {
@@ -299,6 +319,12 @@ markers.push(marker);
 
 function closeImageModal() {
   document.getElementById('imageModal').style.display = 'none';
+}
+
+    function sendThanks(button) {
+  const message = button.nextElementSibling;
+  button.style.display = "none";
+  message.textContent = "🌈 ありがとうを届けました";
 }
  
   </script>
