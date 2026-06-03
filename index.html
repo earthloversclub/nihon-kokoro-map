@@ -128,7 +128,12 @@ const activeCategories = new Set([
       "神社・伝統": icon("gold"),
       "動物": icon("grey"),
       "イベント": icon("black"),
-      "幸せシェア": icon("pink")
+      "幸せシェア": L.divIcon({
+  html: "🌈",
+  className: "",
+  iconSize: [30, 30],
+  iconAnchor: [15, 15]
+})
     };
 
     function parseCSV(text) {
