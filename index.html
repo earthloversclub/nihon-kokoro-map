@@ -71,6 +71,24 @@
       margin-top: 6px;
       cursor: pointer;
     }
+
+    .image-carousel {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.carousel-buttons {
+  margin-top: 5px;
+}
+
+.carousel-buttons button {
+  border: none;
+  border-radius: 50%;
+  background: #e8f5ee;
+  color: #256b3b;
+  margin: 0 3px;
+  cursor: pointer;
+}
     
 .thanks-btn {
   margin-top: 8px;
@@ -263,9 +281,39 @@ const activeCategories = new Set([
   return url;
 }
 
+const imageUrls = [];
+
 if (data["画像"]) {
-  const imageUrl = convertDriveImageUrl(data["画像"]);
-  popup += `<img class="popup-img" src="${imageUrl}" onclick="openImageModal('${imageUrl}')">`;
+  imageUrls.push(convertDriveImageUrl(data["画像"]));
+}
+
+if (data["画像2"]) {
+  imageUrls.push(convertDriveImageUrl(data["画像2"]));
+}
+
+if (imageUrls.length > 0) {
+  const spotId = data["ID"];
+
+  popup += `
+    <div class="image-carousel">
+      <img
+        class="popup-img"
+        id="carousel-${spotId}"
+        src="${imageUrls[0]}"
+        onclick="openImageModal(this.src)"
+      >
+  `;
+
+  if (imageUrls.length > 1) {
+    popup += `
+      <div class="carousel-buttons">
+        <button onclick="changeCarouselImage('${spotId}', '${imageUrls[0]}')">1</button>
+        <button onclick="changeCarouselImage('${spotId}', '${imageUrls[1]}')">2</button>
+      </div>
+    `;
+  }
+
+  popup += `</div>`;
 }
 
           if (data["動画"]) {
@@ -365,6 +413,15 @@ function sendThanks(button) {
 
   message.textContent = "ありがとうを届けました🌈";
 }
+
+    function changeCarouselImage(spotId, imageUrl) {
+  const img = document.getElementById(`carousel-${spotId}`);
+
+  if (img) {
+    img.src = imageUrl;
+  }
+}
+    
 function searchPlace() {
 
   const keyword = document
