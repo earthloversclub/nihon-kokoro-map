@@ -6,6 +6,32 @@
   <title>🌈日本の心の宝地図🌈</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
+  .image-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
+}
+
+.image-modal img {
+  max-width: 92%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+
+.image-modal-close {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  cursor: pointer;
+}
+  
   <style>
     body { margin: 0; font-family: sans-serif; }
 
@@ -51,7 +77,10 @@
   <header>🌏地球大好きっ子クラブ🌎<br>🌈日本の心の宝地図🌈</header>
 
   <div id="map"></div>
-
+<div id="imageModal" class="image-modal">
+  <span class="image-modal-close" onclick="closeImageModal()">×</span>
+  <img id="modalImage" src="">
+</div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <script>
@@ -177,7 +206,7 @@ const activeCategories = new Set([
 
 if (data["画像"]) {
   const imageUrl = convertDriveImageUrl(data["画像"]);
-  popup += `<img class="popup-img" src="${imageUrl}">`;
+  popup += `<img class="popup-img" src="${imageUrl}" onclick="openImageModal('${imageUrl}')">`;
 }
 
           if (data["動画"]) {
@@ -254,6 +283,15 @@ markers.push(marker);
     };
 
     legend.addTo(map);
+    function openImageModal(src) {
+  document.getElementById('modalImage').src = src;
+  document.getElementById('imageModal').style.display = 'flex';
+}
+
+function closeImageModal() {
+  document.getElementById('imageModal').style.display = 'none';
+}
+ 
   </script>
 </body>
 </html>
