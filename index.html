@@ -84,7 +84,7 @@
 }
 
 .thanks-message {
-  display: inline-block;
+  display: none;
   margin-top: 8px;
   padding: 6px 10px;
   border-radius: 20px;
@@ -220,7 +220,7 @@ const activeCategories = new Set([
   ${data["投稿日"] ? "投稿日：" + data["投稿日"] + "<br>" : ""}
 
   <button class="thanks-btn" onclick="sendThanks(this)">
-  🌸 ありがとうを届ける
+  ありがとうを届ける🌸
 </button>
 <div class="thanks-message"></div>
 `;
@@ -325,12 +325,15 @@ function closeImageModal() {
   document.getElementById('imageModal').style.display = 'none';
 }
 
-    function sendThanks(button) {
+function sendThanks(button) {
   const message = button.nextElementSibling;
+
   button.style.display = "none";
-  message.textContent = "🌈 ありがとうを届けました";
+
+  message.style.display = "inline-block";
+
+  message.textContent = "ありがとうを届けました🌈";
 }
- 
   </script>
 </body>
 </html>
