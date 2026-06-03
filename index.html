@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🍀日本の心の宝地図🌈</title>
+  <title>🌈日本の心の宝地図🌈</title>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
@@ -47,7 +47,7 @@
 </head>
 
 <body>
-  <header>🌏地球大好きっ子クラブ<br>🍀日本の心の宝地図🌈</header>
+  <header>🌏地球大好きっ子クラブ🌎<br>🍀日本の心の宝地図🌈</header>
 
   <div id="map"></div>
 
@@ -60,6 +60,7 @@
 L.control.zoom({
   position: 'bottomleft'
 }).addTo(map);
+    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap'
     }).addTo(map);
@@ -100,7 +101,7 @@ L.control.zoom({
       .addTo(map)
       .bindPopup('🍴 沼津港<br>新鮮な海鮮グルメ');
 
-    const legend = L.control({ position: 'bottomleft' });
+   const legend = L.control({ position: 'topleft' });
 
     legend.onAdd = function () {
       const div = L.DomUtil.create('div', 'legend');
