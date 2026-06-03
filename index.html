@@ -447,6 +447,16 @@ function updatePrefectureList() {
       html += `${pref} ${count}件<br>`;
     });
 
+  const achieved = Object.keys(prefectureCounts).length;
+const total = 47;
+
+html += `
+<hr>
+<div class="legend-title">🌈 全国達成率</div>
+${achieved} / ${total}県<br>
+${((achieved / total) * 100).toFixed(1)}%
+`;
+  
   legend.insertAdjacentHTML('beforeend', html);
 }
 
