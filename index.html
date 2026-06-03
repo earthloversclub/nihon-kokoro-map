@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍀日本の心の宝地図🌈</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    header {
+      padding: 12px;
+      text-align: center;
+      background: #e9f8ef;
+      color: #256b3b;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    #map {
+      height: calc(100vh - 52px);
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <header>🌏地球大好きっ子クラブ<br>🍀日本の心の宝地図🌈</header>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    const map = L.map('map').setView([37.8, 138.5], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    L.marker([35.6895, 139.6917])
+      .addTo(map)
+      .bindPopup('💖 テストピン<br>ここに写真やコメントが入ります');
+  </script>
+</body>
+</html>
