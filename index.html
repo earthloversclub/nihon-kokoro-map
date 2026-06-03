@@ -150,9 +150,22 @@
             ${data["投稿日"] ? "投稿日：" + data["投稿日"] + "<br>" : ""}
           `;
 
-          if (data["画像"]) {
-            popup += `<img class="popup-img" src="${data["画像"]}">`;
-          }
+          function convertDriveImageUrl(url) {
+  if (!url) return "";
+
+  const match = url.match(/\/d\/([^/]+)/);
+
+  if (match && match[1]) {
+    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
+  }
+
+  return url;
+}
+
+if (data["画像"]) {
+  const imageUrl = convertDriveImageUrl(data["画像"]);
+  popup += `<img class="popup-img" src="${imageUrl}">`;
+}
 
           if (data["動画"]) {
             popup += `<br><a href="${data["動画"]}" target="_blank">動画を見る</a>`;
