@@ -79,6 +79,12 @@ header span {
   grid-row: 1 / span 10;
 }
 
+.category-title {
+    font-weight: bold;
+    color: #2d6b2d;
+    font-size: 16px;
+}
+    
     .popup-img {
       width: 180px;
       max-width: 100%;
@@ -600,7 +606,7 @@ markers.push(marker);
       const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = `
 
-<div class="legend-title">🧭 宝物カテゴリ</div>
+<div class="category-title">🧭 宝物カテゴリ</div>
 
 <label><input type="checkbox" checked value="温泉"> ♨️ 温泉</label><br>
 <label><input type="checkbox" checked value="絶景"> 🏔️ 絶景</label><br>
