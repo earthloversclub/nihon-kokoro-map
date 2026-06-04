@@ -177,7 +177,17 @@
 
 #missingPrefectures {
   margin-top: 10px;
-  line-height: 1.8;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 6px;
+
+  text-align: left;
+
+  max-width: 500px;
 }
 .achievement-title {
   font-size: 16px;
@@ -690,7 +700,9 @@ function loadMissingPrefectures() {
   const missing = allPrefectures.filter(p => !found.includes(p));
 
   document.getElementById("missingPrefectures").innerHTML =
-    missing.join(" ・ ");
+   missing
+  .map(p => `<div>${p}</div>`)
+  .join("");
 }
 
 setTimeout(loadMissingPrefectures, 1200);
