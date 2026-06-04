@@ -257,11 +257,6 @@ header span {
   <span>🌎地球大好きっ子クラブ🌎</span>
   <span>🌈日本の心の宝地図🌈</span>
 </header>
-
-  <div id="viewButtons">
-  <button onclick="showMapA()">🗺️ 宝物地図</button>
-  <button onclick="showMapB()">🌸 成長地図</button>
-</div>
   
 <div id="searchBox">
   <input type="text" id="searchInput" placeholder="地名やタイトルを検索">
@@ -519,10 +514,17 @@ markers.push(marker);
     legend.onAdd = function () {
       const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = `
+<div class="legend-title">🗺 地図切り替え</div>
+
+<button onclick="showMapA()">🗺 宝物地図</button><br>
+<button onclick="showMapB()">🌸 成長地図</button>
+
+<hr>
+
 <div class="legend-title">🧭 宝物カテゴリ</div>
 
 <label><input type="checkbox" checked value="温泉"> ♨️ 温泉</label><br>
-<label><input type="checkbox" checked value="絶景"> 🗻 絶景</label><br>
+<label><input type="checkbox" checked value="絶景"> 🏔️ 絶景</label><br>
 <label><input type="checkbox" checked value="風景"> 🏞️ 風景</label><br>
 <label><input type="checkbox" checked value="グルメ"> 😋 グルメ</label><br>
 <label><input type="checkbox" checked value="レジャー"> 🏕️ レジャー</label><br>
