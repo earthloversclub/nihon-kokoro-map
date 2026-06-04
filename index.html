@@ -206,6 +206,32 @@ box-shadow: none;
     padding: 16px 24px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
+
+#thanksEnergyLegend {
+  position: absolute;
+  top: 20px;
+  right: -150px;
+  background: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  font-size: 12px;
+  text-align: left;
+  z-index: 1000;
+}
+
+.energy-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 3px 0;
+}
+
+.energy-color {
+  width: 22px;
+  height: 14px;
+  border: 1px solid #aaa;
+}
     
 #missingPrefecturesBox {
    display: block;
@@ -316,7 +342,20 @@ box-shadow: none;
     <span id="achievementPercent">0%</span>
   </div>
 </div>
-  
+
+  <div id="thanksEnergyLegend">
+  <div class="legend-title">🌈 感謝エネルギー</div>
+
+  <div class="energy-row"><span class="energy-color" style="background:#ff00ff;"></span>801輪〜</div>
+  <div class="energy-row"><span class="energy-color" style="background:#ff3333;"></span>701〜800</div>
+  <div class="energy-row"><span class="energy-color" style="background:#ff8acb;"></span>601〜700</div>
+  <div class="energy-row"><span class="energy-color" style="background:#ff9800;"></span>501〜600</div>
+  <div class="energy-row"><span class="energy-color" style="background:#fff176;"></span>401〜500</div>
+  <div class="energy-row"><span class="energy-color" style="background:#9b5de5;"></span>301〜400</div>
+  <div class="energy-row"><span class="energy-color" style="background:#4da3ff;"></span>201〜300</div>
+  <div class="energy-row"><span class="energy-color" style="background:#aeefff;"></span>101〜200</div>
+  <div class="energy-row"><span class="energy-color" style="background:#ffffff;"></span>1〜100</div>
+  <div class="energy-row"><span class="energy-color" style="background:#dddddd;"></span>0</div>
 </div>
   
 <div id="imageModal" class="image-modal">
