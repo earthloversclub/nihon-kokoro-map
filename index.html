@@ -19,7 +19,7 @@
   align-items: center;
 }
 
-.image-modal img {
+.image-modal img {F
   max-width: 92%;
   max-height: 90%;
   border-radius: 10px;
@@ -745,6 +745,7 @@ function loadMissingPrefectures() {
 }
 
 function getThanksColor(count) {
+  if (count === 0) return "#dddddd";
   if (count <= 100) return "#ffffff";
   if (count <= 200) return "#aeefff";
   if (count <= 300) return "#4da3ff";
