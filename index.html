@@ -325,7 +325,7 @@ box-shadow: none;
 </header>
 
 <div id="mapSwitchBox">
-  <button onclick="showMapA()">🗺️ 宝物地図へ移動</button>
+  <button id="mapSwitchButton" onclick="showMapB()">🌸 成長地図へ移動</button>
 </div>
   
 <div id="searchBox">
@@ -739,10 +739,13 @@ function updatePrefectureList() {
 
 }
 
-  function showMapA() {
+function showMapA() {
   document.getElementById("map").style.display = "block";
   document.getElementById("growthMap").style.display = "none";
-    document.getElementById("searchBox").style.display = "block";
+  document.getElementById("searchBox").style.display = "block";
+
+  document.getElementById("mapSwitchButton").textContent = "🌸 成長地図へ移動";
+  document.getElementById("mapSwitchButton").onclick = showMapB;
 }
 
 function showMapB() {
@@ -750,11 +753,13 @@ function showMapB() {
   document.getElementById("growthMap").style.display = "block";
   document.getElementById("searchBox").style.display = "none";
 
+  document.getElementById("mapSwitchButton").textContent = "🗺️ 宝物地図へ移動";
+  document.getElementById("mapSwitchButton").onclick = showMapA;
+
   setTimeout(function() {
     loadJapanGrowthMap();
   }, 100);
 }
-
 function loadThanksTotal() {
   fetch("https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec")
     .then(response => response.json())
