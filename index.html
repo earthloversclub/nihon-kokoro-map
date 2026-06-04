@@ -136,6 +136,17 @@ header span {
   cursor: pointer;
   font-size: 14px;
 }
+
+#mapSwitchBox {
+  position: absolute;
+  bottom: 75px;
+  right: 20px;
+  z-index: 1000;
+  background: white;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
     
 #searchBox {
   position: absolute;
@@ -257,6 +268,11 @@ header span {
   <span>🌎地球大好きっ子クラブ🌎</span>
   <span>🌈日本の心の宝地図🌈</span>
 </header>
+
+<div id="mapSwitchBox">
+  <button onclick="showMapA()">🗺 宝物地図</button>
+  <button onclick="showMapB()">🌸 成長地図</button>
+</div>
   
 <div id="searchBox">
   <input type="text" id="searchInput" placeholder="地名やタイトルを検索">
@@ -515,12 +531,6 @@ markers.push(marker);
     legend.onAdd = function () {
       const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = `
-<div class="legend-title">🗺 地図切り替え</div>
-
-<button onclick="showMapA()">🗺 宝物地図</button><br>
-<button onclick="showMapB()">🌸 成長地図</button>
-
-<hr>
 
 <div class="legend-title">🧭 宝物カテゴリ</div>
 
