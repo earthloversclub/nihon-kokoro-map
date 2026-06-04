@@ -150,6 +150,32 @@
 }
 
 #thanksFlowerBox {
+
+  #achievementBox {
+  display: inline-block;
+  background: #eef9ff;
+  border-radius: 18px;
+  padding: 16px 24px;
+  margin-top: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.achievement-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c6ca8;
+}
+
+.achievement-count {
+  margin-top: 8px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.achievement-percent {
+  margin-top: 4px;
+  font-size: 18px;
+}
   display: inline-block;
   background: #fff4f8;
   border-radius: 18px;
@@ -196,6 +222,18 @@
     </div>
   </div>
 
+  <div id="achievementBox">
+  <div class="achievement-title">🌈 全国達成率</div>
+
+  <div class="achievement-count">
+    <span id="achievementCount">0 / 47県</span>
+  </div>
+
+  <div class="achievement-percent">
+    <span id="achievementPercent">0%</span>
+  </div>
+</div>
+  
   <p>ここに日本地図が入るよ✨</p>
 </div>
   
@@ -598,6 +636,26 @@ function loadThanksTotal() {
 }
 
 loadThanksTotal();
+
+    function loadAchievement() {
+
+  const total = 47;
+
+  const achieved =
+    document.querySelectorAll(
+      "#prefectureList div"
+    ).length;
+
+  document.getElementById("achievementCount")
+    .textContent =
+      achieved + " / " + total + "県";
+
+  document.getElementById("achievementPercent")
+    .textContent =
+      ((achieved / total) * 100).toFixed(1) + "%";
+}
+
+loadAchievement();
     
 function searchPlace() {
   
