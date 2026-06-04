@@ -741,7 +741,7 @@ setTimeout(loadMissingPrefectures, 1200);
     .then(geojson => {
       L.geoJSON(geojson, {
         style: function(feature) {
-          const pref = feature.properties.nam_ja;
+         const pref = feature.properties.name;
           console.log(pref);
           const discovered = found.includes(pref);
 
