@@ -744,6 +744,18 @@ function loadMissingPrefectures() {
   .join("");
 }
 
+function getThanksColor(count) {
+  if (count <= 100) return "#ffffff";
+  if (count <= 200) return "#aeefff";
+  if (count <= 300) return "#4da3ff";
+  if (count <= 400) return "#9b5de5";
+  if (count <= 500) return "#fff176";
+  if (count <= 600) return "#ff9800";
+  if (count <= 700) return "#ff8acb";
+  if (count <= 800) return "#ff3333";
+  return "#ff00ff";
+}
+    
     function loadJapanGrowthMap() {
   const found = Object.keys(prefectureCounts);
 
@@ -768,7 +780,10 @@ function loadMissingPrefectures() {
           return {
   color: "#ffffff",
   weight: 1,
-  fillColor: discovered ? "#7fd18b" : "#dddddd",
+ fillColor: getThanksColor(prefectureThanks[
+  pref.replace("都","").replace("府","").replace("県","")
+] || 0),
+            
   fillOpacity: 0.9
 };
 },
