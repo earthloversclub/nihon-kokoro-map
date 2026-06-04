@@ -181,7 +181,7 @@ const activeCategories = new Set([
   "神社・伝統",
   "動物",
   "イベント",
-  "幸せシェア🌈"
+  "幸せシェア"
 ]);
     
     const icons = {
@@ -435,7 +435,7 @@ function sendThanks(button, spotId) {
   if (localStorage.getItem(key)) {
     button.style.display = "none";
     message.style.display = "inline-block";
-    message.textContent = "ありがとうを届けました🌈";
+    message.textContent = makeThanksMessage();
     return;
   }
 
@@ -448,7 +448,20 @@ function sendThanks(button, spotId) {
 
   button.style.display = "none";
   message.style.display = "inline-block";
-  message.textContent = "ありがとうを届けました🌈";
+  message.textContent = makeThanksMessage();
+
+  function sendThanks(button, spotId) {
+  ...
+}
+
+function makeThanksMessage() {
+  const flowers = ["🌸", "🌼", "🌷", "🌻", "🌺", "🪻"];
+  const flower = flowers[Math.floor(Math.random() * flowers.length)];
+
+  return `ありがとうを届けました${flower}`;
+}
+
+map.on("popupopen", function(e) {
 }
 map.on("popupopen", function(e) {
 
