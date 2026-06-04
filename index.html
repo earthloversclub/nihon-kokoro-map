@@ -270,7 +270,7 @@ if (prefecture) {
   ${data["投稿者"] ? "投稿者：" + data["投稿者"] + "<br>" : ""}
   ${data["投稿日"] ? "投稿日：" + data["投稿日"] + "<br>" : ""}
 
-<button class="thanks-btn" onclick="sendThanks(this, '${data["ID"]}')">
+<button class="thanks-btn" data-spot-id="${data["ID"]}" onclick="sendThanks(this, '${data["ID"]}')">
   ありがとうを届ける🌸
 </button>
 <div class="thanks-message"></div>
@@ -439,6 +439,27 @@ function sendThanks(button, spotId) {
     return;
   }
 
+map.on("popupopen", function(e) {
+
+  const button =
+    e.popup.getElement().querySelector(".thanks-btn");
+
+  if (!button) return;
+
+  const spotId = button.dataset.spotId;
+  const key = "thanks_" + spotId;
+  const message = button.nextElementSibling;
+
+  if (localStorage.getItem(key)) {
+
+    button.style.display = "none";
+
+    message.style.display = "inline-block";
+
+    message.textContent = "ありがとうを届けました🌈";
+  }
+
+});
   localStorage.setItem(key, "done");
 
   button.style.display = "none";
