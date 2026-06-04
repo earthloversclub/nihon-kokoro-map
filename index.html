@@ -298,6 +298,14 @@ if (data["画像2"]) {
   imageUrls.push(convertDriveImageUrl(data["画像2"]));
 }
 
+if (data["画像3"]) {
+  imageUrls.push(convertDriveImageUrl(data["画像3"]));
+}
+
+if (data["画像4"]) {
+  imageUrls.push(convertDriveImageUrl(data["画像4"]));
+}
+
 if (imageUrls.length > 0) {
   const spotId = data["ID"];
 
@@ -311,15 +319,20 @@ if (imageUrls.length > 0) {
       >
   `;
 
-  if (imageUrls.length > 1) {
-    popup += `
-      <div class="carousel-buttons">
-        <button onclick="changeCarouselImage('${spotId}', '${imageUrls[0]}')">1</button>
-        <button onclick="changeCarouselImage('${spotId}', '${imageUrls[1]}')">2</button>
-      </div>
-    `;
-  }
+if (imageUrls.length > 1) {
 
+  popup += `<div class="carousel-buttons">`;
+
+  imageUrls.forEach((url, index) => {
+    popup += `
+      <button onclick="changeCarouselImage('${spotId}', '${url}')">
+        ${index + 1}
+      </button>
+    `;
+  });
+
+  popup += `</div>`;
+}
   popup += `</div>`;
 }
 
