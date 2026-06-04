@@ -156,8 +156,15 @@
   margin: 25px auto 0;
 }
 #thanksFlowerBox {
+  display: inline-block;
+  background: #fff4f8;
+  border-radius: 18px;
+  padding: 16px 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  color: #b24a68;
+}
 
- #achievementBox {
+#achievementBox {
   display: inline-block;
   background: #eef9ff;
   border-radius: 18px;
@@ -165,6 +172,7 @@
   margin-top: 15px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
+    
 #missingPrefecturesBox {
    display: block;
   background: #f4fff0;
@@ -312,6 +320,7 @@ setTimeout(() => {
 const markers = [];
     const prefectureCounts = {};
     const allSpots = [];
+    let japanGrowthMapInstance = null;
 const activeCategories = new Set([
   "温泉",
   "絶景",
