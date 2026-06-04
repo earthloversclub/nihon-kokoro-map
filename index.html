@@ -622,7 +622,7 @@ function sendThanks(button, spotId) {
     return;
   }
 
-  fetch("https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec?action=add", {
+  fetch("https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec?action=add&spotId=" + encodeURIComponent(spotId), {
     method: "GET",
     mode: "no-cors"
   });
