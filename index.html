@@ -182,23 +182,29 @@ box-shadow: none;
   max-width: 700px;
   height: 520px;
   margin: 25px auto 0;
+  position: relative;
 }
 #thanksFlowerBox {
-  display: inline-block;
-  background: #fff4f8;
-  border-radius: 18px;
-  padding: 16px 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  color: #b24a68;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    background: #fff4f8;
+    border-radius: 18px;
+    padding: 16px 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    color: #b24a68;
 }
 
 #achievementBox {
-  display: inline-block;
-  background: #eef9ff;
-  border-radius: 18px;
-  padding: 16px 24px;
-  margin-top: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+
+    background: #eef9ff;
+    border-radius: 18px;
+    padding: 16px 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
     
 #missingPrefecturesBox {
@@ -291,7 +297,7 @@ box-shadow: none;
 <div id="growthMap" style="display:none;">
   <h2>🌸 成長地図 🌸</h2>
 
-  <div id="japanGrowthMap"></div>
+  <div id="japanGrowthMap">
 
   <div id="thanksFlowerBox">
     <div class="thanks-flower-title">🌸 みんなから届いたありがとうの花</div>
