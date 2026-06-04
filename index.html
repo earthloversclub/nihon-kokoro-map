@@ -449,13 +449,15 @@ function sendThanks(button, spotId) {
   button.style.display = "none";
   message.style.display = "inline-block";
   message.textContent = makeThanksMessage();
-
-  function sendThanks(button, spotId) {
-  ...
 }
 
-map.on("popupopen", function(e) {
+function makeThanksMessage() {
+  const flowers = ["🌸", "🌼", "🌷", "🌻", "🌺", "🪻"];
+  const flower = flowers[Math.floor(Math.random() * flowers.length)];
+
+  return "ありがとうを届けました" + flower;
 }
+    
 map.on("popupopen", function(e) {
 
   const button =
