@@ -664,6 +664,10 @@ ${((achieved / total) * 100).toFixed(1)}%
 function showMapB() {
   document.getElementById("map").style.display = "none";
   document.getElementById("growthMap").style.display = "block";
+
+  setTimeout(function() {
+    loadJapanGrowthMap();
+  }, 100);
 }
 
 function loadThanksTotal() {
@@ -741,8 +745,6 @@ setTimeout(loadMissingPrefectures, 1200);
       }).addTo(growthMap);
     });
 }
-
-setTimeout(loadJapanGrowthMap, 1500);
     
 function searchPlace() {
   
