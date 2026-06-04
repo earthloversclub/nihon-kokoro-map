@@ -110,6 +110,24 @@
   color: #b24a68;
   font-size: 14px;
 }
+
+  #viewButtons {
+  text-align: center;
+  padding: 8px;
+  background: #f8fff9;
+}
+
+#viewButtons button {
+  padding: 8px 14px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 20px;
+  background: #dff3e5;
+  color: #256b3b;
+  cursor: pointer;
+  font-size: 14px;
+}
+    
 #searchBox {
   position: absolute;
   bottom: 20px;
@@ -131,6 +149,11 @@
 
 <body>
   <header>🌏地球大好きっ子クラブ🌎<br>🌈日本の心の宝地図🌈</header>
+
+  <div id="viewButtons">
+  <button onclick="showMapA()">🗺️ 宝物地図</button>
+  <button onclick="showMapB()">🌸 成長地図</button>
+</div>
   
 <div id="searchBox">
   <input type="text" id="searchInput" placeholder="地名やタイトルを検索">
@@ -138,6 +161,10 @@
 </div>
 
   <div id="map"></div>
+  <div id="growthMap" style="display:none;">
+  <h2>🌸 成長地図 🌸</h2>
+  <p>ここに日本地図が入るよ✨</p>
+</div>
 <div id="imageModal" class="image-modal">
   <span class="image-modal-close" onclick="closeImageModal()">×</span>
   <img id="modalImage" src="">
@@ -516,6 +543,16 @@ ${((achieved / total) * 100).toFixed(1)}%
 }
 
 function searchPlace() {
+
+  function showMapA() {
+  document.getElementById("map").style.display = "block";
+  document.getElementById("growthMap").style.display = "none";
+}
+
+function showMapB() {
+  document.getElementById("map").style.display = "none";
+  document.getElementById("growthMap").style.display = "block";
+}
 
   const keyword = document
     .getElementById("searchInput")
