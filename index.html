@@ -664,25 +664,6 @@ function updatePrefectureList() {
 
   if (!legend) return;
 
-  let html = '<hr><div class="legend-title">🗾 都道府県別</div>';
-
-  Object.entries(prefectureCounts)
-    .sort((a, b) => b[1] - a[1])
-    .forEach(([pref, count]) => {
-      html += `${pref} ${count}件<br>`;
-    });
-
-  const achieved = Object.keys(prefectureCounts).length;
-const total = 47;
-
-html += `
-<hr>
-<div class="legend-title">🌈 全国達成率</div>
-${achieved} / ${total}県<br>
-${((achieved / total) * 100).toFixed(1)}%
-`;
-  
-  legend.insertAdjacentHTML('beforeend', html);
 }
 
   function showMapA() {
