@@ -542,8 +542,6 @@ ${((achieved / total) * 100).toFixed(1)}%
   legend.insertAdjacentHTML('beforeend', html);
 }
 
-function searchPlace() {
-
   function showMapA() {
   document.getElementById("map").style.display = "block";
   document.getElementById("growthMap").style.display = "none";
@@ -553,7 +551,8 @@ function showMapB() {
   document.getElementById("map").style.display = "none";
   document.getElementById("growthMap").style.display = "block";
 }
-
+function searchPlace() {
+  
   const keyword = document
     .getElementById("searchInput")
     .value
