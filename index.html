@@ -143,6 +143,31 @@
   width: 180px;
   padding: 5px;
 }
+
+  #growthMap {
+  padding: 30px;
+  text-align: center;
+}
+
+#thanksFlowerBox {
+  display: inline-block;
+  background: #fff4f8;
+  border-radius: 18px;
+  padding: 16px 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  color: #b24a68;
+}
+
+.thanks-flower-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.thanks-flower-count {
+  margin-top: 8px;
+  font-size: 28px;
+  font-weight: bold;
+}
     
   </style>
 </head>
@@ -161,10 +186,19 @@
 </div>
 
   <div id="map"></div>
-  <div id="growthMap" style="display:none;">
+<div id="growthMap" style="display:none;">
   <h2>🌸 成長地図 🌸</h2>
+
+  <div id="thanksFlowerBox">
+    <div class="thanks-flower-title">🌸 みんなから届いたありがとうの花</div>
+    <div class="thanks-flower-count">
+      <span id="thanksTotal">読み込み中...</span> 輪
+    </div>
+  </div>
+
   <p>ここに日本地図が入るよ✨</p>
 </div>
+  
 <div id="imageModal" class="image-modal">
   <span class="image-modal-close" onclick="closeImageModal()">×</span>
   <img id="modalImage" src="">
@@ -551,6 +585,20 @@ function showMapB() {
   document.getElementById("map").style.display = "none";
   document.getElementById("growthMap").style.display = "block";
 }
+
+function loadThanksTotal() {
+  fetch("https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec")
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("thanksTotal").textContent = data.total || 0;
+    })
+    .catch(error => {
+      document.getElementById("thanksTotal").textContent = "0";
+    });
+}
+
+loadThanksTotal();
+    
 function searchPlace() {
   
   const keyword = document
