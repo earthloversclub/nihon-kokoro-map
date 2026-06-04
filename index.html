@@ -351,6 +351,7 @@ setTimeout(() => {
     }
 const markers = [];
     const prefectureCounts = {};
+    const prefectureThanks = {};
     const allSpots = [];
     let japanGrowthMapInstance = null;
 const activeCategories = new Set([
@@ -442,6 +443,9 @@ const activeCategories = new Set([
 if (prefecture) {
   prefectureCounts[prefecture] =
     (prefectureCounts[prefecture] || 0) + 1;
+
+  prefectureThanks[prefecture] =
+    (prefectureThanks[prefecture] || 0) + (Number(data["ありがとう数"]) || 0);
 }
           const markerIcon = icons[category] || icon("blue");
 
@@ -762,13 +766,33 @@ function loadMissingPrefectures() {
 );
 
           return {
-            color: "#ffffff",
-            weight: 1,
-            fillColor: discovered ? "#7fd18b" : "#dddddd",
-            fillOpacity: 0.9
-          };
-        }
-      }).addTo(growthMap);
+  color: "#ffffff",
+  weight: 1,
+  fillColor: discovered ? "#7fd18b" : "#dddddd",
+  fillOpacity: 0.9
+};
+},
+
+onEachFeature: function(feature, layer) {
+
+  const pref = feature.properties.nam_ja;
+
+  const shortPref = pref
+    .replace("都","")
+    .replace("府","")
+    .replace("県","");
+
+  const postCount = prefectureCounts[shortPref] || 0;
+  const thanksCount = prefectureThanks[shortPref] || 0;
+
+  layer.bindPopup(
+    "🌸 " + shortPref + "<br>" +
+    "投稿数：" + postCount + "件<br>" +
+    "ありがとう：" + thanksCount + "輪"
+  );
+}
+
+}).addTo(growthMap);
     });
 }
     
