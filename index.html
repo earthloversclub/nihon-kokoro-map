@@ -741,9 +741,13 @@ setTimeout(loadMissingPrefectures, 1200);
     .then(geojson => {
       L.geoJSON(geojson, {
         style: function(feature) {
-         const pref = feature.properties.name;
-          alert(JSON.stringify(feature.properties));
-          const discovered = found.includes(pref);
+         const pref = feature.properties.nam_ja;
+          const discovered = found.includes(
+  pref
+    .replace("都","")
+    .replace("府","")
+    .replace("県","")
+);
 
           return {
             color: "#ffffff",
