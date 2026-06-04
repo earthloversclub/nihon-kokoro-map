@@ -68,10 +68,13 @@ header span {
     }
 
     .legend-title {
-      font-weight: bold;
-      margin-bottom: 4px;
-      color: #256b3b;
-    }
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-weight: bold;
+  color: #2d6b2d;
+  font-size: 16px;
+  line-height: 1.2;
+}
 
     .popup-img {
       width: 180px;
@@ -208,16 +211,21 @@ box-shadow: none;
 }
 
 #thanksEnergyLegend {
-  position: absolute;
-  top: 20px;
-  right: 15px;
-  background: white;
-  padding: 6px 8px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  font-size: 10px;
-  text-align: left;
-  z-index: 1000;
+    position: absolute;
+    top: 20px;
+    right: 15px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background: white;
+    padding: 6px 8px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    font-size: 10px;
+    text-align: left;
+    z-index: 1000;
 }
 
 .energy-row {
