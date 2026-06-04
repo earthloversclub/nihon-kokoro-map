@@ -439,20 +439,17 @@ function sendThanks(button, spotId) {
     return;
   }
 
-  fetch("https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec?action=add")
-    .then(response => response.json())
-    .then(data => {
-      localStorage.setItem(key, "done");
+  fetch("https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec?action=add", {
+    method: "GET",
+    mode: "no-cors"
+  });
 
-      button.style.display = "none";
-      message.style.display = "inline-block";
-      message.textContent = "ありがとうを届けました🌈";
-    })
-    .catch(error => {
-      alert("ありがとうを届けられませんでした。もう一度ためしてね。");
-    });
+  localStorage.setItem(key, "done");
+
+  button.style.display = "none";
+  message.style.display = "inline-block";
+  message.textContent = "ありがとうを届けました🌈";
 }
-
 map.on("popupopen", function(e) {
 
   const button =
