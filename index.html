@@ -279,11 +279,6 @@
   </div>
 </div>
   
-  <div id="missingPrefecturesBox">
-  <div class="missing-title">🌱 未発見県</div>
-  <div id="missingPrefectures"></div>
-</div>
-  
  <div id="japanGrowthMap"></div>
 </div>
   
@@ -725,8 +720,6 @@ function loadMissingPrefectures() {
   .map(p => `<div>${p}</div>`)
   .join("");
 }
-
-setTimeout(loadMissingPrefectures, 1200);
 
     function loadJapanGrowthMap() {
   const found = Object.keys(prefectureCounts);
