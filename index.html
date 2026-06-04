@@ -148,7 +148,13 @@
   padding: 30px;
   text-align: center;
 }
-
+    
+#japanGrowthMap {
+  width: 100%;
+  max-width: 700px;
+  height: 520px;
+  margin: 25px auto 0;
+}
 #thanksFlowerBox {
 
  #achievementBox {
@@ -270,7 +276,7 @@
   <div id="missingPrefectures"></div>
 </div>
   
-  <p>ここに日本地図が入るよ✨</p>
+ <div id="japanGrowthMap"></div>
 </div>
   
 <div id="imageModal" class="image-modal">
@@ -708,6 +714,35 @@ function loadMissingPrefectures() {
 }
 
 setTimeout(loadMissingPrefectures, 1200);
+
+    function loadJapanGrowthMap() {
+  const found = Object.keys(prefectureCounts);
+
+  const growthMap = L.map("japanGrowthMap", {
+    zoomControl: false,
+    attributionControl: false
+  }).setView([37.8, 138.5], 5);
+
+  fetch("japan.geojson")
+    .then(response => response.json())
+    .then(geojson => {
+      L.geoJSON(geojson, {
+        style: function(feature) {
+          const pref = feature.properties.nam_ja;
+          const discovered = found.includes(pref);
+
+          return {
+            color: "#ffffff",
+            weight: 1,
+            fillColor: discovered ? "#7fd18b" : "#dddddd",
+            fillOpacity: 0.9
+          };
+        }
+      }).addTo(growthMap);
+    });
+}
+
+setTimeout(loadJapanGrowthMap, 1500);
     
 function searchPlace() {
   
