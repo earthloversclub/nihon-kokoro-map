@@ -743,11 +743,13 @@ function updatePrefectureList() {
   function showMapA() {
   document.getElementById("map").style.display = "block";
   document.getElementById("growthMap").style.display = "none";
+    document.getElementById("searchBox").style.display = "block";
 }
 
 function showMapB() {
   document.getElementById("map").style.display = "none";
   document.getElementById("growthMap").style.display = "block";
+  document.getElementById("searchBox").style.display = "none";
 
   setTimeout(function() {
     loadJapanGrowthMap();
