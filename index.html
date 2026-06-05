@@ -379,7 +379,12 @@ box-shadow: none;
 
 <div id="imageModal" class="image-modal">
   <span class="image-modal-close" onclick="closeImageModal()">×</span>
+
+  <button onclick="showModalImage(-1)">◀</button>
+
   <img id="modalImage" src="">
+
+  <button onclick="showModalImage(1)">▶</button>
 </div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
@@ -559,7 +564,7 @@ if (imageUrls.length > 0) {
   class="popup-img"
   id="carousel-${spotId}"
   src="${imageUrls[0]}"
-  onclick="openImageModal(this.src)"
+  onclick='openImageModal(${JSON.stringify(imageUrls)}, 0)'
 >
   `;
 
@@ -664,9 +669,31 @@ markers.push(marker);
 
     setTimeout(updatePrefectureList, 1000);
     
-    function openImageModal(src) {
-  document.getElementById('modalImage').src = src;
+ let modalImages = [];
+let modalIndex = 0;
+
+function openImageModal(images, index) {
+  modalImages = images;
+  modalIndex = index;
+
+  document.getElementById('modalImage').src = modalImages[modalIndex];
   document.getElementById('imageModal').style.display = 'flex';
+}
+
+function showModalImage(direction) {
+  if (modalImages.length === 0) return;
+
+  modalIndex += direction;
+
+  if (modalIndex < 0) {
+    modalIndex = modalImages.length - 1;
+  }
+
+  if (modalIndex >= modalImages.length) {
+    modalIndex = 0;
+  }
+
+  document.getElementById('modalImage').src = modalImages[modalIndex];
 }
 
 function closeImageModal() {
