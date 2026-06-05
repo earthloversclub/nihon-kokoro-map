@@ -152,8 +152,14 @@ header span {
 .popup-video {
   width: 100%;
   height: 85px;
-  border: 0;
   border-radius: 8px;
+  background: #222;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  cursor: pointer;
 }
     
 .carousel-buttons button {
@@ -676,7 +682,10 @@ if (imageUrls.length > 0 || data["動画"]) {
     popup += `
       <iframe
         src="${videoUrl}"
-        class="popup-video"
+        <div class="popup-video"
+     onclick="window.open('${data["動画"]}', '_blank')">
+  ▶
+</div>
         allow="autoplay"
         allowfullscreen>
       </iframe>
