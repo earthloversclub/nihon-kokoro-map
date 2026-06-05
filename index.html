@@ -584,29 +584,18 @@ if (imageUrls.length > 0) {
   const spotId = data["ID"];
 
   popup += `
-    <div class="image-carousel">
+popup += `<div class="image-carousel">`;
+
+imageUrls.forEach((url, index) => {
+  popup += `
     <img
-  class="popup-img"
-  id="carousel-${spotId}"
-  src="${imageUrls[0]}"
-  onclick='openImageModal(${JSON.stringify(imageUrls)}, 0)'
->
+      class="popup-img"
+      src="${url}"
+      onclick='openImageModal(${JSON.stringify(imageUrls)}, ${index})'
+    >
   `;
+});
 
-if (imageUrls.length > 1) {
-
-  popup += `<div class="carousel-buttons">`;
-
-  imageUrls.forEach((url, index) => {
-    popup += `
-      <button onclick="changeCarouselImage('${spotId}', '${url}')">
-        ${index + 1}
-      </button>
-    `;
-  });
-
-  popup += `</div>`;
-}
   popup += `</div>`;
 }
 
