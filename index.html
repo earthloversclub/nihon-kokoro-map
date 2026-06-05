@@ -261,14 +261,19 @@ box-shadow: none;
 }
 
 #achievementBox {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 
-    background: #eef9ff;
-    border-radius: 18px;
-    padding: 12px 18px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  background: #eef9ff;
+  border-radius: 18px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+
+  font-size: 15px;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
 #rankingBox {
@@ -418,16 +423,15 @@ box-shadow: none;
     </div>
   </div>
 
-  <div id="achievementBox">
-  <div class="achievement-title">全国達成率 🌈</div>
+<div id="achievementBox">
 
-  <div class="achievement-count">
-    <span id="achievementCount">0 / 47県</span>
-  </div>
+🌈 全国達成率
 
-  <div class="achievement-percent">
-    <span id="achievementPercent">0%</span>
-  </div>
+<span id="achievementCount">0 / 47県</span>
+
+<span id="achievementPercent">0%</span>
+
+</div>
 </div>
     <div id="rankingBox">
 
