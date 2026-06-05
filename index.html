@@ -34,7 +34,19 @@
   font-weight: bold;
   cursor: pointer;
 }
+.image-modal button {
+  font-size: 32px;
+  background: rgba(255,255,255,0.8);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
+@media (max-width: 600px) {
+  .image-modal button {
+    display: none;
+  }
+}
     header {
       padding: 8px;
       text-align: center;
@@ -380,11 +392,11 @@ box-shadow: none;
 <div id="imageModal" class="image-modal">
   <span class="image-modal-close" onclick="closeImageModal()">×</span>
 
-  <button onclick="showModalImage(-1)">◀</button>
+  <button onclick="showModalImage(-1)">❮</button>
 
   <img id="modalImage" src="">
 
-  <button onclick="showModalImage(1)">▶</button>
+  <button onclick="showModalImage(1)">❯</button>
 </div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
