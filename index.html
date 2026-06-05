@@ -675,7 +675,11 @@ if (data["画像4"] && data["画像4"] !== data["動画"]) {
 }
 
 if (imageUrls.length > 0 || data["動画"]) {
+  if (imageUrls.length === 1 && !data["動画"]) {
+  popup += `<div class="image-carousel">`;
+} else {
   popup += `<div class="image-carousel multi-images">`;
+}
 
   imageUrls.forEach((url, index) => {
     popup += `
