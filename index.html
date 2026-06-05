@@ -669,9 +669,17 @@ imageUrls.forEach((url, index) => {
   popup += `</div>`;
 }
 
-          if (data["動画"]) {
-            popup += `<br><a href="${data["動画"]}" target="_blank">動画を見る</a>`;
-          }
+if (data["動画"]) {
+  const videoUrl = convertDriveImageUrl(data["動画"]).replace("thumbnail?id=", "file/d/").replace("&sz=w1000", "/view");
+
+  popup += `
+    <div style="margin-top:8px;">
+      <a href="${data["動画"]}" target="_blank" rel="noopener noreferrer">
+        🎥 動画を見る
+      </a>
+    </div>
+  `;
+}
 
          const marker = L.marker([lat, lng], { icon: markerIcon })
   .bindPopup(popup);
