@@ -1058,6 +1058,40 @@ function getThanksColor(count) {
   if (count <= 700) return "#ff8acb";
   return "#ff3333";
 }
+
+function showFlowerConfetti(level) {
+  const flowers = ["🌸", "🌼", "🌷", "🌺", "🪻", "🌻"];
+  const count = level === "max" ? 80 : 35;
+  const size = level === "max" ? 34 : 26;
+  const duration = level === "max" ? 2500 : 1600;
+
+  for (let i = 0; i < count; i++) {
+    const flower = document.createElement("div");
+    flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+
+    flower.style.position = "fixed";
+    flower.style.left = Math.random() * window.innerWidth + "px";
+    flower.style.top = "-40px";
+    flower.style.fontSize = size + "px";
+    flower.style.pointerEvents = "none";
+    flower.style.zIndex = "9999";
+
+    document.body.appendChild(flower);
+
+    flower.animate(
+      [
+        { transform: "translateY(0px) rotate(0deg)", opacity: 1 },
+        { transform: "translateY(" + (window.innerHeight + 100) + "px) rotate(720deg)", opacity: 0 }
+      ],
+      {
+        duration: duration + Math.random() * 800,
+        easing: "ease-in"
+      }
+    );
+
+    setTimeout(() => flower.remove(), duration + 1000);
+  }
+}
     
     function loadJapanGrowthMap() {
   const found = Object.keys(prefectureCounts);
@@ -1126,11 +1160,22 @@ if (thanksCount === 0) {
 }
 
 layer.bindPopup(
- "🌸 <b>" + shortPref + "</b><br><br>" +
-  "投稿数：" + postCount + "件<br>" +
-  "ありがとうの花：" + thanksCount + "輪<br><br>" +
+  ...
   energyMessage
 );
+
+layer.on("click", function() {
+
+  if (thanksCount > 700) {
+    showFlowerConfetti("max");
+  }
+
+  else if (thanksCount > 500) {
+    showFlowerConfetti("middle");
+  }
+
+});
+  
 }
 
 }).addTo(growthMap);
