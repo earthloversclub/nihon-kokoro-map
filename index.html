@@ -25,6 +25,16 @@
   border-radius: 10px;
 }
 
+  #imageCounter {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}  
+
 .image-modal-close {
   position: fixed;
   top: 15px;
@@ -395,6 +405,7 @@ box-shadow: none;
   <button onclick="showModalImage(-1)">❮</button>
 
   <img id="modalImage" src="">
+  <div id="imageCounter">1 / 1</div>
 
   <button onclick="showModalImage(1)">❯</button>
 </div>
@@ -689,6 +700,8 @@ function openImageModal(images, index) {
   modalIndex = index;
 
   document.getElementById('modalImage').src = modalImages[modalIndex];
+  document.getElementById('imageCounter').textContent =
+  (modalIndex + 1) + " / " + modalImages.length;
   document.getElementById('imageModal').style.display = 'flex';
 }
 
@@ -706,6 +719,8 @@ function showModalImage(direction) {
   }
 
   document.getElementById('modalImage').src = modalImages[modalIndex];
+  document.getElementById('imageCounter').textContent =
+  (modalIndex + 1) + " / " + modalImages.length;
 }
 
 function closeImageModal() {
