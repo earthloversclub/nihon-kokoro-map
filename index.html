@@ -1168,13 +1168,13 @@ layer.bindPopup(
 
 layer.on("click", function() {
 
-  if (thanksCount > 3) {
-    showFlowerConfetti("max");
-  }
+if (thanksCount >= 3) {
+  showFlowerConfetti("max");
+}
 
-  else if (thanksCount > 2) {
-    showFlowerConfetti("middle");
-  }
+else if (thanksCount >= 2) {
+  showFlowerConfetti("middle");
+}
 
 });
   
