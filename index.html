@@ -700,6 +700,24 @@ function closeImageModal() {
   document.getElementById('imageModal').style.display = 'none';
 }
 
+    let touchStartX = 0;
+
+document.getElementById('imageModal').addEventListener('touchstart', function(e) {
+  touchStartX = e.touches[0].clientX;
+});
+
+document.getElementById('imageModal').addEventListener('touchend', function(e) {
+  let touchEndX = e.changedTouches[0].clientX;
+
+  if (touchStartX - touchEndX > 50) {
+    showModalImage(1);
+  }
+
+  if (touchEndX - touchStartX > 50) {
+    showModalImage(-1);
+  }
+});
+
 function sendThanks(button, spotId) {
   const key = "thanks_" + spotId;
   const message = button.nextElementSibling;
