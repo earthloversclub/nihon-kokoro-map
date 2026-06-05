@@ -913,8 +913,39 @@ loadThanksTotal();
     ((achieved / total) * 100).toFixed(1) + "%";
 }
 
-setTimeout(loadAchievement, 1200);
+function loadRanking() {
+  const ranking = Object.keys(prefectureThanks)
+    .map(pref => ({
+      pref: pref,
+      thanks: prefectureThanks[pref] || 0
+    }))
+    .sort((a, b) => b.thanks - a.thanks);
 
+  const medals = ["🥇", "🥈", "🥉"];
+
+  const top3 = ranking.slice(0, 3)
+    .map((item, index) =>
+      medals[index] + " " + item.pref + " " + item.thanks + "輪"
+    )
+    .join("<br>");
+
+  const nearFull = ranking.slice(3, 6)
+    .map((item, index) =>
+      (index + 4) + "位 " + item.pref
+    )
+    .join("<br>");
+
+  document.getElementById("rankingBox").innerHTML =
+    '<span style="font-weight:bold;">🏆満開県ランキング</span><br>' +
+    top3 +
+    '<br><br>' +
+    '<span style="font-weight:bold;">🌸満開目前！</span><br>' +
+    nearFull;
+}
+    
+setTimeout(loadAchievement, 1200);
+setTimeout(loadRanking, 1200);
+    
 function loadMissingPrefectures() {
   const allPrefectures = [
     "北海道","青森","岩手","宮城","秋田","山形","福島",
