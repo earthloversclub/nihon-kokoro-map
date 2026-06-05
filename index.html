@@ -152,14 +152,27 @@ header span {
 .popup-video {
   width: 100%;
   height: 85px;
+  border: 0;
   border-radius: 8px;
-  background: #222;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
+}
+
+.video-thumb {
+  position: relative;
+  width: 100%;
+  height: 85px;
   cursor: pointer;
+}
+
+.video-play-mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  pointer-events: none;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.8);
 }
     
 .carousel-buttons button {
@@ -673,24 +686,28 @@ if (imageUrls.length > 0 || data["動画"]) {
     `;
   });
 
-  if (data["動画"]) {
-    const videoMatch = data["動画"].match(/\/d\/([^/]+)/);
-    const videoUrl = videoMatch
-      ? "https://drive.google.com/file/d/" + videoMatch[1] + "/preview"
-      : data["動画"];
+if (data["動画"]) {
+  const videoMatch = data["動画"].match(/\/d\/([^/]+)/);
+  const videoUrl = videoMatch
+    ? "https://drive.google.com/file/d/" + videoMatch[1] + "/preview"
+    : data["動画"];
 
-    popup += `
+  popup += `
+    <div class="video-thumb"
+         onclick="window.open('${data["動画"]}', '_blank')">
+
       <iframe
         src="${videoUrl}"
-        <div class="popup-video"
-     onclick="window.open('${data["動画"]}', '_blank')">
-  ▶
-</div>
+        class="popup-video"
         allow="autoplay"
         allowfullscreen>
       </iframe>
-    `;
-  }
+
+      <div class="video-play-mark">▶</div>
+
+    </div>
+  `;
+}
 
   popup += `</div>`;
 }
