@@ -879,6 +879,8 @@ function showMapA() {
   document.getElementById("growthMap").style.display = "none";
   document.getElementById("searchBox").style.display = "block";
 
+  document.getElementById("thanksEnergyLegend").style.display = "none";
+
   document.getElementById("mapSwitchButton").textContent = "🌷 成長地図へ移動";
   document.getElementById("mapSwitchButton").onclick = showMapB;
 }
@@ -887,6 +889,8 @@ function showMapB() {
   document.getElementById("map").style.display = "none";
   document.getElementById("growthMap").style.display = "block";
   document.getElementById("searchBox").style.display = "none";
+
+  document.getElementById("thanksEnergyLegend").style.display = "grid";
 
   document.getElementById("mapSwitchButton").textContent = "🗺️ 宝物地図へ移動";
   document.getElementById("mapSwitchButton").onclick = showMapA;
