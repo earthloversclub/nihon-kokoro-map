@@ -939,11 +939,34 @@ onEachFeature: function(feature, layer) {
   const postCount = prefectureCounts[shortPref] || 0;
   const thanksCount = prefectureThanks[shortPref] || 0;
 
-  layer.bindPopup(
-    "🌸 " + shortPref + "<br>" +
-    "投稿数：" + postCount + "件<br>" +
-    "ありがとう：" + thanksCount + "輪"
-  );
+let energyMessage = "";
+
+if (thanksCount === 0) {
+  energyMessage = "🩶静かに眠る希望の大地";
+} else if (thanksCount <= 100) {
+  energyMessage = "🤍小さな芽が顔を出した🌱";
+} else if (thanksCount <= 200) {
+  energyMessage = "🩵双葉の赤ちゃんが生まれたよ👶";
+} else if (thanksCount <= 300) {
+  energyMessage = "💙元気な若葉が広がり始めた🍃";
+} else if (thanksCount <= 400) {
+  energyMessage = "💚優しさの木が育っています🌳";
+} else if (thanksCount <= 500) {
+  energyMessage = "💛希望の花が咲き始めた🌻";
+} else if (thanksCount <= 600) {
+  energyMessage = "🧡感謝の輪が広がっています😸";
+} else if (thanksCount <= 700) {
+  energyMessage = "🩷みんなの笑顔が花満開🌸";
+} else {
+  energyMessage = "❤️感謝エネルギーMAX！<br>幸せの楽園✨達成おめでとう🎉";
+}
+
+layer.bindPopup(
+  "🌸 <b>" + shortPref + "のありがとう便り</b><br><br>" +
+  "投稿数：" + postCount + "件<br>" +
+  "ありがとうの花：" + thanksCount + "輪<br><br>" +
+  energyMessage
+);
 }
 
 }).addTo(growthMap);
