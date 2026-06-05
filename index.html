@@ -635,19 +635,19 @@ if (prefecture) {
 
 const imageUrls = [];
 
-if (data["画像"]) {
+if (data["画像"] && data["画像"] !== data["動画"]) {
   imageUrls.push(convertDriveImageUrl(data["画像"]));
 }
 
-if (data["画像2"]) {
+if (data["画像2"] && data["画像2"] !== data["動画"]) {
   imageUrls.push(convertDriveImageUrl(data["画像2"]));
 }
 
-if (data["画像3"]) {
+if (data["画像3"] && data["画像3"] !== data["動画"]) {
   imageUrls.push(convertDriveImageUrl(data["画像3"]));
 }
 
-if (data["画像4"]) {
+if (data["画像4"] && data["画像4"] !== data["動画"]) {
   imageUrls.push(convertDriveImageUrl(data["画像4"]));
 }
 
