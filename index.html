@@ -864,10 +864,40 @@ function sendThanks(button, spotId) {
   localStorage.setItem(key, "done");
 
   button.style.display = "none";
-  message.style.display = "inline-block";
-  message.textContent = makeThanksMessage();
+message.style.display = "inline-block";
+message.textContent = makeThanksMessage();
+showSparkles();
 }
 
+function showSparkles() {
+  for (let i = 0; i < 20; i++) {
+    const sparkle = document.createElement("div");
+
+    sparkle.innerHTML = "✨";
+    sparkle.style.position = "fixed";
+    sparkle.style.left = Math.random() * window.innerWidth + "px";
+    sparkle.style.top = Math.random() * window.innerHeight + "px";
+    sparkle.style.fontSize = "24px";
+    sparkle.style.pointerEvents = "none";
+    sparkle.style.zIndex = "9999";
+
+    document.body.appendChild(sparkle);
+
+    sparkle.animate(
+      [
+        { transform: "translateY(0px)", opacity: 1 },
+        { transform: "translateY(-100px)", opacity: 0 }
+      ],
+      {
+        duration: 1200,
+        easing: "ease-out"
+      }
+    );
+
+    setTimeout(() => sparkle.remove(), 1200);
+  }
+}
+    
 function makeThanksMessage() {
   const flowers = ["🌸", "🌼", "🌷", "🌻", "🌺", "🪻"];
   const flower = flowers[Math.floor(Math.random() * flowers.length)];
@@ -890,9 +920,9 @@ map.on("popupopen", function(e) {
 
     button.style.display = "none";
 
-    message.style.display = "inline-block";
-
-    message.textContent = makeThanksMessage();
+message.style.display = "inline-block";
+message.textContent = makeThanksMessage();
+showSparkles();
   }
 
 });
