@@ -1168,11 +1168,16 @@ layer.bindPopup(
 
 layer.on("click", function() {
 
-if (thanksCount >= 3) {
+if (thanksCount >= 1000) {
+  showFlowerConfetti("max");
+  showSparkles();
+}
+
+else if (thanksCount >= 701) {
   showFlowerConfetti("max");
 }
 
-else if (thanksCount >= 2) {
+else if (thanksCount >= 501) {
   showFlowerConfetti("middle");
 }
 
