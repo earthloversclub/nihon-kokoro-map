@@ -670,9 +670,15 @@ imageUrls.forEach((url, index) => {
 }
 
 if (data["動画"]) {
-  popup += `<br><a href="${data["動画"]}" target="_blank">動画を見る</a>`;
+  popup += `
+    <div style="margin-top:8px;">
+      <a href="${data["動画"]}" target="_blank"
+         style="display:inline-block; padding:8px 12px; background:#e8f5ee; color:#256b3b; border-radius:20px; text-decoration:none; font-weight:bold;">
+        🎥 動画を見る
+      </a>
+    </div>
+  `;
 }
-
          const marker = L.marker([lat, lng], { icon: markerIcon })
   .bindPopup(popup);
 
