@@ -670,12 +670,21 @@ imageUrls.forEach((url, index) => {
 }
 
 if (data["動画"]) {
+  const videoMatch = data["動画"].match(/\/d\/([^/]+)/);
+  const videoUrl = videoMatch
+    ? "https://drive.google.com/file/d/" + videoMatch[1] + "/preview"
+    : data["動画"];
+
   popup += `
     <div style="margin-top:8px;">
-      <a href="${data["動画"]}" target="_blank"
-         style="display:inline-block; padding:8px 12px; background:#e8f5ee; color:#256b3b; border-radius:20px; text-decoration:none; font-weight:bold;">
-        🎥 動画を見る
-      </a>
+      <iframe
+        src="${videoUrl}"
+        width="180"
+        height="180"
+        style="border:0; border-radius:8px;"
+        allow="autoplay"
+        allowfullscreen>
+      </iframe>
     </div>
   `;
 }
