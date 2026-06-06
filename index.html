@@ -1207,27 +1207,28 @@ if (thanksCount === 0) {
 }
   
 if (thanksCount === 0) {
-  energyMessage = "🩶静かに眠る希望の大地";
+  energyMessage = "<b>🩶静かに眠る希望の大地</b>";
 } else if (thanksCount <= 100) {
-  energyMessage = "🤍小さな芽が顔を出した🌱";
+  energyMessage = "<b>🤍小さな芽が顔を出した🌱</b>";
 } else if (thanksCount <= 200) {
-  energyMessage = "🩵双葉の赤ちゃんが生まれたよ👶";
+  energyMessage = "<b>🩵双葉の赤ちゃんが生まれたよ👶</b>";
 } else if (thanksCount <= 300) {
-  energyMessage = "💙元気な若葉が広がり始めた🍃";
+  energyMessage = "<b>💙元気な若葉が広がり始めた🍃</b>";
 } else if (thanksCount <= 400) {
-  energyMessage = "💚優しさの木が育っています🌳";
+  energyMessage = "<b>💚優しさの木が育っています🌳</b>";
 } else if (thanksCount <= 500) {
-  energyMessage = "💛希望の花が咲き始めた🌻";
+  energyMessage = "<b>💛希望の花が咲き始めた🌻</b>";
 } else if (thanksCount <= 600) {
-  energyMessage = "🧡感謝の輪が広がっています😸";
+  energyMessage = "<b>🧡感謝の輪が広がっています😸</b>";
 } else if (thanksCount <= 700) {
-  energyMessage = "🩷みんなの笑顔が花満開🌸";
+  energyMessage = "<b>🩷みんなの笑顔が花満開🌸</b>";
 } else {
-  energyMessage = "❤️感謝エネルギーMAX！<br>幸せの楽園✨達成おめでとう🎉";
+  energyMessage = "<b>❤️感謝エネルギーMAX！<br>幸せの楽園✨達成おめでとう🎉</b>";
 }
-
 layer.bindPopup(
-  "🌸<b>" + shortPref + "県の成長記録</b>🌸<br><br>" +
+ '<div style="text-align:center;font-size:18px;font-weight:bold;">🌸 ' +
+shortPref +
+'県の成長記録 🌸</div><br>' +
   "称号：<br>" +
   "<b>" + titleName + "</b><br><br>" +
   "投稿数：" + postCount + "件<br>" +
