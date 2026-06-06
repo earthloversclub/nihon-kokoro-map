@@ -78,6 +78,7 @@ button{
 <input id="poster" placeholder="投稿者">
 
 <input id="image" placeholder="画像URL">
+<input type="file" id="imageFile" accept="image/*">  
 
 <input id="video" placeholder="動画URL">
 
@@ -152,43 +153,46 @@ map.on("click", function(e){
 
 function submitPost(){
 
+const file = document.getElementById("imageFile").files[0];
+
 const data = {
-
-secret:
-document.getElementById("secret").value,
-
-category:
-document.getElementById("category").value,
-
-prefecture:
-document.getElementById("prefecture").value,
-
-title:
-document.getElementById("title").value,
-
-description:
-document.getElementById("description").value,
-
-lat:
-document.getElementById("lat").value,
-
-lng:
-document.getElementById("lng").value,
-
-image:
-document.getElementById("image").value,
-
-image2:"",
-image3:"",
-image4:"",
-
-video:
-document.getElementById("video").value,
-
-poster:
-document.getElementById("poster").value
-
+secret: document.getElementById("secret").value,
+category: document.getElementById("category").value,
+prefecture: document.getElementById("prefecture").value,
+title: document.getElementById("title").value,
+description: document.getElementById("description").value,
+lat: document.getElementById("lat").value,
+lng: document.getElementById("lng").value,
+image: document.getElementById("image").value,
+image2: "",
+image3: "",
+image4: "",
+video: document.getElementById("video").value,
+poster: document.getElementById("poster").value,
+uploadImage: null
 };
+
+if(file){
+  const reader = new FileReader();
+
+  reader.onload = function(){
+    data.uploadImage = {
+      fileName: file.name,
+      mimeType: file.type,
+      base64: reader.result.split(",")[1]
+    };
+
+    sendPost(data);
+  };
+
+  reader.readAsDataURL(file);
+} else {
+  sendPost(data);
+}
+
+}
+
+function sendPost(data){
 
 fetch(scriptUrl,{
 method:"POST",
