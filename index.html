@@ -448,6 +448,57 @@ box-shadow: none;
   border: 3px solid #ffb6d9 !important;
   box-shadow: 0 0 15px rgba(255,182,217,0.7) !important;
 }
+
+ .growth-gray .leaflet-popup-content-wrapper {
+  border: 3px solid #b8b8b8 !important;
+  box-shadow: 0 0 18px #b8b8b8 !important;
+}
+
+.growth-brown .leaflet-popup-content-wrapper {
+  border: 3px solid #c49a6c !important;
+  box-shadow: 0 0 18px #c49a6c !important;
+}
+
+.growth-lightgreen .leaflet-popup-content-wrapper {
+  border: 3px solid #7fd36f !important;
+  box-shadow: 0 0 18px #7fd36f !important;
+}
+
+.growth-green .leaflet-popup-content-wrapper {
+  border: 3px solid #4caf50 !important;
+  box-shadow: 0 0 18px #4caf50 !important;
+}
+
+.growth-deepgreen .leaflet-popup-content-wrapper {
+  border: 3px solid #2e7d32 !important;
+  box-shadow: 0 0 18px #2e7d32 !important;
+}
+
+.growth-yellow .leaflet-popup-content-wrapper {
+  border: 3px solid #ffd54f !important;
+  box-shadow: 0 0 18px #ffd54f !important;
+}
+
+.growth-orange .leaflet-popup-content-wrapper {
+  border: 3px solid #ff9800 !important;
+  box-shadow: 0 0 18px #ff9800 !important;
+}
+
+.growth-pink .leaflet-popup-content-wrapper {
+  border: 3px solid #ff80ab !important;
+  box-shadow: 0 0 18px #ff80ab !important;
+}
+
+.growth-rainbow .leaflet-popup-content-wrapper {
+  border: 3px solid #ff80ab !important;
+  box-shadow:
+    0 0 10px #ff3333,
+    0 0 18px #ff9800,
+    0 0 26px #fff176,
+    0 0 34px #66cc66,
+    0 0 42px #4da3ff,
+    0 0 50px #b388ff !important;
+}   
   </style>
 </head>
 
@@ -1210,27 +1261,27 @@ if (thanksCount === 0) {
   titleName = "🌈幸せの楽園👼";
 }
   
-  let glowColor = "";
+  let glowClass = "";
   
- if (thanksCount === 0) {
-  glowColor = "#b8b8b8";
+if (thanksCount === 0) {
+  glowClass = "growth-gray";
 } else if (thanksCount <= 100) {
-  glowColor = "#a8e063";
+  glowClass = "growth-brown";
 } else if (thanksCount <= 200) {
-  glowColor = "#7fd36f";
+  glowClass = "growth-lightgreen";
 } else if (thanksCount <= 300) {
-  glowColor = "#4caf50";
+  glowClass = "growth-green";
 } else if (thanksCount <= 400) {
-  glowColor = "#2e7d32";
+  glowClass = "growth-deepgreen";
 } else if (thanksCount <= 500) {
-  glowColor = "#ffd54f";
+  glowClass = "growth-yellow";
 } else if (thanksCount <= 600) {
-  glowColor = "#ff9800";
+  glowClass = "growth-orange";
 } else if (thanksCount <= 700) {
-  glowColor = "#ff80ab";
+  glowClass = "growth-pink";
 } else {
-  glowColor = "rainbow";
-} 
+  glowClass = "growth-rainbow";
+}
   
 if (thanksCount === 0) {
   energyMessage = "<b>🩶静かに眠る希望の大地<br>まだ沈黙の大地です<br>優しいあなたを待っています</b>";
@@ -1297,7 +1348,10 @@ energyMessage +
 remainFlowers +
 '輪</div>'
   
-);
+, {
+  className: glowClass
+});
+  
 layer.on("click", function() {
 
 if (thanksCount >= 1000) {
