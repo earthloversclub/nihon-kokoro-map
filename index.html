@@ -1251,7 +1251,28 @@ if (thanksCount === 0) {
 } else {
   energyMessage = "<b>❤️感謝エネルギーMAX！<br>幸せの楽園✨達成おめでとう🎉</b>";
 }
- 
+let nextTarget = 0;
+
+if (thanksCount <= 100) {
+  nextTarget = 100;
+} else if (thanksCount <= 200) {
+  nextTarget = 200;
+} else if (thanksCount <= 300) {
+  nextTarget = 300;
+} else if (thanksCount <= 400) {
+  nextTarget = 400;
+} else if (thanksCount <= 500) {
+  nextTarget = 500;
+} else if (thanksCount <= 600) {
+  nextTarget = 600;
+} else if (thanksCount <= 700) {
+  nextTarget = 700;
+} else {
+  nextTarget = 1000;
+}
+
+let remainFlowers = nextTarget - thanksCount;
+  
 layer.bindPopup(
  '<div style="text-align:center;font-size:18px;font-weight:bold;">🌸 ' +
 shortPref +
@@ -1259,8 +1280,9 @@ shortPref +
   "称号：<br>" +
   "<b>" + titleName + "</b><br><br>" +
   "投稿数：" + postCount + "件<br>" +
-  "ありがとうの花：" + thanksCount + "輪<br><br>" +
-  energyMessage
+ "ありがとうの花：" + thanksCount + "輪<br>" +
+"🌈次の称号まであと " + remainFlowers + "輪<br><br>" +
+energyMessage
 );
 
 layer.on("click", function() {
