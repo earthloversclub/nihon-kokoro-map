@@ -1184,6 +1184,28 @@ onEachFeature: function(feature, layer) {
 
 let energyMessage = "";
 
+let titleName = "";
+
+if (thanksCount === 0) {
+  titleName = "🌑眠りの大地";
+} else if (thanksCount <= 100) {
+  titleName = "🌱目覚めの大地";
+} else if (thanksCount <= 200) {
+  titleName = "🌿双葉の里";
+} else if (thanksCount <= 300) {
+  titleName = "🍀成長の里";
+} else if (thanksCount <= 400) {
+  titleName = "🌳豊かな森";
+} else if (thanksCount <= 500) {
+  titleName = "🌻希望の花園";
+} else if (thanksCount <= 600) {
+  titleName = "🧡感謝の広場";
+} else if (thanksCount <= 700) {
+  titleName = "🌸笑顔の楽園";
+} else {
+  titleName = "🌈幸せの楽園";
+}
+  
 if (thanksCount === 0) {
   energyMessage = "🩶静かに眠る希望の大地";
 } else if (thanksCount <= 100) {
@@ -1205,7 +1227,9 @@ if (thanksCount === 0) {
 }
 
 layer.bindPopup(
- "🌸 <b>" + shortPref + "</b><br><br>" +
+  "🌸<b>" + shortPref + "県の成長記録</b>🌸<br><br>" +
+  "称号：<br>" +
+  "<b>" + titleName + "</b><br><br>" +
   "投稿数：" + postCount + "件<br>" +
   "ありがとうの花：" + thanksCount + "輪<br><br>" +
   energyMessage
