@@ -882,12 +882,15 @@ const totalPostsBox = L.control({ position: 'bottomright' });
 totalPostsBox.onAdd = function () {
   const div = L.DomUtil.create('div', 'legend');
 
+  div.style.marginBottom = '60px';
+div.style.marginRight = '40px';
+
   div.innerHTML = `
   
 <div style="text-align:center;">
     
 <div style="font-size:20px;font-weight:bold;">
-  🌏地球の宝物🗺
+  🌏地球の宝物🗾
 </div>
 
 <div style="
