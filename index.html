@@ -544,12 +544,6 @@ box-shadow: none;
     const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?output=csv";
 
     const map = L.map('map', { zoomControl: false }).setView([37.8, 138.5], 5);
-
-    L.control.zoom({ position: 'bottomleft' }).addTo(map);
-    
-setTimeout(() => {
-  document.querySelector('.leaflet-control-zoom').style.marginBottom = '60px';
-}, 500);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap'
