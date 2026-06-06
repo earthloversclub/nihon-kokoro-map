@@ -210,6 +210,9 @@ header span {
 }
     
 .thanks-btn {
+  display: block;
+margin-left: auto;
+margin-right: auto;
   margin-top: 8px;
   padding: 6px 10px;
   border: none;
@@ -745,7 +748,10 @@ if (data["動画"]) {
   popup += `</div>`;
 }
          const marker = L.marker([lat, lng], { icon: markerIcon })
-  .bindPopup(popup);
+  .bindPopup(popup, {
+  minWidth: 220,
+  maxWidth: 320
+});
 
           allSpots.push({
   title: data["タイトル"] || data["名前"],
