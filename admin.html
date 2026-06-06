@@ -54,6 +54,9 @@ button{
 <div id="formBox">
 
 <input id="secret" value="chie-admin-key" type="hidden">
+  
+<input id="addressSearch" placeholder="住所・施設名で検索 例：東京タワー">
+<button type="button" onclick="searchAddress()">検索してピンを立てる</button>  
 
 <input id="lat" placeholder="緯度" readonly>
 <input id="lng" placeholder="経度" readonly>
@@ -215,6 +218,40 @@ console.log(err);
 
 }
 
+function searchAddress(){
+
+  const keyword = document.getElementById("addressSearch").value.trim();
+
+  if(!keyword){
+    alert("住所か施設名を入力してね");
+    return;
+  }
+
+  fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=jp&q=" + encodeURIComponent(keyword))
+    .then(res => res.json())
+    .then(results => {
+
+      if(results.length === 0){
+        alert("場所が見つかりませんでした");
+        return;
+      }
+
+      const lat = Number(results[0].lat);
+      const lng = Number(results[0].lon);
+
+      map.setView([lat, lng], 15);
+
+      map.fire("click", {
+        latlng: L.latLng(lat, lng)
+      });
+
+    })
+    .catch(() => {
+      alert("住所検索に失敗しました");
+    });
+
+}
+  
 </script>
 
 </body>
