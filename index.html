@@ -882,8 +882,6 @@ const totalPostsBox = L.control({ position: 'topleft' });
 totalPostsBox.onAdd = function () {
   const div = L.DomUtil.create('div', 'legend');
 
-  div.style.marginTop = '15px';
-
   div.innerHTML = `
     <div style="text-align:center;">
       <div style="font-size:18px;font-weight:bold;">
@@ -1025,11 +1023,10 @@ function makeThanksMessage() {
 }
     
 map.on("popupopen", function(e) {
-const legendBox = document.querySelector(".legend");
-
-if (legendBox) {
-  legendBox.style.display = "none";
-}
+document.querySelectorAll(".legend").forEach(box => {
+  box.style.display = "none";
+});
+  
   const button =
     e.popup.getElement().querySelector(".thanks-btn");
 
