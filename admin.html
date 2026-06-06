@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>管理者投稿ページ</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:#f7f7f7;
+}
+
+h2{
+  text-align:center;
+  color:#256b3b;
+}
+
+#map{
+  height:500px;
+}
+
+#formBox{
+  background:white;
+  padding:20px;
+}
+
+input, textarea, select{
+  width:100%;
+  margin:6px 0;
+  padding:8px;
+  box-sizing:border-box;
+}
+
+button{
+  background:#cdebd4;
+  border:none;
+  padding:12px 20px;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🌈 管理者投稿ページ 🌈</h2>
+
+<div id="map"></div>
+
+<div id="formBox">
+
+<input id="secret" placeholder="合言葉">
+
+<input id="lat" placeholder="緯度" readonly>
+<input id="lng" placeholder="経度" readonly>
+
+<input id="prefecture" placeholder="都道府県">
+
+<input id="title" placeholder="タイトル">
+
+<select id="category">
+<option>温泉</option>
+<option>絶景</option>
+<option>グルメ</option>
+<option>幸せシェア</option>
+<option>動物</option>
+<option>神社・伝統</option>
+<option>風景</option>
+<option>イベント</option>
+</select>
+
+<textarea id="description" placeholder="説明"></textarea>
+
+<input id="poster" placeholder="投稿者">
+
+<input id="image" placeholder="画像URL">
+
+<input id="video" placeholder="動画URL">
+
+<button onclick="submitPost()">
+投稿する
+</button>
+
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+const scriptUrl =
+"https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec";
+
+const map = L.map('map').setView([36.2,138.2],5);
+
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+attribution:'© OpenStreetMap'
+}
+).addTo(map);
+
+let marker;
+
+map.on("click", function(e){
+
+const lat = e.latlng.lat.toFixed(6);
+const lng = e.latlng.lng.toFixed(6);
+
+document.getElementById("lat").value = lat;
+document.getElementById("lng").value = lng;
+
+if(marker){
+map.removeLayer(marker);
+}
+
+marker = L.marker([lat,lng]).addTo(map);
+
+});
+
+function submitPost(){
+
+const data = {
+
+secret:
+document.getElementById("secret").value,
+
+category:
+document.getElementById("category").value,
+
+prefecture:
+document.getElementById("prefecture").value,
+
+title:
+document.getElementById("title").value,
+
+description:
+document.getElementById("description").value,
+
+lat:
+document.getElementById("lat").value,
+
+lng:
+document.getElementById("lng").value,
+
+image:
+document.getElementById("image").value,
+
+image2:"",
+image3:"",
+image4:"",
+
+video:
+document.getElementById("video").value,
+
+poster:
+document.getElementById("poster").value
+
+};
+
+fetch(scriptUrl,{
+method:"POST",
+body:JSON.stringify(data)
+})
+.then(r=>r.json())
+.then(res=>{
+
+if(res.success){
+alert("投稿成功🌈");
+}else{
+alert("失敗：" + res.message);
+}
+
+})
+.catch(err=>{
+alert("エラー");
+console.log(err);
+});
+
+}
+
+</script>
+
+</body>
+</html>
