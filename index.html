@@ -165,6 +165,8 @@ header span {
   grid-template-columns: repeat(2, 1fr);
   gap: 4px;
   margin-top: 8px;
+  margin-left: auto;
+margin-right: auto;
 }
 
 .image-carousel.multi-images .popup-img {
@@ -748,9 +750,9 @@ if (data["動画"]) {
   popup += `</div>`;
 }
          const marker = L.marker([lat, lng], { icon: markerIcon })
-  .bindPopup(popup, {
-  minWidth: 220,
-  maxWidth: 320
+.bindPopup(popup, {
+  minWidth: 190,
+  maxWidth: 240
 });
 
           allSpots.push({
