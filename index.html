@@ -938,7 +938,7 @@ map.on("popupopen", function(e) {
 const legendBox = document.querySelector(".legend");
 
 if (legendBox) {
-  legendBox.style.opacity = "0.35";
+  legendBox.style.display = "none";
 }
   const button =
     e.popup.getElement().querySelector(".thanks-btn");
@@ -965,7 +965,7 @@ map.on("popupclose", function() {
   const legendBox = document.querySelector(".legend");
 
   if (legendBox) {
-    legendBox.style.opacity = "1";
+    legendBox.style.display = "block";
   }
 
 });
