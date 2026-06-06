@@ -883,7 +883,7 @@ function sendThanks(button, spotId) {
 
   if (localStorage.getItem(key)) {
     button.style.display = "none";
-    message.style.display = "inline-block";
+    message.style.display = "block";
     message.textContent = makeThanksMessage();
     return;
   }
@@ -896,7 +896,7 @@ function sendThanks(button, spotId) {
   localStorage.setItem(key, "done");
 
   button.style.display = "none";
-message.style.display = "inline-block";
+message.style.display = "block";
 message.textContent = makeThanksMessage();
 showSparkles();
 }
@@ -956,7 +956,7 @@ if (legendBox) {
 
     button.style.display = "none";
 
-message.style.display = "inline-block";
+message.style.display = "block";
 message.textContent = makeThanksMessage();
 showSparkles();
   }
