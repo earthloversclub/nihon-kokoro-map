@@ -227,23 +227,42 @@ function searchAddress(){
     return;
   }
 
-  fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=jp&q=" + encodeURIComponent(keyword))
+  fetch("https://msearch.gsi.go.jp/address-search/AddressSearch?q=" + encodeURIComponent(keyword))
     .then(res => res.json())
     .then(results => {
 
-      if(results.length === 0){
-        alert("場所が見つかりませんでした");
+      if(results.length > 0){
+        const lng = results[0].geometry.coordinates[0];
+        const lat = results[0].geometry.coordinates[1];
+
+        map.setView([lat, lng], 15);
+
+        map.fire("click", {
+          latlng: L.latLng(lat, lng)
+        });
+
         return;
       }
 
-      const lat = Number(results[0].lat);
-      const lng = Number(results[0].lon);
+      return fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=jp&q=" + encodeURIComponent(keyword))
+        .then(res => res.json())
+        .then(results => {
 
-      map.setView([lat, lng], 15);
+          if(results.length === 0){
+            alert("場所が見つかりませんでした");
+            return;
+          }
 
-      map.fire("click", {
-        latlng: L.latLng(lat, lng)
-      });
+          const lat = Number(results[0].lat);
+          const lng = Number(results[0].lon);
+
+          map.setView([lat, lng], 15);
+
+          map.fire("click", {
+            latlng: L.latLng(lat, lng)
+          });
+
+        });
 
     })
     .catch(() => {
