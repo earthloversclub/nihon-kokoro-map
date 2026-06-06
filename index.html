@@ -935,7 +935,11 @@ function makeThanksMessage() {
 }
     
 map.on("popupopen", function(e) {
+const legendBox = document.querySelector(".legend");
 
+if (legendBox) {
+  legendBox.style.opacity = "0.35";
+}
   const button =
     e.popup.getElement().querySelector(".thanks-btn");
 
@@ -956,6 +960,16 @@ showSparkles();
 
 });
 
+map.on("popupclose", function() {
+
+  const legendBox = document.querySelector(".legend");
+
+  if (legendBox) {
+    legendBox.style.opacity = "1";
+  }
+
+});
+    
     function changeCarouselImage(spotId, imageUrl) {
   const img = document.getElementById(`carousel-${spotId}`);
 
