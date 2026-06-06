@@ -1152,21 +1152,21 @@ function loadRanking() {
 
   const top3 = ranking.slice(0, 3)
     .map((item, index) =>
-      medals[index] + " " + item.pref + " " + item.thanks + "輪"
+      "<b>" + medals[index] + " " + item.pref + " " + item.thanks + "輪</b>"
     )
     .join("<br>");
 
   const nearFull = ranking.slice(3, 5)
     .map((item, index) =>
-      (index + 4) + "位 " + item.pref
+     "<b>" + (index + 4) + "位 " + item.pref + "</b>"
     )
     .join("<br>");
 
 document.getElementById("rankingBox").innerHTML =
-'<span style="font-size:16px;font-weight:bold;">🌸満開ランキング🏆</span><div style="height:5px;"></div>' +
+'<span style="font-size:18px;font-weight:bold;">🌸満開ランキング🏆</span><div style="height:5px;"></div>' +
 top3 +
 '<br><br>' +
-'<span style="font-size:16px;font-weight:bold;">🌸注目の県⭐</span>' +
+'<span style="font-size:18px;font-weight:bold;">☀注目の県⭐</span>' +
 '<div style="height:5px;"></div>' +
 nearFull;
 }
