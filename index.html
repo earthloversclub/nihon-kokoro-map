@@ -1049,11 +1049,9 @@ showSparkles();
 
 map.on("popupclose", function() {
 
-  const legendBox = document.querySelector(".legend");
-
-  if (legendBox) {
-    legendBox.style.display = "block";
-  }
+document.querySelectorAll(".legend").forEach(box => {
+  box.style.display = "block";
+});
 
 });
     
