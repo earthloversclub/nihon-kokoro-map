@@ -1206,6 +1206,28 @@ if (thanksCount === 0) {
   titleName = "🌈幸せの楽園";
 }
   
+  let glowColor = "";
+  
+ if (thanksCount === 0) {
+  glowColor = "#b8b8b8";
+} else if (thanksCount <= 100) {
+  glowColor = "#a8e063";
+} else if (thanksCount <= 200) {
+  glowColor = "#7fd36f";
+} else if (thanksCount <= 300) {
+  glowColor = "#4caf50";
+} else if (thanksCount <= 400) {
+  glowColor = "#2e7d32";
+} else if (thanksCount <= 500) {
+  glowColor = "#ffd54f";
+} else if (thanksCount <= 600) {
+  glowColor = "#ff9800";
+} else if (thanksCount <= 700) {
+  glowColor = "#ff80ab";
+} else {
+  glowColor = "rainbow";
+} 
+  
 if (thanksCount === 0) {
   energyMessage = "<b>🩶静かに眠る希望の大地</b>";
 } else if (thanksCount <= 100) {
@@ -1225,6 +1247,19 @@ if (thanksCount === 0) {
 } else {
   energyMessage = "<b>❤️感謝エネルギーMAX！<br>幸せの楽園✨達成おめでとう🎉</b>";
 }
+
+  if (!wrapper) return;
+
+  if (glowColor === "rainbow") {
+    wrapper.style.border = "3px solid transparent";
+    wrapper.style.boxShadow =
+      "0 0 20px rgba(255,128,171,0.8), 0 0 28px rgba(255,213,79,0.6), 0 0 36px rgba(126,211,111,0.5), 0 0 44px rgba(77,163,255,0.5)";
+  } else {
+    wrapper.style.border = "3px solid " + glowColor;
+    wrapper.style.boxShadow = "0 0 18px " + glowColor;
+  }
+});
+  
 layer.bindPopup(
  '<div style="text-align:center;font-size:18px;font-weight:bold;">🌸 ' +
 shortPref +
