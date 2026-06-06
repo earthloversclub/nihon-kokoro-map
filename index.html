@@ -811,7 +811,8 @@ marker.category = category;
 marker.addTo(map);
 
 markers.push(marker);
-          
+  document.getElementById("totalPostsCount").textContent =
+  markers.length + "件";        
         });
       });
 
@@ -886,11 +887,11 @@ totalPostsBox.onAdd = function () {
   div.innerHTML = `
     <div style="text-align:center;">
       <div style="font-size:18px;font-weight:bold;">
-        🌏みんなの宝物
+        🌏地球の宝物🗾
       </div>
 
       <div style="margin-top:8px;">
-        📝総投稿数
+        📝総投稿数✐
       </div>
 
       <div id="totalPostsCount"
@@ -907,9 +908,6 @@ totalPostsBox.onAdd = function () {
 };
 
 totalPostsBox.addTo(map);
-
-document.getElementById("totalPostsCount").textContent =
-  markers.length + "件";
     
     setTimeout(updatePrefectureList, 1000);
     
