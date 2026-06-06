@@ -1031,6 +1031,7 @@ map.on("popupopen", function(e) {
 document.querySelectorAll(".legend").forEach(box => {
   box.style.display = "none";
 });
+  document.getElementById("searchBox").style.display = "none";
   
   const button =
     e.popup.getElement().querySelector(".thanks-btn");
@@ -1057,6 +1058,8 @@ map.on("popupclose", function() {
 document.querySelectorAll(".legend").forEach(box => {
   box.style.display = "block";
 });
+
+document.getElementById("searchBox").style.display = "block";
 
 });
     
