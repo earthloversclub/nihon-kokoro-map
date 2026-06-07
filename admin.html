@@ -197,40 +197,40 @@ if(file){
 function sendPost(data){
 
 fetch(scriptUrl,{
-method:"POST",
-body:JSON.stringify(data)
+  method:"POST",
+  body:JSON.stringify(data)
 })
 .then(r=>r.json())
 .then(res=>{
 
-if(res.success){
-alert("投稿成功🌈");
+  if(res.success){
+    alert("投稿成功🌈");
 
-document.getElementById("addressSearch").value = "";
-document.getElementById("lat").value = "";
-document.getElementById("lng").value = "";
-document.getElementById("prefecture").value = "";
-document.getElementById("title").value = "";
-document.getElementById("category").selectedIndex = 0;
-document.getElementById("description").value = "";
-document.getElementById("poster").value = "";
-document.getElementById("image").value = "";
-document.getElementById("imageFile").value = "";
-document.getElementById("video").value = "";
+    document.getElementById("addressSearch").value = "";
+    document.getElementById("lat").value = "";
+    document.getElementById("lng").value = "";
+    document.getElementById("prefecture").value = "";
+    document.getElementById("title").value = "";
+    document.getElementById("category").selectedIndex = 0;
+    document.getElementById("description").value = "";
+    document.getElementById("poster").value = "";
+    document.getElementById("image").value = "";
+    document.getElementById("imageFile").value = "";
+    document.getElementById("video").value = "";
 
-if(marker){
-  map.removeLayer(marker);
-  marker = null;
-}
+    if(marker){
+      map.removeLayer(marker);
+      marker = null;
+    }
 
-}else{
-alert("失敗：" + res.message);
-}
+  } else {
+    alert("失敗：" + res.message);
+  }
 
 })
-  
-alert("送信エラー\n\n" + err + "\n\n画像が大きすぎる可能性があります");
-console.log(err);
+.catch(err=>{
+  alert("送信エラー\n\n" + err + "\n\n画像が大きすぎる可能性があります");
+  console.log(err);
 });
 
 }
