@@ -96,7 +96,9 @@ button{
   
 <input id="poster" placeholder="投稿者">
 
-<input type="file" id="imageFile" accept="image/*,video/*" multiple>
+<input type="file" id="imageFile" accept="image/*" multiple>
+
+<input id="video" placeholder="動画URL">
 
 <button onclick="submitPost()">
 投稿する
@@ -191,7 +193,7 @@ image: "",
 image2: "",
 image3: "",
 image4: "",
-video: "",
+video: document.getElementById("video").value,
 poster: document.getElementById("poster").value,
 uploadImages: []
 };
@@ -250,6 +252,7 @@ fetch(scriptUrl,{
     document.getElementById("description").value = "";
     document.getElementById("poster").value = "";
     document.getElementById("imageFile").value = "";
+    document.getElementById("video").value = "";
   
     if(marker){
       map.removeLayer(marker);
