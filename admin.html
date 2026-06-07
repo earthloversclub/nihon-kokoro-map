@@ -83,7 +83,7 @@ button{
 <input id="image2" placeholder="画像URL 2枚目">
 <input id="image3" placeholder="画像URL 3枚目">
 <input id="image4" placeholder="画像URL 4枚目">
-<input type="file" id="imageFile" accept="image/*">  
+<input type="file" id="imageFile" accept="image/*" multiple>
 
 <input id="video" placeholder="動画URL">
 
@@ -158,7 +158,7 @@ map.on("click", function(e){
 
 function submitPost(){
 
-const file = document.getElementById("imageFile").files[0];
+const files = Array.from(document.getElementById("imageFile").files);
 
 const data = {
 secret: document.getElementById("secret").value,
@@ -177,20 +177,33 @@ poster: document.getElementById("poster").value,
 uploadImage: null
 };
 
-if(file){
-  const reader = new FileReader();
+if(files.length > 4){
+  alert("画像は最大4枚までです");
+  return;
+}
 
-  reader.onload = function(){
-    data.uploadImage = {
-      fileName: file.name,
-      mimeType: file.type,
-      base64: reader.result.split(",")[1]
+if(files.length > 0){
+  const uploads = [];
+
+  files.forEach(file => {
+    const reader = new FileReader();
+
+    reader.onload = function(){
+      uploads.push({
+        fileName: file.name,
+        mimeType: file.type,
+        base64: reader.result.split(",")[1]
+      });
+
+      if(uploads.length === files.length){
+        data.uploadImages = uploads;
+        sendPost(data);
+      }
     };
 
-    sendPost(data);
-  };
+    reader.readAsDataURL(file);
+  });
 
-  reader.readAsDataURL(file);
 } else {
   sendPost(data);
 }
