@@ -924,8 +924,18 @@ totalPostsBox.onAdd = function () {
   const div = L.DomUtil.create('div', 'legend');
 
 div.style.background = "#f9f3e8";
-div.style.border = "3px solid #8B5A2B";
-  div.style.boxShadow = "0 0 15px rgba(139,90,43,0.35)";
+
+div.style.border = "3px solid transparent";
+
+div.style.backgroundImage =
+"linear-gradient(#f9f3e8,#f9f3e8), linear-gradient(90deg,#ff3333,#ff9800,#fff176,#66cc66,#4da3ff,#b388ff,#ff3333)";
+
+div.style.backgroundOrigin = "border-box";
+
+div.style.backgroundClip = "padding-box, border-box";
+
+div.style.boxShadow =
+"0 0 15px rgba(255,128,171,0.5)";
   
   div.style.marginBottom = '85px';
 div.style.marginRight = '25px';
