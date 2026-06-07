@@ -978,7 +978,7 @@ if (data["動画"]) {
 
   popup += `
     <div class="video-thumb"
-         onclick="window.open('${data["動画"]}', '_blank')">
+         onclick='openMediaModal(${JSON.stringify(mediaItems)}, ${mediaItems.length - 1})'
 
       <iframe
         src="${videoUrl}"
