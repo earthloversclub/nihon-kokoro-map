@@ -644,6 +644,29 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
     pointer-events: none;
   }
 }   
+
+.rainbow-glow {
+  animation: rainbowGlow 5s ease-in-out infinite;
+}
+
+@keyframes rainbowGlow {
+
+  0% {
+    filter: drop-shadow(0 0 0px rgba(255,255,255,0));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 8px #ff66cc)
+      drop-shadow(0 0 14px #66ccff)
+      drop-shadow(0 0 20px #ffff66);
+  }
+
+  100% {
+    filter: drop-shadow(0 0 0px rgba(255,255,255,0));
+  }
+
+}    
   </style>
 </head>
 
@@ -789,12 +812,14 @@ const icons = {
 "神社仏閣・歴史": icon("violet"),
 "自然農": icon("green"),
 "イベント・体験": icon("gold"),
-  "人・活動・思い出": new L.Icon({
-    iconUrl: "https://drive.google.com/thumbnail?id=1-LOYbEjRCdi3b-0nN0aoXoTLRE9bPCXI&sz=w1000",
-    iconSize: [55, 55],
-    iconAnchor: [27, 55],
-    popupAnchor: [0, -35]
-  })
+"人・活動・想い": new L.Icon({
+  className: "rainbow-glow",
+
+  iconUrl: 'https://drive.google.com/thumbnail?id=・・・',
+  iconSize: [55, 55],
+  iconAnchor: [27, 55],
+  popupAnchor: [0, -35]
+})
 };
 
     function parseCSV(text) {
@@ -988,7 +1013,7 @@ div.innerHTML = `
 <label><input type="checkbox" checked value="神社仏閣・歴史"> <b>⛩️ 神社仏閣・歴史</b></label><br>
 <label><input type="checkbox" checked value="自然農"> <b>🌱 自然農</b></label><br>
 <label><input type="checkbox" checked value="イベント・体験"> <b>🎪 イベント・体験</b></label><br>
-<label><input type="checkbox" checked value="人・活動・思い出"> <b>💗 人・活動・思い出</b></label>
+<label><input type="checkbox" checked value="人・活動・想い"> <b>💗 人・活動・想い</b></label>
 
 `;
       
