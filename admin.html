@@ -98,7 +98,7 @@ button{
 
 <input type="file" id="imageFile" accept="image/*,video/*" multiple>
 
-<button onclick="submitPost()">
+<button id="submitButton" onclick="submitPost()">
 投稿する
 </button>
 
@@ -176,7 +176,10 @@ function setPosterName(){
 }
   
 function submitPost(){
-
+const submitButton = document.getElementById("submitButton");
+submitButton.disabled = true;
+submitButton.textContent = "投稿中...";
+submitButton.style.background = "#ffd6a5";
 const files = Array.from(document.getElementById("imageFile").files);
   
 const data = {
@@ -237,7 +240,11 @@ fetch(scriptUrl,{
 })
 .then(r=>r.json())
 .then(res=>{
-
+  
+submitButton.disabled = false;
+submitButton.textContent = "投稿する";
+submitButton.style.background = "#cdebd4";
+  
   if(res.success){
     alert("投稿成功🌈");
 
@@ -262,6 +269,9 @@ fetch(scriptUrl,{
 
 })
 .catch(err=>{
+  submitButton.disabled = false;
+submitButton.textContent = "投稿する";
+submitButton.style.background = "#cdebd4";
   alert("送信エラー\n\n" + err + "\n\n画像が大きすぎる可能性があります");
   console.log(err);
 });
