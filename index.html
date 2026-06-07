@@ -1583,42 +1583,44 @@ if (thanksCount === 0) {
 }
   
 if (thanksCount === 0) {
-  energyMessage = "<b>🩶静かに眠る希望の大地<br>まだ沈黙の大地です<br>優しいあなたを待っています</b>";
+  energyMessage = "<b>🩶静かに眠る大地<br>深い沈黙に包まれています<br>優しい人を待っています</b>";
 } else if (thanksCount <= 100) {
-  energyMessage = "<b>🤍愛が降り注ぎ命が宿りました<br>小さな芽が顔を出し🌱<br>ここから物語が始まります✨</b>";
+  energyMessage = "<b>🤍愛が注がれ命が宿りました<br>芽が顔を出しました🌱<br>ここから物語が始まります✨</b>";
 } else if (thanksCount <= 200) {
-  energyMessage = "<b>🩵双葉の赤ちゃんが生まれたよ👶<br>小さな命がすくすく成長中<br>光の魂が未来へ広がります✨</b>";
+  energyMessage = "<b>🩵双葉の赤ちゃんが生まれました👶<br>小さな命がすくすく育っています<br>光の魂が未来へ広がります✨</b>";
 } else if (thanksCount <= 300) {
-  energyMessage = "<b>💙若葉が元気よく広がり始め<br>大地に緑が増えてきました<br>感謝の風が吹き始めています✨</b>";
+  energyMessage = "<b>💙若葉が元気よく広がり始め<br>大地が緑でいっぱいになってきました<br>感謝の風がそよぎ始めています✨</b>";
 } else if (thanksCount <= 400) {
-  energyMessage = "<b>💚大木に小鳥が遊びにきています🐦<br>たくさんの想いが集まって<br>豊かな森に成長しました✨</b>";
+  energyMessage = "<b>💚大木に小鳥が遊びに来ています🐦<br>たくさんの想いが集まって<br>豊かな森へと成長しました✨</b>";
 } else if (thanksCount <= 500) {
-  energyMessage = "<b>💛希望の花が咲き始めた🌻<br>開花に集まる人たちの微笑み<br>大地が明るく輝き始めました✨</b>";
+  energyMessage = "<b>💛希望の花が咲き始めました🌻<br>花に集う人たちは微笑み<br>大地が明るく輝き出しています✨</b>";
 } else if (thanksCount <= 600) {
-  energyMessage = "<b>🧡感謝の輪が広がっています<br>人と人との心がつながり、<br>温かな交流が生まれています✨</b>";
+  energyMessage = "<b>🧡感謝の輪がどんどん広がっています<br>人と人の心がつながり、<br>温かな交流が生まれています✨</b>";
 } else if (thanksCount <= 700) {
-  energyMessage = "<b>🩷みんなの笑顔が花満開🌸<br>たくさんの幸せが咲き誇っています<br>楽園はもうすぐ完成です✨</b>";
+  energyMessage = "<b>🩷みんなの笑顔が花満開🌸<br>幸せがたくさん咲き誇っています<br>楽園はもうすぐ完成です✨</b>";
 } else {
-  energyMessage = "<b>❤️感謝エネルギーMAX到達<br>幸せの楽園が完成しました🌈<br>みんなの想いが<br>美しい未来を育てていきます✨</b>";
+  energyMessage = "<b>❤️感謝エネルギー全開✨<br>幸せの楽園が完成しました🌈<br>みんなの想いが<br>美しい未来を育てていきます🥰</b>";
 }
 let nextTarget = 0;
 
-if (thanksCount <= 100) {
-  nextTarget = 100;
+if (thanksCount === 0) {
+  nextTarget = 1;
+} else if (thanksCount <= 100) {
+  nextTarget = 101;
 } else if (thanksCount <= 200) {
-  nextTarget = 200;
+  nextTarget = 201;
 } else if (thanksCount <= 300) {
-  nextTarget = 300;
+  nextTarget = 301;
 } else if (thanksCount <= 400) {
-  nextTarget = 400;
+  nextTarget = 401;
 } else if (thanksCount <= 500) {
-  nextTarget = 500;
+  nextTarget = 501;
 } else if (thanksCount <= 600) {
-  nextTarget = 600;
+  nextTarget = 601;
 } else if (thanksCount <= 700) {
-  nextTarget = 700;
+  nextTarget = 701;
 } else {
-  nextTarget = 1000;
+  nextTarget = thanksCount;
 }
 
 let remainFlowers = nextTarget - thanksCount;
