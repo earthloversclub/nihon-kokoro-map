@@ -159,7 +159,8 @@ map.on("click", function(e){
 function submitPost(){
 
 const files = Array.from(document.getElementById("imageFile").files);
-
+alert("選択されたファイル数：" + files.length);
+  
 const data = {
 secret: document.getElementById("secret").value,
 category: document.getElementById("category").value,
