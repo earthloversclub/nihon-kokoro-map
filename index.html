@@ -660,37 +660,31 @@ const markers = [];
     const prefectureThanks = {};
     const allSpots = [];
     let japanGrowthMapInstance = null;
+    
 const activeCategories = new Set([
-  "温泉",
-  "絶景",
-  "風景",
-  "グルメ",
-  "レジャー",
-  "自然農",
-  "神社・伝統",
-  "動物",
-  "イベント",
-  "幸せシェア"
+  "温泉・宿泊",
+  "自然・絶景",
+  "グルメ・特産品",
+  "神社仏閣",
+  "文化・歴史",
+  "イベント・体験",
+  "人・活動・思い出"
 ]);
     
-    const icons = {
-      "温泉": icon("red"),
-      "絶景": icon("blue"),
-      "風景": icon("green"),
-      "グルメ": icon("orange"),
-      "レジャー": icon("violet"),
-      "自然農": icon("yellow"),
-      "神社・伝統": icon("gold"),
-      "動物": icon("grey"),
-      "イベント": icon("black"),
-"幸せシェア": new L.Icon({
-  iconUrl: "https://drive.google.com/thumbnail?id=1-LOYbEjRCdi3b-0nN0aoXoTLRE9bPCXI&sz=w1000",
-
-  iconSize: [55, 55],
-  iconAnchor: [27, 55],
-  popupAnchor: [0, -35]
-})
-    };
+const icons = {
+  "温泉・宿泊": icon("red"),
+  "自然・絶景": icon("green"),
+  "グルメ・特産品": icon("orange"),
+  "神社仏閣": icon("gold"),
+  "文化・歴史": icon("violet"),
+  "イベント・体験": icon("black"),
+  "人・活動・思い出": new L.Icon({
+    iconUrl: "https://drive.google.com/thumbnail?id=1-LOYbEjRCdi3b-0nN0aoXoTLRE9bPCXI&sz=w1000",
+    iconSize: [55, 55],
+    iconAnchor: [27, 55],
+    popupAnchor: [0, -35]
+  })
+};
 
     function parseCSV(text) {
       const rows = [];
