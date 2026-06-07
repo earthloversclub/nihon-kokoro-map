@@ -682,6 +682,26 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
   }
 
 }
+
+@keyframes treasureNumberGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 5px #fff176,
+      0 0 10px #ffcc33,
+      0 0 18px #ff9800;
+    transform: scale(1);
+  }
+
+  50% {
+    text-shadow:
+      0 0 8px #ffffff,
+      0 0 18px #ffd54f,
+      0 0 30px #ff9800,
+      0 0 42px #ff6f00;
+    transform: scale(1.04);
+  }
+}
+    
   </style>
 </head>
 
@@ -1130,7 +1150,12 @@ font-weight:bold;">
       <div id="totalPostsCount"
            style="font-size:40px;
                   font-weight:bold;
-                  color:#1976d2;
+                  color:#ff8c00;
+text-shadow:
+  0 0 6px #fff176,
+  0 0 12px #ffcc33,
+  0 0 22px #ff9800;
+animation: treasureNumberGlow 2.5s ease-in-out infinite;
                   margin-top:5px;">
         0件
       </div>
