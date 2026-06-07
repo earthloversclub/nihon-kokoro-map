@@ -79,7 +79,10 @@ button{
 
 <input id="poster" placeholder="投稿者">
 
-<input id="image" placeholder="画像URL">
+<input id="image" placeholder="画像URL 1枚目">
+<input id="image2" placeholder="画像URL 2枚目">
+<input id="image3" placeholder="画像URL 3枚目">
+<input id="image4" placeholder="画像URL 4枚目">
 <input type="file" id="imageFile" accept="image/*">  
 
 <input id="video" placeholder="動画URL">
@@ -166,9 +169,9 @@ description: document.getElementById("description").value,
 lat: document.getElementById("lat").value,
 lng: document.getElementById("lng").value,
 image: document.getElementById("image").value,
-image2: "",
-image3: "",
-image4: "",
+image2: document.getElementById("image2").value,
+image3: document.getElementById("image3").value,
+image4: document.getElementById("image4").value,
 video: document.getElementById("video").value,
 poster: document.getElementById("poster").value,
 uploadImage: null
@@ -215,6 +218,9 @@ fetch(scriptUrl,{
     document.getElementById("description").value = "";
     document.getElementById("poster").value = "";
     document.getElementById("image").value = "";
+    document.getElementById("image2").value = "";
+document.getElementById("image3").value = "";
+document.getElementById("image4").value = "";
     document.getElementById("imageFile").value = "";
     document.getElementById("video").value = "";
 
