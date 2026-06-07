@@ -815,7 +815,11 @@ if (data["画像4"] && data["画像4"] !== data["動画"]) {
 if (imageUrls.length > 0 || data["動画"]) {
 const mediaCount = imageUrls.length + (data["動画"] ? 1 : 0);
 
-popup += `<div class="image-carousel multi-images media-count-${mediaCount}">`;
+if (mediaCount === 1) {
+  popup += `<div class="image-carousel media-count-1">`;
+} else {
+  popup += `<div class="image-carousel multi-images media-count-${mediaCount}">`;
+}
 
   imageUrls.forEach((url, index) => {
     popup += `
