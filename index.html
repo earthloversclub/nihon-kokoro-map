@@ -217,6 +217,14 @@ margin-right: auto;
   cursor: pointer;
 }
 
+.video-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+    
 .video-play-mark {
   position: absolute;
   top: 50%;
@@ -972,20 +980,15 @@ if (data["動画"]) {
 
 if (data["動画"]) {
   const videoMatch = data["動画"].match(/\/d\/([^/]+)/);
-  const videoUrl = videoMatch
-    ? "https://drive.google.com/file/d/" + videoMatch[1] + "/preview"
-    : data["動画"];
+  const videoThumbUrl = videoMatch
+    ? "https://drive.google.com/thumbnail?id=" + videoMatch[1] + "&sz=w1000"
+    : "";
 
   popup += `
     <div class="video-thumb"
-         onclick='openMediaModal(${JSON.stringify(mediaItems)}, ${mediaItems.length - 1})'
+         onclick='openMediaModal(${JSON.stringify(mediaItems)}, ${mediaItems.length - 1})'>
 
-      <iframe
-        src="${videoUrl}"
-        class="popup-video"
-        allow="autoplay"
-        allowfullscreen>
-      </iframe>
+      <img class="video-thumb-img" src="${videoThumbUrl}">
 
       <div class="video-play-mark">▶</div>
 
