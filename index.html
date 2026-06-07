@@ -537,7 +537,7 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
 </header>
 
 <div id="mapSwitchBox">
-  <button id="mapSwitchButton" onclick="showMapB()">🌷成長地図へ移動</button>
+  <button id="mapSwitchButton" onclick="showMapB()">🌷成長地図🌷</button>
 </div>
   
 <div id="searchBox">
@@ -1127,7 +1127,7 @@ function showMapA() {
 
   document.getElementById("thanksEnergyLegend").style.display = "none";
 
-  document.getElementById("mapSwitchButton").textContent = "🌷 成長地図へ移動";
+  document.getElementById("mapSwitchButton").textContent = "🌷成長地図▶";
   document.getElementById("mapSwitchButton").onclick = showMapB;
 }
 
@@ -1138,7 +1138,7 @@ function showMapB() {
 
   document.getElementById("thanksEnergyLegend").style.display = "grid";
 
-  document.getElementById("mapSwitchButton").textContent = "🗺️ 宝物地図へ移動";
+  document.getElementById("mapSwitchButton").textContent = "◀💎宝物地図";
   document.getElementById("mapSwitchButton").onclick = showMapA;
 
   setTimeout(function() {
