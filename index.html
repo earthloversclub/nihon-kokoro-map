@@ -943,12 +943,29 @@ if (mediaCount === 1) {
   popup += `<div class="image-carousel multi-images media-count-${mediaCount}">`;
 }
 
+const mediaItems = imageUrls.map(url => ({
+  type: "image",
+  url: url
+}));
+
+if (data["動画"]) {
+  const videoMatch = data["動画"].match(/\/d\/([^/]+)/);
+  const videoUrl = videoMatch
+    ? "https://drive.google.com/file/d/" + videoMatch[1] + "/preview"
+    : data["動画"];
+
+  mediaItems.push({
+    type: "video",
+    url: videoUrl
+  });
+}
+  
   imageUrls.forEach((url, index) => {
     popup += `
       <img
         class="popup-img"
         src="${url}"
-        onclick='openImageModal(${JSON.stringify(imageUrls)}, ${index})'
+        onclick='openMediaModal(${JSON.stringify(mediaItems)}, ${index})'
       >
     `;
   });
