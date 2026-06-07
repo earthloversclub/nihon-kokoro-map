@@ -563,11 +563,102 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
   }
 
 }
-    
+ #titleSplash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: linear-gradient(135deg, #dff8ff, #ffffff, #e9fff0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: splashOut 3s ease forwards;
+}
+
+.splashText {
+  text-align: center;
+  animation: titlePop 1.4s ease forwards;
+}
+
+.splashMain {
+  font-size: 34px;
+  font-weight: bold;
+  color: #2e7d32;
+  text-shadow: 0 0 12px white;
+}
+
+.splashSub {
+  margin-top: 14px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #1976d2;
+  text-shadow: 0 0 12px white;
+}
+
+.splashMessage {
+  margin-top: 22px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #8b5a2b;
+}
+
+.splashLight {
+  position: absolute;
+  width: 160%;
+  height: 120px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 120, 180, 0.35),
+    rgba(255, 240, 120, 0.45),
+    rgba(120, 220, 255, 0.45),
+    transparent
+  );
+  transform: rotate(-18deg) translateX(-120%);
+  animation: rainbowSweep 2.2s ease forwards;
+}
+
+@keyframes titlePop {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes rainbowSweep {
+  to {
+    transform: rotate(-18deg) translateX(120%);
+  }
+}
+
+@keyframes splashOut {
+  0%, 75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}   
   </style>
 </head>
 
 <body>
+
+ <div id="titleSplash">
+  <div class="splashLight"></div>
+
+  <div class="splashText">
+    <div class="splashMain">🌎地球大好きっ子クラブ🌎</div>
+    <div class="splashSub">🌈日本の心の宝地図🌈</div>
+    <div class="splashMessage">見つけよう 🌱 伝えよう 💗 育てよう 🌈</div>
+  </div>
+</div>
+  
 <header>
   <span>🌎地球大好きっ子クラブ🌎</span>
   <span>🌈日本の心の宝地図🌈</span>
