@@ -524,6 +524,16 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
     background-position: 200% 50%;
   }
 }
+
+#categorySelect {
+  width: 170px;
+  padding: 6px;
+  border-radius: 8px;
+  border: 2px solid #8fd6aa;
+  font-weight: bold;
+  color: #256b3b;
+  background: white;
+}
     
 @media (min-width: 601px) {
 
@@ -871,56 +881,39 @@ markers.push(marker);
       div.style.background = "#f0fbff";
 div.style.border = "3px solid #2e7d32";
       
-    div.innerHTML = `
+div.innerHTML = `
 
-<div class="category-title">🧭 宝カテゴリ</div>
+<select id="categorySelect">
+  <option value="すべて">🌸 すべてのカテゴリー</option>
+  <option value="温泉・宿泊">♨️ 温泉・宿泊</option>
+  <option value="自然・絶景">🌿 自然・絶景</option>
+  <option value="グルメ・特産品">🍜 グルメ・特産品</option>
+  <option value="神社仏閣">⛩️ 神社仏閣</option>
+  <option value="文化・歴史">🏯 文化・歴史</option>
+  <option value="イベント・体験">🎪 イベント・体験</option>
+  <option value="人・活動・思い出">💗 人・活動・思い出</option>
+</select>
 
-<label><input type="checkbox" checked value="温泉"> <b>♨️ 温泉</b></label><br>
-<label><input type="checkbox" checked value="絶景"> <b>🏔️ 絶景</b></label><br>
-<label><input type="checkbox" checked value="風景"> <b>🏞️ 風景</b></label><br>
-<label><input type="checkbox" checked value="グルメ"> <b>😋 グルメ</b></label><br>
-<label><input type="checkbox" checked value="レジャー"> <b>🏕️ レジャー</b></label><br>
-<label><input type="checkbox" checked value="自然農"> <b>🌱 自然農</b></label><br>
-<label><input type="checkbox" checked value="神社・伝統"> <b>⛩️ 神社・伝統</b></label><br>
-<label><input type="checkbox" checked value="動物"> <b>🐾 動物</b></label><br>
-<label><input type="checkbox" checked value="イベント"> <b>🎆 イベント</b></label><br>
-<label><input type="checkbox" checked value="幸せシェア"> <b>🌈 幸せシェア</b></label>
 `;
       setTimeout(() => {
 
-  document.querySelectorAll('.legend input').forEach(cb => {
+ const select = document.getElementById("categorySelect");
 
-    cb.addEventListener('change', () => {
+select.addEventListener("change", () => {
+  const selected = select.value;
 
-      const category = cb.value;
-
-      if (cb.checked) {
-        activeCategories.add(category);
-      } else {
-        activeCategories.delete(category);
+  markers.forEach(marker => {
+    if (selected === "すべて" || marker.category === selected) {
+      if (!map.hasLayer(marker)) {
+        marker.addTo(map);
       }
-
-      markers.forEach(marker => {
-
-        if (activeCategories.has(marker.category)) {
-
-          if (!map.hasLayer(marker)) {
-            marker.addTo(map);
-          }
-
-        } else {
-
-          if (map.hasLayer(marker)) {
-            map.removeLayer(marker);
-          }
-
-        }
-
-      });
-
-    });
-
+    } else {
+      if (map.hasLayer(marker)) {
+        map.removeLayer(marker);
+      }
+    }
   });
+});
 
 }, 500); 
       return div;
