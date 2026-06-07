@@ -191,7 +191,7 @@ image: "",
 image2: "",
 image3: "",
 image4: "",
-video: document.getElementById("video").value,
+video: "",
 poster: document.getElementById("poster").value,
 uploadImages: []
 };
@@ -250,8 +250,7 @@ fetch(scriptUrl,{
     document.getElementById("description").value = "";
     document.getElementById("poster").value = "";
     document.getElementById("imageFile").value = "";
-    document.getElementById("video").value = "";
-
+  
     if(marker){
       map.removeLayer(marker);
       marker = null;
