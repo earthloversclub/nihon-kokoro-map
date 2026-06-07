@@ -24,7 +24,14 @@
   max-height: 90%;
   border-radius: 10px;
 }
-
+.modal-video {
+  display: none;
+  width: 92%;
+  height: 70%;
+  border: none;
+  border-radius: 10px;
+  background: black;
+}
   #imageCounter {
   position: fixed;
   bottom: 20px;
@@ -764,7 +771,7 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
   <button onclick="showModalImage(-1)">◀</button>
 
   <img id="modalImage" src="">
-
+<iframe id="modalVideo" class="modal-video" src="" allow="autoplay" allowfullscreen></iframe>
   <div id="imageCounter">1 / 1</div>
 
   <button onclick="showModalImage(1)">▶</button>
@@ -1117,41 +1124,65 @@ totalPostsBox.addTo(map);
     
     setTimeout(updatePrefectureList, 1000);
     
- let modalImages = [];
+let modalItems = [];
 let modalIndex = 0;
 
-function openImageModal(images, index) {
-  modalImages = images;
+function openMediaModal(items, index) {
+  modalItems = items;
   modalIndex = index;
 
-  document.getElementById('modalImage').src = modalImages[modalIndex];
-  document.getElementById('imageCounter').textContent =
-  (modalIndex + 1) + " / " + modalImages.length;
+  renderModalItem();
+
   document.getElementById('imageModal').style.display = 'flex';
 }
 
+function renderModalItem() {
+  const item = modalItems[modalIndex];
+
+  const img = document.getElementById('modalImage');
+  const video = document.getElementById('modalVideo');
+
+  if (item.type === "image") {
+    video.style.display = "none";
+    video.src = "";
+
+    img.style.display = "block";
+    img.src = item.url;
+  }
+
+  if (item.type === "video") {
+    img.style.display = "none";
+    img.src = "";
+
+    video.style.display = "block";
+    video.src = item.url;
+  }
+
+  document.getElementById('imageCounter').textContent =
+    (modalIndex + 1) + " / " + modalItems.length;
+}
+
 function showModalImage(direction) {
-  if (modalImages.length === 0) return;
+  if (modalItems.length === 0) return;
 
   modalIndex += direction;
 
   if (modalIndex < 0) {
-    modalIndex = modalImages.length - 1;
+    modalIndex = modalItems.length - 1;
   }
 
-  if (modalIndex >= modalImages.length) {
+  if (modalIndex >= modalItems.length) {
     modalIndex = 0;
   }
 
-  document.getElementById('modalImage').src = modalImages[modalIndex];
-  document.getElementById('imageCounter').textContent =
-  (modalIndex + 1) + " / " + modalImages.length;
+  renderModalItem();
 }
 
 function closeImageModal() {
   document.getElementById('imageModal').style.display = 'none';
+  document.getElementById('modalVideo').src = "";
 }
-
+    
     let touchStartX = 0;
 
 document.getElementById('imageModal').addEventListener('touchstart', function(e) {
