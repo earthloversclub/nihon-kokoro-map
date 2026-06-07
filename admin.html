@@ -87,6 +87,13 @@ button{
 
 <textarea id="description" placeholder="説明"></textarea>
 
+<select id="posterSelect" onchange="setPosterName()">
+  <option value="">投稿者を選択</option>
+  <option value="匿名さん">匿名さん</option>
+  <option value="green orbit">green orbit</option>
+  <option value="地球大好きっ子クラブ">地球大好きっ子クラブ</option>
+</select>
+  
 <input id="poster" placeholder="投稿者">
 
 <input type="file" id="imageFile" accept="image/*,video/*" multiple>
@@ -160,6 +167,14 @@ map.on("click", function(e){
 
 });
 
+function setPosterName(){
+  const selected = document.getElementById("posterSelect").value;
+
+  if(selected){
+    document.getElementById("poster").value = selected;
+  }
+}
+  
 function submitPost(){
 
 const files = Array.from(document.getElementById("imageFile").files);
