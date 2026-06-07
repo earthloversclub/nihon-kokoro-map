@@ -79,10 +79,6 @@ button{
 
 <input id="poster" placeholder="投稿者">
 
-<input id="image" placeholder="画像URL 1枚目">
-<input id="image2" placeholder="画像URL 2枚目">
-<input id="image3" placeholder="画像URL 3枚目">
-<input id="image4" placeholder="画像URL 4枚目">
 <input type="file" id="imageFile" accept="image/*" multiple>
 
 <input id="video" placeholder="動画URL">
@@ -159,7 +155,6 @@ map.on("click", function(e){
 function submitPost(){
 
 const files = Array.from(document.getElementById("imageFile").files);
-alert("選択されたファイル数：" + files.length);
   
 const data = {
 secret: document.getElementById("secret").value,
@@ -169,10 +164,10 @@ title: document.getElementById("title").value,
 description: document.getElementById("description").value,
 lat: document.getElementById("lat").value,
 lng: document.getElementById("lng").value,
-image: document.getElementById("image").value,
-image2: document.getElementById("image2").value,
-image3: document.getElementById("image3").value,
-image4: document.getElementById("image4").value,
+image: "",
+image2: "",
+image3: "",
+image4: "",
 video: document.getElementById("video").value,
 poster: document.getElementById("poster").value,
 uploadImages: []
@@ -231,10 +226,6 @@ fetch(scriptUrl,{
     document.getElementById("category").selectedIndex = 0;
     document.getElementById("description").value = "";
     document.getElementById("poster").value = "";
-    document.getElementById("image").value = "";
-    document.getElementById("image2").value = "";
-document.getElementById("image3").value = "";
-document.getElementById("image4").value = "";
     document.getElementById("imageFile").value = "";
     document.getElementById("video").value = "";
 
