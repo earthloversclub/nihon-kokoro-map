@@ -514,6 +514,16 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
   }
 
 }
+
+@keyframes rainbowMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 200% 50%;
+  }
+}
     
 @media (min-width: 601px) {
 
@@ -923,19 +933,24 @@ const totalPostsBox = L.control({ position: 'bottomright' });
 totalPostsBox.onAdd = function () {
   const div = L.DomUtil.create('div', 'legend');
 
-div.style.background = "#f9f3e8";
+div.style.background =
+"linear-gradient(#f9f3e8,#f9f3e8) padding-box, linear-gradient(90deg,#ff3333,#ff9800,#fff176,#66cc66,#4da3ff,#b388ff,#ff3333) border-box";
 
 div.style.border = "3px solid transparent";
 
+div.style.backgroundSize = "100% 100%, 300% 300%";
+
+div.style.animation = "rainbowMove 8s linear infinite";
+
+div.style.boxShadow =
+"0 0 15px rgba(255,128,171,0.4)";
+  
 div.style.backgroundImage =
 "linear-gradient(#f9f3e8,#f9f3e8), linear-gradient(90deg,#ff3333,#ff9800,#fff176,#66cc66,#4da3ff,#b388ff,#ff3333)";
 
 div.style.backgroundOrigin = "border-box";
 
 div.style.backgroundClip = "padding-box, border-box";
-
-div.style.boxShadow =
-"0 0 20px #ff3333, 0 0 30px #4da3ff";
   
   div.style.marginBottom = '85px';
 div.style.marginRight = '25px';
