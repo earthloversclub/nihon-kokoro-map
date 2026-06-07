@@ -746,7 +746,7 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
 🥉 北海道 412輪<br><br>
 
 <span style="font-size:15px;font-weight:bold;">
-🌸注目の県⭐
+☀️注目の県⭐
 </span><br>
 
 4位 東京<br>
@@ -1392,23 +1392,32 @@ function loadRanking() {
 
   const medals = ["🥇", "🥈", "🥉"];
 
-  const top3 = ranking.slice(0, 3)
-    .map((item, index) =>
-      "<b>" + medals[index] + " " + item.pref + " " + item.thanks + "輪</b>"
-    )
-    .join("<br>");
+const top3 = ranking.slice(0, 3)
+  .map((item, index) =>
+    '<div style="display:flex; justify-content:space-between; width:145px;">' +
+    '<b>' + medals[index] + ' ' + item.pref + '</b>' +
+    '<b>' + item.thanks + '輪</b>' +
+    '</div>'
+  )
+  .join("");
 
-  const nearFull = ranking.slice(3, 5)
-    .map((item, index) =>
-     "<b>" + (index + 4) + "位 " + item.pref + "</b>"
-    )
-    .join("<br>");
+const nearFull = ranking.slice(3, 5)
+  .map((item, index) =>
+    '<div style="text-align:center;"><b>' +
+    (index + 4) + '位 ' + item.pref +
+    '</b></div>'
+  )
+  .join("");
 
 document.getElementById("rankingBox").innerHTML =
 '<span style="font-size:18px;font-weight:bold;">🌸満開ランキング🏆</span><div style="height:5px;"></div>' +
 top3 +
 '<br><br>' +
-'<span style="font-size:18px;font-weight:bold;">☀注目の県⭐</span>' +
+  
+'<div style="text-align:center;">' +
+'<span style="font-size:18px;font-weight:bold;">☀️注目の県⭐</span>' +
+'</div>' +
+  
 '<div style="height:5px;"></div>' +
 nearFull;
 }
