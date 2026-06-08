@@ -741,6 +741,45 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
   }
 }
 
+#passwordGate{
+  position:fixed;
+  inset:0;
+  background:#eafff1;
+  z-index:999999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#passwordBox{
+  background:white;
+  padding:28px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 0 25px rgba(0,0,0,0.2);
+  border:3px solid #8bdc9b;
+}
+
+#passwordInput{
+  padding:10px;
+  font-size:18px;
+  width:220px;
+  margin:12px 0;
+}
+
+#passwordBox button{
+  padding:10px 20px;
+  font-size:18px;
+  background:#cdebd4;
+  border:none;
+  border-radius:10px;
+}
+
+#passwordError{
+  color:red;
+  margin-top:10px;
+}
+    
   </style>
 
 <meta name="robots" content="noindex, nofollow">
@@ -748,6 +787,16 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
 </head>
 
 <body>
+
+<div id="passwordGate">
+  <div id="passwordBox">
+    <h2>🌎 地球大好きっ子クラブ 🌎</h2>
+    <p>合言葉を入力してください</p>
+    <input id="passwordInput" type="password" placeholder="合言葉">
+    <button onclick="checkPassword()">入る</button>
+    <div id="passwordError"></div>
+  </div>
+</div>  
 
  <div id="titleSplash">
   <div class="splashLight"></div>
@@ -851,6 +900,26 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <script>
+
+　　const SITE_PASSWORD = "greenorbit";
+
+if (localStorage.getItem("treasureMapAccess") === "ok") {
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("passwordGate").style.display = "none";
+  });
+}
+
+function checkPassword() {
+  const input = document.getElementById("passwordInput").value;
+
+  if (input === SITE_PASSWORD) {
+    localStorage.setItem("treasureMapAccess", "ok");
+    document.getElementById("passwordGate").style.display = "none";
+  } else {
+    document.getElementById("passwordError").textContent = "合言葉が違います";
+  }
+}
+    
     const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?output=csv";
 
     const map = L.map('map', { zoomControl: false }).setView([37.8, 138.5], 5);
