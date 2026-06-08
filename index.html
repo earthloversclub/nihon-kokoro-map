@@ -1077,7 +1077,7 @@ function isWithin10Minutes(timeText) {
   const eventTime = new Date(timeText.replace(/\//g, "-")).getTime();
   const nowTime = Date.now();
 
-  return nowTime - eventTime <= 30 * 60 * 1000;
+  return nowTime - eventTime <= 5 * 60 * 1000;
 }
 
 let angelEmoji = "";
