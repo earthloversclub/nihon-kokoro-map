@@ -704,6 +704,22 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
   transform: scale(1.04);
 }
 }
+
+.angel-effect {
+  font-size: 28px;
+  text-align: center;
+  animation: angelFloat 1.8s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px white);
+}
+
+@keyframes angelFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
     
   </style>
 </head>
@@ -1022,11 +1038,53 @@ if (data["動画"]) {
 
   popup += `</div>`;
 }
-         const marker = L.marker([lat, lng], { icon: markerIcon })
-.bindPopup(popup, {
-  minWidth: 190,
-  maxWidth: 240
-});
+
+function isWithin10Minutes(timeText) {
+  if (!timeText) return false;
+
+  const eventTime = new Date(timeText.replace(/\//g, "-")).getTime();
+  const nowTime = Date.now();
+
+  return nowTime - eventTime <= 10 * 60 * 1000;
+}
+
+let angelEmoji = "";
+
+if (isWithin10Minutes(data["神降臨時刻"])) {
+  angelEmoji = "🌈👑神降臨👑🌈";
+} else if (isWithin10Minutes(data["大天使降臨時刻"])) {
+  angelEmoji = "🪽👼大天使降臨👼🪽";
+} else if (isWithin10Minutes(data["天使降臨時刻"])) {
+  angelEmoji = "👼天使降臨👼";
+}
+          
+let marker;
+
+if (angelEmoji) {
+  const specialIcon = L.divIcon({
+    html: `
+      <div class="angel-effect">${angelEmoji}</div>
+      <img src="${markerIcon.options.iconUrl}" style="width:${markerIcon.options.iconSize[0]}px; height:${markerIcon.options.iconSize[1]}px;">
+    `,
+    className: "",
+    iconSize: [90, 80],
+    iconAnchor: [45, 80],
+    popupAnchor: [0, -75]
+  });
+
+  marker = L.marker([lat, lng], { icon: specialIcon })
+    .bindPopup(popup, {
+      minWidth: 190,
+      maxWidth: 240
+    });
+
+} else {
+  marker = L.marker([lat, lng], { icon: markerIcon })
+    .bindPopup(popup, {
+      minWidth: 190,
+      maxWidth: 240
+    });
+}
 
           allSpots.push({
   title: data["タイトル"] || data["名前"],
