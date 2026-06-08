@@ -722,10 +722,17 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
 }
 
 .angel-effect {
-  font-size: 16px;
+  font-size: 14px;
+  white-space: nowrap;
+  color: #7a3cff;
+  font-weight: bold;
+  background: rgba(255,255,255,0.9);
+  border: 2px solid #ffd966;
+  border-radius: 999px;
+  padding: 3px 8px;
   text-align: center;
   line-height: 1;
-  margin-bottom: -4px;
+  margin-bottom: 2px;
   animation: angelFloat 1.8s ease-in-out infinite;
   filter: drop-shadow(0 0 6px white);
 }
@@ -1063,7 +1070,7 @@ function isWithin10Minutes(timeText) {
   const eventTime = new Date(timeText.replace(/\//g, "-")).getTime();
   const nowTime = Date.now();
 
-  return nowTime - eventTime <= 10 * 60 * 1000;
+  return nowTime - eventTime <= 30 * 60 * 1000;
 }
 
 let angelEmoji = "";
