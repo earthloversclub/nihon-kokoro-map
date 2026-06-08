@@ -705,13 +705,6 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
 }
 }
 
-.angel-effect {
-  font-size: 28px;
-  text-align: center;
-  animation: angelFloat 1.8s ease-in-out infinite;
-  filter: drop-shadow(0 0 8px white);
-}
-
 @keyframes angelFloat {
   0%, 100% {
     transform: translateY(0);
@@ -721,6 +714,13 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
   }
 }
 
+.special-pin-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90px;
+}
+    
 .angel-effect {
   font-size: 14px;
   white-space: nowrap;
@@ -1081,7 +1081,7 @@ if (category === "人・活動・想い") {
   } else if (isWithin10Minutes(data["大天使降臨時刻"])) {
     angelEmoji = "🪽👼大天使降臨👼🪽";
   } else if (isWithin10Minutes(data["天使降臨時刻"])) {
-    angelEmoji = "👼天使降臨👼";
+    angelEmoji = "👼天使降臨";
   }
 }
           
@@ -1089,10 +1089,12 @@ let marker;
 
 if (angelEmoji) {
   const specialIcon = L.divIcon({
-    html: `
-      <div class="angel-effect">${angelEmoji}</div>
-      <img src="${markerIcon.options.iconUrl}" style="width:${markerIcon.options.iconSize[0]}px; height:${markerIcon.options.iconSize[1]}px;">
-    `,
+html: `
+  <div class="special-pin-wrap">
+    <div class="angel-effect">${angelEmoji}</div>
+    <img src="${markerIcon.options.iconUrl}" style="width:${markerIcon.options.iconSize[0]}px; height:${markerIcon.options.iconSize[1]}px;">
+  </div>
+`,
     className: "",
     iconSize: [90, 80],
     iconAnchor: [45, 80],
