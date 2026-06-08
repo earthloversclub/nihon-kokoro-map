@@ -720,6 +720,24 @@ box-shadow: 0 0 25px rgba(255,170,0,0.6);
     transform: translateY(-6px);
   }
 }
+
+.angel-effect {
+  font-size: 22px;
+  text-align: center;
+  line-height: 1;
+  margin-bottom: -4px;
+  animation: angelFloat 1.8s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px white);
+}
+
+@keyframes angelFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
     
   </style>
 </head>
@@ -1050,12 +1068,14 @@ function isWithin10Minutes(timeText) {
 
 let angelEmoji = "";
 
-if (isWithin10Minutes(data["神降臨時刻"])) {
-  angelEmoji = "🌈👑神降臨👑🌈";
-} else if (isWithin10Minutes(data["大天使降臨時刻"])) {
-  angelEmoji = "🪽👼大天使降臨👼🪽";
-} else if (isWithin10Minutes(data["天使降臨時刻"])) {
-  angelEmoji = "👼天使降臨👼";
+if (category === "人・活動・想い") {
+  if (isWithin10Minutes(data["神降臨時刻"])) {
+    angelEmoji = "🌈👑神降臨👑🌈";
+  } else if (isWithin10Minutes(data["大天使降臨時刻"])) {
+    angelEmoji = "🪽👼大天使降臨👼🪽";
+  } else if (isWithin10Minutes(data["天使降臨時刻"])) {
+    angelEmoji = "👼天使降臨👼";
+  }
 }
           
 let marker;
