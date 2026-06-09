@@ -1605,11 +1605,15 @@ const nearFull = ranking.slice(3, 5)
 
 document.getElementById("rankingBox").innerHTML =
 
+'<div style="margin-top:12px;">' +
 top3 +
-'<div style="height:8px;"></div>' +
-  
-'<div style="height:5px;"></div>' +
-nearFull;
+'</div>' +
+
+'<div style="height:18px;"></div>' +
+
+'<div style="text-align:center; line-height:1.35;">' +
+nearFull +
+'</div>';
 }
     
 setTimeout(loadAchievement, 1200);
