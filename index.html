@@ -357,18 +357,27 @@ box-shadow: 0 0 20px rgba(255,128,171,0.8);
 
 #achievementBox {
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 
-  background: #eef9ff;
-  border-radius: 18px;
-  padding: 10px 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  width: 700px;
+  height: 170px;
 
-  font-size: 15px;
+  background: url('全国達成率木枠.png') center center no-repeat;
+  background-size: contain;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 28px;
   font-weight: bold;
+
   white-space: nowrap;
+
+  border: none;
+  box-shadow: none;
 }
 
 #rankingBox {
