@@ -961,7 +961,7 @@ const activeCategories = new Set([
   "神社仏閣・歴史",
   "自然農",
   "イベント・体験",
-  "人・活動・思い出"
+  "人・活動・想い"
 ]);
     
 const icons = {
@@ -1216,35 +1216,19 @@ legend.onAdd = function () {
   const div = L.DomUtil.create('div', 'legend');
 
   div.style.marginTop = "18px";
-  div.style.width = "240px";
-  div.style.height = "400px";
-  div.style.background = "transparent";
+  div.style.width = "300px";
+  div.style.height = "390px";
+  div.style.background = "url('category-frame.png') center center no-repeat";
+  div.style.backgroundSize = "100% 100%";
   div.style.border = "none";
   div.style.boxShadow = "none";
-  div.style.padding = "0";
-  div.style.position = "relative";
-  div.style.overflow = "visible";
+  div.style.borderRadius = "0";
+  div.style.padding = "90px 22px 25px 22px";
+  div.style.boxSizing = "border-box";
+  div.style.fontSize = "16px";
+  div.style.lineHeight = "1.45";
 
   div.innerHTML = `
-<img src="category-frame.png"
-style="
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:0;
-pointer-events:none;
-">
-
-<div style="
-position:relative;
-z-index:1;
-padding:90px 25px 25px 25px;
-box-sizing:border-box;
-font-size:16px;
-line-height:1.45;
-">
 <label><input type="checkbox" checked value="温泉・宿泊"> <b>♨️ 温泉・宿泊</b></label><br>
 <label><input type="checkbox" checked value="自然・絶景"> <b>🗻 自然・絶景</b></label><br>
 <label><input type="checkbox" checked value="グルメ・特産品"> <b>🍜 グルメ・特産品</b></label><br>
@@ -1252,7 +1236,6 @@ line-height:1.45;
 <label><input type="checkbox" checked value="自然農"> <b>🌱 自然農</b></label><br>
 <label><input type="checkbox" checked value="イベント・体験"> <b>🎪 イベント・体験</b></label><br>
 <label><input type="checkbox" checked value="人・活動・想い"> <b>💗 人・活動・想い</b></label>
-</div>
 `;
 
   setTimeout(() => {
