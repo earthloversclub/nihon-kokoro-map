@@ -817,7 +817,9 @@ transform: translateY(-50%);
     <h2>🌎 地球大好きっ子クラブ 🌎</h2>
     <p>合言葉を入力してください</p>
     <input id="passwordInput" type="password" placeholder="合言葉">
-    <button onclick="checkPassword()">入る</button>
+    <button onclick="localStorage.setItem('treasureMapAccess','ok'); document.getElementById('passwordGate').style.display='none';">
+入る
+</button>
     <div id="passwordError"></div>
   </div>
 </div>  
