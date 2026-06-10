@@ -407,17 +407,18 @@ background-repeat: no-repeat;
   position: absolute;
   top: 450px;
   right: 20px;
-  background: white;
-  padding: 6px 8px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  font-size: 10px;
-  text-align: left;
+
+  width: 80px;
+  height: 300px;
+
+  background: url("energy-frame.png") center center no-repeat;
+  background-size: contain;
+
+  border: none;
+  box-shadow: none;
+  padding: 0;
 
   display: none;
-  grid-template-columns: auto auto;
-  grid-template-rows: repeat(10, auto);
-  column-gap: 6px;
 }
 
 .energy-row {
@@ -1544,7 +1545,7 @@ function showMapB() {
   document.getElementById("growthMap").style.display = "block";
   document.getElementById("searchBox").style.display = "none";
 
-  document.getElementById("thanksEnergyLegend").style.display = "grid";
+  document.getElementById("thanksEnergyLegend").style.display = "block";
 
   document.getElementById("mapSwitchButton").textContent = "◀💎宝物地図";
   document.getElementById("mapSwitchButton").onclick = showMapA;
