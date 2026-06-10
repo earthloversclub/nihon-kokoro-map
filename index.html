@@ -811,7 +811,7 @@ transform: translateY(-50%);
     <p>合言葉を入力してください</p>
     <input id="passwordInput" type="password" placeholder="合言葉">
 <button onclick="checkPassword()">入る</button>
-</button>
+
     <div id="passwordError"></div>
   </div>
 </div>  
@@ -1569,7 +1569,7 @@ function loadRanking() {
 
 const top3 = ranking.slice(0, 3)
   .map((item, index) =>
-    '<div style="display:inline-flex; justify-content:space-between; gap:18px; white-space:nowrap;">'
+    '<div style="display:inline-flex; justify-content:space-between; gap:18px; white-space:nowrap;">' +
     '<b>' + medals[index] + ' ' + item.pref + '</b>' +
     '<b>' + item.thanks + '輪</b>' +
     '</div>'
