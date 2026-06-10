@@ -921,7 +921,7 @@ if (localStorage.getItem("treasureMapAccess") === "ok") {
 }
 
 function checkPassword() {
-  const input = document.getElementById("passwordInput").value;
+  const input = document.getElementById("passwordInput").value.trim();
 
   if (input === SITE_PASSWORD) {
     localStorage.setItem("treasureMapAccess", "ok");
