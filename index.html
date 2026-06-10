@@ -492,13 +492,6 @@ transform: translateY(-50%);
   margin-top: 4px;
   font-size: 18px;
 }
-  display: inline-block;
-  background: #fff4f8;
-  border-radius: 18px;
-  padding: 16px 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  color: #b24a68;
-}
 
 .thanks-flower-title {
     font-size: 60px !important;
@@ -817,8 +810,7 @@ transform: translateY(-50%);
     <h2>🌎 地球大好きっ子クラブ 🌎</h2>
     <p>合言葉を入力してください</p>
     <input id="passwordInput" type="password" placeholder="合言葉">
-    <button onclick="localStorage.setItem('treasureMapAccess','ok'); document.getElementById('passwordGate').style.display='none';">
-入る
+<button onclick="checkPassword()">入る</button>
 </button>
     <div id="passwordError"></div>
   </div>
