@@ -906,17 +906,31 @@ transform: translateY(-50%);
 
   <script>
 
-　　const SITE_PASSWORD = "arata";
+const SITE_PASSWORD = "arata";
 
-if (localStorage.getItem("treasureMapAccess") === "ok") {
-  document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("passwordGate").style.display = "none";
-  });
-}
-
-function checkPassword() {
+function openTreasureMap() {
   localStorage.setItem("treasureMapAccess", "ok");
   document.getElementById("passwordGate").style.display = "none";
+
+setTimeout(() => {
+  map.invalidateSize();
+}, 800);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("treasureMapAccess") === "ok") {
+    openTreasureMap();
+  }
+});
+
+function checkPassword() {
+  const input = document.getElementById("passwordInput").value.trim();
+
+  if (input === SITE_PASSWORD) {
+    openTreasureMap();
+  } else {
+    document.getElementById("passwordError").textContent = "合言葉が違います";
+  }
 }
     
     const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?output=csv";
