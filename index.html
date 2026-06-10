@@ -1567,7 +1567,7 @@ function loadRanking() {
 
 const top3 = ranking.slice(0, 3)
   .map((item, index) =>
-    '<div style="display:flex; justify-content:space-between; width:145px;">' +
+    '<div style="display:inline-flex; justify-content:space-between; gap:18px; white-space:nowrap;">'
     '<b>' + medals[index] + ' ' + item.pref + '</b>' +
     '<b>' + item.thanks + '輪</b>' +
     '</div>'
@@ -1588,9 +1588,9 @@ document.getElementById("rankingBox").innerHTML =
 top3 +
 '</div>' +
 
-'<div style="height:50px;"></div>' +
+'<div style="height:70px;"></div>' +
 
-'<div style="text-align:center; line-height:1.35; margin-top:-20px;">' +
+'<div style="text-align:center; line-height:1.35; position:relative; top:-20px;">' +
 nearFull +
 '</div>';
 }
