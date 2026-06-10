@@ -1281,24 +1281,16 @@ const totalPostsBox = L.control({ position: 'bottomright' });
 totalPostsBox.onAdd = function () {
   const div = L.DomUtil.create('div', 'legend');
 
-div.style.background =
-"linear-gradient(#f9f3e8,#f9f3e8) padding-box, linear-gradient(90deg,#ff3333,#ff9800,#fff176,#66cc66,#4da3ff,#b388ff,#ff3333) border-box";
+div.style.width = "330px";
+div.style.height = "210px";
 
-div.style.border = "6px solid transparent";
+div.style.background = "url('treasure-frame.png') center center no-repeat";
+div.style.backgroundSize = "100% 100%";
 
-div.style.backgroundSize = "100% 100%, 300% 300%";
-
-div.style.animation = "rainbowMove 8s linear infinite";
-
-div.style.boxShadow =
-"0 0 25px #ff3333, 0 0 35px #4da3ff";
-  
-div.style.backgroundImage =
-"linear-gradient(#f9f3e8,#f9f3e8), linear-gradient(90deg,#ff3333,#ff9800,#fff176,#66cc66,#4da3ff,#b388ff,#ff3333)";
-
-div.style.backgroundOrigin = "border-box";
-
-div.style.backgroundClip = "padding-box, border-box";
+div.style.border = "none";
+div.style.boxShadow = "none";
+div.style.animation = "none";
+div.style.padding = "0";
   
   div.style.marginBottom = '85px';
 div.style.marginRight = '25px';
@@ -1308,6 +1300,7 @@ div.style.marginRight = '25px';
 <div style="text-align:center;">
     
 <div style="font-size:24px;font-weight:bold;">
+
   🧭地球の宝物🧭
 </div>
 
