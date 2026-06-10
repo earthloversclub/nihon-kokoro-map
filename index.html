@@ -921,14 +921,8 @@ if (localStorage.getItem("treasureMapAccess") === "ok") {
 }
 
 function checkPassword() {
-  const input = document.getElementById("passwordInput").value.trim();
-
-  if (input === SITE_PASSWORD) {
-    localStorage.setItem("treasureMapAccess", "ok");
-    document.getElementById("passwordGate").style.display = "none";
-  } else {
-    document.getElementById("passwordError").textContent = "合言葉が違います";
-  }
+  localStorage.setItem("treasureMapAccess", "ok");
+  document.getElementById("passwordGate").style.display = "none";
 }
     
     const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?output=csv";
