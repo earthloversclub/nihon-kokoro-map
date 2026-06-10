@@ -1213,27 +1213,23 @@ markers.push(marker);
     const legend = L.control({ position: 'topleft' });
     
 
-    legend.onAdd = function () {
-      const div = L.DomUtil.create('div', 'legend');
-      div.style.marginTop = "18px";
-      
-div.style.width = "330px";
-div.style.height = "430px";
+legend.onAdd = function () {
+  const div = L.DomUtil.create('div', 'legend');
 
-div.style.background =
-"url('category-frame.png') center center no-repeat";
+  div.style.marginTop = "18px";
+  div.style.width = "330px";
+  div.style.height = "430px";
+  div.style.background = "url('category-frame.png') center center no-repeat";
+  div.style.backgroundSize = "100% 100%";
+  div.style.border = "none";
+  div.style.boxShadow = "none";
+  div.style.borderRadius = "0";
+  div.style.padding = "90px 25px 25px 25px";
+  div.style.boxSizing = "border-box";
+  div.style.fontSize = "16px";
+  div.style.lineHeight = "1.45";
 
-div.style.backgroundSize = "100% 100%";
-
-div.style.border = "none";
-div.style.boxShadow = "none";
-
-div.style.padding = "85px 25px 25px 25px";
-      
-div.innerHTML = `
-
-<label><input ...
-
+  div.innerHTML = `
 <label><input type="checkbox" checked value="温泉・宿泊"> <b>♨️ 温泉・宿泊</b></label><br>
 <label><input type="checkbox" checked value="自然・絶景"> <b>🗻 自然・絶景</b></label><br>
 <label><input type="checkbox" checked value="グルメ・特産品"> <b>🍜 グルメ・特産品</b></label><br>
@@ -1241,48 +1237,32 @@ div.innerHTML = `
 <label><input type="checkbox" checked value="自然農"> <b>🌱 自然農</b></label><br>
 <label><input type="checkbox" checked value="イベント・体験"> <b>🎪 イベント・体験</b></label><br>
 <label><input type="checkbox" checked value="人・活動・想い"> <b>💗 人・活動・想い</b></label>
-
 `;
-      
- setTimeout(() => {
 
-  document.querySelectorAll('.legend input').forEach(cb => {
+  setTimeout(() => {
+    document.querySelectorAll('.legend input').forEach(cb => {
+      cb.addEventListener('change', () => {
+        const category = cb.value;
 
-    cb.addEventListener('change', () => {
-
-      const category = cb.value;
-
-      if (cb.checked) {
-        activeCategories.add(category);
-      } else {
-        activeCategories.delete(category);
-      }
-
-      markers.forEach(marker => {
-
-        if (activeCategories.has(marker.category)) {
-
-          if (!map.hasLayer(marker)) {
-            marker.addTo(map);
-          }
-
+        if (cb.checked) {
+          activeCategories.add(category);
         } else {
-
-          if (map.hasLayer(marker)) {
-            map.removeLayer(marker);
-          }
-
+          activeCategories.delete(category);
         }
 
+        markers.forEach(marker => {
+          if (activeCategories.has(marker.category)) {
+            if (!map.hasLayer(marker)) marker.addTo(map);
+          } else {
+            if (map.hasLayer(marker)) map.removeLayer(marker);
+          }
+        });
       });
-
     });
+  }, 500);
 
-  });
-
-}, 500); 
-      return div;
-    };
+  return div;
+};
     
     legend.addTo(map);
 
