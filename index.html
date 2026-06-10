@@ -1217,10 +1217,22 @@ markers.push(marker);
       const div = L.DomUtil.create('div', 'legend');
       div.style.marginTop = "18px";
       
-      div.style.background = "#f0fbff";
-div.style.border = "3px solid #66ccff";
+div.style.width = "330px";
+div.style.height = "430px";
+
+div.style.background =
+"url('category-frame.png') center center no-repeat";
+
+div.style.backgroundSize = "100% 100%";
+
+div.style.border = "none";
+div.style.boxShadow = "none";
+
+div.style.padding = "85px 25px 25px 25px";
       
 div.innerHTML = `
+
+<label><input ...
 
 <label><input type="checkbox" checked value="温泉・宿泊"> <b>♨️ 温泉・宿泊</b></label><br>
 <label><input type="checkbox" checked value="自然・絶景"> <b>🗻 自然・絶景</b></label><br>
