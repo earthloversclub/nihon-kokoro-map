@@ -116,20 +116,58 @@
       margin-bottom: 12px;
     }
 
-    .detailImages {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
-    }
+   .detailImages {
+  margin-bottom: 16px;
+}
 
-    .detailImages img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 14px;
-      cursor: pointer;
-    }
+.detailImages img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+/* 画像1枚 */
+.detailImages.count-1 {
+  display: block;
+}
+
+.detailImages.count-1 img {
+  max-width: 420px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+/* 画像2枚・4枚 */
+.detailImages.count-2,
+.detailImages.count-4 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.detailImages.count-2 img,
+.detailImages.count-4 img {
+  height: 150px;
+}
+
+/* 画像3枚：1枚目を大きく */
+.detailImages.count-3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.detailImages.count-3 img {
+  height: 145px;
+}
+
+.detailImages.count-3 img:first-child {
+  grid-row: 1 / span 2;
+  height: 298px;
+}
 
     .detailVideo {
       width: 100%;
@@ -367,10 +405,14 @@ function openDetail(index) {
     data["画像4"]
   ].filter(Boolean);
 
-  document.getElementById("modalImages").innerHTML =
-    imageUrls.map(url =>
-      `<img src="${url}" onclick="openImage('${url}')">`
-    ).join("");
+const modalImages = document.getElementById("modalImages");
+
+modalImages.className = "detailImages count-" + imageUrls.length;
+
+modalImages.innerHTML =
+  imageUrls.map(url =>
+    `<img src="${url}" onclick="openImage('${url}')">`
+  ).join("");
 
   document.getElementById("modalVideoBox").innerHTML =
     data["動画"]
