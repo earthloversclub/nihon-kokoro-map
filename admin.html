@@ -64,14 +64,27 @@ button{
 <div id="formBox">
 
 <input id="secret" value="chie-admin-key" type="hidden">
+
+<select id="postType" onchange="togglePostType()">
+  <option value="map">宝物地図に投稿</option>
+  <option value="heart">心の宝箱に投稿</option>
+</select>
   
+<div id="mapFields">
+
 <input id="addressSearch" placeholder="住所・施設名で検索 例：東京タワー">
-<button type="button" onclick="searchAddress()">検索してピンを立てる</button>  
+
+<button type="button" onclick="searchAddress()">
+検索してピンを立てる
+</button>
 
 <input id="lat" placeholder="緯度" readonly>
+
 <input id="lng" placeholder="経度" readonly>
 
 <input id="prefecture" placeholder="都道府県">
+
+</div>
 
 <input id="title" placeholder="タイトル">
 
@@ -167,6 +180,16 @@ map.on("click", function(e){
 
 });
 
+function togglePostType(){
+
+  const isHeart =
+    document.getElementById("postType").value === "heart";
+
+  document.getElementById("mapFields").style.display =
+    isHeart ? "none" : "block";
+
+}
+  
 function setPosterName(){
   const selected = document.getElementById("posterSelect").value;
 
@@ -183,6 +206,7 @@ submitButton.style.background = "#ffd6a5";
 const files = Array.from(document.getElementById("imageFile").files);
   
 const data = {
+postType: document.getElementById("postType").value,    
 secret: document.getElementById("secret").value,
 category: document.getElementById("category").value,
 prefecture: document.getElementById("prefecture").value,
