@@ -1560,6 +1560,7 @@ function showMapB() {
   document.getElementById("map").style.display = "none";
   document.getElementById("growthMap").style.display = "block";
   document.getElementById("searchBox").style.display = "none";
+  document.getElementById("rainbowBox").style.display = "none";
 
   document.getElementById("thanksEnergyLegend").style.display = "block";
 
@@ -1570,6 +1571,7 @@ function showMapB() {
     loadJapanGrowthMap();
   }, 100);
 }
+    
 function loadThanksTotal() {
   fetch("https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec")
     .then(response => response.json())
