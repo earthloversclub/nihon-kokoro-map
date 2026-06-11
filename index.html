@@ -1249,12 +1249,21 @@ marker.category = category;
 marker.addTo(map);
 
 markers.push(marker);
- const totalPostsCountEl = document.getElementById("totalPostsCount");
+
+const totalPostsCountEl =
+document.getElementById("totalPostsCount");
+
 if (totalPostsCountEl) {
-  totalPostsCountEl.textContent = markers.length + "件";
-}   
-        });
-      });
+  totalPostsCountEl.textContent =
+  markers.length + "件";
+}
+
+});
+
+loadAchievement();
+loadRanking();
+
+});
 
 const totalPostsBox = L.control({ position: 'bottomright' });
 
@@ -1636,9 +1645,6 @@ top3 +
 nearFull +
 '</div>';
 }
-    
-setTimeout(loadAchievement, 1200);
-setTimeout(loadRanking, 1200);
     
 function loadMissingPrefectures() {
   const allPrefectures = [
