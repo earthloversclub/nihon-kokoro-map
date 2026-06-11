@@ -305,6 +305,25 @@ box-shadow: none;
   white-space: nowrap;
 }
 
+#rainbowBox {
+  position: absolute;
+  right: 55px;
+  bottom: 250px;
+  z-index: 1000;
+}
+
+#rainbowBox button {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 22px;
+  border: 3px solid #ffffff;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffb3d9, #fff0a8, #b9fbc0, #a8e7ff, #d8b4ff);
+  color: #256b3b;
+  box-shadow: 0 0 12px white, 0 0 20px rgba(255,255,255,0.9);
+  cursor: pointer;
+}    
+
 #mapSwitchBox button {
   font-size: 16px;
   padding: 8px 12px;
@@ -836,6 +855,10 @@ transform: translateY(-50%);
 <div id="mapSwitchBox">
   <button id="mapSwitchButton" onclick="showMapB()">🌷成長地図▶</button>
 </div>
+
+<div id="rainbowBox">
+  <button onclick="location.href='heart.html'">🌈虹の彼方へ</button>
+</div>  
   
 <div id="searchBox">
   <input type="text" id="searchInput" placeholder="地名やタイトルを検索">
