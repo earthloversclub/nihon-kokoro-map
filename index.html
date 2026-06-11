@@ -313,16 +313,37 @@ box-shadow: none;
 }
 
 #rainbowBox button {
-  font-size: 18px;
-  font-weight: bold;
-  padding: 12px 22px;
-  border: 3px solid #ffffff;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #ffb3d9, #fff0a8, #b9fbc0, #a8e7ff, #d8b4ff);
+  width: 145px;
+  height: 145px;
+
+  border: none;
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle at center, #ffffff 0%, #ffffff 58%, transparent 60%),
+    conic-gradient(
+      #ff8acb,
+      #fff176,
+      #8cffb0,
+      #80d8ff,
+      #b388ff,
+      #ff8acb
+    );
+
   color: #256b3b;
-  box-shadow: 0 0 12px white, 0 0 20px rgba(255,255,255,0.9);
+  font-size: 19px;
+  font-weight: 900;
+
+  box-shadow:
+    0 0 10px white,
+    0 0 20px rgba(255,255,255,0.95),
+    0 0 30px rgba(255,150,220,0.8),
+    0 0 42px rgba(120,210,255,0.8);
+
   cursor: pointer;
-}    
+  text-align: center;
+  line-height: 1.35;
+} 
 
 #mapSwitchBox button {
   font-size: 16px;
@@ -857,7 +878,7 @@ transform: translateY(-50%);
 </div>
 
 <div id="rainbowBox">
-  <button onclick="location.href='heart.html'">🌈虹の彼方へ</button>
+  <button onclick="location.href='heart.html'">🌈<br>虹の彼方へ</button>
 </div>  
   
 <div id="searchBox">
