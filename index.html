@@ -1212,6 +1212,33 @@ markers.push(marker);
         });
       });
 
+const totalPostsBox = L.control({ position: 'bottomright' });
+
+totalPostsBox.onAdd = function () {
+  const div = L.DomUtil.create('div', 'legend');
+
+  div.style.width = "330px";
+  div.style.height = "210px";
+  div.style.background = "url('treasure-frame.png') center center no-repeat";
+  div.style.backgroundSize = "100% 100%";
+  div.style.border = "none";
+  div.style.boxShadow = "none";
+  div.style.borderRadius = "0";
+  div.style.padding = "0";
+  div.style.marginBottom = "40px";
+  div.style.marginRight = "-27px";
+
+  div.innerHTML = `
+    <div style="text-align:center; position:relative; height:100%;">
+      <div id="totalPostsCount">0件</div>
+    </div>
+  `;
+
+  return div;
+};
+
+totalPostsBox.addTo(map);
+    
     const legend = L.control({ position: 'topleft' });
 
 legend.onAdd = function () {
