@@ -41,34 +41,148 @@
       margin-bottom: 28px;
     }
 
-    .treasureCard {
-      background: white;
-      border: 3px solid #ffd6ec;
-      border-radius: 24px;
-      padding: 18px;
-      margin: 0 auto 28px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-      text-align: left;
+    #treasureList {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 20px;
     }
 
-    .treasureCard h2 {
+    .miniCard {
+      background: white;
+      border: 3px solid #ffd6ec;
+      border-radius: 18px;
+      padding: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .miniCard img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 8px;
+    }
+
+    .miniTitle {
+      font-size: 16px;
+      font-weight: bold;
+      color: #256b3b;
+      line-height: 1.3;
+    }
+
+    .miniPoster {
+      font-size: 13px;
+      color: #8b5a2b;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99999;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      padding: 18px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .modalContent {
+      background: white;
+      max-width: 720px;
+      margin: 25px auto;
+      border-radius: 24px;
+      padding: 18px;
+      text-align: left;
+      border: 3px solid #ffd6ec;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    }
+
+    .modalContent h2 {
       text-align: center;
       color: #256b3b;
       margin-top: 0;
     }
 
-    .treasureCard img {
+    .poster {
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      color: #8b5a2b;
+      margin-bottom: 12px;
+    }
+
+    .detailImages {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .detailImages img {
       width: 100%;
-      max-width: 420px;
-      display: block;
-      margin: 12px auto;
-      border-radius: 16px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 14px;
+      cursor: pointer;
+    }
+
+    .detailVideo {
+      width: 100%;
+      height: 260px;
+      border: none;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      background: black;
     }
 
     .text {
       font-size: 16px;
       line-height: 1.8;
       color: #333;
+    }
+
+    .closeButton {
+      display: block;
+      margin: 18px auto 0;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 999px;
+      background: #ffd6ec;
+      color: #8a2b55;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .imageModal {
+      display: none;
+      position: fixed;
+      z-index: 100000;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .imageModal img {
+      max-width: 92%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+
+    .imageModalClose {
+      position: fixed;
+      top: 15px;
+      right: 22px;
+      color: white;
+      font-size: 36px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     .buttonArea {
@@ -86,6 +200,28 @@
       font-size: 17px;
       font-weight: bold;
       box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+    }
+
+    @media (max-width: 420px) {
+      #treasureList {
+        gap: 10px;
+      }
+
+      .miniCard {
+        padding: 8px;
+      }
+
+      .miniCard img {
+        height: 105px;
+      }
+
+      .miniTitle {
+        font-size: 14px;
+      }
+
+      .miniPoster {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
@@ -106,8 +242,7 @@
     心が動いた宝物を集める島です。
   </div>
 
-<div id="treasureList"></div>
-  </div>
+  <div id="treasureList"></div>
 
   <div class="buttonArea">
     <a class="backButton" href="heart.html">💗心の宝箱へ戻る</a>
@@ -116,8 +251,26 @@
 
 </div>
 
+<div id="detailModal" class="modal">
+  <div class="modalContent">
+    <h2 id="modalTitle"></h2>
+    <div id="modalPoster" class="poster"></div>
+    <div id="modalImages" class="detailImages"></div>
+    <div id="modalVideoBox"></div>
+    <div id="modalText" class="text"></div>
+    <button class="closeButton" onclick="closeDetail()">閉じる</button>
+  </div>
+</div>
+
+<div id="imageModal" class="imageModal">
+  <span class="imageModalClose" onclick="closeImage()">×</span>
+  <img id="largeImage" src="">
+</div>
+
 <script>
 const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
+
+let treasures = [];
 
 function parseCSV(text) {
   const rows = [];
@@ -156,6 +309,14 @@ function parseCSV(text) {
   return rows;
 }
 
+function escapeHtml(text) {
+  return String(text || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 fetch(heartCsvUrl + "&t=" + Date.now())
   .then(response => response.text())
   .then(csv => {
@@ -170,19 +331,17 @@ fetch(heartCsvUrl + "&t=" + Date.now())
       if (data["表示"] !== "表示") return;
       if (data["島カテゴリ"] !== "🏝感動の島") return;
 
+      treasures.push(data);
+
+      const index = treasures.length - 1;
+      const thumb =
+        data["画像"] || data["画像2"] || data["画像3"] || data["画像4"] || "";
+
       list.innerHTML += `
-        <div class="treasureCard">
-          <h2>${data["タイトル"] || ""}</h2>
-
-          <div class="poster">
-            投稿者：${data["投稿者"] || "匿名さん"}
-          </div>
-
-          ${data["画像"] ? `<img src="${data["画像"]}" alt="">` : ""}
-
-          <div class="text">
-            ${(data["本文"] || "").replace(/\n/g, "<br>")}
-          </div>
+        <div class="miniCard" onclick="openDetail(${index})">
+          ${thumb ? `<img src="${thumb}" alt="">` : ""}
+          <div class="miniTitle">${escapeHtml(data["タイトル"] || "")}</div>
+          <div class="miniPoster">投稿者：${escapeHtml(data["投稿者"] || "匿名さん")}</div>
         </div>
       `;
     });
@@ -191,7 +350,54 @@ fetch(heartCsvUrl + "&t=" + Date.now())
       list.innerHTML = `<div class="message">まだ感動の宝物はありません🌱</div>`;
     }
   });
+
+function openDetail(index) {
+  const data = treasures[index];
+
+  document.getElementById("modalTitle").textContent =
+    data["タイトル"] || "";
+
+  document.getElementById("modalPoster").textContent =
+    "投稿者：" + (data["投稿者"] || "匿名さん");
+
+  const imageUrls = [
+    data["画像"],
+    data["画像2"],
+    data["画像3"],
+    data["画像4"]
+  ].filter(Boolean);
+
+  document.getElementById("modalImages").innerHTML =
+    imageUrls.map(url =>
+      `<img src="${url}" onclick="openImage('${url}')">`
+    ).join("");
+
+  document.getElementById("modalVideoBox").innerHTML =
+    data["動画"]
+      ? `<iframe class="detailVideo" src="${data["動画"]}" allow="autoplay" allowfullscreen></iframe>`
+      : "";
+
+  document.getElementById("modalText").innerHTML =
+    escapeHtml(data["本文"] || "").replace(/\n/g, "<br>");
+
+  document.getElementById("detailModal").style.display = "block";
+}
+
+function closeDetail() {
+  document.getElementById("detailModal").style.display = "none";
+  document.getElementById("modalVideoBox").innerHTML = "";
+}
+
+function openImage(url) {
+  document.getElementById("largeImage").src = url;
+  document.getElementById("imageModal").style.display = "flex";
+}
+
+function closeImage() {
+  document.getElementById("imageModal").style.display = "none";
+  document.getElementById("largeImage").src = "";
+}
 </script>
-  
+
 </body>
 </html>
