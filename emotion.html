@@ -106,18 +106,7 @@
     心が動いた宝物を集める島です。
   </div>
 
-  <div class="treasureCard">
-    <h2>📖 アナスタシア</h2>
-
-    <!-- 画像を入れる時は、下の src をあとで差し替える -->
-    <!-- <img src="images/anastasia.jpg" alt="アナスタシア"> -->
-
-    <div class="text">
-      自分が進化したい、変化したいと思いつつ…<br>
-      なかなか歓喜する事も出来なくて、停滞しているような気持ちがかなり長く続いていました。<br><br>
-
-      最近読みだした本で、人間の想像以上の無限の可能性に胸がいっぱいになっています✨
-    </div>
+<div id="treasureList"></div>
   </div>
 
   <div class="buttonArea">
@@ -127,5 +116,82 @@
 
 </div>
 
+<script>
+const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cell = '', quote = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    const next = text[i + 1];
+
+    if (c === '"' && quote && next === '"') {
+      cell += '"';
+      i++;
+    } else if (c === '"') {
+      quote = !quote;
+    } else if (c === ',' && !quote) {
+      row.push(cell);
+      cell = '';
+    } else if ((c === '\n' || c === '\r') && !quote) {
+      if (cell || row.length) {
+        row.push(cell);
+        rows.push(row);
+        row = [];
+        cell = '';
+      }
+      if (c === '\r' && next === '\n') i++;
+    } else {
+      cell += c;
+    }
+  }
+
+  if (cell || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+
+  return rows;
+}
+
+fetch(heartCsvUrl + "&t=" + Date.now())
+  .then(response => response.text())
+  .then(csv => {
+    const rows = parseCSV(csv);
+    const headers = rows[0];
+    const list = document.getElementById("treasureList");
+
+    rows.slice(1).forEach(row => {
+      const data = {};
+      headers.forEach((h, i) => data[h] = row[i]);
+
+      if (data["表示"] !== "表示") return;
+      if (data["島カテゴリ"] !== "🏝感動の島") return;
+
+      list.innerHTML += `
+        <div class="treasureCard">
+          <h2>${data["タイトル"] || ""}</h2>
+
+          <div class="poster">
+            投稿者：${data["投稿者"] || "匿名さん"}
+          </div>
+
+          ${data["画像"] ? `<img src="${data["画像"]}" alt="">` : ""}
+
+          <div class="text">
+            ${(data["本文"] || "").replace(/\n/g, "<br>")}
+          </div>
+        </div>
+      `;
+    });
+
+    if (!list.innerHTML.trim()) {
+      list.innerHTML = `<div class="message">まだ感動の宝物はありません🌱</div>`;
+    }
+  });
+</script>
+  
 </body>
 </html>
