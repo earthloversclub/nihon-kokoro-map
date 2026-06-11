@@ -124,6 +124,9 @@ button{
 const scriptUrl =
 "https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec";
 
+const CLOUDINARY_CLOUD_NAME = "dvsfd4evc";
+const CLOUDINARY_UPLOAD_PRESET = "earthloversclub_upload";
+  
 const map = L.map('map').setView([36.2,138.2],5);
 
 L.tileLayer(
@@ -224,64 +227,104 @@ function setPosterName(){
   }
 }
   
-function submitPost(){
-const submitButton = document.getElementById("submitButton");
-submitButton.disabled = true;
-submitButton.textContent = "投稿中...";
-submitButton.style.background = "#ffd6a5";
-const files = Array.from(document.getElementById("imageFile").files);
-  
-const data = {
-postType: document.getElementById("postType").value,    
-secret: document.getElementById("secret").value,
-category: document.getElementById("category").value,
-prefecture: document.getElementById("prefecture").value,
-title: document.getElementById("title").value,
-description: document.getElementById("description").value,
-lat: document.getElementById("lat").value,
-lng: document.getElementById("lng").value,
-image: "",
-image2: "",
-image3: "",
-image4: "",
-video: "",
-poster: document.getElementById("poster").value,
-uploadImages: []
-};
+async function submitPost(){
 
-if(files.length > 4){
-  alert("画像は最大4枚までです");
-  return;
+  const submitButton = document.getElementById("submitButton");
+  submitButton.disabled = true;
+  submitButton.textContent = "投稿中...";
+  submitButton.style.background = "#ffd6a5";
+
+  const files = Array.from(document.getElementById("imageFile").files);
+
+  const data = {
+    postType: document.getElementById("postType").value,    
+    secret: document.getElementById("secret").value,
+    category: document.getElementById("category").value,
+    prefecture: document.getElementById("prefecture").value,
+    title: document.getElementById("title").value,
+    description: document.getElementById("description").value,
+    lat: document.getElementById("lat").value,
+    lng: document.getElementById("lng").value,
+    image: "",
+    image2: "",
+    image3: "",
+    image4: "",
+    video: "",
+    poster: document.getElementById("poster").value
+  };
+
+  const imageFiles = files.filter(file => file.type.startsWith("image/"));
+  const videoFiles = files.filter(file => file.type.startsWith("video/"));
+
+  if(imageFiles.length > 4){
+    alert("画像は最大4枚までです");
+    resetSubmitButton();
+    return;
+  }
+
+  if(videoFiles.length > 1){
+    alert("動画は最大1本までです");
+    resetSubmitButton();
+    return;
+  }
+
+  try{
+
+    const imageUrls = [];
+
+    for(const file of imageFiles){
+      const url = await uploadToCloudinary(file);
+      imageUrls.push(url);
+    }
+
+    if(imageUrls[0]) data.image = imageUrls[0];
+    if(imageUrls[1]) data.image2 = imageUrls[1];
+    if(imageUrls[2]) data.image3 = imageUrls[2];
+    if(imageUrls[3]) data.image4 = imageUrls[3];
+
+    if(videoFiles[0]){
+      data.video = await uploadToCloudinary(videoFiles[0]);
+    }
+
+    sendPost(data);
+
+  } catch(err){
+    resetSubmitButton();
+    alert("Cloudinaryアップロード失敗\n\n" + err.message);
+    console.log(err);
+  }
 }
 
-if(files.length > 0){
-  const uploads = [];
+function resetSubmitButton(){
+  const submitButton = document.getElementById("submitButton");
+  submitButton.disabled = false;
+  submitButton.textContent = "投稿する";
+  submitButton.style.background = "#cdebd4";
+}
 
-  files.forEach(file => {
-    const reader = new FileReader();
+async function uploadToCloudinary(file){
 
-    reader.onload = function(){
-      uploads.push({
-        fileName: file.name,
-        mimeType: file.type,
-        base64: reader.result.split(",")[1]
-      });
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
-      if(uploads.length === files.length){
-        data.uploadImages = uploads;
-        sendPost(data);
-      }
-    };
+  const url =
+    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`;
 
-    reader.readAsDataURL(file);
+  const response = await fetch(url, {
+    method: "POST",
+    body: formData
   });
 
-} else {
-  sendPost(data);
-}
+  const result = await response.json();
 
-}
+  if(!response.ok){
+    throw new Error(result.error?.message || "アップロードに失敗しました");
+  }
 
+  return result.secure_url;
+}
+  
 function sendPost(data){
 
 fetch(scriptUrl,{
