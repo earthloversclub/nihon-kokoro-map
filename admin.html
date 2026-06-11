@@ -188,6 +188,32 @@ function togglePostType(){
   document.getElementById("mapFields").style.display =
     isHeart ? "none" : "block";
 
+  const category =
+    document.getElementById("category");
+
+  if(isHeart){
+
+    category.innerHTML = `
+      <option>🏝感動の島</option>
+      <option>🏝体験の島</option>
+      <option>🏝学びの島</option>
+      <option>🏝感謝の島</option>
+      <option>🏝癒しの島</option>
+    `;
+
+  } else {
+
+    category.innerHTML = `
+      <option>温泉・宿泊</option>
+      <option>自然・絶景</option>
+      <option>グルメ・特産品</option>
+      <option>神社仏閣・歴史</option>
+      <option>自然農</option>
+      <option>イベント・体験</option>
+      <option>人・活動・想い</option>
+    `;
+  }
+
 }
   
 function setPosterName(){
