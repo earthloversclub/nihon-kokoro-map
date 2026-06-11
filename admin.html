@@ -274,6 +274,7 @@ async function submitPost(){
 
     for(const file of imageFiles){
       const url = await uploadToCloudinary(file);
+      alert("Cloudinary URL取得：" + url);
       imageUrls.push(url);
     }
 
