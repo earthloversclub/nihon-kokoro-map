@@ -1562,9 +1562,10 @@ function loadRanking() {
 
 const top3 = ranking.slice(0, 3)
   .map((item, index) =>
-    '<div style="display:inline-flex; justify-content:space-between; gap:18px; white-space:nowrap;">' +
-    '<b>' + medals[index] + ' ' + item.pref + '</b>' +
-    '<b>' + item.thanks + '輪</b>' +
+    '<div style="display:grid; grid-template-columns: 30px 1fr 90px; align-items:center; width:100%; white-space:nowrap;">' +
+    '<b style="text-align:center;">' + medals[index] + '</b>' +
+    '<b style="text-align:left;">' + item.pref + '</b>' +
+    '<b style="text-align:right;">' + item.thanks + '輪</b>' +
     '</div>'
   )
   .join("");
