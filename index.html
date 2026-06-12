@@ -1164,10 +1164,9 @@ imageUrls.forEach((url, index) => {
   `;
 });
 
-if (data["動画"]) {
-  const videoThumbnail = data["動画"]
-    .replace("/video/upload/", "/video/upload/so_1/")
-    .replace(/\.[^/.]+$/, ".jpg");
+const videoThumbnail = data["動画"]
+  .replace("/video/upload/", "/video/upload/so_1,f_jpg/")
+  .replace(/\.[^/.]+$/, ".jpg");
 
   popup += `
     <div class="video-thumb"
