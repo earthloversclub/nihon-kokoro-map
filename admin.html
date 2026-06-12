@@ -427,6 +427,21 @@ function parseCSV(text) {
   return rows;
 }
 
+function escapeHtml(str) {
+  return String(str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function escapeJs(str) {
+  return String(str || "")
+    .replace(/\\/g, "\\\\")
+    .replace(/'/g, "\\'");
+}
+  
 async function searchDeletePosts(){
 
   const keyword = document.getElementById("deleteKeyword").value.trim().toLowerCase();
@@ -447,28 +462,26 @@ async function searchDeletePosts(){
 
 resultBox.innerHTML = results.map(item => `
   <div style="border:1px solid #ddd; padding:10px; margin:8px 0; border-radius:10px; background:#fff;">
-    <b>${item.title}</b><br>
-    種類：${item.typeLabel}<br>
-    投稿者：${item.poster || "未入力"}<br>
-    ID：${item.id}<br><br>
+    <b>${escapeHtml(item.title)}</b><br>
+    種類：${escapeHtml(item.typeLabel)}<br>
+    投稿者：${escapeHtml(item.poster || "未入力")}<br>
+    ID：${escapeHtml(item.id)}<br><br>
 
     <button
       type="button"
-      onclick="editFoundPost('${item.postType}', '${item.id}')"
+      onclick="editFoundPost('${escapeJs(item.postType)}', '${escapeJs(item.id)}')"
       style="width:auto;padding:8px 14px;">
       📝編集
     </button>
 
     <button
       type="button"
-      onclick="deleteFoundPost('${item.postType}', '${item.id}')"
+      onclick="deleteFoundPost('${escapeJs(item.postType)}', '${escapeJs(item.id)}')"
       style="width:auto;padding:8px 14px;margin-left:10px;">
       🗑削除
     </button>
-
   </div>
 `).join("");
-}
 
 async function searchOneSheet(csvUrl, postType, typeLabel, keyword, poster, results){
 
