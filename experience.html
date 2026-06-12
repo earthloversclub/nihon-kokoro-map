@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏝体験の島🏝</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: linear-gradient(180deg, #fff7fb, #eafff7);
+      color: #2f5f3a;
+      text-align: center;
+    }
+
+    header {
+      padding: 18px 10px;
+      background: #e9f8ef;
+      font-size: 24px;
+      font-weight: bold;
+      color: #256b3b;
+      line-height: 1.5;
+    }
+
+    .main {
+      padding: 28px 15px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .message {
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    #treasureList {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .miniCard {
+      background: white;
+      border: 3px solid #ffd6ec;
+      border-radius: 18px;
+      padding: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .miniCard img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 8px;
+    }
+
+    .miniTitle {
+      font-size: 16px;
+      font-weight: bold;
+      color: #256b3b;
+      line-height: 1.3;
+    }
+
+    .miniPoster {
+      font-size: 13px;
+      color: #8b5a2b;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+.videoThumb {
+  width: 100%;
+  height: 120px;
+  border-radius: 14px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 8px;
+  border: 2px solid #ffd6ec;
+}
+
+.thumbWrap {
+  position: relative;
+}
+
+.playMark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.65);
+  color: white;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  padding-left: 3px;
+}
+    
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99999;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      padding: 18px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .modalContent {
+      background: white;
+      max-width: 720px;
+      margin: 25px auto;
+      border-radius: 24px;
+      padding: 18px;
+      text-align: left;
+      border: 3px solid #ffd6ec;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    }
+
+    .modalContent h2 {
+      text-align: center;
+      color: #256b3b;
+      margin-top: 0;
+    }
+
+    .poster {
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      color: #8b5a2b;
+      margin-bottom: 12px;
+    }
+
+   .detailImages {
+  margin-bottom: 16px;
+}
+
+.detailImages img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+/* 画像1枚 */
+.detailImages.count-1 {
+  display: block;
+}
+
+.detailImages.count-1 img {
+  max-width: 420px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+/* 画像2枚・4枚 */
+.detailImages.count-2,
+.detailImages.count-4 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.detailImages.count-2 img,
+.detailImages.count-4 img {
+  height: 150px;
+}
+
+/* 画像3枚：1枚目を大きく */
+.detailImages.count-3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.detailImages.count-3 img {
+  height: 145px;
+}
+
+.detailImages.count-3 img:first-child {
+  grid-row: 1 / span 2;
+  height: 298px;
+}
+
+    .detailVideo {
+      width: 100%;
+      height: 260px;
+      border: none;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      background: black;
+    }
+
+    .text {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .closeButton {
+      display: block;
+      margin: 18px auto 0;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 999px;
+      background: #ffd6ec;
+      color: #8a2b55;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .imageModal {
+      display: none;
+      position: fixed;
+      z-index: 100000;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .imageModal img {
+      max-width: 92%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+
+    .imageModalClose {
+      position: fixed;
+      top: 15px;
+      right: 22px;
+      color: white;
+      font-size: 36px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .buttonArea {
+      margin-top: 28px;
+    }
+
+    .backButton {
+      display: inline-block;
+      padding: 12px 22px;
+      margin: 6px;
+      background: #dff3e5;
+      color: #256b3b;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: bold;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+    }
+
+    @media (max-width: 420px) {
+      #treasureList {
+        gap: 10px;
+      }
+
+      .miniCard {
+        padding: 8px;
+      }
+
+      .miniCard img {
+        height: 105px;
+      }
+
+      .miniTitle {
+        font-size: 14px;
+      }
+
+      .miniPoster {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  🏝体験の島🏝<br>
+  🌈心が震えた宝物たち🌈
+</header>
+
+<div class="main">
+
+  <div class="title">体験の島へようこそ</div>
+
+  <div class="message">
+    ここは、本・言葉・人の想いなど、<br>
+    心が動いた宝物を集める島です。
+  </div>
+
+  <div id="treasureList"></div>
+
+  <div class="buttonArea">
+    <a class="backButton" href="heart.html">💗心の宝箱へ戻る</a>
+    <a class="backButton" href="index.html">🌎宝物地図へ戻る</a>
+  </div>
+
+</div>
+
+<div id="detailModal" class="modal">
+  <div class="modalContent">
+    <h2 id="modalTitle"></h2>
+    <div id="modalPoster" class="poster"></div>
+    <div id="modalImages" class="detailImages"></div>
+    <div id="modalVideoBox"></div>
+    <div id="modalText" class="text"></div>
+    <button class="closeButton" onclick="closeDetail()">閉じる</button>
+  </div>
+</div>
+
+<div id="imageModal" class="imageModal">
+  <span class="imageModalClose" onclick="closeImage()">×</span>
+  <img id="largeImage" src="">
+</div>
+
+<script>
+const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
+
+let treasures = [];
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cell = '', quote = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    const next = text[i + 1];
+
+    if (c === '"' && quote && next === '"') {
+      cell += '"';
+      i++;
+    } else if (c === '"') {
+      quote = !quote;
+    } else if (c === ',' && !quote) {
+      row.push(cell);
+      cell = '';
+    } else if ((c === '\n' || c === '\r') && !quote) {
+      if (cell || row.length) {
+        row.push(cell);
+        rows.push(row);
+        row = [];
+        cell = '';
+      }
+      if (c === '\r' && next === '\n') i++;
+    } else {
+      cell += c;
+    }
+  }
+
+  if (cell || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+
+  return rows;
+}
+
+function escapeHtml(text) {
+  return String(text || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function getDriveId(url) {
+  const match = url.match(/\/d\/([^/]+)/);
+  return match ? match[1] : "";
+}
+
+function getVideoThumb(url) {
+
+  if(url.includes("res.cloudinary.com")){
+    return url
+      .replace("/video/upload/", "/video/upload/so_5/")
+      .replace(".mp4", ".jpg");
+  }
+
+  const id = getDriveId(url);
+
+  return id
+    ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000`
+    : "";
+}
+  
+fetch(heartCsvUrl + "&t=" + Date.now())
+  .then(response => response.text())
+  .then(csv => {
+    const rows = parseCSV(csv);
+    const headers = rows[0];
+    const list = document.getElementById("treasureList");
+
+    rows.slice(1).forEach(row => {
+      const data = {};
+      headers.forEach((h, i) => data[h] = row[i]);
+
+      if (data["表示"] !== "表示") return;
+      if (data["島カテゴリ"] !== "🏝体験の島") return;
+
+      treasures.push(data);
+
+      const index = treasures.length - 1;
+      
+const hasVideo = data["動画"];
+
+const thumb =
+  data["画像"] ||
+  data["画像2"] ||
+  data["画像3"] ||
+  data["画像4"] ||
+  (hasVideo ? getVideoThumb(hasVideo) : "");
+
+console.log("thumb=", thumb);      
+
+      list.innerHTML += `
+        <div class="miniCard" onclick="openDetail(${index})">
+        
+${thumb ? `
+  <div class="thumbWrap">
+    <img src="${thumb}" alt="">
+    ${hasVideo && !data["画像"] ? `<div class="playMark">▶</div>` : ""}
+  </div>
+` : ""}
+
+          <div class="miniTitle">${escapeHtml(data["タイトル"] || "")}</div>
+          <div class="miniPoster">投稿者：${escapeHtml(data["投稿者"] || "匿名さん")}</div>
+        </div>
+      `;
+    });
+
+    if (!list.innerHTML.trim()) {
+      list.innerHTML = `<div class="message">まだ体験の宝物はありません🌱</div>`;
+    }
+  });
+
+function openDetail(index) {
+  const data = treasures[index];
+
+  document.getElementById("modalTitle").textContent =
+    data["タイトル"] || "";
+
+  document.getElementById("modalPoster").textContent =
+    "投稿者：" + (data["投稿者"] || "匿名さん");
+
+  const imageUrls = [
+    data["画像"],
+    data["画像2"],
+    data["画像3"],
+    data["画像4"]
+  ].filter(Boolean);
+
+const modalImages = document.getElementById("modalImages");
+
+modalImages.className = "detailImages count-" + imageUrls.length;
+
+modalImages.innerHTML =
+  imageUrls.map(url =>
+    `<img src="${url}" onclick="openImage('${url}')">`
+  ).join("");
+
+  document.getElementById("modalVideoBox").innerHTML =
+    data["動画"]
+      ? `<iframe class="detailVideo" src="${data["動画"]}" allow="autoplay" allowfullscreen></iframe>`
+      : "";
+
+  document.getElementById("modalText").innerHTML =
+    escapeHtml(data["本文"] || "").replace(/\n/g, "<br>");
+
+  document.getElementById("detailModal").style.display = "block";
+}
+
+function closeDetail() {
+  document.getElementById("detailModal").style.display = "none";
+  document.getElementById("modalVideoBox").innerHTML = "";
+}
+
+function openImage(url) {
+  document.getElementById("largeImage").src = url;
+  document.getElementById("imageModal").style.display = "flex";
+}
+
+function closeImage() {
+  document.getElementById("imageModal").style.display = "none";
+  document.getElementById("largeImage").src = "";
+}
+</script>
+
+</body>
+</html>
