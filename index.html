@@ -1164,8 +1164,8 @@ if (imageUrls.length > 0 || data["動画"]) {
 
   if (data["動画"]) {
     const videoThumbnail = data["動画"]
-      .replace("/video/upload/", "/video/upload/so_10,f_jpg/")
-      .replace(/\.[^/.]+$/, ".jpg");
+  .replace("/video/upload/", "/video/upload/so_5/")
+  .replace(".mp4", ".jpg");
 
     popup += `
       <div class="video-thumb"
