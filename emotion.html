@@ -81,15 +81,11 @@
     }
 
 .videoThumb {
+  width: 100%;
   height: 120px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #fff7fb, #eafff7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #256b3b;
-  font-size: 22px;
-  font-weight: bold;
+  object-fit: cover;
+  display: block;
   margin-bottom: 8px;
   border: 2px solid #ffd6ec;
 }
@@ -396,8 +392,18 @@ function getDriveId(url) {
 }
 
 function getVideoThumb(url) {
+
+  if(url.includes("res.cloudinary.com")){
+    return url
+      .replace("/video/upload/", "/video/upload/so_5/")
+      .replace(".mp4", ".jpg");
+  }
+
   const id = getDriveId(url);
-  return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : "";
+
+  return id
+    ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000`
+    : "";
 }
   
 fetch(heartCsvUrl + "&t=" + Date.now())
@@ -426,6 +432,8 @@ const thumb =
   data["画像3"] ||
   data["画像4"] ||
   (hasVideo ? getVideoThumb(hasVideo) : "");
+
+console.log("thumb=", thumb);      
 
       list.innerHTML += `
         <div class="miniCard" onclick="openDetail(${index})">
