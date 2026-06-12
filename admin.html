@@ -451,6 +451,12 @@ async function searchDeletePosts(){
       種類：${item.typeLabel}<br>
       投稿者：${item.poster || "未入力"}<br>
       ID：${item.id}<br>
+      <button type="button" onclick="editFoundPost('${item.postType}', '${item.id}')">
+  　　　📝編集
+　　　</button>
+
+　　　&nbsp;
+   
       <button type="button" onclick="deleteFoundPost('${item.postType}', '${item.id}')">
         🗑削除
       </button>
