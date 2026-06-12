@@ -1132,55 +1132,51 @@ if (data["画像4"] && data["画像4"] !== data["動画"]) {
 }
 
 if (imageUrls.length > 0 || data["動画"]) {
-const mediaCount = imageUrls.length + (data["動画"] ? 1 : 0);
+  const mediaCount = imageUrls.length + (data["動画"] ? 1 : 0);
 
-if (mediaCount === 1) {
-  popup += `<div class="image-carousel media-count-1">`;
-} else {
-  popup += `<div class="image-carousel multi-images media-count-${mediaCount}">`;
-}
+  popup += mediaCount === 1
+    ? `<div class="image-carousel media-count-1">`
+    : `<div class="image-carousel multi-images media-count-${mediaCount}">`;
 
-const mediaItems = imageUrls.map(url => ({
-  type: "image",
-  url: url
-}));
+  const mediaItems = imageUrls.map(url => ({
+    type: "image",
+    url: url
+  }));
 
-if (data["動画"]) {
-  mediaItems.push({
-    type: "video",
-    url: data["動画"]
+  if (data["動画"]) {
+    mediaItems.push({
+      type: "video",
+      url: data["動画"]
+    });
+  }
+
+  const safeMediaItems = JSON.stringify(mediaItems).replace(/'/g, "&apos;");
+
+  imageUrls.forEach((url, index) => {
+    popup += `
+      <img
+        class="popup-img"
+        src="${url}"
+        onclick='openMediaModal(${safeMediaItems}, ${index})'
+      >
+    `;
   });
-}
 
-const safeMediaItems = JSON.stringify(mediaItems).replace(/'/g, "&apos;");
+  if (data["動画"]) {
+    const videoThumbnail = data["動画"]
+      .replace("/video/upload/", "/video/upload/so_3,f_jpg/")
+      .replace(/\.[^/.]+$/, ".jpg");
 
-imageUrls.forEach((url, index) => {
-  popup += `
-    <img
-      class="popup-img"
-      src="${url}"
-      onclick='openMediaModal(${safeMediaItems}, ${index})'
-    >
-  `;
-});
+    popup += `
+      <div class="video-thumb"
+           onclick='openMediaModal(${safeMediaItems}, ${mediaItems.length - 1})'>
+        <img class="video-thumb-img" src="${videoThumbnail}">
+        <div class="video-play-mark">▶</div>
+      </div>
+    `;
+  }
 
-const videoThumbnail = data["動画"]
-  .replace("/video/upload/", "/video/upload/so_1,f_jpg/")
-  .replace(/\.[^/.]+$/, ".jpg");
-
-  popup += `
-    <div class="video-thumb"
-         onclick='openMediaModal(${safeMediaItems}, ${mediaItems.length - 1})'>
-
-      <img class="video-thumb-img" src="${videoThumbnail}">
-
-      <div class="video-play-mark">▶</div>
-
-    </div>
-  `;
-}
-
-popup += `</div>`;
+  popup += `</div>`;
 }
 
 function isWithin10Minutes(timeText) {
