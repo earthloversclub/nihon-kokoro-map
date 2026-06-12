@@ -1171,16 +1171,16 @@ const videoThumbnail = data["動画"]
   .replace("/video/upload/", "/video/upload/so_1/")
   .replace(/\.[^/.]+$/, ".jpg");
 
-  popup += `
-    <div class="video-thumb"
-         onclick='openMediaModal(${JSON.stringify(mediaItems)}, ${mediaItems.length - 1})'>
+popup += `
+  <div class="video-thumb"
+       onclick='openMediaModal(${JSON.stringify(mediaItems).replace(/'/g, "&apos;")}, ${mediaItems.length - 1})'>
 
-      <img class="video-thumb-img" src="${videoThumbnail}">
+    <img class="video-thumb-img" src="${videoThumbnail}">
 
-      <div class="video-play-mark">▶</div>
+    <div class="video-play-mark">▶</div>
 
-    </div>
-  `;
+  </div>
+`;
 }
 
   popup += `</div>`;
