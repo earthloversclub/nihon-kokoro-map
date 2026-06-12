@@ -418,7 +418,7 @@ fetch(heartCsvUrl + "&t=" + Date.now())
       headers.forEach((h, i) => data[h] = row[i]);
 
       if (data["表示"] !== "表示") return;
-      if (data["島カテゴリ"] !== "🌟体験の島🏝") return;
+      if (data["島カテゴリ"] !== "🏝体験の島") return;
 
       treasures.push(data);
 
