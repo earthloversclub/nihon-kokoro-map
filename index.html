@@ -1167,24 +1167,15 @@ if (data["動画"]) {
     `;
   });
 
-let videoThumbnail = "";
-
-if(data["動画"].includes("res.cloudinary.com")){
-  videoThumbnail = data["動画"]
-    .replace("/video/upload/", "/video/upload/so_1/")
-    .replace(/\.[^/.]+$/, ".jpg");
-} else {
-  const videoMatch = data["動画"].match(/\/d\/([^/]+)/);
-  videoThumbnail = videoMatch
-    ? "https://drive.google.com/thumbnail?id=" + videoMatch[1] + "&sz=w1000"
-    : "";
-}
+const videoThumbnail = data["動画"]
+  .replace("/video/upload/", "/video/upload/so_1/")
+  .replace(/\.[^/.]+$/, ".jpg");
 
   popup += `
     <div class="video-thumb"
          onclick='openMediaModal(${JSON.stringify(mediaItems)}, ${mediaItems.length - 1})'>
 
-      <img class="video-thumb-img" src="${videoThumbUrl}">
+      <img class="video-thumb-img" src="${videoThumbnail}">
 
       <div class="video-play-mark">▶</div>
 
