@@ -1167,11 +1167,18 @@ if (data["動画"]) {
     `;
   });
 
-if (data["動画"]) {
+let videoThumbnail = "";
+
+if(data["動画"].includes("res.cloudinary.com")){
+  videoThumbnail = data["動画"]
+    .replace("/video/upload/", "/video/upload/so_1/")
+    .replace(/\.[^/.]+$/, ".jpg");
+} else {
   const videoMatch = data["動画"].match(/\/d\/([^/]+)/);
-  const videoThumbUrl = videoMatch
+  videoThumbnail = videoMatch
     ? "https://drive.google.com/thumbnail?id=" + videoMatch[1] + "&sz=w1000"
     : "";
+}
 
   popup += `
     <div class="video-thumb"
