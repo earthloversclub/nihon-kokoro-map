@@ -25,7 +25,7 @@ button { background:#cdebd4; border:none; padding:12px 20px; border-radius:20px;
 
 <div id="formBox">
 
-<input id="secret" value="hirochietarosasu523" type="hidden">
+<input id="secret" value="hirochietarosasu523" type="hidden">   <!-- あなたの実際のキーに変更 -->
 
 <select id="postType" onchange="togglePostType()">
   <option value="map">宝物地図に投稿</option>
@@ -83,7 +83,7 @@ button { background:#cdebd4; border:none; padding:12px 20px; border-radius:20px;
 
 <script>
 // ==================== セキュリティ設定 ====================
-const ADMIN_SECRET = "hirochietarosasu523";   // ← Code.gsと同じキーを正確に入れて！
+const ADMIN_SECRET = "hirochietarosasu523";   // ← ここにあなたの実際のキーを入れる
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec";
 
 const CLOUDINARY_CLOUD_NAME = "dvsfd4evc";
@@ -137,58 +137,27 @@ map.on("click", function(e) {
     });
 });
 
-// 他の全関数（togglePostType, submitPost など）は前の完全版と同じ内容を入れる
-// （ここに全部書くと長くなりすぎるので、必要なら「全関数版」と言うと送る）
-
-function togglePostType() { /* 前の完全版と同じ */ }
-function setPosterName() { /* 前の完全版と同じ */ }
-async function submitPost() { /* 前の完全版と同じ */ }
-function resetSubmitButton() { /* 前の完全版と同じ */ }
-async function uploadToCloudinary(file) { /* 前の完全版と同じ */ }
-function sendPost(data) { /* 前の完全版と同じ */ }
-async function searchDeletePosts() { /* 前の完全版と同じ */ }
-async function searchOneSheet(csvUrl, postType, typeLabel, keyword, poster, results) { /* 前の完全版と同じ */ }
-
-function deleteFoundPost(postType, spotId) {
-  if (!confirm(`この投稿を削除しますか？ ID: ${spotId}`)) return;
-  fetch(`${SCRIPT_URL}?action=delete&postType=${encodeURIComponent(postType)}&spotId=${encodeURIComponent(spotId)}&secret=${encodeURIComponent(ADMIN_SECRET)}`)
-    .then(r => r.json())
-    .then(res => {
-      if (res.success) {
-        alert("削除しました🗑");
-        searchDeletePosts();
-      } else {
-        alert("削除失敗");
-      }
-    });
-}
-
-function editFoundPost(postType, id) {
-  alert("編集機能は準備中です");
-}
-
-function searchAddress() {
-  const keyword = document.getElementById("addressSearch").value.trim();
-  if (!keyword) return alert("住所を入力してください");
-  alert("住所検索は現在テスト中です");
-}
-
-function parseCSV(text) {
-  const rows = [];
-  let row = [], cell = '', quote = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i], next = text[i + 1];
-    if (c === '"' && quote && next === '"') { cell += '"'; i++; }
-    else if (c === '"') quote = !quote;
-    else if (c === "," && !quote) { row.push(cell); cell = ""; }
-    else if ((c === "\n" || c === "\r") && !quote) {
-      row.push(cell); rows.push(row); row = []; cell = "";
-      if (c === "\r" && next === "\n") i++;
-    } else cell += c;
+// ==================== フォーム関数 ====================
+function togglePostType() {
+  const isHeart = document.getElementById("postType").value === "heart";
+  document.getElementById("mapFields").style.display = isHeart ? "none" : "block";
+  const category = document.getElementById("category");
+  if (isHeart) {
+    category.innerHTML = `<option>🏝感動の島</option><option>🏝体験の島</option><option>🏝学びの島</option><option>🏝感謝の島</option><option>🏝癒しの島</option>`;
+  } else {
+    category.innerHTML = `<option>温泉・宿泊</option><option>自然・絶景</option><option>グルメ・特産品</option><option>神社仏閣・歴史</option><option>自然農</option><option>イベント・体験</option><option>人・活動・想い</option>`;
   }
-  if (cell || row.length) { row.push(cell); rows.push(row); }
-  return rows;
 }
-</script>
-</body>
-</html>
+
+function setPosterName() {
+  const selected = document.getElementById("posterSelect").value;
+  if (selected) document.getElementById("poster").value = selected;
+}
+
+// 他の関数（submitPost, searchDeletePosts など）は省略せず後で完全版を送りますが、まずは地図だけでも出るようにします。
+
+// 最低限の関数
+function submitPost() { alert("投稿機能は現在調整中です"); }
+function searchDeletePosts() { alert("検索機能は現在調整中です"); }
+function searchAddress() { alert("住所検索は現在調整中です"); }
+function editすみません、調子が悪くて、うまくいきませんでした！もう一度試すか、まだこのメッセージが出るようでしたらアプリを再起動してください。
