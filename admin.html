@@ -115,8 +115,22 @@ button{
 投稿する
 </button>
 
-</div>
+<hr>
 
+<h3>🗑 投稿削除</h3>
+
+<select id="deletePostType">
+  <option value="map">宝物地図の投稿を削除</option>
+  <option value="heart">心の宝箱の投稿を削除</option>
+</select>
+
+<input id="deleteSpotId" placeholder="削除する投稿ID">
+
+<button type="button" onclick="deletePost()">
+削除する
+</button>
+
+</div>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
@@ -371,6 +385,42 @@ submitButton.style.background = "#cdebd4";
 
 }
 
+function deletePost(){
+
+  const postType = document.getElementById("deletePostType").value;
+  const spotId = document.getElementById("deleteSpotId").value.trim();
+  const secret = document.getElementById("secret").value;
+
+  if(!spotId){
+    alert("削除する投稿IDを入力してね");
+    return;
+  }
+
+  if(!confirm("この投稿を削除していい？\n\nID: " + spotId)){
+    return;
+  }
+
+  fetch(scriptUrl
+    + "?action=delete"
+    + "&postType=" + encodeURIComponent(postType)
+    + "&spotId=" + encodeURIComponent(spotId)
+    + "&secret=" + encodeURIComponent(secret)
+  )
+  .then(r => r.json())
+  .then(res => {
+    if(res.success){
+      alert("削除しました🗑");
+      document.getElementById("deleteSpotId").value = "";
+    } else {
+      alert("削除失敗：" + res.message);
+    }
+  })
+  .catch(err => {
+    alert("削除エラー\n\n" + err);
+    console.log(err);
+  });
+}
+  
 function searchAddress(){
 
   const keyword = document.getElementById("addressSearch").value.trim();
