@@ -82,14 +82,14 @@ button { background:#cdebd4; border:none; padding:12px 20px; border-radius:20px;
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-// ==================== セキュリティ設定 ====================
-const ADMIN_SECRET = "hirochietarosasu523";   // ← ここにあなたの実際のキーを入れる
+// ==================== セキュリティ ====================
+const ADMIN_SECRET = "hirochietarosasu523";   // ← あなたの実際のキーに変更！
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec";
 
 const CLOUDINARY_CLOUD_NAME = "dvsfd4evc";
 const CLOUDINARY_UPLOAD_PRESET = "earthloversclub_upload";
 
-// ==================== Leaflet地図 ====================
+// ==================== Leaflet ====================
 const map = L.map('map').setView([36.2, 138.2], 5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap'
@@ -107,13 +107,8 @@ const prefectureMap = {
   "43":"熊本","44":"大分","45":"宮崎","46":"鹿児島","47":"沖縄"
 };
 
-// ==================== ユーティリティ ====================
 function escapeHtml(str) {
   return String(str || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
-}
-
-function escapeJs(str) {
-  return String(str || "").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,'\\"');
 }
 
 // ==================== マップクリック ====================
@@ -141,23 +136,101 @@ map.on("click", function(e) {
 function togglePostType() {
   const isHeart = document.getElementById("postType").value === "heart";
   document.getElementById("mapFields").style.display = isHeart ? "none" : "block";
-  const category = document.getElementById("category");
+  const cat = document.getElementById("category");
   if (isHeart) {
-    category.innerHTML = `<option>🏝感動の島</option><option>🏝体験の島</option><option>🏝学びの島</option><option>🏝感謝の島</option><option>🏝癒しの島</option>`;
+    cat.innerHTML = `<option>🏝感動の島</option><option>🏝体験の島</option><option>🏝学びの島</option><option>🏝感謝の島</option><option>🏝癒しの島</option>`;
   } else {
-    category.innerHTML = `<option>温泉・宿泊</option><option>自然・絶景</option><option>グルメ・特産品</option><option>神社仏閣・歴史</option><option>自然農</option><option>イベント・体験</option><option>人・活動・想い</option>`;
+    cat.innerHTML = `<option>温泉・宿泊</option><option>自然・絶景</option><option>グルメ・特産品</option><option>神社仏閣・歴史</option><option>自然農</option><option>イベント・体験</option><option>人・活動・想い</option>`;
   }
 }
 
 function setPosterName() {
-  const selected = document.getElementById("posterSelect").value;
-  if (selected) document.getElementById("poster").value = selected;
+  const val = document.getElementById("posterSelect").value;
+  if (val) document.getElementById("poster").value = val;
 }
 
-// 他の関数（submitPost, searchDeletePosts など）は省略せず後で完全版を送りますが、まずは地図だけでも出るようにします。
+// ==================== 投稿送信 ====================
+async function submitPost() {
+  const btn = document.getElementById("submitButton");
+  btn.disabled = true;
+  btn.textContent = "投稿中...";
 
-// 最低限の関数
-function submitPost() { alert("投稿機能は現在調整中です"); }
+  const files = Array.from(document.getElementById("imageFile").files);
+  const data = {
+    postType: document.getElementById("postType").value,
+    secret: ADMIN_SECRET,
+    category: document.getElementById("category").value,
+    prefecture: document.getElementById("prefecture").value,
+    title: document.getElementById("title").value,
+    description: document.getElementById("description").value,
+    lat: document.getElementById("lat").value,
+    lng: document.getElementById("lng").value,
+    image: "", image2: "", image3: "", image4: "",
+    video: "",
+    poster: document.getElementById("poster").value
+  };
+
+  try {
+    // Cloudinaryアップロード処理（省略せず）
+    const imageFiles = files.filter(f => f.type.startsWith("image/"));
+    const videoFiles = files.filter(f => f.type.startsWith("video/"));
+
+    for (let file of imageFiles) {
+      const url = await uploadToCloudinary(file);
+      if (!data.image) data.image = url;
+      else if (!data.image2) data.image2 = url;
+      else if (!data.image3) data.image3 = url;
+      else if (!data.image4) data.image4 = url;
+    }
+    if (videoFiles[0]) data.video = await uploadToCloudinary(videoFiles[0]);
+
+    // 送信
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+
+    if (result.success) {
+      alert("投稿成功🌈");
+      // フォームリセット
+      document.getElementById("title").value = "";
+      document.getElementById("description").value = "";
+      document.getElementById("poster").value = "";
+      document.getElementById("imageFile").value = "";
+      document.getElementById("lat").value = "";
+      document.getElementById("lng").value = "";
+      document.getElementById("prefecture").value = "";
+      if (marker) { map.removeLayer(marker); marker = null; }
+    } else {
+      alert("失敗: " + (result.message || "不明"));
+    }
+  } catch (err) {
+    alert("送信エラー: " + err.message);
+  }
+
+  btn.disabled = false;
+  btn.textContent = "投稿する";
+}
+
+async function uploadToCloudinary(file) {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`, {
+    method: "POST",
+    body: formData
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.error?.message || "アップロード失敗");
+  return json.secure_url;
+}
+
+// 他の関数（searchDeletePostsなど）は必要なら後で追加
 function searchDeletePosts() { alert("検索機能は現在調整中です"); }
 function searchAddress() { alert("住所検索は現在調整中です"); }
-function editすみません、調子が悪くて、うまくいきませんでした！もう一度試すか、まだこのメッセージが出るようでしたらアプリを再起動してください。
+
+</script>
+</body>
+</html>
