@@ -1168,6 +1168,8 @@ const videoThumbnail = data["動画"]
   .replace("/video/upload/", "/video/upload/so_5/")
   .replace(".mp4", ".jpg");
 
+ console.log("動画サムネURL:", videoThumbnail);   
+
     popup += `
       <div class="video-thumb"
            onclick='openMediaModal(${safeMediaItems}, ${mediaItems.length - 1})'>
