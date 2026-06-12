@@ -7,13 +7,13 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
 <style>
-body{margin:0;font-family:sans-serif;background:#f7f7f7;}
-h2{text-align:center;color:#256b3b;}
-#map{height:calc(100vh - 60px);width:100%;}
-#formBox{position:absolute;top:120px;right:25px;z-index:1000;background:white;padding:18px;width:420px;border-radius:18px;box-shadow:0 2px 16px rgba(0,0,0,0.25);}
-input,textarea,select{width:100%;margin:6px 0;padding:8px;box-sizing:border-box;}
-button{background:#cdebd4;border:none;padding:12px 20px;border-radius:20px;cursor:pointer;font-weight:bold;}
-.result-item{border:1px solid #ddd;padding:10px;margin:8px 0;border-radius:10px;background:#fff;}
+body { margin:0; font-family:sans-serif; background:#f7f7f7; }
+h2 { text-align:center; color:#256b3b; }
+#map { height: calc(100vh - 60px); width: 100%; }
+#formBox { position: absolute; top: 120px; right: 25px; z-index: 1000; background:white; padding:18px; width: 420px; border-radius: 18px; box-shadow: 0 2px 16px rgba(0,0,0,0.25); }
+input, textarea, select { width:100%; margin:6px 0; padding:8px; box-sizing:border-box; }
+button { background:#cdebd4; border:none; padding:12px 20px; border-radius:20px; cursor:pointer; font-weight:bold; }
+.result-item { border:1px solid #ddd; padding:10px; margin:8px 0; border-radius:10px; background:#fff; }
 </style>
 </head>
 
@@ -25,7 +25,7 @@ button{background:#cdebd4;border:none;padding:12px 20px;border-radius:20px;curso
 
 <div id="formBox">
 
-<input id="secret" value="あなたの新しい管理者キー" type="hidden">
+<input id="secret" value="hirochietarosasu523" type="hidden">
 
 <select id="postType" onchange="togglePostType()">
   <option value="map">宝物地図に投稿</option>
@@ -83,13 +83,13 @@ button{background:#cdebd4;border:none;padding:12px 20px;border-radius:20px;curso
 
 <script>
 // ==================== セキュリティ設定 ====================
-const ADMIN_SECRET = "ここにCode.gsで設定した新しい管理者キーを入れる";   // ← Code.gsと同じキーを正確に入れて！
+const ADMIN_SECRET = "hirochietarosasu523";   // ← 超重要！同じキーを入れる
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec";
 
 const CLOUDINARY_CLOUD_NAME = "dvsfd4evc";
 const CLOUDINARY_UPLOAD_PRESET = "earthloversclub_upload";
 
-// ==================== Leaflet初期化 ====================
+// ==================== Leaflet ====================
 const map = L.map('map').setView([36.2, 138.2], 5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap'
@@ -135,14 +135,13 @@ map.on("click", function(e) {
         document.getElementById("prefecture").value = prefectureMap[prefCode] || "";
       }
     })
-    .catch(() => document.getElementById("prefecture").value = "");
+    .catch(() => {});
 });
 
 // ==================== フォーム関数 ====================
 function togglePostType() {
   const isHeart = document.getElementById("postType").value === "heart";
   document.getElementById("mapFields").style.display = isHeart ? "none" : "block";
-
   const category = document.getElementById("category");
   if (isHeart) {
     category.innerHTML = `<option>🏝感動の島</option><option>🏝体験の島</option><option>🏝学びの島</option><option>🏝感謝の島</option><option>🏝癒しの島</option>`;
@@ -186,20 +185,17 @@ async function submitPost() {
 
   try {
     const imageUrls = [];
-    for (const file of imageFiles) {
-      imageUrls.push(await uploadToCloudinary(file));
-    }
+    for (const file of imageFiles) imageUrls.push(await uploadToCloudinary(file));
     if (imageUrls[0]) data.image = imageUrls[0];
     if (imageUrls[1]) data.image2 = imageUrls[1];
     if (imageUrls[2]) data.image3 = imageUrls[2];
     if (imageUrls[3]) data.image4 = imageUrls[3];
-
     if (videoFiles[0]) data.video = await uploadToCloudinary(videoFiles[0]);
 
     sendPost(data);
   } catch (err) {
     resetSubmitButton();
-    alert("Cloudinaryアップロード失敗\n" + err.message);
+    alert("アップロード失敗\n" + err.message);
   }
 }
 
@@ -214,12 +210,9 @@ async function uploadToCloudinary(file) {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-
-  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`, {
-    method: "POST", body: formData
-  });
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`, { method: "POST", body: formData });
   const result = await res.json();
-  if (!res.ok) throw new Error(result.error?.message || "アップロード失敗");
+  if (!res.ok) throw new Error(result.error?.message || "失敗");
   return result.secure_url;
 }
 
@@ -230,7 +223,7 @@ function sendPost(data) {
     resetSubmitButton();
     if (res.success) {
       alert("投稿成功🌈");
-      // フォームリセット
+      // リセット
       document.getElementById("title").value = "";
       document.getElementById("description").value = "";
       document.getElementById("poster").value = "";
@@ -241,13 +234,12 @@ function sendPost(data) {
       document.getElementById("prefecture").value = "";
       if (marker) { map.removeLayer(marker); marker = null; }
     } else {
-      alert("失敗：" + (res.message || "不明"));
+      alert("失敗：" + (res.message || ""));
     }
   })
   .catch(err => {
     resetSubmitButton();
     alert("送信エラー");
-    console.error(err);
   });
 }
 
@@ -288,16 +280,13 @@ async function searchOneSheet(csvUrl, postType, typeLabel, keyword, poster, resu
   rows.slice(1).forEach(row => {
     const data = {};
     headers.forEach((h, i) => data[h] = row[i] || "");
-
     const id = data["ID"];
     if (!id) return;
-
     const title = data["タイトル"] || data["名前"] || "";
     const text = data["説明"] || data["本文"] || "";
     const postName = data["投稿者"] || "";
 
-    const allText = (title + " " + text).toLowerCase();
-    if (keyword && !allText.includes(keyword)) return;
+    if (keyword && !(title + " " + text).toLowerCase().includes(keyword)) return;
     if (poster && !postName.toLowerCase().includes(poster)) return;
 
     results.push({postType, typeLabel, id, title, poster: postName});
@@ -305,27 +294,41 @@ async function searchOneSheet(csvUrl, postType, typeLabel, keyword, poster, resu
 }
 
 function deleteFoundPost(postType, spotId) {
-  if (!confirm(`この投稿を削除しますか？\nID: ${spotId}`)) return;
-
+  if (!confirm(`削除しますか？ ID: ${spotId}`)) return;
   fetch(`${SCRIPT_URL}?action=delete&postType=${encodeURIComponent(postType)}&spotId=${encodeURIComponent(spotId)}&secret=${encodeURIComponent(ADMIN_SECRET)}`)
     .then(r => r.json())
     .then(res => {
       if (res.success) {
-        alert("削除しました🗑");
+        alert("削除しました");
         searchDeletePosts();
-      } else {
-        alert("削除失敗：" + (res.message || ""));
-      }
-    })
-    .catch(err => alert("削除エラー"));
+      } else alert("失敗");
+    });
 }
 
 function editFoundPost(postType, id) {
-  alert(`編集機能は現在準備中です\n種類: ${postType}\nID: ${id}`);
+  alert("編集機能準備中");
 }
 
-function searchAddress() { /* 住所検索関数 */ }
-function parseCSV(text) { /* CSVパーサー関数 */ }
+function searchAddress() {
+  alert("住所検索機能は現在動作確認中です");
+}
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cell = '', quote = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i], next = text[i+1];
+    if (c === '"' && quote && next === '"') { cell += '"'; i++; }
+    else if (c === '"') quote = !quote;
+    else if (c === "," && !quote) { row.push(cell); cell = ""; }
+    else if ((c === "\n" || c === "\r") && !quote) {
+      row.push(cell); rows.push(row); row = []; cell = "";
+      if (c === "\r" && next === "\n") i++;
+    } else cell += c;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows;
+}
 </script>
 </body>
 </html>
