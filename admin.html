@@ -445,28 +445,29 @@ async function searchDeletePosts(){
     return;
   }
 
-  resultBox.innerHTML = results.map(item => `
-    <div style="border:1px solid #ddd; padding:10px; margin:8px 0; border-radius:10px; background:#fff;">
-      <b>${item.title}</b><br>
-      種類：${item.typeLabel}<br>
-      投稿者：${item.poster || "未入力"}<br>
-      ID：${item.id}<br>
-<button
-  type="button"
-  style="width:auto;padding:8px 14px;margin-top:6px;"
-  onclick="editFoundPost('${item.postType}', '${item.id}')">
-  📝編集
-</button>
+resultBox.innerHTML = results.map(item => `
+  <div style="border:1px solid #ddd; padding:10px; margin:8px 0; border-radius:10px; background:#fff;">
+    <b>${item.title}</b><br>
+    種類：${item.typeLabel}<br>
+    投稿者：${item.poster || "未入力"}<br>
+    ID：${item.id}<br><br>
 
-　　　&nbsp;
-<button
-  type="button"
-  style="width:auto;padding:8px 14px;margin-top:6px;"
-  onclick="deleteFoundPost('${item.postType}', '${item.id}')">
-  🗑削除
-</button>
-    </div>
-  `).join("");
+    <button
+      type="button"
+      onclick="editFoundPost('${item.postType}', '${item.id}')"
+      style="width:auto;padding:8px 14px;">
+      📝編集
+    </button>
+
+    <button
+      type="button"
+      onclick="deleteFoundPost('${item.postType}', '${item.id}')"
+      style="width:auto;padding:8px 14px;margin-left:10px;">
+      🗑削除
+    </button>
+
+  </div>
+`).join("");
 }
 
 async function searchOneSheet(csvUrl, postType, typeLabel, keyword, poster, results){
