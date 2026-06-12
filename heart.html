@@ -121,16 +121,103 @@
     ただいま準備中です🌱
   </div>
 
-  <div class="islands">
-<a class="island emotion" href="emotion.html">🏝 感動の島</a>
-<a class="island experience" href="experience.html">🏝 体験の島</a>
-<a class="island learning" href="learning.html">🏝 学びの島</a>
-<a class="island thanks" href="thanks.html">🏝 感謝の島</a>
-<a class="island healing" href="healing.html">🏝 癒しの島</a>
-  </div>
+<div class="islands">
+  <a class="island emotion" href="emotion.html">
+    🏝 感動の島 <span id="countEmotion">0件</span>
+  </a>
+
+  <a class="island experience" href="experience.html">
+    🏝 体験の島 <span id="countExperience">0件</span>
+  </a>
+
+  <a class="island learning" href="learning.html">
+    🏝 学びの島 <span id="countLearning">0件</span>
+  </a>
+
+  <a class="island thanks" href="thanks.html">
+    🏝 感謝の島 <span id="countThanks">0件</span>
+  </a>
+
+  <a class="island healing" href="healing.html">
+    🏝 癒しの島 <span id="countHealing">0件</span>
+  </a>
+</div>
 
   <a class="backButton" href="index.html">🌎宝物地図へ戻る</a>
 </div>
 
+<script>
+const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cell = '', quote = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    const next = text[i + 1];
+
+    if (c === '"' && quote && next === '"') {
+      cell += '"';
+      i++;
+    } else if (c === '"') {
+      quote = !quote;
+    } else if (c === "," && !quote) {
+      row.push(cell);
+      cell = "";
+    } else if ((c === "\n" || c === "\r") && !quote) {
+      if (cell || row.length) {
+        row.push(cell);
+        rows.push(row);
+        row = [];
+        cell = "";
+      }
+      if (c === "\r" && next === "\n") i++;
+    } else {
+      cell += c;
+    }
+  }
+
+  if (cell || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+
+  return rows;
+}
+
+fetch(heartCsvUrl + "&t=" + Date.now())
+  .then(response => response.text())
+  .then(csv => {
+    const rows = parseCSV(csv);
+    const headers = rows[0];
+
+    const counts = {
+      "🏝感動の島": 0,
+      "🏝体験の島": 0,
+      "🏝学びの島": 0,
+      "🏝感謝の島": 0,
+      "🏝癒しの島": 0
+    };
+
+    rows.slice(1).forEach(row => {
+      const data = {};
+      headers.forEach((h, i) => data[h] = row[i] || "");
+
+      if (data["表示"] !== "表示") return;
+
+      if (counts[data["島カテゴリ"]] !== undefined) {
+        counts[data["島カテゴリ"]]++;
+      }
+    });
+
+    document.getElementById("countEmotion").textContent = counts["🏝感動の島"] + "件";
+    document.getElementById("countExperience").textContent = counts["🏝体験の島"] + "件";
+    document.getElementById("countLearning").textContent = counts["🏝学びの島"] + "件";
+    document.getElementById("countThanks").textContent = counts["🏝感謝の島"] + "件";
+    document.getElementById("countHealing").textContent = counts["🏝癒しの島"] + "件";
+  });
+</script>
+  
 </body>
 </html>
