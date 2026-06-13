@@ -357,14 +357,14 @@ box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   width: 180px;
   padding: 5px;
   
-  /* ちょっとだけ右に */
-  margin-left: auto;
-  margin-right: 10px;     /* ← ここを5〜15pxくらいで調整 */
+  /* ちょっと右・ちょっと上に寄せる（折り返し防止） */
+  float: right;                /* 右寄せの定番 */
+  margin-top: -8px;            /* ちょっと上（調整してください） */
+  margin-right: 10px;          /* 右端からの余白（ちょっと右） */
   
-  /* ちょっとだけ上に */
-  margin-top: -8px;       /* ← ここを -5px 〜 -12px で調整 */
-  
-  display: block;
+  /* 折り返し防止 */
+  display: inline-block;
+  white-space: nowrap;
 }
 
 #growthMap {
@@ -1313,7 +1313,7 @@ const legend = L.control({ position: 'topleft' });
 legend.onAdd = function () {
 const div = L.DomUtil.create('div', 'legend');
 
-div.style.marginTop = "-22px";
+div.style.marginTop = "-25px";
 div.style.marginLeft = "-9px";
 div.style.width = "235px";
 div.style.height = "325px";
