@@ -959,6 +959,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const fromReturn = location.search.includes("return=true");
 
+  alert("return=" + fromReturn);
+
   if (
     localStorage.getItem("treasureMapAccess") === "ok" ||
     fromReturn
