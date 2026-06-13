@@ -1019,28 +1019,27 @@ className: ""
 };
 
 // ==================== Cloudinary対応 loadPosts（ここだけ修正） ====================
+// ==================== 修正版 loadPosts ====================
 async function loadPosts() {
   try {
-    console.log("📡 データ取得開始... WEBAPP_URL =", WEBAPP_URL);
-    
-    const response = await fetch(WEBAPP_URL);
-    console.log("📥 レスポンスステータス:", response.status);
+    console.log("🌍 データ取得開始...");
 
-    const text = await response.text();
-    console.log("📄 受信データ:", text.substring(0, 300)); // 最初300文字だけ表示
+    const url = WEBAPP_URL + "?action=getPosts";
+    console.log("リクエストURL:", url);
 
-    const posts = JSON.parse(text);
-    console.log("✅ 投稿件数:", posts.length);
+    const response = await fetch(url);
+    console.log("レスポンスステータス:", response.status);
+
+    const posts = await response.json();
+    console.log("取得した投稿数:", posts.length);
+    console.log("最初の投稿サンプル:", posts[0]);
 
     // マーカークリア
     markers.forEach(m => map.removeLayer(m));
     markers.length = 0;
 
-    posts.forEach((post, index) => {
-      if (!post.lat || !post.lng) {
-        console.log(`スキップ ${index}番目: 緯度経度なし`);
-        return;
-      }
+    posts.forEach(post => {
+      if (!post.lat || !post.lng) return;
 
       const lat = parseFloat(post.lat);
       const lng = parseFloat(post.lng);
@@ -1079,8 +1078,7 @@ ${mediaHTML}
     console.log("🎉 マーカー追加完了！ 合計:", markers.length, "件");
 
   } catch (e) {
-    console.error("💥 loadPostsで大エラー:", e);
-    alert("地図読み込みエラー: " + e.message);
+    console.error("💥 loadPostsエラー:", e);
   }
 }
 
