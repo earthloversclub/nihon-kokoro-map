@@ -353,18 +353,28 @@ border-radius: 10px;
 box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
+/* ① 入力欄本体 */
 #searchInput {
   width: 180px;
-  padding: 5px;
+  padding: 5px 10px;   /* 左右に少し余白を追加 */
   
-  /* ちょっと右・ちょっと上に寄せる（折り返し防止） */
-  float: right;                /* 右寄せの定番 */
-  margin-top: -8px;            /* ちょっと上（調整してください） */
-  margin-right: 10px;          /* 右端からの余白（ちょっと右） */
-  
-  /* 折り返し防止 */
-  display: inline-block;
-  white-space: nowrap;
+  margin-top: -4px;    /* ちょっと上（控えめ） */
+  margin-right: 15px;  /* ← もうちょっと右にしたいならここを20pxや25pxに */
+}
+
+/* ② 検索ボタンと入力欄をまとめて右寄せ（超重要！） */
+#searchInput,
+button[ type="button" ],   /* または実際のボタンのクラスやID */
+.search-button {           /* ボタンにクラスがあればそれを使う */
+  vertical-align: middle;  /* 高さを揃える */
+}
+
+/* ③ 親要素（フォームや囲ってるdiv）を右寄せ */
+.search-form,             /* ← 実際の親のIDやクラスに置き換えてください */
+.search-container,
+header .search-area {
+  text-align: right;      /* これで全体が右寄せになる */
+  padding-right: 10px;    /* 右端からの余白 */
 }
 
 #growthMap {
@@ -1313,7 +1323,7 @@ const legend = L.control({ position: 'topleft' });
 legend.onAdd = function () {
 const div = L.DomUtil.create('div', 'legend');
 
-div.style.marginTop = "-25px";
+div.style.marginTop = "-20px";
 div.style.marginLeft = "-9px";
 div.style.width = "235px";
 div.style.height = "325px";
