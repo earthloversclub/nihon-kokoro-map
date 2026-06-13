@@ -195,10 +195,13 @@ object-fit: cover;
 margin-top: 0;
 }
 
-.popup-video {
+.video-thumb {
+position: relative;
 width: 100%;
 height: 85px;
-border: 0;
+margin-top: 0;
+cursor: pointer;
+overflow: hidden;
 border-radius: 8px;
 }
 
@@ -1144,10 +1147,9 @@ const videoThumbnail = data["動画"]
 console.log("動画サムネURL:", videoThumbnail);
 
 popup += `
-<div class="video-thumb"
-onclick='openMediaModal(${safeMediaItems}, ${mediaItems.length - 1})'>
-<img class="video-thumb-img" src="${videoThumbnail}">
-<div class="video-play-mark">▶</div>
+<div class="popup-img video-thumb" onclick='openMediaModal(${safeMediaItems}, ${mediaItems.length - 1})'>
+  <img class="video-thumb-img" src="${videoThumbnail}">
+  <div class="video-play-mark">▶</div>
 </div>
 `;
 }
