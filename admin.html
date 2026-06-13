@@ -134,6 +134,10 @@ button{
 
 <script>
 
+let lastSearchResults = [];
+let editingPostType = "";
+let editingSpotId = "";  
+
 const scriptUrl =
 "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec";
 
@@ -186,6 +190,7 @@ map.on("click", function(e){
     .then(res => res.json())
     .then(data => {
       const muniCd = data.results.muniCd;
+      lastSearchResults = results;
       const prefCode = muniCd.substring(0, 2);
       const prefName = prefectureMap[prefCode];
 
@@ -474,7 +479,7 @@ resultBox.innerHTML = results.map(item => `
       📝編集
    <button
   type="button"
-  onclick="alert('削除ボタン押せてる'); deleteFoundPost('${escapeJs(item.postType)}', '${escapeJs(item.id)}')"
+  onclick="deleteFoundPost('${escapeJs(item.postType)}', '${escapeJs(item.id)}')"
   style="width:auto;padding:8px 14px;margin-left:10px;">
   削除
 </button>
@@ -482,6 +487,51 @@ resultBox.innerHTML = results.map(item => `
 `).join("");
 }
 
+function editFoundPost(postType, spotId) {
+  const item = lastSearchResults.find(p =>
+    String(p.postType) === String(postType) &&
+    String(p.id) === String(spotId)
+  );
+
+  if (!item) {
+    alert("編集する投稿データが見つかりません");
+    return;
+  }
+
+  editingPostType = postType;
+  editingSpotId = spotId;
+
+  if (document.getElementById("title")) {
+    document.getElementById("title").value = item.title || "";
+  }
+
+  if (document.getElementById("poster")) {
+    document.getElementById("poster").value = item.poster || "";
+  }
+
+  if (document.getElementById("description")) {
+    document.getElementById("description").value = item.description || "";
+  }
+
+  if (document.getElementById("category")) {
+    document.getElementById("category").value = item.category || "";
+  }
+
+  if (document.getElementById("prefecture")) {
+    document.getElementById("prefecture").value = item.prefecture || "";
+  }
+
+  if (document.getElementById("lat")) {
+    document.getElementById("lat").value = item.lat || "";
+  }
+
+  if (document.getElementById("lng")) {
+    document.getElementById("lng").value = item.lng || "";
+  }
+
+  alert("編集データをフォームに入れました。\n内容を直してから更新してください。");
+}
+  
 function editFoundPost(postType, id) {
   alert("編集機能はまだ準備中です。\nID：" + id);
 }  
