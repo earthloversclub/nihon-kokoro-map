@@ -1411,20 +1411,21 @@ document.getElementById('modalVideo').src = "";
 let touchStartX = 0;
 
 document.getElementById('imageModal').addEventListener('touchstart', function(e) {
-touchStartX = e.touches[0].clientX;
-});
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
 
 document.getElementById('imageModal').addEventListener('touchend', function(e) {
-let touchEndX = e.changedTouches[0].clientX;
+  const touchEndX = e.changedTouches[0].clientX;
+  const diffX = touchEndX - touchStartX;
 
-if (touchStartX - touchEndX > 50) {
-showModalImage(1);
-}
+  if (Math.abs(diffX) < 50) return;
 
-if (touchEndX - touchStartX > 50) {
-showModalImage(-1);
-}
-});
+  if (diffX > 0) {
+    showModalImage(-1);
+  } else {
+    showModalImage(1);
+  }
+}, { passive: true });
 
 function sendThanks(button, spotId) {
 const key = "thanks_" + spotId;
