@@ -950,11 +950,17 @@ setTimeout(() => {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-if (localStorage.getItem("treasureMapAccess") === "ok") {
-openTreasureMap();
-}
-});
+  if (localStorage.getItem("treasureMapAccess") === "ok") {
+    openTreasureMap();
+  }
 
+  console.log("🌍 地図初期化開始");
+  loadPosts().then(() => {
+    console.log("✅ loadPosts完了");
+  }).catch(err => {
+    console.error("❌ loadPostsでエラー:", err);
+  });
+});
 function checkPassword() {
 const input = document.getElementById("passwordInput").value.trim();
 
@@ -1015,14 +1021,26 @@ className: ""
 // ==================== Cloudinary対応 loadPosts（ここだけ修正） ====================
 async function loadPosts() {
   try {
+    console.log("📡 データ取得開始... WEBAPP_URL =", WEBAPP_URL);
+    
     const response = await fetch(WEBAPP_URL);
-    const posts = await response.json();
+    console.log("📥 レスポンスステータス:", response.status);
 
+    const text = await response.text();
+    console.log("📄 受信データ:", text.substring(0, 300)); // 最初300文字だけ表示
+
+    const posts = JSON.parse(text);
+    console.log("✅ 投稿件数:", posts.length);
+
+    // マーカークリア
     markers.forEach(m => map.removeLayer(m));
     markers.length = 0;
 
-    posts.forEach(post => {
-      if (!post.lat || !post.lng) return;
+    posts.forEach((post, index) => {
+      if (!post.lat || !post.lng) {
+        console.log(`スキップ ${index}番目: 緯度経度なし`);
+        return;
+      }
 
       const lat = parseFloat(post.lat);
       const lng = parseFloat(post.lng);
@@ -1057,8 +1075,12 @@ ${mediaHTML}
       marker.addTo(map);
       markers.push(marker);
     });
+
+    console.log("🎉 マーカー追加完了！ 合計:", markers.length, "件");
+
   } catch (e) {
-    console.error(e);
+    console.error("💥 loadPostsで大エラー:", e);
+    alert("地図読み込みエラー: " + e.message);
   }
 }
 
