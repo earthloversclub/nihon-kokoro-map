@@ -482,7 +482,8 @@ resultBox.innerHTML = results.map(item => `
     </button>
   </div>
 `).join("");
-
+}
+  
 async function searchOneSheet(csvUrl, postType, typeLabel, keyword, poster, results){
 
   const response = await fetch(csvUrl + "&t=" + Date.now());
