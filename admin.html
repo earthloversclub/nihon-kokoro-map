@@ -460,7 +460,6 @@ async function searchDeletePosts(){
   await searchOneSheet(heartCsvUrl, "heart", "心の宝箱", keyword, poster, results);
 
 lastSearchResults = results;
-console.log(results);
   
   if(results.length === 0){
     resultBox.innerHTML = "<p>該当する投稿はありません</p>";
