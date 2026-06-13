@@ -1414,7 +1414,7 @@ message.textContent = makeThanksMessage();
 return;
 }
 
-fetch("https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec?action=add&spotId=" + encodeURIComponent(spotId), {
+fetch("https://script.google.com/macros/s/AKfycbz_pMRDZAqCAAdtpdcYk47TwS__buHZhAWcGEHH2A4AwWkr2oyz_p5zcXIh7fGbx5RVJw/exec?action=add&spotId=" + encodeURIComponent(spotId), {
 method: "GET",
 mode: "no-cors"
 });
@@ -1537,7 +1537,7 @@ loadJapanGrowthMap();
 }, 100);
 }
 function loadThanksTotal() {
-fetch("https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec")
+fetch("https://script.google.com/macros/s/AKfycbz_pMRDZAqCAAdtpdcYk47TwS__buHZhAWcGEHH2A4AwWkr2oyz_p5zcXIh7fGbx5RVJw/exec")
 .then(response => response.json())
 .then(data => {
 document.getElementById("thanksTotal").textContent = data.total || 0;
