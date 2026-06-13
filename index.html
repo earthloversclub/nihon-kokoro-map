@@ -1078,6 +1078,14 @@ async function loadPosts() {
         mediaHTML += `</div>`;
       }
 
+     // 投稿成功後に地図を自動更新したい場合（admin.htmlから呼べるように）
+window.refreshMap = function() {
+  // マーカーを一旦全部削除
+  markers.forEach(m => map.removeLayer(m));
+  markers.length = 0;
+  loadPosts();   // 再読み込み
+};
+
       let popup = `
 <strong>${post.title || '無題'}</strong><br>
 ${post.message ? post.message + "<br>" : ""}
