@@ -2,91 +2,57 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>管理者投稿ページ</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<title>管理者投稿テスト</title>
 <style>
-body { margin:0; font-family:sans-serif; background:#f7f7f7; }
-h2 { text-align:center; color:#256b3b; }
-#map { height: calc(100vh - 60px); width: 100%; }
-#formBox { position: absolute; top: 120px; right: 25px; z-index: 1000; background:white; padding:18px; width: 420px; border-radius: 18px; box-shadow: 0 2px 16px rgba(0,0,0,0.25); }
-input, textarea { width:100%; margin:8px 0; padding:10px; box-sizing:border-box; }
-button { background:#4caf50; color:white; border:none; padding:14px; width:100%; font-size:16px; border-radius:12px; cursor:pointer; }
+  body { font-family: sans-serif; padding: 20px; background: #f0f8f0; }
+  input, textarea, button { margin: 10px 0; padding: 12px; width: 100%; font-size: 16px; }
+  button { background: #4caf50; color: white; border: none; border-radius: 10px; }
 </style>
 </head>
-
 <body>
 
-<h2>🌈 管理者投稿ページ 🌈</h2>
+<h2>シンプル投稿テスト</h2>
 
-<div id="map"></div>
+<input id="title" value="テスト投稿" placeholder="タイトル"><br>
+<textarea id="description" rows="3">これはテストです</textarea><br>
+<input id="lat" value="43.7334" placeholder="緯度"><br>
+<input id="lng" value="142.5586" placeholder="経度"><br>
+<input type="file" id="mediaFile"><br><br>
 
-<div id="formBox">
-  <input id="title" placeholder="タイトル" required><br>
-  <textarea id="description" placeholder="感謝のメッセージや説明" rows="4" required></textarea><br>
-  
-  <input id="lat" placeholder="緯度" readonly><br>
-  <input id="lng" placeholder="経度" readonly><br>
-  <input id="prefecture" placeholder="都道府県"><br>
+<button onclick="submitTest()">投稿テスト実行</button>
 
-  <input type="file" id="mediaFile" accept="image/*,video/*"><br><br>
-
-  <button onclick="submitPost()">投稿する 💖</button>
-</div>
-
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_pMRDZAqCAAdtpdcYk47TwS__buHZhAWcGEHH2A4AwWkr2oyz_p5zcXIh7fGbx5RVJw/exec";
 
-const map = L.map('map').setView([36.2, 138.2], 5);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-let currentMarker = null;
-
-map.on("click", function(e) {
-  const lat = e.latlng.lat.toFixed(6);
-  const lng = e.latlng.lng.toFixed(6);
-  document.getElementById("lat").value = lat;
-  document.getElementById("lng").value = lng;
-  document.getElementById("prefecture").value = "取得中...";
-
-  if (currentMarker) map.removeLayer(currentMarker);
-  currentMarker = L.marker([lat, lng]).addTo(map);
-});
-
-async function submitPost() {
-  const btn = event.currentTarget;
-  const originalText = btn.textContent;
-  btn.disabled = true;
-  btn.textContent = "投稿中...";
+async function submitTest() {
+  console.log("✅ ボタンが押されました");
 
   const formData = new FormData();
   formData.append('adminSecret', 'hirochietarosasu523');
-  formData.append('title', document.getElementById("title").value || '無題');
-  formData.append('message', document.getElementById("description").value || '');
+  formData.append('title', document.getElementById("title").value);
+  formData.append('message', document.getElementById("description").value);
   formData.append('lat', document.getElementById("lat").value);
   formData.append('lng', document.getElementById("lng").value);
 
   const file = document.getElementById("mediaFile").files[0];
-  if (file) formData.append('mediaFile', file);
-
-  try {
-    const res = await fetch(SCRIPT_URL, { method: 'POST', body: formData });
-    const text = await res.text();
-    alert("返事: " + text);
-
-    if (text.includes("成功")) {
-      alert("✅ 投稿成功！");
-      // リセット
-      document.getElementById("title").value = "";
-      document.getElementById("description").value = "";
-      document.getElementById("mediaFile").value = "";
-    }
-  } catch (err) {
-    alert("エラー: " + err.message);
+  if (file) {
+    console.log("📎 ファイルあり:", file.name);
+    formData.append('mediaFile', file);
   }
 
-  btn.disabled = false;
-  btn.textContent = originalText;
+  try {
+    console.log("🚀 送信開始...");
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: formData
+    });
+    const text = await res.text();
+    console.log("📥 返事:", text);
+    alert("サーバーからの返事:\n" + text);
+  } catch (err) {
+    console.error("❌ エラー:", err);
+    alert("エラー発生: " + err.message);
+  }
 }
 </script>
 </body>
