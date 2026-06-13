@@ -1377,13 +1377,16 @@ document.getElementById('imageCounter').textContent =
 (modalIndex + 1) + " / " + modalItems.length;
 }
 
- if (modalItems.length <= 1) {
-  document.getElementById("modalPrev").style.display = "none";
-  document.getElementById("modalNext").style.display = "none";
+const prevBtn = document.getElementById("modalPrev");
+const nextBtn = document.getElementById("modalNext");
+
+if (modalItems.length <= 1) {
+  prevBtn.style.display = "none";
+  nextBtn.style.display = "none";
 } else {
-  document.getElementById("modalPrev").style.display = "block";
-  document.getElementById("modalNext").style.display = "block";
-} 
+  prevBtn.style.display = "inline-block";
+  nextBtn.style.display = "inline-block";
+}
 
 function showModalImage(direction) {
 if (modalItems.length === 0) return;
