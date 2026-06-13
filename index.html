@@ -956,9 +956,17 @@ map.invalidateSize();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-if (localStorage.getItem("treasureMapAccess") === "ok") {
-openTreasureMap();
-}
+
+  const fromReturn =
+    new URLSearchParams(location.search).get("return") === "true";
+
+  if (
+    localStorage.getItem("treasureMapAccess") === "ok" ||
+    fromReturn
+  ) {
+    openTreasureMap();
+  }
+
 });
 
 function checkPassword() {
