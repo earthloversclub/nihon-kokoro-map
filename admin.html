@@ -52,6 +52,18 @@ button{
   cursor:pointer;
   font-weight:bold;
 }
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+input, select, textarea {
+  margin: 4px 0;
+  padding: 7px;
+}
+  
 </style>
 </head>
 
@@ -65,38 +77,39 @@ button{
 
 <input id="secret" value="hirochietarosasu523" type="hidden">
 
-<select id="postType" onchange="togglePostType()">
-  <option value="map">宝物地図に投稿</option>
-  <option value="heart">心の宝箱に投稿</option>
-</select>
-  
-<div id="mapFields">
+<div class="row2">
+  <select id="postType" onchange="togglePostType()">
+    <option value="map">宝物地図に投稿</option>
+    <option value="heart">心の宝箱に投稿</option>
+  </select>
 
-<input id="addressSearch" placeholder="住所・施設名で検索 例：東京タワー">
-
-<button type="button" onclick="searchAddress()">
-検索してピンを立てる
-</button>
-
-<input id="lat" placeholder="緯度" readonly>
-
-<input id="lng" placeholder="経度" readonly>
-
-<input id="prefecture" placeholder="都道府県">
-
+  <select id="category">
+    <option>温泉・宿泊</option>
+    <option>自然・絶景</option>
+    <option>グルメ・特産品</option>
+    <option>神社仏閣・歴史</option>
+    <option>自然農</option>
+    <option>イベント・体験</option>
+    <option>人・活動・想い</option>
+  </select>
 </div>
 
-<input id="title" placeholder="タイトル">
+<div id="mapFields">
 
-<select id="category">
-<option>温泉・宿泊</option>
-<option>自然・絶景</option>
-<option>グルメ・特産品</option>
-<option>神社仏閣・歴史</option>
-<option>自然農</option>  
-<option>イベント・体験</option>
-<option>人・活動・想い</option>
-</select>
+  <input id="addressSearch" placeholder="住所・施設名で検索 例：東京タワー">
+
+  <button type="button" onclick="searchAddress()">
+    検索してピンを立てる
+  </button>
+
+  <div class="row2">
+    <input id="lat" placeholder="緯度" readonly>
+    <input id="lng" placeholder="経度" readonly>
+  </div>
+
+  <input id="prefecture" placeholder="都道府県">
+
+</div>
 
 <textarea id="description" placeholder="説明"></textarea>
 
