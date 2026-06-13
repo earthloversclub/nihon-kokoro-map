@@ -1537,7 +1537,7 @@ loadJapanGrowthMap();
 }, 100);
 }
 function loadThanksTotal() {
-fetch("https://script.google.com/macros/s/AKfycbz_pMRDZAqCAAdtpdcYk47TwS__buHZhAWcGEHH2A4AwWkr2oyz_p5zcXIh7fGbx5RVJw/exec")
+fetch("https://script.google.com/macros/s/AKfycbz_pMRDZAqCAAdtpdcYk47TwS__buHZhAWcGEHH2A4AWwkr2Oyz_p5zcXIh7fGbx5RVJw/exec?action=add&spotId=" + encodeURIComponent(spotId), {
 .then(response => response.json())
 .then(data => {
 document.getElementById("thanksTotal").textContent = data.total || 0;
