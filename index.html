@@ -1307,8 +1307,8 @@ totalPostsBox.onAdd = function () {
 const isPC = window.innerWidth >= 768;  
 const div = L.DomUtil.create('div', 'legend');
 
-div.style.width = "420px";
-div.style.height = "270px";
+div.style.width = isPC ? "420px" : "330px";
+div.style.height = isPC ? "270px" : "210px";
 div.style.background = "url('images/treasure-frame.png') center center no-repeat";
 div.style.backgroundSize = "100% 100%";
 div.style.border = "none";
@@ -1323,10 +1323,10 @@ div.innerHTML = `
 <div id="totalPostsCount"
 style="
 position:absolute;
-top:${isPC ? "125px" : "132px"};
+top:${isPC ? "125px" : "107px"};
 left:50%;
 transform:translateX(-50%);
-font-size:48px;
+font-size:${isPC ? "48px" : "35px"};
 font-weight:900;
 color:#ff8c00;
 text-shadow:
