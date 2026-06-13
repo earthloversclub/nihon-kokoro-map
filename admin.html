@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>管理者投稿ページ</title>
-
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
 <style>
 body { margin:0; font-family:sans-serif; background:#f7f7f7; }
 h2 { text-align:center; color:#256b3b; }
@@ -24,215 +22,80 @@ button { background:#cdebd4; border:none; padding:12px 20px; border-radius:20px;
 <div id="map"></div>
 
 <div id="formBox">
+  <input id="secret" value="hirochietarosasu523" type="hidden">
 
-<input id="secret" value="hirochietarosasu523" type="hidden">   <!-- ← あなたの実際のキーに変更！ -->
-
-<select id="postType" onchange="togglePostType()">
-  <option value="map">宝物地図に投稿</option>
-  <option value="heart">心の宝箱に投稿</option>
-</select>
+  <input id="title" placeholder="タイトル" required>
+  <textarea id="description" placeholder="感謝のメッセージや説明" rows="4" required></textarea>
   
-<div id="mapFields">
-  <input id="addressSearch" placeholder="住所・施設名で検索 例：東京タワー">
-  <button type="button" onclick="searchAddress()">検索してピンを立てる</button>
   <input id="lat" placeholder="緯度" readonly>
   <input id="lng" placeholder="経度" readonly>
   <input id="prefecture" placeholder="都道府県">
-</div>
 
-<input id="title" placeholder="タイトル">
+  <input type="file" id="mediaFile" accept="image/*,video/*">
 
-<select id="category">
-  <option>温泉・宿泊</option>
-  <option>自然・絶景</option>
-  <option>グルメ・特産品</option>
-  <option>神社仏閣・歴史</option>
-  <option>自然農</option>  
-  <option>イベント・体験</option>
-  <option>人・活動・想い</option>
-</select>
-
-<textarea id="description" placeholder="説明"></textarea>
-
-<select id="posterSelect" onchange="setPosterName()">
-  <option value="">投稿者を選択</option>
-  <option value="匿名さん">匿名さん</option>
-  <option value="green orbit">green orbit</option>
-  <option value="地球大好きっ子クラブ">地球大好きっ子クラブ</option>
-</select>
-  
-<input id="poster" placeholder="投稿者">
-
-<input type="file" id="imageFile" accept="image/*,video/*" multiple>
-
-<button id="submitButton" onclick="submitPost()">投稿する</button>
-
-<hr>
-
-<h3>🗑 投稿検索・削除</h3>
-
-<input id="deleteKeyword" placeholder="検索ワード（タイトル・本文など）">
-<input id="deletePoster" placeholder="投稿者">
-<button type="button" onclick="searchDeletePosts()">検索する</button>
-
-<div id="deleteResults"></div>
-
+  <button onclick="submitPost()">投稿する💖</button>
 </div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
 <script>
-// ==================== 設定 ====================
-const ADMIN_SECRET = "hirochietarosasu523";   // ← あなたの実際のキーに変更！
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0JY8Hv_b4AUccKDnIuHjtW9B_DGzTOR_Q97vO6aTHvchFpx3RjA/exec";
+// 設定
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDoo6zqlwZ-1nkPt9pD3emE0ivjlIUPG8HnLFxTKLvc2GYmAqDJfDY68ykjOPCjmcoaw/exec";  // ← あなたの最新URLに変更！
 
-const CLOUDINARY_CLOUD_NAME = "dvsfd4evc";
-const CLOUDINARY_UPLOAD_PRESET = "earthloversclub_upload";
-
-// ==================== 地図 ====================
 const map = L.map('map').setView([36.2, 138.2], 5);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap'
-}).addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-let marker = null;
+let currentMarker = null;
 
-const prefectureMap = {
-  "01":"北海道","02":"青森","03":"岩手","04":"宮城","05":"秋田","06":"山形","07":"福島",
-  "08":"茨城","09":"栃木","10":"群馬","11":"埼玉","12":"千葉","13":"東京","14":"神奈川",
-  "15":"新潟","16":"富山","17":"石川","18":"福井","19":"山梨","20":"長野","21":"岐阜",
-  "22":"静岡","23":"愛知","24":"三重","25":"滋賀","26":"京都","27":"大阪","28":"兵庫",
-  "29":"奈良","30":"和歌山","31":"鳥取","32":"島根","33":"岡山","34":"広島","35":"山口",
-  "36":"徳島","37":"香川","38":"愛媛","39":"高知","40":"福岡","41":"佐賀","42":"長崎",
-  "43":"熊本","44":"大分","45":"宮崎","46":"鹿児島","47":"沖縄"
-};
-
-// ==================== ユーティリティ ====================
-function escapeHtml(str) {
-  return String(str || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
-}
-
-// ==================== マップクリック ====================
 map.on("click", function(e) {
   const lat = e.latlng.lat.toFixed(6);
   const lng = e.latlng.lng.toFixed(6);
   document.getElementById("lat").value = lat;
   document.getElementById("lng").value = lng;
-  document.getElementById("prefecture").value = "取得中...";
 
-  if (marker) map.removeLayer(marker);
-  marker = L.marker([lat, lng]).addTo(map);
-
-  fetch(`https://mreversegeocoder.gsi.go.jp/reverse-geocoder/LonLatToAddress?lat=${lat}&lon=${lng}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.results) {
-        const prefCode = data.results.muniCd.substring(0, 2);
-        document.getElementById("prefecture").value = prefectureMap[prefCode] || "";
-      }
-    });
+  if (currentMarker) map.removeLayer(currentMarker);
+  currentMarker = L.marker([lat, lng]).addTo(map);
 });
 
-// ==================== フォーム ====================
-function togglePostType() {
-  const isHeart = document.getElementById("postType").value === "heart";
-  document.getElementById("mapFields").style.display = isHeart ? "none" : "block";
-  const category = document.getElementById("category");
-  if (isHeart) {
-    category.innerHTML = `<option>🏝感動の島</option><option>🏝体験の島</option><option>🏝学びの島</option><option>🏝感謝の島</option><option>🏝癒しの島</option>`;
-  } else {
-    category.innerHTML = `<option>温泉・宿泊</option><option>自然・絶景</option><option>グルメ・特産品</option><option>神社仏閣・歴史</option><option>自然農</option><option>イベント・体験</option><option>人・活動・想い</option>`;
-  }
-}
-
-function setPosterName() {
-  const selected = document.getElementById("posterSelect").value;
-  if (selected) document.getElementById("poster").value = selected;
-}
-
-// ==================== 投稿送信（完全版） ====================
 async function submitPost() {
-  const btn = document.getElementById("submitButton");
+  const btn = event.target;
   btn.disabled = true;
   btn.textContent = "投稿中...";
-  btn.style.background = "#ffd6a5";
 
-  const files = Array.from(document.getElementById("imageFile").files);
-  const data = {
-    postType: document.getElementById("postType").value,
-    secret: ADMIN_SECRET,
-    category: document.getElementById("category").value,
-    prefecture: document.getElementById("prefecture").value,
-    title: document.getElementById("title").value,
-    description: document.getElementById("description").value,
-    lat: document.getElementById("lat").value,
-    lng: document.getElementById("lng").value,
-    image: "", image2: "", image3: "", image4: "",
-    video: "",
-    poster: document.getElementById("poster").value
-  };
+  const formData = new FormData();
+  formData.append('adminSecret', document.getElementById("secret").value);
+  formData.append('title', document.getElementById("title").value);
+  formData.append('message', document.getElementById("description").value);
+  formData.append('lat', document.getElementById("lat").value);
+  formData.append('lng', document.getElementById("lng").value);
+  formData.append('mediaFile', document.getElementById("mediaFile").files[0]);
 
   try {
-    const imageFiles = files.filter(f => f.type.startsWith("image/"));
-    const videoFiles = files.filter(f => f.type.startsWith("video/"));
-
-    for (let file of imageFiles) {
-      const url = await uploadToCloudinary(file);
-      if (!data.image) data.image = url;
-      else if (!data.image2) data.image2 = url;
-      else if (!data.image3) data.image3 = url;
-      else if (!data.image4) data.image4 = url;
-    }
-    if (videoFiles[0]) data.video = await uploadToCloudinary(videoFiles[0]);
-
     const res = await fetch(SCRIPT_URL, {
-      method: "POST",
-      body: JSON.stringify(data)
+      method: 'POST',
+      body: formData
     });
-    const result = await res.json();
+    const text = await res.text();
 
-    if (result.success) {
-      alert("投稿成功🌈");
-      // リセット
+    if (text.includes("成功")) {
+      alert("投稿成功！💖 Cloudinaryに保存されました");
+      // フォームリセット
       document.getElementById("title").value = "";
       document.getElementById("description").value = "";
-      document.getElementById("poster").value = "";
-      document.getElementById("imageFile").value = "";
-      document.getElementById("addressSearch").value = "";
-      document.getElementById("lat").value = "";
-      document.getElementById("lng").value = "";
-      document.getElementById("prefecture").value = "";
-      if (marker) { map.removeLayer(marker); marker = null; }
+      document.getElementById("mediaFile").value = "";
+      if (currentMarker) {
+        map.removeLayer(currentMarker);
+        currentMarker = null;
+      }
     } else {
-      alert("失敗: " + (result.message || "不明"));
+      alert("エラー: " + text);
     }
   } catch (err) {
-    alert("送信エラー: " + err.message);
+    alert("通信エラー: " + err.message);
   }
 
   btn.disabled = false;
-  btn.textContent = "投稿する";
-  btn.style.background = "#cdebd4";
+  btn.textContent = "投稿する💖";
 }
-
-async function uploadToCloudinary(file) {
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-
-  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`, {
-    method: "POST",
-    body: formData
-  });
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.error?.message || "アップロード失敗");
-  return json.secure_url;
-}
-
-// 他の簡易関数
-function searchDeletePosts() { alert("検索機能は現在調整中です"); }
-function searchAddress() { alert("住所検索は現在調整中です"); }
-
 </script>
 </body>
 </html>
