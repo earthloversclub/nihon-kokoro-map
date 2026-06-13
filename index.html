@@ -1303,6 +1303,8 @@ loadRanking();
 const totalPostsBox = L.control({ position: 'bottomright' });
 
 totalPostsBox.onAdd = function () {
+
+const isPC = window.innerWidth >= 768;  
 const div = L.DomUtil.create('div', 'legend');
 
 div.style.width = "420px";
@@ -1321,7 +1323,7 @@ div.innerHTML = `
 <div id="totalPostsCount"
 style="
 position:absolute;
-top:138px;
+top:${isPC ? "125px" : "132px"};
 left:50%;
 transform:translateX(-50%);
 font-size:48px;
