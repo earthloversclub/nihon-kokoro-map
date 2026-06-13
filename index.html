@@ -1414,10 +1414,11 @@ message.textContent = makeThanksMessage();
 return;
 }
 
-fetch(https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=add&spotId=" + encodeURIComponent(spotId), {
+fetch("https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=add&spotId=" + encodeURIComponent(spotId), {
   method: "GET",
   mode: "no-cors"
 });
+  
 localStorage.setItem(key, "done");
 
 button.style.display = "none";
