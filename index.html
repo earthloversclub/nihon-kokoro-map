@@ -822,6 +822,16 @@ border-radius:10px;
 color:red;
 margin-top:10px;
 }
+
+.image-carousel:not(.multi-images) .popup-img,
+.image-carousel:not(.multi-images) .video-thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  margin-top: 8px;
+  border-radius: 8px;
+}
+  
 </style>
 
 <meta name="robots" content="noindex, nofollow">
@@ -918,13 +928,13 @@ margin-top:10px;
 <div id="imageModal" class="image-modal">
 <span class="image-modal-close" onclick="closeImageModal()">×</span>
 
-<button onclick="showModalImage(-1)">◀</button>
+<button id="modalPrev" onclick="showModalImage(-1)">◀</button>
 
 <img id="modalImage" src="">
 <iframe id="modalVideo" class="modal-video" src="" allow="autoplay" allowfullscreen></iframe>
 <div id="imageCounter">1 / 1</div>
 
-<button onclick="showModalImage(1)">▶</button>
+<button id="modalNext" onclick="showModalImage(1)">▶</button>
 </div>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
@@ -1366,6 +1376,14 @@ video.src = item.url;
 document.getElementById('imageCounter').textContent =
 (modalIndex + 1) + " / " + modalItems.length;
 }
+
+ if (modalItems.length <= 1) {
+  document.getElementById("modalPrev").style.display = "none";
+  document.getElementById("modalNext").style.display = "none";
+} else {
+  document.getElementById("modalPrev").style.display = "block";
+  document.getElementById("modalNext").style.display = "block";
+} 
 
 function showModalImage(direction) {
 if (modalItems.length === 0) return;
