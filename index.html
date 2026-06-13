@@ -343,19 +343,21 @@ font-size: 16px;
 padding: 8px 12px;
 }
 #searchBox {
-position: absolute;
-top: 90px;
-right: 20px;
-z-index: 1000;
-background: white;
-padding: 8px;
-border-radius: 10px;
-box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 90px;
+  right: 10px;           /* ← 20px → 10px に減らしてちょっと右に */
+  z-index: 1000;
+  background: white;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  
+  width: 210px;          /* ← 全体の幅を少し狭く（調整可） */
 }
 
 #searchInput {
-width: 180px;
-padding: 5px;
+  width: 160px;          /* ← 180px → 160px に短く */
+  padding: 5px 8px;      /* 左右に少し余白を入れて見やすく */
 }
 
 #growthMap {
@@ -1304,7 +1306,7 @@ const legend = L.control({ position: 'topleft' });
 legend.onAdd = function () {
 const div = L.DomUtil.create('div', 'legend');
 
-div.style.marginTop = "-16px";
+div.style.marginTop = "-18px";
 div.style.marginLeft = "-9px";
 div.style.width = "235px";
 div.style.height = "325px";
