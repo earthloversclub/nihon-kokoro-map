@@ -1024,19 +1024,34 @@ async function loadPosts() {
   try {
     console.log("🌍 データ取得開始...");
 
-    const url = WEBAPP_URL + "?action=getPosts";
+    // パラメータを正しく付ける
+    const url = WEBAPP_URL + (WEBAPP_URL.includes("?") ? "&" : "?") + "action=getPosts";
     console.log("リクエストURL:", url);
 
     const response = await fetch(url);
     console.log("レスポンスステータス:", response.status);
 
-    const posts = await response.json();
-    console.log("取得した投稿数:", posts.length);
-    console.log("最初の投稿サンプル:", posts[0]);
+    const text = await response.text();
+    console.log("受信データ:", text);
+
+    let posts;
+    try {
+      posts = JSON.parse(text);
+    } catch (e) {
+      console.error("JSONパース失敗");
+      posts = [];
+    }
+
+    console.log("投稿件数:", Array.isArray(posts) ? posts.length : "配列じゃない");
 
     // マーカークリア
     markers.forEach(m => map.removeLayer(m));
     markers.length = 0;
+
+    if (!Array.isArray(posts)) {
+      console.error("postsが配列じゃない:", posts);
+      return;
+    }
 
     posts.forEach(post => {
       if (!post.lat || !post.lng) return;
