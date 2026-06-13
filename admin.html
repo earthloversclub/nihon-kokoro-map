@@ -524,7 +524,7 @@ async function searchOneSheet(csvUrl, postType, typeLabel, keyword, poster, resu
 
 function deleteFoundPost(postType, spotId){
 
-  const secret = document.getElementById("secret").value;
+  const secret = ADMIN_KEY;
 
   if(!confirm("この投稿を削除していい？\n\nID: " + spotId)){
     return;
