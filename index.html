@@ -1380,12 +1380,12 @@ document.getElementById('imageCounter').textContent =
 const prevBtn = document.getElementById("modalPrev");
 const nextBtn = document.getElementById("modalNext");
 
-if (modalItems.length <= 1) {
+if (modalItems && modalItems.length > 1) {
+  prevBtn.style.display = "";
+  nextBtn.style.display = "";
+} else {
   prevBtn.style.display = "none";
   nextBtn.style.display = "none";
-} else {
-  prevBtn.style.display = "inline-block";
-  nextBtn.style.display = "inline-block";
 }
 
 function showModalImage(direction) {
