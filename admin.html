@@ -190,8 +190,6 @@ map.on("click", function(e){
     .then(res => res.json())
     .then(data => {
       const muniCd = data.results.muniCd;
-      lastSearchResults = results;
-      console.log(results);
       const prefCode = muniCd.substring(0, 2);
       const prefName = prefectureMap[prefCode];
 
@@ -461,6 +459,9 @@ async function searchDeletePosts(){
   await searchOneSheet(mapCsvUrl, "map", "宝物地図", keyword, poster, results);
   await searchOneSheet(heartCsvUrl, "heart", "心の宝箱", keyword, poster, results);
 
+lastSearchResults = results;
+console.log(results);
+  
   if(results.length === 0){
     resultBox.innerHTML = "<p>該当する投稿はありません</p>";
     return;
