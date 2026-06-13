@@ -957,8 +957,7 @@ map.invalidateSize();
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const fromReturn =
-    new URLSearchParams(location.search).get("return") === "true";
+  const fromReturn = location.search.includes("return=true");
 
   if (
     localStorage.getItem("treasureMapAccess") === "ok" ||
