@@ -532,10 +532,6 @@ function editFoundPost(postType, spotId) {
   alert("編集データをフォームに入れました。\n内容を直してから更新してください。");
 }
   
-function editFoundPost(postType, id) {
-  alert("編集機能はまだ準備中です。\nID：" + id);
-}  
-  
 async function searchOneSheet(csvUrl, postType, typeLabel, keyword, poster, results){
 
   const response = await fetch(csvUrl + "&t=" + Date.now());
