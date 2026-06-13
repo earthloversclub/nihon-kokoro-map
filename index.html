@@ -959,12 +959,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const fromReturn = location.search.includes("return=true");
 
-  alert("return=" + fromReturn);
+  if (fromReturn) {
+    document.getElementById("passwordGate").style.display = "none";
+    document.getElementById("titleSplash").style.display = "none";
+    openTreasureMap();
+    return;
+  }
 
-  if (
-    localStorage.getItem("treasureMapAccess") === "ok" ||
-    fromReturn
-  ) {
+  if (localStorage.getItem("treasureMapAccess") === "ok") {
     openTreasureMap();
   }
 
