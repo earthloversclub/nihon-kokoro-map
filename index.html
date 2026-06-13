@@ -354,8 +354,17 @@ box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 #searchInput {
-width: 180px;
-padding: 5px;
+  width: 180px;
+  padding: 5px;
+  
+  /* ちょっとだけ右に */
+  margin-left: auto;
+  margin-right: 10px;     /* ← ここを5〜15pxくらいで調整 */
+  
+  /* ちょっとだけ上に */
+  margin-top: -8px;       /* ← ここを -5px 〜 -12px で調整 */
+  
+  display: block;
 }
 
 #growthMap {
