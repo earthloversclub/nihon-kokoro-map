@@ -1418,7 +1418,6 @@ fetch("https://script.google.com/macros/s/AKfycbz_pMRDZAqCAAdtpdcYk47TwS__buHZhA
   method: "GET",
   mode: "no-cors"
 });
-
 localStorage.setItem(key, "done");
 
 button.style.display = "none";
@@ -1427,7 +1426,7 @@ message.textContent = makeThanksMessage();
 showSparkles();
 }
 
-function showSparkles() {
+function () {
 for (let i = 0; i < 20; i++) {
 const sparkle = document.createElement("div");
 
