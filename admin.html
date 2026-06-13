@@ -25,7 +25,7 @@ button { background:#cdebd4; border:none; padding:12px 20px; border-radius:20px;
 
 <div id="formBox">
 
-<input id="secret" value="hirochietarosasu523" type="hidden">   <!-- あなたの実際のキーに変更 -->
+<input id="secret" value="hirochietarosasu523" type="hidden">   <!-- ← あなたの実際のキーに変更 -->
 
 <select id="postType" onchange="togglePostType()">
   <option value="map">宝物地図に投稿</option>
@@ -89,7 +89,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyx8GxcU-C-Wz_vF1Y0J
 const CLOUDINARY_CLOUD_NAME = "dvsfd4evc";
 const CLOUDINARY_UPLOAD_PRESET = "earthloversclub_upload";
 
-// ==================== 地図初期化 ====================
+// ==================== 地図 ====================
 const map = L.map('map').setView([36.2, 138.2], 5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap'
@@ -108,7 +108,9 @@ const prefectureMap = {
 };
 
 // ==================== ユーティリティ ====================
-function escapeHtml(str) { return String(str || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
+function escapeHtml(str) {
+  return String(str || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
 
 // ==================== マップクリック ====================
 map.on("click", function(e) {
@@ -131,10 +133,103 @@ map.on("click", function(e) {
     });
 });
 
-// 他の関数は省略せず後で追加しますが、まずは地図だけでも安定させる
-function togglePostType() { alert("トグル機能は調整中"); }
-function setPosterName() { }
-async function submitPost() { alert("投稿機能は現在調整中です"); }
+// ==================== フォーム ====================
+function togglePostType() {
+  const isHeart = document.getElementById("postType").value === "heart";
+  document.getElementById("mapFields").style.display = isHeart ? "none" : "block";
+  const category = document.getElementById("category");
+  if (isHeart) {
+    category.innerHTML = `<option>🏝感動の島</option><option>🏝体験の島</option><option>🏝学びの島</option><option>🏝感謝の島</option><option>🏝癒しの島</option>`;
+  } else {
+    category.innerHTML = `<option>温泉・宿泊</option><option>自然・絶景</option><option>グルメ・特産品</option><option>神社仏閣・歴史</option><option>自然農</option><option>イベント・体験</option><option>人・活動・想い</option>`;
+  }
+}
+
+function setPosterName() {
+  const selected = document.getElementById("posterSelect").value;
+  if (selected) document.getElementById("poster").value = selected;
+}
+
+// ==================== 投稿送信（完全版） ====================
+async function submitPost() {
+  const btn = document.getElementById("submitButton");
+  btn.disabled = true;
+  btn.textContent = "投稿中...";
+  btn.style.background = "#ffd6a5";
+
+  const files = Array.from(document.getElementById("imageFile").files);
+  const data = {
+    postType: document.getElementById("postType").value,
+    secret: ADMIN_SECRET,
+    category: document.getElementById("category").value,
+    prefecture: document.getElementById("prefecture").value,
+    title: document.getElementById("title").value,
+    description: document.getElementById("description").value,
+    lat: document.getElementById("lat").value,
+    lng: document.getElementById("lng").value,
+    image: "", image2: "", image3: "", image4: "",
+    video: "",
+    poster: document.getElementById("poster").value
+  };
+
+  try {
+    const imageFiles = files.filter(f => f.type.startsWith("image/"));
+    const videoFiles = files.filter(f => f.type.startsWith("video/"));
+
+    for (let file of imageFiles) {
+      const url = await uploadToCloudinary(file);
+      if (!data.image) data.image = url;
+      else if (!data.image2) data.image2 = url;
+      else if (!data.image3) data.image3 = url;
+      else if (!data.image4) data.image4 = url;
+    }
+    if (videoFiles[0]) data.video = await uploadToCloudinary(videoFiles[0]);
+
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+
+    if (result.success) {
+      alert("投稿成功🌈");
+      // フォームリセット
+      document.getElementById("title").value = "";
+      document.getElementById("description").value = "";
+      document.getElementById("poster").value = "";
+      document.getElementById("imageFile").value = "";
+      document.getElementById("addressSearch").value = "";
+      document.getElementById("lat").value = "";
+      document.getElementById("lng").value = "";
+      document.getElementById("prefecture").value = "";
+      if (marker) { map.removeLayer(marker); marker = null; }
+    } else {
+      alert("失敗: " + (result.message || "不明"));
+    }
+  } catch (err) {
+    alert("送信エラー: " + err.message);
+  }
+
+  btn.disabled = false;
+  btn.textContent = "投稿する";
+  btn.style.background = "#cdebd4";
+}
+
+async function uploadToCloudinary(file) {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`, {
+    method: "POST",
+    body: formData
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.error?.message || "アップロード失敗");
+  return json.secure_url;
+}
+
+// 他の関数（簡易版）
 function searchDeletePosts() { alert("検索機能は現在調整中です"); }
 function searchAddress() { alert("住所検索は現在調整中です"); }
 
