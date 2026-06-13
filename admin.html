@@ -25,7 +25,7 @@ button { background:#cdebd4; border:none; padding:12px 20px; border-radius:20px;
 
 <div id="formBox">
 
-<input id="secret" value="hirochietarosasu523" type="hidden">   <!-- ← あなたの実際のキーに変更 -->
+<input id="secret" value="hirochietarosasu523" type="hidden">   <!-- ← あなたの実際のキーに変更！ -->
 
 <select id="postType" onchange="togglePostType()">
   <option value="map">宝物地図に投稿</option>
@@ -193,7 +193,7 @@ async function submitPost() {
 
     if (result.success) {
       alert("投稿成功🌈");
-      // フォームリセット
+      // リセット
       document.getElementById("title").value = "";
       document.getElementById("description").value = "";
       document.getElementById("poster").value = "";
@@ -229,7 +229,7 @@ async function uploadToCloudinary(file) {
   return json.secure_url;
 }
 
-// 他の関数（簡易版）
+// 他の簡易関数
 function searchDeletePosts() { alert("検索機能は現在調整中です"); }
 function searchAddress() { alert("住所検索は現在調整中です"); }
 
