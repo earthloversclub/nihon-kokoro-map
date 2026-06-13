@@ -1051,20 +1051,26 @@ function parseCSV(text) {
   return rows;
 }
 
-// === 新しい読み込み関数（Cloudinary + X風グリッド）===
+// ==================== データ読み込み（これを完全に置き換え） ====================
 async function loadPosts() {
   try {
+    console.log("🌍 データ読み込み開始...");
     const response = await fetch(WEBAPP_URL);
     const posts = await response.json();
+    console.log("取得した投稿数:", posts.length);
+
+    // 既存マーカーをクリア
+    markers.forEach(m => map.removeLayer(m));
+    markers.length = 0;
+    allSpots.length = 0;
 
     posts.forEach(post => {
       if (!post.lat || !post.lng) return;
 
       const lat = parseFloat(post.lat);
       const lng = parseFloat(post.lng);
-      const category = post.category || "その他";
 
-      // X風バランスグリッド
+      // X風グリッド
       let mediaHTML = '';
       if (post.mediaList && post.mediaList.length > 0) {
         mediaHTML = `<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:6px; margin:8px 0;">`;
@@ -1077,6 +1083,30 @@ async function loadPosts() {
         });
         mediaHTML += `</div>`;
       }
+
+      const popup = `
+        <strong>${post.title || '無題'}</strong><br>
+        ${post.message ? post.message + '<br><br>' : ''}
+        ${mediaHTML}
+        <small>${post.prefecture || ''}　${post.poster || '匿名'}</small>
+        <button class="thanks-btn" data-spot-id="${post.id}" onclick="sendThanks(this, '${post.id}')">ありがとうを届ける🌸</button>
+        <div class="thanks-message"></div>
+      `;
+
+      const marker = L.marker([lat, lng], { icon: icons[post.category] || icon("blue") })
+        .bindPopup(popup, { minWidth: 220, maxWidth: 360 });
+
+      marker.addTo(map);
+      markers.push(marker);
+      allSpots.push({ title: post.title, marker: marker });
+    });
+
+    console.log("✅ マーカー追加完了:", markers.length, "件");
+
+  } catch (e) {
+    console.error("❌ loadPostsエラー:", e);
+  }
+}
 
      // 投稿成功後に地図を自動更新したい場合（admin.htmlから呼べるように）
 window.refreshMap = function() {
