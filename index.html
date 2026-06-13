@@ -345,19 +345,19 @@ padding: 8px 12px;
 #searchBox {
   position: absolute;
   top: 90px;
-  right: 10px;           /* ← 20px → 10px に減らしてちょっと右に */
+  right: 10px;           
   z-index: 1000;
   background: white;
   padding: 8px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   
-  width: 210px;          /* ← 全体の幅を少し狭く（調整可） */
+  width: 210px;          
 }
 
 #searchInput {
-  width: 150px;          /* ← 180px → 160px に短く */
-  padding: 5px 8px;      /* 左右に少し余白を入れて見やすく */
+  width: 150px;          
+  padding: 5px 8px;      
 }
 
 #growthMap {
@@ -395,6 +395,30 @@ align-items: center;
 color: #b24a68;
 }
 
+/* PC専用：検索ボックス調整 */
+@media (min-width: 768px) {
+
+  #searchBox {
+    top: 95px;
+    right: 30px;
+    width: 330px;
+    padding: 12px;
+    white-space: nowrap;
+  }
+
+  #searchInput {
+    width: 230px;
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+
+  #searchBox button {
+    padding: 8px 14px;
+    font-size: 16px;
+  }
+
+}
+  
 #achievementBox {
 
 position: absolute;
