@@ -39,7 +39,7 @@ button { background:#cdebd4; border:none; padding:12px 20px; border-radius:20px;
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
 // 設定
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDoo6zqlwZ-1nkPt9pD3emE0ivjlIUPG8HnLFxTKLvc2GYmAqDJfDY68ykjOPCjmcoaw/exec";  // ← あなたの最新URLに変更！
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDoo6zqlwZ-1nkPt9pD3emE0ivjlIUPG8HnLFxTKLvc2GYmAqDJfDY68ykjOPCjmcoaw/exec";
 
 const map = L.map('map').setView([36.2, 138.2], 5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
@@ -56,45 +56,50 @@ map.on("click", function(e) {
   currentMarker = L.marker([lat, lng]).addTo(map);
 });
 
+// ==================== 投稿送信 ====================
 async function submitPost() {
-  const btn = event.target;
+  const btn = document.getElementById("submitButton");
   btn.disabled = true;
-  btn.textContent = "投稿中...";
+  btn.textContent = "投稿中... 💖";
 
   const formData = new FormData();
-  formData.append('adminSecret', document.getElementById("secret").value);
-  formData.append('title', document.getElementById("title").value);
-  formData.append('message', document.getElementById("description").value);
+  formData.append('adminSecret', 'hirochietarosasu523');
+  formData.append('title', document.getElementById("title").value || "無題");
+  formData.append('message', document.getElementById("description").value || "");
   formData.append('lat', document.getElementById("lat").value);
   formData.append('lng', document.getElementById("lng").value);
-  formData.append('mediaFile', document.getElementById("mediaFile").files[0]);
+  
+  const fileInput = document.getElementById("mediaFile");
+  if (fileInput.files[0]) {
+    formData.append('mediaFile', fileInput.files[0]);
+  }
 
   try {
     const res = await fetch(SCRIPT_URL, {
       method: 'POST',
       body: formData
     });
+
     const text = await res.text();
+    alert("返事：" + text);   // ← これで何が起きているかわかる
 
     if (text.includes("成功")) {
-      alert("投稿成功！💖 Cloudinaryに保存されました");
-      // フォームリセット
+      alert("✅ 投稿成功！ Cloudinaryに保存されました");
+      // フォームをリセット
       document.getElementById("title").value = "";
       document.getElementById("description").value = "";
       document.getElementById("mediaFile").value = "";
-      if (currentMarker) {
-        map.removeLayer(currentMarker);
-        currentMarker = null;
-      }
+      document.getElementById("lat").value = "";
+      document.getElementById("lng").value = "";
     } else {
-      alert("エラー: " + text);
+      alert("❌ 失敗: " + text);
     }
   } catch (err) {
     alert("通信エラー: " + err.message);
   }
 
   btn.disabled = false;
-  btn.textContent = "投稿する💖";
+  btn.textContent = "投稿する";
 }
 </script>
 </body>
