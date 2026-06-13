@@ -1414,9 +1414,9 @@ message.textContent = makeThanksMessage();
 return;
 }
 
-fetch("https://script.google.com/macros/s/AKfycbz_pMRDZAqCAAdtpdcYk47TwS__buHZhAWcGEHH2A4AwWkr2oyz_p5zcXIh7fGbx5RVJw/exec?action=add&spotId=" + encodeURIComponent(spotId), {
-method: "GET",
-mode: "no-cors"
+fetch(scriptUrl + "?action=add&spotId=" + encodeURIComponent(spotId), {
+  method: "GET",
+  mode: "no-cors"
 });
 
 localStorage.setItem(key, "done");
