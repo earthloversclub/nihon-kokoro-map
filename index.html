@@ -1346,10 +1346,12 @@ const legend = L.control({ position: 'topleft' });
 legend.onAdd = function () {
 const div = L.DomUtil.create('div', 'legend');
 
-div.style.marginTop = "-18px";
+const isPC = window.innerWidth >= 768;  
+
+div.style.marginTop = isPC ? "-10px" : "-18px";
 div.style.marginLeft = "-9px";
-div.style.width = "235px";
-div.style.height = "325px";
+div.style.width = isPC ? "270px" : "235px";
+div.style.height = isPC ? "375px" : "325px";
 div.style.background = "url('images/category-frame.png') center center no-repeat";
 div.style.backgroundSize = "100% 100%";
 div.style.border = "none";
@@ -1357,7 +1359,7 @@ div.style.boxShadow = "none";
 div.style.borderRadius = "0";
 div.style.padding = "90px 22px 25px 22px";
 div.style.boxSizing = "border-box";
-div.style.fontSize = "16px";
+div.style.fontSize = isPC ? "18px" : "16px";
 div.style.lineHeight = "1.45";
 
 div.innerHTML = `
