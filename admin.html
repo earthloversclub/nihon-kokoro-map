@@ -191,6 +191,7 @@ map.on("click", function(e){
     .then(data => {
       const muniCd = data.results.muniCd;
       lastSearchResults = results;
+      console.log(results);
       const prefCode = muniCd.substring(0, 2);
       const prefName = prefectureMap[prefCode];
 
