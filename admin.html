@@ -472,14 +472,12 @@ resultBox.innerHTML = results.map(item => `
       onclick="editFoundPost('${escapeJs(item.postType)}', '${escapeJs(item.id)}')"
       style="width:auto;padding:8px 14px;">
       📝編集
-    </button>
-
-    <button
-      type="button"
-      onclick="deleteFoundPost('${escapeJs(item.postType)}', '${escapeJs(item.id)}')"
-      style="width:auto;padding:8px 14px;margin-left:10px;">
-      🗑削除
-    </button>
+   <button
+  type="button"
+  onclick="alert('削除ボタン押せてる'); deleteFoundPost('${escapeJs(item.postType)}', '${escapeJs(item.id)}')"
+  style="width:auto;padding:8px 14px;margin-left:10px;">
+  削除
+</button>
   </div>
 `).join("");
 }
