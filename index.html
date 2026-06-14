@@ -1611,10 +1611,15 @@ const flower = flowers[Math.floor(Math.random() * flowers.length)];
 return "ありがとうを届けました" + flower;
 }
 map.on("popupopen", function(e) {
+
 document.querySelectorAll(".legend").forEach(box => {
 box.style.display = "none";
 });
+
 document.getElementById("searchBox").style.display = "none";
+document.getElementById("rainbowBox").style.display = "none";
+document.getElementById("skyTempleBox").style.display = "none";
+
 const button =
 e.popup.getElement().querySelector(".thanks-btn");
 
@@ -1642,6 +1647,9 @@ box.style.display = "block";
 });
 
 document.getElementById("searchBox").style.display = "block";
+document.getElementById("rainbowBox").style.display = "block";
+document.getElementById("skyTempleBox").style.display = "block";
+  
 
 });
 function changeCarouselImage(spotId, imageUrl) {
