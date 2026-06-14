@@ -85,7 +85,6 @@ h2 {
   font-size: 64px;
   line-height: 1.15;
   font-weight: 900;
-  animation: heroGlow 2.5s ease-in-out infinite;
 }
 
 .memberText {
@@ -95,53 +94,6 @@ h2 {
   font-weight: 900;
 }
 
-.backButton {
-  position: fixed;
-  left: 50%;
-  bottom: 28px;
-  transform: translateX(-50%);
-
-  display: inline-block;
-  padding: 14px 28px;
-  border-radius: 999px;
-
-  background:
-    radial-gradient(circle at center, #ffffff 0%, #ffffff 55%, #e8fff1 100%);
-
-  color: #256b3b;
-  text-decoration: none;
-
-  font-size: 40px;
-  font-weight: 900;
-
-  border: 3px solid #9fd8b2;
-
-  box-shadow:
-    0 0 10px white,
-    0 0 20px rgba(255,255,255,0.95),
-    0 0 28px rgba(120,210,160,0.75);
-
-  z-index: 9999;
-}
-
-@keyframes heroGlow {
-
-  0%,100%{
-    text-shadow:
-      0 0 8px white,
-      0 0 15px white,
-      0 0 25px rgba(255,255,255,0.8);
-  }
-
-  50%{
-    text-shadow:
-      0 0 15px white,
-      0 0 30px white,
-      0 0 50px rgba(255,255,255,1);
-  }
-
-}
-  
 </style>
 </head>
 
