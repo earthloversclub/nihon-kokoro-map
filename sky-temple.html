@@ -16,44 +16,84 @@ body {
 }
 
 .temple {
-  padding: 80px 10px 180px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 55px 8px 170px;
 }
 
 h1 {
-  font-size: 60px;
-  font-weight: 900;
+  font-size: 46px;
   margin: 0 0 10px;
+  font-weight: 900;
+  color: #000;
+  text-shadow:
+    0 0 8px white,
+    0 0 16px white;
 }
 
 .mainTitle {
-  font-size: 42px;
+  font-size: 31px;
+  margin-bottom: 0;
   font-weight: 900;
-  margin-bottom: 180px;
+  color: #000;
+  text-shadow:
+    0 0 8px white,
+    0 0 16px white;
+}
+
+/* ランキング全体を噴水の下あたりへ */
+.rankingArea {
+  margin-top: 210px;
 }
 
 .member {
-  margin: 34px auto 42px;
-  font-weight: 500;
+  margin: 28px auto 44px;
   color: #000;
   text-shadow:
-    0 0 5px rgba(255,255,255,0.9),
-    0 0 10px rgba(255,255,255,0.8);
+    0 0 7px white,
+    0 0 14px white,
+    0 0 22px white;
 }
 
 .memberName {
-  font-size: 58px;
+  font-size: 48px;
+  line-height: 1.15;
   font-weight: 900;
 }
 
 .memberText {
-  font-size: 34px;
-  font-weight: 700;
-}
-
-.backButton {
-  font-size: 38px;
+  font-size: 27px;
+  line-height: 1.35;
   font-weight: 900;
 }
+
+/* 戻るボタン：宝物地図っぽい丸ボタン風 */
+.backButton {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 999px;
+
+  background:
+    radial-gradient(circle at center, #ffffff 0%, #ffffff 55%, #e8fff1 100%);
+  color: #256b3b;
+  text-decoration: none;
+
+  font-size: 28px;
+  font-weight: 900;
+
+  border: 3px solid #9fd8b2;
+
+  box-shadow:
+    0 0 10px white,
+    0 0 20px rgba(255,255,255,0.95),
+    0 0 28px rgba(120,210,160,0.75);
+
+  z-index: 9999;
 }
 </style>
 </head>
@@ -68,22 +108,26 @@ h1 {
     🌈宝物を届けてくれた人たち🌈
   </div>
 
-  <div class="member">
-    <div class="memberName">🥇ちえちゃん</div>
-    <div class="memberText">12個の宝物を届けてくれました</div>
+  <div class="rankingArea">
+
+    <div class="member">
+      <div class="memberName">🎖ちえちゃん</div>
+      <div class="memberText">12個の宝物を届けてくれました🌸</div>
+    </div>
+
+    <div class="member">
+      <div class="memberName">🥈○○さん</div>
+      <div class="memberText">8個の宝物を届けてくれました🌱</div>
+    </div>
+
+    <div class="member">
+      <div class="memberName">🥉○○さん</div>
+      <div class="memberText">5個の宝物を届けてくれました🌈</div>
+    </div>
+
   </div>
 
-  <div class="member">
-    <div class="memberName">🥈○○さん</div>
-    <div class="memberText">12個の宝物を届けてくれました</div>
-  </div>
-
-  <div class="member">
-    <div class="memberName">🥉○○さん</div>
-    <div class="memberText">12個の宝物を届けてくれました</div>
-  </div>
-
-  <a class="backButton" href="index.html?return=true">🌎宝地図へ戻る</a>
+  <a class="backButton" href="index.html?return=true">🌎宝物地図へ戻る</a>
 
 </div>
 
