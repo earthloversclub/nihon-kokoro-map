@@ -3,15 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <title>天空の神殿</title>
+<style>
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: linear-gradient(#dff7ff, #ffffff);
+  color: #245b45;
+  text-align: center;
+  padding: 30px 15px;
+}
+
+.temple {
+  max-width: 700px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.85);
+  border-radius: 24px;
+  padding: 25px 18px;
+  box-shadow: 0 0 25px rgba(120,180,255,0.35);
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.lead {
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.member {
+  background: white;
+  border-radius: 18px;
+  margin: 16px auto;
+  padding: 16px;
+  max-width: 520px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.backButton {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: #e8fff1;
+  color: #256b3b;
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid #9fd8b2;
+}
+</style>
 </head>
 
 <body>
 
-<h1>🏛️天空の神殿🏛️</h1>
+<div class="temple">
+  <h1>🏛️天空の神殿🏛️</h1>
 
-<p>
-🌈宝物を届けてくれた人たち
-</p>
+  <p class="lead">
+    🌈宝物を届けてくれた人たち<br>
+    たくさんの素敵な宝物を<br>
+    日本中のみんなへ届けてくれた仲間たちです✨
+  </p>
+
+  <div class="member">🥇 ちえちゃん<br>12個の宝物を届けてくれました🌸</div>
+  <div class="member">🥈 ○○さん<br>8個の宝物を届けてくれました🌱</div>
+  <div class="member">🥉 ○○さん<br>5個の宝物を届けてくれました🌈</div>
+
+  <a class="backButton" href="index.html?return=true">🌎宝物地図へ戻る</a>
+</div>
 
 </body>
 </html>
