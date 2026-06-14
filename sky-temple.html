@@ -180,10 +180,10 @@ fetch(sheetUrl)
   h.replace(/^\uFEFF/, "").replace(/\s/g, "").includes("投稿者")
 );
 
-    if (posterIndex === -1) {
-      alert("投稿者列が見つかりません");
-      return;
-    }
+ 　　if (posterIndex === -1) {
+  　　alert("見つかった見出し：\n" + headers.join(" / "));
+  　　return;
+　　}
 
     const counts = {};
 
