@@ -69,8 +69,9 @@ h2 {
 /* ランキング全体の位置 */
 .rankingArea {
   margin-top: 420px;
+  visibility: hidden;
 }
-
+  
 .member {
   margin: 28px auto 44px;
   color: #2E0854;
@@ -242,6 +243,8 @@ const name = (data["投稿者"] || "").trim();
       box.querySelector(".memberText").textContent =
         `${count}個の宝物を届けてくれました${flowers[i]}`;
     });
+
+    document.querySelector(".rankingArea").style.visibility = "visible";
   })
   .catch(err => {
     alert("ランキング読み込みエラー");
