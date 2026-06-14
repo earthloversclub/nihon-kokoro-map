@@ -354,6 +354,29 @@ text-align: center;
 line-height: 1.35;
 }
 
+#skyTempleBox {
+position: absolute;
+left: 35px;
+bottom: 270px;
+z-index: 1000;
+}
+
+/* PC専用 */
+@media (min-width: 768px) {
+
+  #skyTempleBox {
+    left: 70px;
+    bottom: 260px;
+  }
+
+  #skyTempleBox button {
+    width: 120px;
+    height: 120px;
+    font-size: 18px;
+  }
+
+}
+  
 #mapSwitchBox button {
 font-size: 16px;
 padding: 8px 12px;
@@ -917,8 +940,15 @@ margin-top:10px;
 </div>
 
 <div id="rainbowBox">
-<button onclick="location.href='heart.html'">🌈<br>虹の彼方へ</button>
+<button onclick="location.href='heart.html'">🌈<br>虹の彼方</button>
 </div>
+
+<div id="skyTempleBox">
+<button onclick="location.href='sky-temple.html'">
+🏛️<br>天空の神殿
+</button>
+</div>
+  
 <div id="searchBox">
 <input type="text" id="searchInput" placeholder="地名やタイトルを検索">
 <button onclick="searchPlace()">検索</button>
