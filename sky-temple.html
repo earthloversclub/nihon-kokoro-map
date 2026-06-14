@@ -176,7 +176,9 @@ fetch(sheetUrl)
     const rows = csv.trim().split(/\r?\n/).map(splitCSVLine);
     const headers = rows[0];
 
-    const posterIndex = headers.findIndex(h => h.trim() === "投稿者");
+    const posterIndex = headers.findIndex(h =>
+  h.replace(/^\uFEFF/, "").replace(/\s/g, "").includes("投稿者")
+);
 
     if (posterIndex === -1) {
       alert("投稿者列が見つかりません");
