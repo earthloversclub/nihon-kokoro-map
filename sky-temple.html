@@ -85,8 +85,6 @@ h2 {
   font-size: 64px;
   line-height: 1.15;
   font-weight: 900;
-
-  animation: heroGlow 2.5s ease-in-out infinite;
 }
 
 .memberText {
@@ -114,47 +112,6 @@ h2 {
 
 }
 
-.rankingArea {
-  position: relative;
-}
-
-.rankingArea::before {
-  content: "";
-  position: absolute;
-
-  left: -15%;     /* 少し広げた */
-  right: -15%;
-  top: -80px;     /* 少し大きく */
-  bottom: -80px;
-
-  pointer-events: none;
-  z-index: -1;
-
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(255,255,255,0.95) 0%,     /* ← ここを強く */
-      rgba(255,255,255,0.75) 25%,    /* ← ここを強く */
-      rgba(255,255,255,0.45) 50%,    /* ← ここを強く */
-      rgba(255,255,255,0.15) 75%,    /* ← ここを強く */
-      transparent 90%
-    );
-
-  animation: rankingGlow 2.8s ease-in-out infinite;
-  filter: brightness(1.3) blur(2px);   /* ← 追加でさらに光を強調 */
-}
-
-@keyframes rankingGlow {
-  0%, 100% {
-    opacity: 0.65;      /* ← 底上げ */
-    transform: scale(0.94);
-  }
-  50% {
-    opacity: 1.0;       /* ← 最大輝度をMAXに */
-    transform: scale(1.08);
-  }
-}
- 
 </style>
 </head>
 
