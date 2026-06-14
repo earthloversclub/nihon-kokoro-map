@@ -213,9 +213,13 @@ fetch(sheetUrl + "&t=" + Date.now())
 
     rows.slice(1).forEach(row => {
       const data = {};
-      headers.forEach((h, i) => data[h] = row[i]);
+      
+     headers.forEach((h, i) => {
+  const key = h.replace(/\s/g, "").trim();
+  data[key] = row[i];
+});
 
-      const name = (data["投稿者"] || "").trim();
+const name = (data["投稿者"] || "").trim();
 
       if (!name) return;
       if (name === "未入力") return;
