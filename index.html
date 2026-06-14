@@ -354,47 +354,47 @@ text-align: center;
 line-height: 1.35;
 }
 
-/* コンテナ本体（これを調整） */
-#skyTempleBox {
-  position: absolute;
-  left: 90px;     /* 25px → 70px（ちょっと右へ） */
-  bottom: 0px;  /* 250px → 120px（かなり下へ） */
-  z-index: 1000;
-}
-
-/* ボタン部分（今あるスタイルはそのまま） */
 #skyTempleBox button {
-  width: 105px;
-  height: 105px;
-  border: none;
-  border-radius: 50%;
 
-  background:
-    radial-gradient(circle at center, #ffffff 0%, #ffffff 58%, transparent 60%),
-    conic-gradient(
-      #ffffff,
-      #bde8ff,
-      #d8c8ff,
-      #ffffff,
-      #bde8ff,
-      #ffffff
-    );
+width: 105px;
+height: 105px;
 
-  color: #2c5ea8;
-  font-size: 18px;
-  font-weight: 900;
+border: none;
+border-radius: 50%;
 
-  box-shadow:
-    0 0 10px white,
-    0 0 20px rgba(255,255,255,0.95),
-    0 0 30px rgba(180,220,255,0.9),
-    0 0 42px rgba(210,190,255,0.8);
+background:
+radial-gradient(circle at center, #ffffff 0%, #ffffff 58%, transparent 60%),
+conic-gradient(
+#ffffff,
+#bde8ff,
+#d8c8ff,
+#ffffff,
+#bde8ff,
+#ffffff
+);
 
-  cursor: pointer;
-  text-align: center;
-  line-height: 1.25;
+color: #2c5ea8;
+
+font-size: 18px;
+font-weight: 900;
+
+box-shadow:
+0 0 10px white,
+0 0 20px rgba(255,255,255,0.95),
+0 0 30px rgba(180,220,255,0.9),
+0 0 42px rgba(210,190,255,0.8);
+
+cursor: pointer;
+text-align: center;
+line-height: 1.25;
 }
-
+  
+#skyTempleBox {
+position: absolute;
+left: 30px;
+top: 180px;
+z-index: 1000;
+  
 /* PC専用 */
 @media (min-width: 768px) {
 
