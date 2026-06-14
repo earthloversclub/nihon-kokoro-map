@@ -16,51 +16,56 @@ body {
 }
 
 .temple {
-  max-width: 760px;
+  width: 100%;
   margin: 0 auto;
   padding: 55px 8px 170px;
+  box-sizing: border-box;
 }
-  
+
+/* 天空の神殿 */
 h1 {
   font-size: 75px;
-  margin: 40px 0 20px;           /* ← ここで調整してください */
+  margin: 40px 0 20px;
   font-weight: 900;
-  color: #2E0854 !important;
-  
+  color: #2E0854;
+
   text-shadow:
     0 0 8px white,
-    0 0 16px white;
+    0 0 16px white,
+    0 0 28px rgba(46, 8, 84, 0.55);
 }
-  
-.mainTitle {
-  font-size: 78px;           /* 大きくした（画面幅に合わせて調整可能） */
-  margin: 20px 0 35px 0;
+
+/* 宝物を届けてくれた人たち */
+h2 {
+  font-size: 55px;
+  margin: 20px 0 35px;
   font-weight: 900;
-  color: #2E0854;            /* 濃い紫に統一 */
-  white-space: nowrap;       /* 改行を防ぐ */
+  color: #2E0854;
   line-height: 1.1;
-  
+  white-space: nowrap;
+
   text-shadow:
-    0 0 10px #ffffff,
-    0 0 20px #ffffff,
-    0 0 35px #2E0854,
-    0 0 50px rgba(46, 8, 84, 0.6);
+    0 0 8px white,
+    0 0 16px white,
+    0 0 28px rgba(46, 8, 84, 0.55);
 }
 
 .templeMessage {
-  text-align: center;
-  font-size: 38px;           /* 24px → 38px に大きく */
-  font-weight: 700;
-  color: #2E0854;            /* 紫に統一 */
+  font-size: 38px;
+  font-weight: 900;
+  color: #2E0854;
+  line-height: 1.45;
+
   margin-top: 15px;
   margin-bottom: 100px;
-  
+
   text-shadow:
-    0 0 10px #ffffff,
-    0 0 20px #ffffff,
-    0 0 30px rgba(46, 8, 84, 0.7);
+    0 0 8px white,
+    0 0 16px white,
+    0 0 28px rgba(46, 8, 84, 0.55);
 }
-  
+
+/* ランキング全体の位置 */
 .rankingArea {
   margin-top: 500px;
 }
@@ -68,6 +73,7 @@ h1 {
 .member {
   margin: 28px auto 44px;
   color: #000;
+
   text-shadow:
     0 0 7px white,
     0 0 14px white,
@@ -86,7 +92,6 @@ h1 {
   font-weight: 900;
 }
 
-/* 戻るボタン：宝物地図っぽい丸ボタン風 */
 .backButton {
   position: fixed;
   left: 50%;
@@ -99,6 +104,7 @@ h1 {
 
   background:
     radial-gradient(circle at center, #ffffff 0%, #ffffff 55%, #e8fff1 100%);
+
   color: #256b3b;
   text-decoration: none;
 
@@ -121,15 +127,15 @@ h1 {
 
 <div class="temple">
 
-<h1>🏛️天空の神殿🏛️</h1>
+  <h1>🏛️天空の神殿🏛️</h1>
 
-<h2>🌈宝物を届けてくれた人たち🌈</h2>
+  <h2>🌈宝物を届けてくれた人たち🌈</h2>
 
-<p class="templeMessage">
-日本中へ素敵な宝物を届けてくれた<br>
-仲間たちの記録が刻まれています✨
-</p>
-  
+  <p class="templeMessage">
+    日本中へ素敵な宝物を届けてくれた<br>
+    仲間たちの記録が刻まれています✨
+  </p>
+
   <div class="rankingArea">
 
     <div class="member">
