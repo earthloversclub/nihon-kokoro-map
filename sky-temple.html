@@ -4,6 +4,36 @@
 <meta charset="UTF-8">
 <title>天空の神殿</title>
 
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+
+  background:
+    radial-gradient(circle at 50% 8%,
+      rgba(255,255,255,0.75),
+      rgba(255,255,255,0.25) 18%,
+      transparent 42%);
+
+  animation: templeGlow 4s ease-in-out infinite;
+}
+
+@keyframes templeGlow {
+  0%, 100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.temple {
+  position: relative;
+  z-index: 2;
+}
+  
 <style>
 body {
   margin: 0;
