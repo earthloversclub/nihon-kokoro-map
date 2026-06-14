@@ -85,6 +85,7 @@ h2 {
   font-size: 64px;
   line-height: 1.15;
   font-weight: 900;
+  animation: heroGlow 2.5s ease-in-out infinite;
 }
 
 .memberText {
@@ -123,44 +124,22 @@ h2 {
   z-index: 9999;
 }
 
-.rankingArea {
-  position: relative;
-}
+@keyframes heroGlow {
 
-.rankingArea::before {
-  content: "";
-  position: absolute;
-
-  left: -10%;
-  right: -10%;
-  top: -60px;
-  bottom: -60px;
-
-  pointer-events: none;
-  z-index: -1;
-
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(255,255,255,0.7) 0%,
-      rgba(255,255,255,0.35) 30%,
-      rgba(255,255,255,0.1) 55%,
-      transparent 80%
-    );
-
-  animation: rankingGlow 3s ease-in-out infinite;
-}
-
-@keyframes rankingGlow {
   0%,100%{
-    opacity:0.4;
-    transform:scale(0.96);
+    text-shadow:
+      0 0 8px white,
+      0 0 15px white,
+      0 0 25px rgba(255,255,255,0.8);
   }
 
   50%{
-    opacity:1;
-    transform:scale(1.04);
+    text-shadow:
+      0 0 15px white,
+      0 0 30px white,
+      0 0 50px rgba(255,255,255,1);
   }
+
 }
   
 </style>
