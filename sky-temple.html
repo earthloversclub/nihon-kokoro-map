@@ -232,9 +232,9 @@ const name = (data["投稿者"] || "").trim();
       .slice(0, 3);
 
     if (ranking.length === 0) {
-      alert("投稿者データが見つかりません");
-      return;
-    }
+  alert("読み込めた行数：" + rows.length + "\n見出し：" + headers.join(" / "));
+  return;
+}
 
     const medals = ["🏅", "🥈", "🥉"];
     const flowers = ["🌸", "🌱", "🌈"];
