@@ -161,5 +161,58 @@ h2 {
 
 </div>
 
+<script>
+const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v4QCNsKzTus67itmVJ4NY45nYz_QLW40OWRXj9XjDkM/pub?output=csv";
+
+fetch(sheetUrl)
+  .then(res => res.text())
+  .then(csv => {
+    const rows = csv.trim().split(/\r?\n/).map(row => row.split(","));
+    const headers = rows[0];
+
+    const posterIndex = headers.findIndex(h => h.includes("投稿者"));
+
+    if (posterIndex === -1) {
+      console.log("投稿者列が見つかりません");
+      return;
+    }
+
+    const counts = {};
+
+    rows.slice(1).forEach(row => {
+      const name = (row[posterIndex] || "").trim();
+
+      if (!name) return;
+      if (name === "未入力") return;
+
+      counts[name] = (counts[name] || 0) + 1;
+    });
+
+    const ranking = Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3);
+
+    const medals = ["🏅", "🥈", "🥉"];
+    const flowers = ["🌸", "🌱", "🌈"];
+
+    document.querySelectorAll(".member").forEach((box, i) => {
+      if (!ranking[i]) {
+        box.style.display = "none";
+        return;
+      }
+
+      const name = ranking[i][0];
+      const count = ranking[i][1];
+
+      box.querySelector(".memberName").textContent = `${medals[i]}${name}`;
+      box.querySelector(".memberText").textContent =
+        `${count}個の宝物を届けてくれました${flowers[i]}`;
+    });
+  })
+  .catch(err => {
+    console.log("ランキング読み込みエラー", err);
+  });
+</script>
+  
 </body>
 </html>
