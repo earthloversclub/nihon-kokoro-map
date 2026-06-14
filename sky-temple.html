@@ -33,26 +33,32 @@ h1 {
 }
   
 .mainTitle {
-  font-size: 500px;
-  margin-bottom: 0;
+  font-size: 78px;           /* 大きくした（画面幅に合わせて調整可能） */
+  margin: 20px 0 35px 0;
   font-weight: 900;
-  color: #000;
-  text-shadow:
-    0 0 8px white,
-    0 0 16px white;
-}
+  color: #2E0854;            /* 濃い紫に統一 */
+  white-space: nowrap;       /* 改行を防ぐ */
+  line-height: 1.1;
   
-.templeMessage{
-  text-align:center;
-  font-size:24px;
-  font-weight:700;
-  color:#1f5d48;
-
-  margin-top:20px;
-  margin-bottom:120px;
-
   text-shadow:
-  0 0 8px rgba(255,255,255,0.9);
+    0 0 10px #ffffff,
+    0 0 20px #ffffff,
+    0 0 35px #2E0854,
+    0 0 50px rgba(46, 8, 84, 0.6);
+}
+
+.templeMessage {
+  text-align: center;
+  font-size: 38px;           /* 24px → 38px に大きく */
+  font-weight: 700;
+  color: #2E0854;            /* 紫に統一 */
+  margin-top: 15px;
+  margin-bottom: 100px;
+  
+  text-shadow:
+    0 0 10px #ffffff,
+    0 0 20px #ffffff,
+    0 0 30px rgba(46, 8, 84, 0.7);
 }
   
 .rankingArea {
