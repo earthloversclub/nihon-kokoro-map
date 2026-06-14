@@ -164,16 +164,22 @@ h2 {
 <script>
 const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v4QCNsKzTus67itmVJ4NY45nYz_QLW40OWRXj9XjDkM/pub?output=csv";
 
+function splitCSVLine(line) {
+  return line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g)?.map(v =>
+    v.replace(/^"|"$/g, "").trim()
+  ) || [];
+}
+
 fetch(sheetUrl)
   .then(res => res.text())
   .then(csv => {
-    const rows = csv.trim().split(/\r?\n/).map(row => row.split(","));
+    const rows = csv.trim().split(/\r?\n/).map(splitCSVLine);
     const headers = rows[0];
 
-    const posterIndex = headers.findIndex(h => h.includes("投稿者"));
+    const posterIndex = headers.findIndex(h => h.trim() === "投稿者");
 
     if (posterIndex === -1) {
-      console.log("投稿者列が見つかりません");
+      alert("投稿者列が見つかりません");
       return;
     }
 
@@ -191,6 +197,11 @@ fetch(sheetUrl)
     const ranking = Object.entries(counts)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 3);
+
+    if (ranking.length === 0) {
+      alert("投稿者データが見つかりません");
+      return;
+    }
 
     const medals = ["🏅", "🥈", "🥉"];
     const flowers = ["🌸", "🌱", "🌈"];
@@ -210,7 +221,8 @@ fetch(sheetUrl)
     });
   })
   .catch(err => {
-    console.log("ランキング読み込みエラー", err);
+    alert("ランキング読み込みエラー");
+    console.log(err);
   });
 </script>
   
