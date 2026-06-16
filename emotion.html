@@ -90,9 +90,10 @@
   border-radius: 6px;
   object-fit: cover;
   display: block;
-  margin: 6px auto 0;
+  margin: 0;
   border: none;
 }
+    
 .thumbWrap {
   position: relative;
 }
@@ -135,7 +136,20 @@
   text-align: left;
   border: 3px solid #ffb6d9;
   box-shadow: 0 0 15px rgba(255,182,217,0.7);
+
+  position: relative;
 }
+
+ .detailClose {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #777;
+  cursor: pointer;
+  line-height: 1;
+}   
 
 .modalContent h2 {
   font-size: 16px;
@@ -379,12 +393,13 @@
 
 <div id="detailModal" class="modal">
   <div class="modalContent" style="width:280px;max-width:280px;padding:12px;">
+     <span class="detailClose" onclick="closeDetail()">×</span>
     <h2 id="modalTitle"></h2>
     <div id="modalPoster" class="poster"></div>
     <div id="modalImages" class="detailImages"></div>
     <div id="modalVideoBox"></div>
     <div id="modalText" class="text"></div>
-    <button class="closeButton" onclick="closeDetail()">閉じる</button>
+    
   </div>
 </div>
 
