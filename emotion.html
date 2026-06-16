@@ -553,7 +553,12 @@ modalImages.innerHTML =
 
 document.getElementById("modalVideoBox").innerHTML =
   data["動画"]
-    ? `<iframe class="detailVideo" src="${data["動画"]}" allow="autoplay" allowfullscreen onclick="openVideoInModal('${data["動画"]}')"></iframe>`
+    ? `
+      <div class="thumbWrap" onclick="openVideoInModal('${data["動画"]}')">
+        <img class="videoThumb" src="${getVideoThumb(data["動画"])}">
+        <div class="playMark">▶</div>
+      </div>
+    `
     : "";
 
   document.getElementById("modalText").innerHTML =
@@ -577,13 +582,13 @@ function openImage(url) {
     });
   });
 
-  const video = document.querySelector("#modalVideoBox iframe");
-  if (video) {
-    currentMedia.push({
-      type: "video",
-      url: video.src
-    });
-  }
+const videoThumb = document.querySelector("#modalVideoBox .thumbWrap");
+if (videoThumb) {
+  currentMedia.push({
+    type: "video",
+    url: videoThumb.getAttribute("onclick").match(/'([^']+)'/)[1]
+  });
+}
 
   currentMediaIndex = currentMedia.findIndex(item => item.url === url);
   if (currentMediaIndex < 0) currentMediaIndex = 0;
