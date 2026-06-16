@@ -535,31 +535,50 @@ function openDetail(index) {
   document.getElementById("modalPoster").textContent =
     "投稿者：" + (data["投稿者"] || "匿名さん");
 
-  const imageUrls = [
-    data["画像"],
-    data["画像2"],
-    data["画像3"],
-    data["画像4"]
-  ].filter(Boolean);
+  const mediaItems = [];
 
-const modalImages = document.getElementById("modalImages");
+  ["画像", "画像2", "画像3", "画像4"].forEach(key => {
+    if (data[key]) {
+      mediaItems.push({
+        type: "image",
+        url: data[key]
+      });
+    }
+  });
 
-modalImages.className = "detailImages count-" + imageUrls.length;
+  if (data["動画"]) {
+    mediaItems.push({
+      type: "video",
+      url: data["動画"],
+      thumb: getVideoThumb(data["動画"])
+    });
+  }
 
-modalImages.innerHTML =
-  imageUrls.map(url =>
-    `<img src="${url}" onclick="openImage('${url}')">`
-  ).join("");
+  const modalImages = document.getElementById("modalImages");
 
-document.getElementById("modalVideoBox").innerHTML =
-  data["動画"]
-    ? `
-      <div class="thumbWrap" onclick="openVideoInModal('${data["動画"]}')">
-        <img class="videoThumb" src="${getVideoThumb(data["動画"])}">
+  modalImages.className = "detailImages count-" + mediaItems.length;
+
+  modalImages.innerHTML = mediaItems.map((item, i) => {
+    if (item.type === "image") {
+      return `
+        <img
+          src="${item.url}"
+          onclick="openMedia(${i})"
+        >
+      `;
+    }
+
+    return `
+      <div class="thumbWrap" onclick="openMedia(${i})">
+        <img class="videoThumb" src="${item.thumb}">
         <div class="playMark">▶</div>
       </div>
-    `
-    : "";
+    `;
+  }).join("");
+
+  currentMedia = mediaItems;
+
+  document.getElementById("modalVideoBox").innerHTML = "";
 
   document.getElementById("modalText").innerHTML =
     escapeHtml(data["本文"] || "").replace(/\n/g, "<br>");
@@ -569,31 +588,13 @@ document.getElementById("modalVideoBox").innerHTML =
 
 function closeDetail() {
   document.getElementById("detailModal").style.display = "none";
-  document.getElementById("modalVideoBox").innerHTML = "";
 }
 
-function openImage(url) {
-  currentMedia = [];
-
-  document.querySelectorAll("#modalImages img").forEach(img => {
-    currentMedia.push({
-      type: "image",
-      url: img.src
-    });
-  });
-
-const videoThumb = document.querySelector("#modalVideoBox .thumbWrap");
-if (videoThumb) {
-  currentMedia.push({
-    type: "video",
-    url: videoThumb.getAttribute("onclick").match(/'([^']+)'/)[1]
-  });
-}
-
-  currentMediaIndex = currentMedia.findIndex(item => item.url === url);
-  if (currentMediaIndex < 0) currentMediaIndex = 0;
+function openMedia(index) {
+  currentMediaIndex = index;
 
   document.getElementById("imageModal").style.display = "flex";
+
   showCurrentMedia();
 }
 
