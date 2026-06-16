@@ -610,6 +610,27 @@ function updateImageNavButtons() {
     nextBtn.style.display = "block";
   }
 }
+
+let startX = 0;
+
+document.getElementById("largeImage").addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+}, { passive: true });
+
+document.getElementById("largeImage").addEventListener("touchend", e => {
+
+  const endX = e.changedTouches[0].clientX;
+  const diff = endX - startX;
+
+  if (Math.abs(diff) < 50) return;
+
+  if (diff > 0) {
+    changeLargeImage(-1);
+  } else {
+    changeLargeImage(1);
+  }
+
+}, { passive: true });
   
 </script>
 
