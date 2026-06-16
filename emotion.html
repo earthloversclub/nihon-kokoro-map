@@ -257,7 +257,7 @@
       font-weight: bold;
       cursor: pointer;
     }
-
+    
     .buttonArea {
       margin-top: 28px;
     }
@@ -326,6 +326,21 @@
   right:20px;
 } 
 
+#largeImage,
+#largeVideo {
+  max-width: 92%;
+  max-height: 90%;
+  border-radius: 12px;
+}
+
+#largeVideo {
+  width: 92%;
+  height: 70%;
+  border: none;
+  background: black;
+  display: none;
+}
+    
 @media (max-width: 768px) {
 
   .imageNavBtn {
@@ -377,28 +392,20 @@
 
   <span class="imageModalClose" onclick="closeImage()">×</span>
 
-  <button
-    id="imagePrevBtn"
-    class="imageNavBtn left"
-    onclick="changeLargeImage(-1)">
-    ◀
-  </button>
+  <button id="imagePrevBtn" class="imageNavBtn left" onclick="changeLargeImage(-1)">◀</button>
 
   <img id="largeImage" src="">
 
-  <button
-    id="imageNextBtn"
-    class="imageNavBtn right"
-    onclick="changeLargeImage(1)">
-    ▶
-  </button>
+  <iframe id="largeVideo" allow="autoplay" allowfullscreen></iframe>
+
+  <button id="imageNextBtn" class="imageNavBtn right" onclick="changeLargeImage(1)">▶</button>
 
 </div>
 
 <script>
 
-let currentImages = [];
-let currentImageIndex = 0;
+let currentMedia = [];
+let currentMediaIndex = 0;
   
 const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
 
@@ -544,10 +551,10 @@ modalImages.innerHTML =
     `<img src="${url}" onclick="openImage('${url}')">`
   ).join("");
 
-  document.getElementById("modalVideoBox").innerHTML =
-    data["動画"]
-      ? `<iframe class="detailVideo" src="${data["動画"]}" allow="autoplay" allowfullscreen></iframe>`
-      : "";
+document.getElementById("modalVideoBox").innerHTML =
+  data["動画"]
+    ? `<iframe class="detailVideo" src="${data["動画"]}" allow="autoplay" allowfullscreen onclick="openVideoInModal('${data["動画"]}')"></iframe>`
+    : "";
 
   document.getElementById("modalText").innerHTML =
     escapeHtml(data["本文"] || "").replace(/\n/g, "<br>");
@@ -561,16 +568,51 @@ function closeDetail() {
 }
 
 function openImage(url) {
-  currentImages = Array.from(
-    document.querySelectorAll("#modalImages img")
-  ).map(img => img.src);
+  currentMedia = [];
 
-  currentImageIndex = currentImages.indexOf(url);
+  document.querySelectorAll("#modalImages img").forEach(img => {
+    currentMedia.push({
+      type: "image",
+      url: img.src
+    });
+  });
 
-  document.getElementById("largeImage").src = url;
+function openVideoInModal(url) {
+  currentMedia = [];
+
+  document.querySelectorAll("#modalImages img").forEach(img => {
+    currentMedia.push({
+      type: "image",
+      url: img.src
+    });
+  });
+
+  currentMedia.push({
+    type: "video",
+    url: url
+  });
+
+  currentMediaIndex = currentMedia.length - 1;
+
+  showCurrentMedia("open");
+
   document.getElementById("imageModal").style.display = "flex";
+}
+  
 
-  updateImageNavButtons();
+  const video = document.querySelector("#modalVideoBox iframe");
+  if (video) {
+    currentMedia.push({
+      type: "video",
+      url: video.src
+    });
+  }
+
+  currentMediaIndex = currentMedia.findIndex(item => item.url === url);
+
+  showCurrentMedia("open");
+
+  document.getElementById("imageModal").style.display = "flex";
 }
 
 function closeImage() {
@@ -579,23 +621,42 @@ function closeImage() {
 }
 
 function changeLargeImage(direction) {
-  if (currentImages.length <= 1) return;
+  if (currentMedia.length <= 1) return;
 
-  currentImageIndex += direction;
+  currentMediaIndex += direction;
 
-  if (currentImageIndex < 0) {
-    currentImageIndex = currentImages.length - 1;
+  if (currentMediaIndex < 0) {
+    currentMediaIndex = currentMedia.length - 1;
   }
 
-  if (currentImageIndex >= currentImages.length) {
-    currentImageIndex = 0;
+  if (currentMediaIndex >= currentMedia.length) {
+    currentMediaIndex = 0;
   }
 
-  document.getElementById("largeImage").src = currentImages[currentImageIndex];
+  showCurrentMedia(direction > 0 ? "next" : "prev");
+}
+
+function showCurrentMedia(direction) {
+  const image = document.getElementById("largeImage");
+  const video = document.getElementById("largeVideo");
+
+  const item = currentMedia[currentMediaIndex];
+
+  image.style.display = "none";
+  video.style.display = "none";
+  video.src = "";
+
+  if (item.type === "image") {
+    image.src = item.url;
+    image.style.display = "block";
+  } else {
+    video.src = item.url;
+    video.style.display = "block";
+  }
 
   updateImageNavButtons();
 }
-
+  
 function updateImageNavButtons() {
   const prevBtn = document.getElementById("imagePrevBtn");
   const nextBtn = document.getElementById("imageNextBtn");
