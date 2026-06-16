@@ -577,29 +577,6 @@ function openImage(url) {
     });
   });
 
-function openVideoInModal(url) {
-  currentMedia = [];
-
-  document.querySelectorAll("#modalImages img").forEach(img => {
-    currentMedia.push({
-      type: "image",
-      url: img.src
-    });
-  });
-
-  currentMedia.push({
-    type: "video",
-    url: url
-  });
-
-  currentMediaIndex = currentMedia.length - 1;
-
-  showCurrentMedia("open");
-
-  document.getElementById("imageModal").style.display = "flex";
-}
-  
-
   const video = document.querySelector("#modalVideoBox iframe");
   if (video) {
     currentMedia.push({
@@ -609,15 +586,20 @@ function openVideoInModal(url) {
   }
 
   currentMediaIndex = currentMedia.findIndex(item => item.url === url);
-
-  showCurrentMedia("open");
+  if (currentMediaIndex < 0) currentMediaIndex = 0;
 
   document.getElementById("imageModal").style.display = "flex";
+  showCurrentMedia();
 }
 
 function closeImage() {
   document.getElementById("imageModal").style.display = "none";
+
   document.getElementById("largeImage").src = "";
+  document.getElementById("largeImage").style.display = "none";
+
+  document.getElementById("largeVideo").src = "";
+  document.getElementById("largeVideo").style.display = "none";
 }
 
 function changeLargeImage(direction) {
@@ -633,13 +615,12 @@ function changeLargeImage(direction) {
     currentMediaIndex = 0;
   }
 
-  showCurrentMedia(direction > 0 ? "next" : "prev");
+  showCurrentMedia();
 }
 
-function showCurrentMedia(direction) {
+function showCurrentMedia() {
   const image = document.getElementById("largeImage");
   const video = document.getElementById("largeVideo");
-
   const item = currentMedia[currentMediaIndex];
 
   image.style.display = "none";
@@ -649,21 +630,23 @@ function showCurrentMedia(direction) {
   if (item.type === "image") {
     image.src = item.url;
     image.style.display = "block";
-  } else {
+  }
+
+  if (item.type === "video") {
     video.src = item.url;
     video.style.display = "block";
   }
 
   updateImageNavButtons();
 }
-  
+
 function updateImageNavButtons() {
   const prevBtn = document.getElementById("imagePrevBtn");
   const nextBtn = document.getElementById("imageNextBtn");
 
   if (!prevBtn || !nextBtn) return;
 
-  if (currentImages.length <= 1) {
+  if (currentMedia.length <= 1) {
     prevBtn.style.display = "none";
     nextBtn.style.display = "none";
   } else {
@@ -674,12 +657,11 @@ function updateImageNavButtons() {
 
 let startX = 0;
 
-document.getElementById("largeImage").addEventListener("touchstart", e => {
+document.getElementById("imageModal").addEventListener("touchstart", e => {
   startX = e.touches[0].clientX;
 }, { passive: true });
 
-document.getElementById("largeImage").addEventListener("touchend", e => {
-
+document.getElementById("imageModal").addEventListener("touchend", e => {
   const endX = e.changedTouches[0].clientX;
   const diff = endX - startX;
 
@@ -690,7 +672,6 @@ document.getElementById("largeImage").addEventListener("touchend", e => {
   } else {
     changeLargeImage(1);
   }
-
 }, { passive: true });
   
 </script>
