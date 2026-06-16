@@ -7,25 +7,25 @@
 
   <style>
     body {
-  margin: 0;
-  font-family: sans-serif;
-  background: linear-gradient(
-    180deg,
-    #fff8fb,
+      margin: 0;
+      font-family: sans-serif;
+      background: linear-gradient(
+  180deg,
+  #fff8fb,
     #ffeef5
   );
-  color: #2f5f3a;
-  text-align: center;
-}
+      color: #2f5f3a;
+      text-align: center;
+    }
 
     header {
-  padding: 18px 10px;
-  background: #ffd9e8;
-  font-size: 24px;
-  font-weight: bold;
-  color: #b84f7b;
-  line-height: 1.5;
-}
+      padding: 18px 10px;
+      background: #ffd9e8;
+      font-size: 24px;
+      font-weight: bold;
+      color: #b84f7b;
+      line-height: 1.5;
+    }
 
     .main {
       padding: 28px 15px;
@@ -86,14 +86,14 @@
 
 .videoThumb {
   width: 100%;
-  height: 120px;
-  border-radius: 14px;
+  height: 85px;
+  border-radius: 6px;
   object-fit: cover;
   display: block;
-  margin-bottom: 8px;
-  border: 2px solid #ffd6ec;
+  margin: 0;
+  border: none;
 }
-
+    
 .thumbWrap {
   position: relative;
 }
@@ -115,122 +115,143 @@
   padding-left: 3px;
 }
     
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 99999;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      padding: 18px;
-      box-sizing: border-box;
-      overflow-y: auto;
-    }
-
-    .modalContent {
-      background: white;
-      max-width: 720px;
-      margin: 25px auto;
-      border-radius: 24px;
-      padding: 18px;
-      text-align: left;
-      border: 3px solid #ffc7dd;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-    }
-
-    .modalContent h2 {
-      text-align: center;
-      color: #256b3b;
-      margin-top: 0;
-    }
-
-    .poster {
-      text-align: center;
-      font-size: 15px;
-      font-weight: bold;
-      color: #8b5a2b;
-      margin-bottom: 12px;
-    }
-
-   .detailImages {
-  margin-bottom: 16px;
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  padding: 12px;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
-.detailImages img {
-  width: 100%;
-  object-fit: cover;
+.modalContent {
+  background: white;
+  width: 280px;
+  max-width: calc(100vw - 28px);
+  margin: 40px auto;
   border-radius: 14px;
-  cursor: pointer;
+  padding: 12px;
+  text-align: left;
+  border: 3px solid #ffc7dd;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+
+  position: relative;
 }
 
-/* 画像1枚 */
+ .detailClose {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #777;
+  cursor: pointer;
+  line-height: 1;
+}   
+
+.modalContent h2 {
+  font-size: 22px;
+  text-align: left;
+  color: #111;
+  margin: 0 0 4px;
+}
+
+.poster {
+  text-align: left;
+  font-size: 18px;
+  font-weight: normal;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.detailImages {
+  width: 100%;
+  margin: 8px 0;
+}
+
+.detailImages img,
+.detailImages .videoThumb {
+  width: 100%;
+  height: 125px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  display: block;
+  margin: 0;
+}
+
 .detailImages.count-1 {
   display: block;
 }
 
-.detailImages.count-1 img {
-  max-width: 420px;
+.detailImages.count-1 img,
+.detailImages.count-1 .videoThumb {
+  width: 220px;
   height: auto;
+  object-fit: contain;
   display: block;
   margin: 0 auto;
-  object-fit: contain;
 }
 
-/* 画像2枚・4枚 */
 .detailImages.count-2,
 .detailImages.count-4 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 4px;
 }
 
-.detailImages.count-2 img,
-.detailImages.count-4 img {
-  height: 150px;
-}
-
-/* 画像3枚：1枚目を大きく */
 .detailImages.count-3 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 4px;
 }
 
-.detailImages.count-3 img {
-  height: 145px;
-}
-
-.detailImages.count-3 img:first-child {
+.detailImages.count-3 > :first-child {
   grid-row: 1 / span 2;
-  height: 298px;
 }
 
-    .detailVideo {
-      width: 100%;
-      height: 260px;
-      border: none;
-      border-radius: 14px;
-      margin-bottom: 16px;
-      background: black;
-    }
+.detailImages.count-3 > :first-child img,
+.detailImages.count-3 > :first-child .videoThumb,
+.detailImages.count-3 > img:first-child {
+  height: 254px !important;
+}
 
-    .text {
-      font-size: 16px;
-      line-height: 1.8;
-      color: #333;
-    }
+.detailImages .thumbWrap {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-    .closeButton {
-      display: block;
-      margin: 18px auto 0;
-      padding: 10px 24px;
-      border: none;
-      border-radius: 999px;
-      background: #ffcfe2;
+.detailVideo {
+  width: 100%;
+  height: 260px;
+  border: none;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  background: black;
+}
+
+.text {
+   font-size: 17px;
+  line-height: 1.7;
+  color: #333;
+  margin: 6px 0 8px;
+}
+    
+.closeButton {
+  display: block;
+  margin: 12px auto 0;
+  padding: 7px 18px;
+  border: none;
+  border-radius: 999px;
+  background: #ffcfe2;
 　　　color: #b84f7b;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
     .imageModal {
       display: none;
@@ -257,7 +278,7 @@
       font-weight: bold;
       cursor: pointer;
     }
-
+    
     .buttonArea {
       margin-top: 28px;
     }
@@ -296,6 +317,70 @@
         font-size: 12px;
       }
     }
+
+ .imageNavBtn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:9999;
+
+  width:56px;
+  height:56px;
+
+  border:none;
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.8);
+  color:#333;
+
+  font-size:30px;
+  font-weight:bold;
+
+  cursor:pointer;
+}
+
+.imageNavBtn.left{
+  left:20px;
+}
+
+.imageNavBtn.right{
+  right:20px;
+} 
+
+#largeImage,
+#largeVideo {
+  max-width: 92%;
+  max-height: 90%;
+  border-radius: 12px;
+}
+
+#largeVideo {
+  width: 92%;
+  height: 70%;
+  border: none;
+  background: black;
+  display: none;
+}
+    
+@media (max-width: 768px) {
+
+  .imageNavBtn {
+    display: none !important;
+  }
+
+}
+
+.modalContent {
+  width: 360px !important;
+  max-width: calc(100vw - 20px) !important;
+  padding: 14px !important;
+}
+
+.detailImages {
+  width: 100% !important;
+  margin: 12px 0 0 !important;
+}
+    
   </style>
 </head>
 
@@ -324,23 +409,38 @@
 
 </div>
 
-<div id="detailModal" class="modal">
-  <div class="modalContent">
-    <h2 id="modalTitle"></h2>
-    <div id="modalPoster" class="poster"></div>
-    <div id="modalImages" class="detailImages"></div>
-    <div id="modalVideoBox"></div>
-    <div id="modalText" class="text"></div>
-    <button class="closeButton" onclick="closeDetail()">閉じる</button>
+<div id="detailModal" class="modal" onclick="closeDetail()">
+  <div class="modalContent" onclick="event.stopPropagation()">
+     <span class="detailClose" onclick="closeDetail()">×</span>
+    
+<h2 id="modalTitle"></h2>
+<div id="modalPoster" class="poster"></div>
+<div id="modalText" class="text"></div>
+<div id="modalImages" class="detailImages"></div>
+<div id="modalVideoBox" style="display:none;"></div>
+    
   </div>
 </div>
 
 <div id="imageModal" class="imageModal">
+
   <span class="imageModalClose" onclick="closeImage()">×</span>
+
+  <button id="imagePrevBtn" class="imageNavBtn left" onclick="changeLargeImage(-1)">◀</button>
+
   <img id="largeImage" src="">
+
+  <iframe id="largeVideo" allow="autoplay" allowfullscreen></iframe>
+
+  <button id="imageNextBtn" class="imageNavBtn right" onclick="changeLargeImage(1)">▶</button>
+
 </div>
 
 <script>
+
+let currentMedia = [];
+let currentMediaIndex = 0;
+  
 const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
 
 let treasures = [];
@@ -469,26 +569,50 @@ function openDetail(index) {
   document.getElementById("modalPoster").textContent =
     "投稿者：" + (data["投稿者"] || "匿名さん");
 
-  const imageUrls = [
-    data["画像"],
-    data["画像2"],
-    data["画像3"],
-    data["画像4"]
-  ].filter(Boolean);
+  const mediaItems = [];
 
-const modalImages = document.getElementById("modalImages");
+  ["画像", "画像2", "画像3", "画像4"].forEach(key => {
+    if (data[key]) {
+      mediaItems.push({
+        type: "image",
+        url: data[key]
+      });
+    }
+  });
 
-modalImages.className = "detailImages count-" + imageUrls.length;
+  if (data["動画"]) {
+    mediaItems.push({
+      type: "video",
+      url: data["動画"],
+      thumb: getVideoThumb(data["動画"])
+    });
+  }
 
-modalImages.innerHTML =
-  imageUrls.map(url =>
-    `<img src="${url}" onclick="openImage('${url}')">`
-  ).join("");
+  const modalImages = document.getElementById("modalImages");
 
-  document.getElementById("modalVideoBox").innerHTML =
-    data["動画"]
-      ? `<iframe class="detailVideo" src="${data["動画"]}" allow="autoplay" allowfullscreen></iframe>`
-      : "";
+  modalImages.className = "detailImages count-" + mediaItems.length;
+
+  modalImages.innerHTML = mediaItems.map((item, i) => {
+    if (item.type === "image") {
+      return `
+        <img
+          src="${item.url}"
+          onclick="openMedia(${i})"
+        >
+      `;
+    }
+
+    return `
+      <div class="thumbWrap" onclick="openMedia(${i})">
+        <img class="videoThumb" src="${item.thumb}">
+        <div class="playMark">▶</div>
+      </div>
+    `;
+  }).join("");
+
+  currentMedia = mediaItems;
+
+  document.getElementById("modalVideoBox").innerHTML = "";
 
   document.getElementById("modalText").innerHTML =
     escapeHtml(data["本文"] || "").replace(/\n/g, "<br>");
@@ -498,18 +622,98 @@ modalImages.innerHTML =
 
 function closeDetail() {
   document.getElementById("detailModal").style.display = "none";
-  document.getElementById("modalVideoBox").innerHTML = "";
 }
 
-function openImage(url) {
-  document.getElementById("largeImage").src = url;
+function openMedia(index) {
+  currentMediaIndex = index;
+
   document.getElementById("imageModal").style.display = "flex";
+
+  showCurrentMedia();
 }
 
 function closeImage() {
   document.getElementById("imageModal").style.display = "none";
+
   document.getElementById("largeImage").src = "";
+  document.getElementById("largeImage").style.display = "none";
+
+  document.getElementById("largeVideo").src = "";
+  document.getElementById("largeVideo").style.display = "none";
 }
+
+function changeLargeImage(direction) {
+  if (currentMedia.length <= 1) return;
+
+  currentMediaIndex += direction;
+
+  if (currentMediaIndex < 0) {
+    currentMediaIndex = currentMedia.length - 1;
+  }
+
+  if (currentMediaIndex >= currentMedia.length) {
+    currentMediaIndex = 0;
+  }
+
+  showCurrentMedia();
+}
+
+function showCurrentMedia() {
+  const image = document.getElementById("largeImage");
+  const video = document.getElementById("largeVideo");
+  const item = currentMedia[currentMediaIndex];
+
+  image.style.display = "none";
+  video.style.display = "none";
+  video.src = "";
+
+  if (item.type === "image") {
+    image.src = item.url;
+    image.style.display = "block";
+  }
+
+  if (item.type === "video") {
+    video.src = item.url;
+    video.style.display = "block";
+  }
+
+  updateImageNavButtons();
+}
+
+function updateImageNavButtons() {
+  const prevBtn = document.getElementById("imagePrevBtn");
+  const nextBtn = document.getElementById("imageNextBtn");
+
+  if (!prevBtn || !nextBtn) return;
+
+  if (currentMedia.length <= 1) {
+    prevBtn.style.display = "none";
+    nextBtn.style.display = "none";
+  } else {
+    prevBtn.style.display = "block";
+    nextBtn.style.display = "block";
+  }
+}
+
+let startX = 0;
+
+document.getElementById("imageModal").addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+}, { passive: true });
+
+document.getElementById("imageModal").addEventListener("touchend", e => {
+  const endX = e.changedTouches[0].clientX;
+  const diff = endX - startX;
+
+  if (Math.abs(diff) < 50) return;
+
+  if (diff > 0) {
+    changeLargeImage(-1);
+  } else {
+    changeLargeImage(1);
+  }
+}, { passive: true });
+  
 </script>
 
 </body>
