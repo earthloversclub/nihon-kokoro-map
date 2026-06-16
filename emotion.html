@@ -296,6 +296,36 @@
         font-size: 12px;
       }
     }
+
+ .imageNavBtn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:9999;
+
+  width:56px;
+  height:56px;
+
+  border:none;
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.8);
+  color:#333;
+
+  font-size:30px;
+  font-weight:bold;
+
+  cursor:pointer;
+}
+
+.imageNavBtn.left{
+  left:20px;
+}
+
+.imageNavBtn.right{
+  right:20px;
+} 
+  
   </style>
 </head>
 
@@ -336,11 +366,32 @@
 </div>
 
 <div id="imageModal" class="imageModal">
+
   <span class="imageModalClose" onclick="closeImage()">×</span>
+
+  <button
+    id="imagePrevBtn"
+    class="imageNavBtn left"
+    onclick="changeLargeImage(-1)">
+    ◀
+  </button>
+
   <img id="largeImage" src="">
+
+  <button
+    id="imageNextBtn"
+    class="imageNavBtn right"
+    onclick="changeLargeImage(1)">
+    ▶
+  </button>
+
 </div>
 
 <script>
+
+let currentImages = [];
+let currentImageIndex = 0;
+  
 const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
 
 let treasures = [];
@@ -502,14 +553,56 @@ function closeDetail() {
 }
 
 function openImage(url) {
+  currentImages = Array.from(
+    document.querySelectorAll("#modalImages img")
+  ).map(img => img.src);
+
+  currentImageIndex = currentImages.indexOf(url);
+
   document.getElementById("largeImage").src = url;
   document.getElementById("imageModal").style.display = "flex";
+
+  updateImageNavButtons();
 }
 
 function closeImage() {
   document.getElementById("imageModal").style.display = "none";
   document.getElementById("largeImage").src = "";
 }
+
+function changeLargeImage(direction) {
+  if (currentImages.length <= 1) return;
+
+  currentImageIndex += direction;
+
+  if (currentImageIndex < 0) {
+    currentImageIndex = currentImages.length - 1;
+  }
+
+  if (currentImageIndex >= currentImages.length) {
+    currentImageIndex = 0;
+  }
+
+  document.getElementById("largeImage").src = currentImages[currentImageIndex];
+
+  updateImageNavButtons();
+}
+
+function updateImageNavButtons() {
+  const prevBtn = document.getElementById("imagePrevBtn");
+  const nextBtn = document.getElementById("imageNextBtn");
+
+  if (!prevBtn || !nextBtn) return;
+
+  if (currentImages.length <= 1) {
+    prevBtn.style.display = "none";
+    nextBtn.style.display = "none";
+  } else {
+    prevBtn.style.display = "block";
+    nextBtn.style.display = "block";
+  }
+}
+  
 </script>
 
 </body>
