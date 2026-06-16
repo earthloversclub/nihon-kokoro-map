@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>🌈日本の心の宝地図🌈</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
@@ -934,6 +935,49 @@ margin-top:10px;
 
 #modalImage {
   transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --gate-size: clamp(95px, 24vw, 120px);
+}
+
+/* スマホ共通：Android・iPhone自動調整 */
+@media (max-width: 767px) {
+
+  #rainbowBox {
+    right: 5vw;
+    bottom: 24vh;
+  }
+
+  #skyTempleBox {
+    left: 7vw;
+    bottom: 38vh;
+  }
+
+  #rainbowBox button,
+  #skyTempleBox button {
+    width: var(--gate-size);
+    height: var(--gate-size);
+    font-size: clamp(17px, 4.8vw, 21px);
+  }
+
+  #searchBox {
+    right: 4vw;
+    width: min(52vw, 330px);
+  }
+
+  #searchInput {
+    width: calc(100% - 58px);
+  }
+
+  #mapSwitchBox {
+    left: 5vw;
+    bottom: 3vh;
+  }
 }
   
 </style>
