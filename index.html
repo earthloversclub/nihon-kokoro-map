@@ -980,6 +980,36 @@ margin-top:10px;
     bottom: 3vh;
   }
 }
+
+/* iPhone Safari 専用補正 */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 767px) {
+
+    #searchBox {
+      right: 2vw;
+      width: min(44vw, 270px);
+    }
+
+    #searchInput {
+      width: calc(100% - 58px);
+    }
+
+    #rainbowBox {
+      right: 5vw;
+      bottom: 22vh;
+    }
+
+    #skyTempleBox {
+      left: 7vw;
+      bottom: 34vh;
+    }
+
+    #mapSwitchBox {
+      left: 5vw;
+      bottom: 3vh;
+    }
+  }
+}
   
 </style>
 
