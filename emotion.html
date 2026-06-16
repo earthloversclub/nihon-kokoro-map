@@ -86,14 +86,13 @@
 
 .videoThumb {
   width: 100%;
-  height: 120px;
-  border-radius: 14px;
+  height: 85px;
+  border-radius: 6px;
   object-fit: cover;
   display: block;
-  margin-bottom: 8px;
-  border: 3px solid #e6d1ff;
+  margin: 6px auto 0;
+  border: none;
 }
-
 .thumbWrap {
   position: relative;
 }
@@ -115,93 +114,89 @@
   padding-left: 3px;
 }
     
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 99999;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      padding: 18px;
-      box-sizing: border-box;
-      overflow-y: auto;
-    }
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  padding: 12px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
 
-    .modalContent {
-      background: white;
-      max-width: 720px;
-      margin: 25px auto;
-      border-radius: 24px;
-      padding: 18px;
-      text-align: left;
-      border: 3px solid #ffd6ec;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-    }
+.modalContent {
+  background: white;
+  width: 280px;
+  max-width: calc(100vw - 28px);
+  margin: 40px auto;
+  border-radius: 14px;
+  padding: 12px;
+  text-align: left;
+  border: 3px solid #ffb6d9;
+  box-shadow: 0 0 15px rgba(255,182,217,0.7);
+}
 
-    .modalContent h2 {
-      text-align: center;
-      color: #256b3b;
-      margin-top: 0;
-    }
+.modalContent h2 {
+  font-size: 16px;
+  text-align: left;
+  color: #111;
+  margin: 0 0 4px;
+}
 
-    .poster {
-      text-align: center;
-      font-size: 15px;
-      font-weight: bold;
-      color: #8b5a2b;
-      margin-bottom: 12px;
-    }
+.poster {
+  text-align: left;
+  font-size: 13px;
+  font-weight: normal;
+  color: #333;
+  margin-bottom: 6px;
+}
 
-   .detailImages {
-  margin-bottom: 16px;
+.detailImages {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .detailImages img {
   width: 100%;
+  height: 85px;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-/* 画像1枚 */
 .detailImages.count-1 {
   display: block;
 }
 
 .detailImages.count-1 img {
-  max-width: 420px;
+  width: 180px;
   height: auto;
   display: block;
   margin: 0 auto;
   object-fit: contain;
 }
 
-/* 画像2枚・4枚 */
 .detailImages.count-2,
 .detailImages.count-4 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 4px;
 }
 
-.detailImages.count-2 img,
-.detailImages.count-4 img {
-  height: 150px;
-}
-
-/* 画像3枚：1枚目を大きく */
 .detailImages.count-3 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 4px;
 }
 
 .detailImages.count-3 img {
-  height: 145px;
+  height: 85px;
 }
 
 .detailImages.count-3 img:first-child {
   grid-row: 1 / span 2;
-  height: 298px;
+  height: 174px;
 }
 
     .detailVideo {
@@ -213,24 +208,23 @@
       background: black;
     }
 
-    .text {
-      font-size: 16px;
-      line-height: 1.8;
-      color: #333;
-    }
-
-    .closeButton {
-      display: block;
-      margin: 18px auto 0;
-      padding: 10px 24px;
-      border: none;
-      border-radius: 999px;
-      background: #e9dcff;
-      color: #7f4bb3;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #333;
+}
+.closeButton {
+  display: block;
+  margin: 12px auto 0;
+  padding: 7px 18px;
+  border: none;
+  border-radius: 999px;
+  background: #ffe4b3;
+  color: #b86a00;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
     .imageModal {
       display: none;
