@@ -571,13 +571,18 @@ async function searchOneSheet(csvUrl, postType, typeLabel, keyword, poster, resu
     if(keyword && !allText.includes(keyword)) return;
     if(poster && !posterText.includes(poster)) return;
 
-    results.push({
-      postType,
-      typeLabel,
-      id,
-      title,
-      poster: postName
-    });
+results.push({
+  postType,
+  typeLabel,
+  id,
+  title,
+  description: text,
+  poster: postName,
+  category: data["カテゴリ"] || data["島カテゴリ"] || "",
+  prefecture: data["都道府県"] || "",
+  lat: data["緯度"] || "",
+  lng: data["経度"] || ""
+});
   });
 }
 
