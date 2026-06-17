@@ -1273,11 +1273,21 @@ prefectureThanks[prefecture] =
 const markerIcon = icons[category] || icon("blue");
 
 let popup = `
-<strong>${data["タイトル"] || data["名前"]}</strong><br>
-${category ? "カテゴリ：" + category + "<br>" : ""}
-${data["説明"] ? data["説明"] + "<br>" : ""}
-${data["投稿者"] ? "投稿者：" + data["投稿者"] + "<br>" : ""}
-${data["投稿日"] ? "投稿日：" + data["投稿日"] + "<br>" : ""}
+<div style="font-size:17px; line-height:1.55;">
+
+  <div style="font-size:21px; font-weight:bold; margin-bottom:6px;">
+    ${data["タイトル"] || data["名前"]}
+  </div>
+
+  ${category ? `<div style="font-size:17px; font-weight:bold;">カテゴリ：${category}</div>` : ""}
+
+  ${data["説明"] ? `<div style="font-size:17px; margin-top:8px;">${data["説明"]}</div>` : ""}
+
+  ${data["投稿者"] ? `<div style="font-size:16px; margin-top:8px;">投稿者：${data["投稿者"]}</div>` : ""}
+
+  ${data["投稿日"] ? `<div style="font-size:16px;">投稿日：${data["投稿日"]}</div>` : ""}
+
+</div>
 
 <button class="thanks-btn" data-spot-id="${data["ID"]}" onclick="sendThanks(this, '${data["ID"]}')">
 ありがとうを届ける🌸
