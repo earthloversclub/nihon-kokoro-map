@@ -1071,7 +1071,7 @@ margin-top:10px;
       #ff3333
     ) border-box;
 
-  background-size:220% 220%;
+  background-size:120% 120%;
 
   animation:rainbowBorder 7s linear infinite;
 
@@ -1528,7 +1528,14 @@ marker: marker
 marker.category = category;
 
 marker.addTo(map);
+marker.on("popupopen", function(){
+  document.getElementById("mapSwitchBox").style.display = "none";
+});
 
+marker.on("popupclose", function(){
+  document.getElementById("mapSwitchBox").style.display = "flex";
+});
+  
 markers.push(marker);
 
 const totalPostsCountEl =
