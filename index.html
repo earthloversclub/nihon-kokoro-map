@@ -1055,14 +1055,43 @@ margin-top:10px;
 }
 
 .popup-rainbow .leaflet-popup-content-wrapper{
-  border:3px solid #ff80ab !important;
+
+  border:3px solid transparent !important;
+
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(
+      90deg,
+      #ff3333,
+      #ff9800,
+      #fff176,
+      #66cc66,
+      #4da3ff,
+      #7c4dff,
+      #ff3333
+    ) border-box;
+
+  background-size:300% 300%;
+
+  animation:rainbowBorder 7s linear infinite;
+
   box-shadow:
-    0 0 10px #ff3333,
-    0 0 18px #ff9800,
-    0 0 26px #fff176,
-    0 0 34px #66cc66,
-    0 0 42px #4da3ff,
-    0 0 50px #b388ff !important;
+    0 0 12px rgba(255,255,255,.95),
+    0 0 20px rgba(255,120,180,.55),
+    0 0 30px rgba(100,180,255,.45);
+
+}
+
+@keyframes rainbowBorder{
+
+0%{
+background-position:0% 50%;
+}
+
+100%{
+background-position:100% 50%;
+}
+
 }
   
 </style>  
