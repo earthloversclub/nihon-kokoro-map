@@ -593,7 +593,10 @@ async function searchOneSheet(csvUrl, postType, typeLabel, keyword, poster, resu
 
   rows.slice(1).forEach(row => {
     const data = {};
-    headers.forEach((h, i) => data[h] = row[i] || "");
+    headers.forEach((h, i) => {
+  const key = String(h || "").replace(/\s/g, "").trim();
+  data[key] = row[i] || "";
+});
 
     const id = data["ID"];
     const title = data["タイトル"] || data["名前"] || "";
