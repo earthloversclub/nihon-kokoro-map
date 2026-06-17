@@ -274,6 +274,9 @@ async function submitPost(){
   const files = Array.from(document.getElementById("imageFile").files);
 
   const data = {
+    mode: editingSpotId ? "edit" : "new",
+　　editId: editingSpotId,
+　　editPostType: editingPostType,
     postType: document.getElementById("postType").value,    
     secret: document.getElementById("secret").value,
     category: document.getElementById("category").value,
