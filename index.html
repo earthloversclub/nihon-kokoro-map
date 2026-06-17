@@ -1023,6 +1023,47 @@ margin-top:10px;
 .leaflet-popup-content::-webkit-scrollbar{
   display: none;
 }
+
+.popup-onsen .leaflet-popup-content-wrapper{
+  border:3px solid #e84b4b !important;
+  box-shadow:0 0 18px rgba(232,75,75,0.75) !important;
+}
+
+.popup-nature .leaflet-popup-content-wrapper{
+  border:3px solid #3f8cff !important;
+  box-shadow:0 0 18px rgba(63,140,255,0.75) !important;
+}
+
+.popup-gourmet .leaflet-popup-content-wrapper{
+  border:3px solid #ff9800 !important;
+  box-shadow:0 0 18px rgba(255,152,0,0.75) !important;
+}
+
+.popup-shrine .leaflet-popup-content-wrapper{
+  border:3px solid #8e44ad !important;
+  box-shadow:0 0 18px rgba(142,68,173,0.75) !important;
+}
+
+.popup-farm .leaflet-popup-content-wrapper{
+  border:3px solid #43a047 !important;
+  box-shadow:0 0 18px rgba(67,160,71,0.75) !important;
+}
+
+.popup-event .leaflet-popup-content-wrapper{
+  border:3px solid #d4af37 !important;
+  box-shadow:0 0 20px rgba(212,175,55,0.85) !important;
+}
+
+.popup-rainbow .leaflet-popup-content-wrapper{
+  border:3px solid #ff80ab !important;
+  box-shadow:
+    0 0 10px #ff3333,
+    0 0 18px #ff9800,
+    0 0 26px #fff176,
+    0 0 34px #66cc66,
+    0 0 42px #4da3ff,
+    0 0 50px #b388ff !important;
+}
   
 </style>  
 </head>  
@@ -1405,6 +1446,19 @@ angelEmoji = "🪽👼大天使降臨👼🪽";
 angelEmoji = "👼天使降臨";
 }
 }
+
+const popupClassMap = {
+  "温泉・宿泊": "popup-onsen",
+  "自然・絶景": "popup-nature",
+  "グルメ・特産品": "popup-gourmet",
+  "神社仏閣・歴史": "popup-shrine",
+  "自然農": "popup-farm",
+  "イベント・体験": "popup-event",
+  "人・活動・想い": "popup-rainbow"
+};
+
+const popupClass = popupClassMap[category] || "popup-default";
+  
 let marker;
 
 if (angelEmoji) {
@@ -1425,6 +1479,7 @@ marker = L.marker([lat, lng], { icon: specialIcon })
 .bindPopup(popup, {
   minWidth: 230,
   maxWidth: 280,
+  className: popupClass
 });
 
 } else {
@@ -1432,6 +1487,7 @@ marker = L.marker([lat, lng], { icon: markerIcon })
 .bindPopup(popup, {
   minWidth: 230,
   maxWidth: 280,
+  className: popupClass
 });
 }
 
