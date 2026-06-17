@@ -524,6 +524,9 @@ function editFoundPost(postType, spotId) {
   editingPostType = postType;
   editingSpotId = spotId;
 
+  document.getElementById("postType").value = postType;
+togglePostType();
+
   if (document.getElementById("title")) {
     document.getElementById("title").value = item.title || "";
   }
@@ -537,7 +540,21 @@ function editFoundPost(postType, spotId) {
   }
 
   if (document.getElementById("category")) {
-    document.getElementById("category").value = item.category || "";
+    setTimeout(() => {
+  const categorySelect = document.getElementById("category");
+  const categoryValue = item.category || "";
+
+  categorySelect.value = categoryValue;
+
+  // もし一致しなかった時だけ、選択肢に追加して選ぶ
+  if (categoryValue && categorySelect.value !== categoryValue) {
+    const option = document.createElement("option");
+    option.value = categoryValue;
+    option.textContent = categoryValue;
+    categorySelect.appendChild(option);
+    categorySelect.value = categoryValue;
+  }
+}, 100);
   }
 
   if (document.getElementById("prefecture")) {
