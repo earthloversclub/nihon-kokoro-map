@@ -381,6 +381,12 @@ submitButton.style.background = "#cdebd4";
   if(res.success){
     alert("投稿成功🌈");
 
+    editingPostType = "";
+editingSpotId = "";
+
+document.getElementById("submitButton").textContent = "投稿する";
+document.getElementById("submitButton").style.background = "#cdebd4";
+    
     document.getElementById("addressSearch").value = "";
     document.getElementById("lat").value = "";
     document.getElementById("lng").value = "";
@@ -572,6 +578,9 @@ togglePostType();
     document.getElementById("lng").value = item.lng || "";
   }
 
+  const submitButton = document.getElementById("submitButton");
+submitButton.textContent = "更新する";
+submitButton.style.background = "#ffd6a5";
   alert("編集データをフォームに入れました。\n内容を直してから更新してください。");
 }
   
