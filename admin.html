@@ -150,7 +150,16 @@ input, select, textarea {
 
 let lastSearchResults = [];
 let editingPostType = "";
-let editingSpotId = "";  
+let editingSpotId = "";
+
+let editingImageUrls = {
+  image: "",
+  image2: "",
+  image3: "",
+  image4: "",
+  video: ""
+};
+
 
 const scriptUrl =
 "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec";
@@ -285,11 +294,11 @@ async function submitPost(){
     description: document.getElementById("description").value,
     lat: document.getElementById("lat").value,
     lng: document.getElementById("lng").value,
-    image: "",
-    image2: "",
-    image3: "",
-    image4: "",
-    video: "",
+　　image: editingImageUrls.image || "",
+　　image2: editingImageUrls.image2 || "",
+　　image3: editingImageUrls.image3 || "",
+　　image4: editingImageUrls.image4 || "",
+　　video: editingImageUrls.video || "",
     poster: document.getElementById("poster").value
   };
 
@@ -532,6 +541,13 @@ function editFoundPost(postType, spotId) {
 
   editingPostType = postType;
   editingSpotId = spotId;
+  editingImageUrls = {
+  image: item.image || "",
+  image2: item.image2 || "",
+  image3: item.image3 || "",
+  image4: item.image4 || "",
+  video: item.video || ""
+};
 
   document.getElementById("postType").value = postType;
 togglePostType();
@@ -622,6 +638,11 @@ results.push({
   prefecture: data["都道府県"] || "",
   lat: data["緯度"] || "",
   lng: data["経度"] || ""
+  image: data["画像"] || "",
+  image2: data["画像2"] || "",
+  image3: data["画像3"] || "",
+  image4: data["画像4"] || "",
+  video: data["動画"] || "",
 });
   });
 }
