@@ -285,7 +285,7 @@ async function submitPost(){
   const data = {
     mode: editingSpotId ? "edit" : "new",
 　　editId: editingSpotId,
-　　editPostType: editingPostType,
+editPostType: editingPostType,
     postType: document.getElementById("postType").value,    
     secret: document.getElementById("secret").value,
     category: document.getElementById("category").value,
@@ -295,10 +295,10 @@ async function submitPost(){
     lat: document.getElementById("lat").value,
     lng: document.getElementById("lng").value,
 　　image: editingImageUrls.image || "",
-　　image2: editingImageUrls.image2 || "",
-　　image3: editingImageUrls.image3 || "",
-　　image4: editingImageUrls.image4 || "",
-　　video: editingImageUrls.video || "",
+image2: editingImageUrls.image2 || "",
+image3: editingImageUrls.image3 || "",
+image4: editingImageUrls.image4 || "",
+video: editingImageUrls.video || "",
     poster: document.getElementById("poster").value
   };
 
@@ -637,7 +637,7 @@ results.push({
   category: data["カテゴリ"] || data["島カテゴリ"] || "",
   prefecture: data["都道府県"] || "",
   lat: data["緯度"] || "",
-  lng: data["経度"] || ""
+  lng: data["経度"] || "",
   image: data["画像"] || "",
   image2: data["画像2"] || "",
   image3: data["画像3"] || "",
