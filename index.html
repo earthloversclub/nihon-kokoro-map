@@ -1427,15 +1427,17 @@ popupAnchor: [0, -75]
 
 marker = L.marker([lat, lng], { icon: specialIcon })
 .bindPopup(popup, {
-minWidth: 230,
-maxWidth: 280
+  minWidth: 230,
+  maxWidth: 280,
+  maxHeight: 480
 });
 
 } else {
 marker = L.marker([lat, lng], { icon: markerIcon })
 .bindPopup(popup, {
-minWidth: 230,
-maxWidth: 280
+  minWidth: 230,
+  maxWidth: 280,
+  maxHeight: 480
 });
 }
 
