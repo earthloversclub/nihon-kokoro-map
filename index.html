@@ -1362,7 +1362,9 @@ let popup = `
 
   ${category ? `<div style="font-size:17px; font-weight:bold;">カテゴリ：${category}</div>` : ""}
 
-  ${data["説明"] ? data["説明"].replace(/\n/g,"<br>") + "<br>" : ""}
+  ${data["説明"]
+  ? `<div style="margin-top:8px;">${data["説明"].replace(/\n/g, "<br>")}</div>`
+  : ""}
 
   ${data["投稿者"] ? `<div style="font-size:16px; margin-top:8px;">投稿者：${data["投稿者"]}</div>` : ""}
 
