@@ -498,6 +498,14 @@ resultBox.innerHTML = results.map(item => `
   style="width:auto;padding:8px 14px;margin-left:10px;">
   削除
 </button>
+
+<button
+  type="button"
+  onclick="cancelSearchResult()"
+  style="width:auto;padding:8px 14px;margin-left:10px;">
+  キャンセル
+</button>
+
   </div>
 `).join("");
 }
@@ -666,6 +674,12 @@ function searchAddress(){
       alert("住所検索に失敗しました");
     });
 
+}
+
+function cancelSearchResult(){
+  document.getElementById("deleteResults").innerHTML = "";
+  document.getElementById("deleteKeyword").value = "";
+  document.getElementById("deletePoster").value = "";
 }
   
 </script>
