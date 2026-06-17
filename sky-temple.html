@@ -186,7 +186,8 @@ h2 {
 </div>
 
 <script>
-const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?output=csv";
+const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
+const heartCsvUrl = "ここに心の宝箱CSVのURLを入れる";  
 
 function parseCSV(text) {
   const rows = [];
@@ -227,62 +228,72 @@ function parseCSV(text) {
   return rows;
 }
 
-fetch(sheetUrl + "&t=" + Date.now())
-  .then(response => response.text())
-  .then(csv => {
-    const rows = parseCSV(csv);
-    const headers = rows[0];
+function addPosterCounts(rows, counts) {
+  const headers = rows[0];
 
-    const counts = {};
+  rows.slice(1).forEach(row => {
+    const data = {};
 
-    rows.slice(1).forEach(row => {
-      const data = {};
-      
-     headers.forEach((h, i) => {
-  const key = h.replace(/\s/g, "").trim();
-  data[key] = row[i];
-});
-
-const name = (data["投稿者"] || "").trim();
-
-      if (!name) return;
-      if (name === "未入力") return;
-
-      counts[name] = (counts[name] || 0) + 1;
+    headers.forEach((h, i) => {
+      const key = h.replace(/\s/g, "").trim();
+      data[key] = row[i];
     });
 
-    const ranking = Object.entries(counts)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 3);
+    const name = (data["投稿者"] || "").trim();
 
-    if (ranking.length === 0) {
-  alert("読み込めた行数：" + rows.length + "\n見出し：" + headers.join(" / "));
-  return;
+    if (!name) return;
+    if (name === "未入力") return;
+    if (name === "匿名") return;
+
+    counts[name] = (counts[name] || 0) + 1;
+  });
 }
 
-    const medals = ["🏅", "🥈", "🥉"];
-    const flowers = ["🌸", "🌱", "🌈"];
+Promise.all([
+  fetch(sheetUrl + "&t=" + Date.now()).then(response => response.text()),
+  fetch(heartCsvUrl + "&t=" + Date.now()).then(response => response.text())
+])
+.then(([treasureCsv, heartCsv]) => {
+  const treasureRows = parseCSV(treasureCsv);
+  const heartRows = parseCSV(heartCsv);
 
-    document.querySelectorAll(".member").forEach((box, i) => {
-      if (!ranking[i]) {
-        box.style.display = "none";
-        return;
-      }
+  const counts = {};
 
-      const name = ranking[i][0];
-      const count = ranking[i][1];
+  addPosterCounts(treasureRows, counts);
+  addPosterCounts(heartRows, counts);
 
-      box.querySelector(".memberName").textContent = `${medals[i]}${name}`;
-      box.querySelector(".memberText").textContent =
-        `${count}個の宝物を届けてくれました${flowers[i]}`;
-    });
+  const ranking = Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
 
-    document.querySelector(".rankingArea").style.visibility = "visible";
-  })
-  .catch(err => {
-    alert("ランキング読み込みエラー");
-    console.log(err);
+  if (ranking.length === 0) {
+    alert("ランキングに表示できる投稿者がいません");
+    return;
+  }
+
+  const medals = ["🏅", "🥈", "🥉"];
+  const flowers = ["🌸", "🌱", "🌈"];
+
+  document.querySelectorAll(".member").forEach((box, i) => {
+    if (!ranking[i]) {
+      box.style.display = "none";
+      return;
+    }
+
+    const name = ranking[i][0];
+    const count = ranking[i][1];
+
+    box.querySelector(".memberName").textContent = `${medals[i]}${name}`;
+    box.querySelector(".memberText").textContent =
+      `${count}個の宝物を届けてくれました${flowers[i]}`;
   });
+
+  document.querySelector(".rankingArea").style.visibility = "visible";
+})
+.catch(err => {
+  alert("ランキング読み込みエラー");
+  console.log(err);
+});
 </script>
   
 </body>
