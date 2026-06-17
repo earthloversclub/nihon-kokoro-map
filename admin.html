@@ -124,6 +124,7 @@ input, select, textarea {
 <input id="poster" placeholder="投稿者">
 
 <input type="file" id="imageFile" accept="image/*,video/*" multiple>
+  <div id="currentMediaPreview" style="margin-top:8px;"></div>
 
 <button id="submitButton" onclick="submitPost()">
 投稿する
@@ -159,7 +160,7 @@ let editingImageUrls = {
   image4: "",
   video: ""
 };
-
+showCurrentMediaPreview();
 
 const scriptUrl =
 "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec";
@@ -548,7 +549,7 @@ function editFoundPost(postType, spotId) {
   image4: item.image4 || "",
   video: item.video || ""
 };
-
+showCurrentMediaPreview();
   document.getElementById("postType").value = postType;
 togglePostType();
 
@@ -733,6 +734,40 @@ function cancelSearchResult(){
   document.getElementById("deleteResults").innerHTML = "";
   document.getElementById("deleteKeyword").value = "";
   document.getElementById("deletePoster").value = "";
+}
+
+function showCurrentMediaPreview(){
+  const box = document.getElementById("currentMediaPreview");
+  if(!box) return;
+
+  const images = [
+    editingImageUrls.image,
+    editingImageUrls.image2,
+    editingImageUrls.image3,
+    editingImageUrls.image4
+  ].filter(Boolean);
+
+  let html = "";
+
+  if(images.length > 0){
+    html += `<div style="font-weight:bold;margin-top:8px;">現在の画像</div>`;
+    html += `<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;">`;
+
+    images.forEach(url => {
+      html += `
+        <img src="${url}"
+          style="width:100%;height:90px;object-fit:cover;border-radius:8px;border:1px solid #ddd;">
+      `;
+    });
+
+    html += `</div>`;
+  }
+
+  if(editingImageUrls.video){
+    html += `<div style="font-weight:bold;margin-top:8px;">現在の動画：あり 🎥</div>`;
+  }
+
+  box.innerHTML = html;
 }
   
 </script>
