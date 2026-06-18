@@ -1310,10 +1310,35 @@ const map = L.map('map', { zoomControl: false }).setView([37.8, 138.5], 5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution: '&copy; OpenStreetMap'
 }).addTo(map);
+
+const cleanModeTargets = [
+  document.querySelector(".category-frame"),
+  document.querySelector(".treasure-frame"),
+  document.querySelector("#growthMapBtn"),
+  document.querySelector("#growthMapButton"),
+  document.querySelector("#growthButton"),
+  document.querySelector(".growthButton")
+].filter(Boolean);
+
+function showCleanMode() {
+  showCleanMode();
+
+  cleanModeTargets.forEach(el => {
+    el.style.display = "none";
+  });
+}
+
+function hideCleanMode() {
+  hideCleanMode();
+
+  cleanModeTargets.forEach(el => {
+    el.style.display = "";
+  });
+}
   
 map.on("zoomstart", () => {
   if (isResettingMap) return;
-  document.body.classList.add("mapCleanMode");
+  showCleanMode();
 });
 
 let isResettingMap = false;
@@ -1324,14 +1349,14 @@ document.getElementById("resetMapViewBtn").addEventListener("click", () => {
   map.setView([37.8, 138.5], 5);
 
   setTimeout(() => {
-    document.body.classList.remove("mapCleanMode");
+    hideCleanMode();
     isResettingMap = false;
   }, 400);
 });
   
 map.on("dragstart", () => {
   if (isResettingMap) return;
-  document.body.classList.add("mapCleanMode");
+  showCleanMode();
 });
 
 function icon(color) {
