@@ -1108,12 +1108,47 @@ background-position:100% 50%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
 }
+
+.mapCleanMode .category-panel,
+.mapCleanMode .treasure-frame,
+.mapCleanMode .thanks-frame,
+.mapCleanMode .achievement-frame,
+.mapCleanMode .ranking-frame,
+.mapCleanMode .energy-frame,
+.mapCleanMode #rainbowBox,
+.mapCleanMode #skyTempleBox {
+  display: none !important;
+}
+
+#resetMapViewBtn {
+  display: none;
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 99999;
+
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: 3px solid #9fd8b2;
+  background: #ffffff;
+  color: #256b3b;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 0 16px rgba(255,255,255,0.95);
+}
+
+.mapCleanMode #resetMapViewBtn {
+  display: block;
+}
   
 </style>  
 </head>  
 
 <body>
 
+<button id="resetMapViewBtn" type="button">🌎 全体に戻る</button>
+  
 <div id="passwordGate">
 <div id="passwordBox">
 <h2>🌎 地球大好きっ子クラブ 🌎</h2>
@@ -1265,6 +1300,17 @@ const map = L.map('map', { zoomControl: false }).setView([37.8, 138.5], 5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution: '&copy; OpenStreetMap'
 }).addTo(map);
+  map.on("zoomstart", () => {
+  document.body.classList.add("mapCleanMode");
+});
+
+  document.getElementById("resetMapViewBtn").addEventListener("click", () => {
+  map.setView([37.8, 138.5], 5);
+  document.body.classList.remove("mapCleanMode");
+});
+map.on("dragstart", () => {
+  document.body.classList.add("mapCleanMode");
+});
 
 function icon(color) {
 return new L.Icon({
