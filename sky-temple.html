@@ -287,7 +287,7 @@ Promise.all([
   .sort((a, b) => b[1] - a[1]);
 
 const top5 = ranking.slice(0, 5);
-const others = ranking.slice(5);
+const others = ranking.slice(5, 10);
 
   if (ranking.length === 0) {
     alert("ランキングに表示できる投稿者がいません");
@@ -303,7 +303,7 @@ function createMemberHtml(item, index) {
 
   return `
     <div class="member">
-      <div class="memberName">${medals[index] || "🏅"}${index + 1}位 ${name}</div>
+      <div class="memberName">${medals[index] || "🏅"} ${name}</div>
       <div class="memberText">${count}個の宝物を届けてくれました${flowers[index] || "✨"}</div>
     </div>
   `;
