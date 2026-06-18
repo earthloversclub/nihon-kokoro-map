@@ -179,6 +179,17 @@ margin: 40px auto 160px;
   background-size: 100% auto;
   min-height: 100vh;
 }
+
+.medalIcon {
+  display: inline-block;
+  width: 70px;
+  text-align: right;
+}
+
+.memberRealName {
+  display: inline-block;
+  text-align: left;
+}
   
 </style>
 </head>
@@ -305,7 +316,10 @@ function createMemberHtml(item, index) {
 
   return `
     <div class="member">
-      <div class="memberName">${medals[index] || "🏅"} ${name}</div>
+      <div class="memberName">
+  <span class="medalIcon">${medals[index] || "🏅"}</span>
+  <span class="memberRealName">${name}</span>
+</div>
       <div class="memberText">${count}個の宝物を届けてくれました${flowers[index] || "✨"}</div>
     </div>
   `;
