@@ -67,8 +67,13 @@ h2 {
 }
 
 /* ランキング全体の位置 */
-.rankingArea {
+.topRankingArea {
   margin-top: 420px;
+  visibility: hidden;
+}
+
+.bottomRankingArea {
+  margin-top: 80px;
   visibility: hidden;
 }
   
@@ -145,6 +150,19 @@ h2 {
 
   z-index: 99999;
 }
+
+.thanksMessage{
+  margin:120px auto 220px;
+  font-size:48px;
+  font-weight:900;
+  line-height:1.6;
+  color:#2E0854;
+
+  text-shadow:
+    0 0 8px white,
+    0 0 16px white,
+    0 0 28px rgba(46,8,84,0.55);
+}
   
 </style>
 </head>
@@ -162,27 +180,9 @@ h2 {
     仲間たちの記録がここに刻まれています✨
   </p>
 
-  <div class="rankingArea">
+  <div class="topRankingArea"></div>
 
-    <div class="member">
-      <div class="memberName">🏅テスト</div>
-      <div class="memberText">12個の宝物を届けてくれました🌸</div>
-    </div>
-
-    <div class="member">
-      <div class="memberName">🥈○○さん</div>
-      <div class="memberText">8個の宝物を届けてくれました🌱</div>
-    </div>
-
-    <div class="member">
-      <div class="memberName">🥉○○さん</div>
-      <div class="memberText">5個の宝物を届けてくれました🌈</div>
-    </div>
-
-  </div>
-
-  <a class="backButton" href="index.html?return=true">🌎宝物地図へ戻る</a>
-
+  <div class="bottomRankingArea"></div>
 </div>
 
 <script>
@@ -263,8 +263,13 @@ Promise.all([
   addPosterCounts(heartRows, counts);
 
   const ranking = Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 3);
+  .sort((a, b) => b[1] - a[1]);
+
+  const top5 = ranking.slice(0, 5);
+const others = ranking.slice(5);
+
+const top5 = ranking.slice(0, 5);
+const others = ranking.slice(5);
 
   if (ranking.length === 0) {
     alert("ランキングに表示できる投稿者がいません");
@@ -274,21 +279,44 @@ Promise.all([
   const medals = ["🏅", "🥈", "🥉"];
   const flowers = ["🌸", "🌱", "🌈"];
 
-  document.querySelectorAll(".member").forEach((box, i) => {
-    if (!ranking[i]) {
-      box.style.display = "none";
-      return;
-    }
+const medals = ["🥇", "🥈", "🥉", "🏅", "🏅"];
+const flowers = ["🌸", "🌱", "🌈", "✨", "🍀"];
 
-    const name = ranking[i][0];
-    const count = ranking[i][1];
+function createMemberHtml(item, index) {
+  const name = item[0];
+  const count = item[1];
 
-    box.querySelector(".memberName").textContent = `${medals[i]}${name}`;
-    box.querySelector(".memberText").textContent =
-      `${count}個の宝物を届けてくれました${flowers[i]}`;
-  });
+  return `
+    <div class="member">
+      <div class="memberName">${medals[index] || "🏅"}${index + 1}位 ${name}</div>
+      <div class="memberText">${count}個の宝物を届けてくれました${flowers[index] || "✨"}</div>
+    </div>
+  `;
+}
 
-  document.querySelector(".rankingArea").style.visibility = "visible";
+document.querySelector(".topRankingArea").innerHTML =
+  top5.map((item, i) => createMemberHtml(item, i)).join("");
+
+const thanksMessage = `
+  <div class="thanksMessage">
+    🌈 宝物を届けてくれた<br>
+    すべての仲間たちへ 🌈<br><br>
+
+    ひとつひとつの投稿が<br>
+    誰かの心を動かし<br><br>
+
+    日本中へ優しい光を<br>
+    届けています✨<br><br>
+
+    本当にありがとう🍀
+  </div>
+`;
+
+document.querySelector(".bottomRankingArea").innerHTML =
+  others.map((item, i) => createMemberHtml(item, i + 5)).join("") + thanksMessage;
+
+document.querySelector(".topRankingArea").style.visibility = "visible";
+document.querySelector(".bottomRankingArea").style.visibility = "visible";
 })
 .catch(err => {
   alert("ランキング読み込みエラー");
