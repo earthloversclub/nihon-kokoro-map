@@ -466,14 +466,24 @@ document.querySelector(".bottomRankingArea").style.visibility = "visible";
 
 function setupSpecialThanks(totalPosts) {
   const btn = document.getElementById("specialThanksBtn");
+  const img = document.getElementById("specialThanksImage");
+  const text = document.getElementById("specialThanksText");
+
+  if (!btn || !img || !text) {
+    console.log("Special Thanks部品が見つかりません");
+    return;
+  }
 
   let milestone = Math.floor(totalPosts / 100) * 100;
 
   if (milestone < 100) {
     const next = 100;
-    btn.innerHTML = `❤Special Thanks❤<br>${next}投稿まで<br>あと${next - totalPosts}投稿`;
+
+    img.src = "images/special-thanks-lock.png";
+    text.innerHTML = `❤Special Thanks❤<br>${next}投稿まで<br>あと${next - totalPosts}投稿`;
+
     btn.classList.add("locked");
-    btn.disabled = true;
+    btn.onclick = null;
     return;
   }
 
@@ -482,15 +492,18 @@ function setupSpecialThanks(totalPosts) {
   }
 
   if (milestone > totalPosts) {
-    btn.innerHTML = `❤Special Thanks❤<br>${milestone}投稿まで<br>あと${milestone - totalPosts}投稿`;
+    img.src = "images/special-thanks-lock.png";
+    text.innerHTML = `❤Special Thanks❤<br>${milestone}投稿まで<br>あと${milestone - totalPosts}投稿`;
+
     btn.classList.add("locked");
-    btn.disabled = true;
+    btn.onclick = null;
     return;
   }
 
-  btn.innerHTML = `❤Special Thanks❤<br>🎉${milestone}投稿達成🎉<br>押して祝福する✨`;
+  img.src = "images/special-thanks-open.png";
+  text.innerHTML = `❤Special Thanks❤<br>🎉${milestone}投稿達成🎉<br>押して祝福する✨`;
+
   btn.classList.remove("locked");
-  btn.disabled = false;
 
   btn.onclick = function() {
     localStorage.setItem("specialThanks_" + milestone, "done");
@@ -500,6 +513,8 @@ function setupSpecialThanks(totalPosts) {
 }
 
 function showSpecialThanksEffect(milestone) {
+  alert(`🎉${milestone}投稿達成おめでとうございます🎉`);
+}
   alert(`🎉${milestone}投稿達成おめでとうございます🎉`);
 }
   
