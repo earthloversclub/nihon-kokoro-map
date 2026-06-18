@@ -215,6 +215,10 @@ margin: 10px auto 30px;
 .thanksMessage {
   margin-top: 210px;  /* メッセージだけ下へ */
 }
+
+.thanksArea {
+  margin-top: 120px;   /* メッセージだけ上下 */
+}
   
 </style>
 </head>
@@ -239,6 +243,8 @@ margin: 10px auto 30px;
 <div class="templeBottom">
 
 <div class="bottomRankingArea"></div>
+
+<div class="thanksArea"></div>
 
 <div class="buttonArea">
   <a class="backButton" href="index.html?return=true">🌎宝物地図へ戻る</a>
@@ -386,8 +392,9 @@ const thanksMessage = `
 `;
 
 document.querySelector(".bottomRankingArea").innerHTML =
-  Array.from({ length: 5 }, (_, i) => createMemberHtml(bottom5[i], i + 5)).join("") + thanksMessage;
+  Array.from({ length: 5 }, (_, i) => createMemberHtml(bottom5[i], i + 5)).join("");
 
+document.querySelector(".thanksArea").innerHTML = thanksMessage;
 document.querySelector(".topRankingArea").style.visibility = "visible";
 document.querySelector(".bottomRankingArea").style.visibility = "visible";
 })
