@@ -96,10 +96,21 @@ h2 {
   line-height: 1.15;
   font-weight: 900;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
+  display: inline-block;
+  position: relative;
+}
+
+.medalIcon {
+  position: absolute;
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 70px;
+  text-align: right;
+}
+
+.memberRealName {
+  display: inline-block;
 }
 
 .memberText {
