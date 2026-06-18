@@ -229,14 +229,11 @@ margin: 0px auto 30px;
   width:260px;
   height:230px;
   border:none;
-  background:#f8b8cf;
   color:#7a1f45;
   font-size:26px;
   font-weight:900;
   line-height:1.35;
   cursor:pointer;
-
-  clip-path: path("M130 220 C20 130 0 65 45 25 C80 -5 115 15 130 50 C145 15 180 -5 215 25 C260 65 240 130 130 220 Z");
 
   box-shadow:
     0 0 18px white,
@@ -254,6 +251,41 @@ margin: 0px auto 30px;
   font-weight:900;
   color:#5b2b55;
   text-shadow:0 0 8px white;
+}
+
+.specialThanksButton{
+  position: relative;
+  width: 330px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.specialThanksButton img{
+  width: 100%;
+  display: block;
+}
+
+.heartText{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+  width: 78%;
+  text-align: center;
+
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.25;
+  color: #7a1f45;
+
+  text-shadow:
+    0 0 6px white,
+    0 0 12px white;
+}
+
+.specialThanksButton.locked{
+  opacity: 0.7;
+  cursor: not-allowed;
 }
   
 </style>
