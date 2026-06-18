@@ -1311,30 +1311,15 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution: '&copy; OpenStreetMap'
 }).addTo(map);
 
-const cleanModeTargets = [
-  document.querySelector(".category-frame"),
-  document.querySelector(".treasure-frame"),
-  document.querySelector("#growthMapBtn"),
-  document.querySelector("#growthMapButton"),
-  document.querySelector("#growthButton"),
-  document.querySelector(".growthButton")
-].filter(Boolean);
+map.on("zoomstart", () => {
+  if (isResettingMap) return;
+  document.body.classList.add("mapCleanMode");
+});
 
-function showCleanMode() {
-  showCleanMode();
-
-  cleanModeTargets.forEach(el => {
-    el.style.display = "none";
-  });
-}
-
-function hideCleanMode() {
-  hideCleanMode();
-
-  cleanModeTargets.forEach(el => {
-    el.style.display = "";
-  });
-}
+map.on("dragstart", () => {
+  if (isResettingMap) return;
+  document.body.classList.add("mapCleanMode");
+});
   
 map.on("zoomstart", () => {
   if (isResettingMap) return;
@@ -1343,16 +1328,10 @@ map.on("zoomstart", () => {
 
 let isResettingMap = false;
 
-document.getElementById("resetMapViewBtn").addEventListener("click", () => {
-  isResettingMap = true;
-
-  map.setView([37.8, 138.5], 5);
-
-  setTimeout(() => {
-    hideCleanMode();
-    isResettingMap = false;
-  }, 400);
-});
+setTimeout(() => {
+  document.body.classList.remove("mapCleanMode");
+  isResettingMap = false;
+}, 400);
   
 map.on("dragstart", () => {
   if (isResettingMap) return;
