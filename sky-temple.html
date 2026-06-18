@@ -5,10 +5,8 @@
 <title>天空の神殿</title>
 
 <style>
+  
 body {
-  margin: 0;
-  font-family: sans-serif;
-  body {
   margin: 0;
   font-family: sans-serif;
   background: #eef7ff;
@@ -287,9 +285,6 @@ Promise.all([
 
   const ranking = Object.entries(counts)
   .sort((a, b) => b[1] - a[1]);
-
-  const top5 = ranking.slice(0, 5);
-const others = ranking.slice(5);
 
 const top5 = ranking.slice(0, 5);
 const others = ranking.slice(5);
