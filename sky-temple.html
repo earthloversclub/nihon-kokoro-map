@@ -325,29 +325,32 @@ const medals = [
   "🌈",
   "🌞",
   "🌟",
-  "🌸",
-  "🦋",
-  "💎",
+  "🐬",
+  "🐦",
+  "🍀",
   "🍓"
 ];
 
 function createMemberHtml(item, index) {
-  const name = item[0];
-  const count = item[1];
+
+  const name = item ? item[0] : "";
+  const count = item ? item[1] : "";
 
   return `
     <div class="member">
       <div class="memberName">
-  <span class="medalIcon">${medals[index] || "🏅"}</span>
-  <span class="memberRealName">${name}</span>
-</div>
-      <div class="memberText">${count}個の宝物を届けてくれました💐</div>
+        <span class="medalIcon">${medals[index]}</span>
+        <span class="memberRealName">${name}</span>
+      </div>
+
+      <div class="memberText">
+        ${name ? `${count}個の宝物を届けてくれました💐` : ""}
+      </div>
     </div>
   `;
 }
-
 document.querySelector(".topRankingArea").innerHTML =
-  top5.map((item, i) => createMemberHtml(item, i)).join("");
+  Array.from({ length: 5 }, (_, i) => createMemberHtml(top5[i], i)).join("");
 
 const thanksMessage = `
   <div class="thanksMessage">
@@ -365,7 +368,7 @@ const thanksMessage = `
 `;
 
 document.querySelector(".bottomRankingArea").innerHTML =
-  bottom5.map((item, i) => createMemberHtml(item, i + 5)).join("") + thanksMessage;
+  Array.from({ length: 5 }, (_, i) => createMemberHtml(bottom5[i], i + 5)).join("") + thanksMessage;
 
 document.querySelector(".topRankingArea").style.visibility = "visible";
 document.querySelector(".bottomRankingArea").style.visibility = "visible";
