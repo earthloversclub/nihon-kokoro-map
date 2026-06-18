@@ -1109,17 +1109,6 @@ background-position:100% 50%;
   object-fit: cover;
 }
 
-.mapCleanMode .category-panel,
-.mapCleanMode .treasure-frame,
-.mapCleanMode .thanks-frame,
-.mapCleanMode .achievement-frame,
-.mapCleanMode .ranking-frame,
-.mapCleanMode .energy-frame,
-.mapCleanMode #rainbowBox,
-.mapCleanMode #skyTempleBox {
-  display: none !important;
-}
-
 #resetMapViewBtn {
   display: none;
   position: fixed;
@@ -1138,17 +1127,11 @@ background-position:100% 50%;
   box-shadow: 0 0 16px rgba(255,255,255,0.95);
 }
 
-.mapCleanMode #resetMapViewBtn {
-  display: block;
-}
-
-.mapCleanMode #categoryBox,
-.mapCleanMode #treasureBox,
-.mapCleanMode #growthMapButton,
-.mapCleanMode #growthButton,
-.mapCleanMode .growthButton,
-.mapCleanMode .treasureBox,
-.mapCleanMode .categoryBox {
+.mapCleanMode .legend,
+.mapCleanMode #mapSwitchBox,
+.mapCleanMode #searchBox,
+.mapCleanMode #rainbowBox,
+.mapCleanMode #skyTempleBox {
   display: none !important;
 }
   
@@ -1328,16 +1311,35 @@ map.on("zoomstart", () => {
 
 let isResettingMap = false;
 
-setTimeout(() => {
+function showCleanMode() {
+  document.body.classList.add("mapCleanMode");
+}
+
+function hideCleanMode() {
   document.body.classList.remove("mapCleanMode");
-  isResettingMap = false;
-}, 400);
-  
+}
+
+map.on("zoomstart", () => {
+  if (isResettingMap) return;
+  showCleanMode();
+});
+
 map.on("dragstart", () => {
   if (isResettingMap) return;
   showCleanMode();
 });
 
+document.getElementById("resetMapViewBtn").addEventListener("click", () => {
+  isResettingMap = true;
+
+  map.setView([37.8, 138.5], 5);
+
+  setTimeout(() => {
+    hideCleanMode();
+    isResettingMap = false;
+  }, 400);
+});
+  
 function icon(color) {
 return new L.Icon({
 iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-${color}.png`,
