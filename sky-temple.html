@@ -219,6 +219,42 @@ margin: 0px auto 30px;
 .thanksArea {
   margin-top: 700px;   /* メッセージだけ上下 */
 }
+
+.specialThanksArea{
+  text-align:center;
+  margin:80px auto 70px;
+}
+
+#specialThanksBtn{
+  width:260px;
+  height:230px;
+  border:none;
+  background:#f8b8cf;
+  color:#7a1f45;
+  font-size:26px;
+  font-weight:900;
+  line-height:1.35;
+  cursor:pointer;
+
+  clip-path: path("M130 220 C20 130 0 65 45 25 C80 -5 115 15 130 50 C145 15 180 -5 215 25 C260 65 240 130 130 220 Z");
+
+  box-shadow:
+    0 0 18px white,
+    0 0 35px rgba(255,180,220,0.9);
+}
+
+#specialThanksBtn.locked{
+  opacity:0.65;
+  cursor:not-allowed;
+}
+
+.specialThanksNote{
+  margin-top:12px;
+  font-size:18px;
+  font-weight:900;
+  color:#5b2b55;
+  text-shadow:0 0 8px white;
+}
   
 </style>
 </head>
@@ -244,6 +280,17 @@ margin: 0px auto 30px;
 
 <div class="bottomRankingArea"></div>
 
+<div class="specialThanksArea">
+  <button id="specialThanksBtn" type="button">
+    ❤Special Thanks❤<br>
+    読み込み中...
+  </button>
+
+  <div class="specialThanksNote">
+    ※条件を満たせば押せるボタン♪
+  </div>
+</div>
+
 <div class="thanksArea"></div>
 
 <div class="buttonArea">
@@ -252,6 +299,45 @@ margin: 0px auto 30px;
 
 </div>
 
+function setupSpecialThanks(totalPosts) {
+  const btn = document.getElementById("specialThanksBtn");
+
+  let milestone = Math.floor(totalPosts / 100) * 100;
+
+  if (milestone < 100) {
+    const next = 100;
+    btn.innerHTML = `❤Special Thanks❤<br>${next}投稿まで<br>あと${next - totalPosts}投稿`;
+    btn.classList.add("locked");
+    btn.disabled = true;
+    return;
+  }
+
+  while (localStorage.getItem("specialThanks_" + milestone) && milestone <= totalPosts) {
+    milestone += 100;
+  }
+
+  if (milestone > totalPosts) {
+    btn.innerHTML = `❤Special Thanks❤<br>${milestone}投稿まで<br>あと${milestone - totalPosts}投稿`;
+    btn.classList.add("locked");
+    btn.disabled = true;
+    return;
+  }
+
+  btn.innerHTML = `❤Special Thanks❤<br>🎉${milestone}投稿達成🎉<br>押して祝福する✨`;
+  btn.classList.remove("locked");
+  btn.disabled = false;
+
+  btn.onclick = function() {
+    localStorage.setItem("specialThanks_" + milestone, "done");
+    showSpecialThanksEffect(milestone);
+    setupSpecialThanks(totalPosts);
+  };
+}
+
+function showSpecialThanksEffect(milestone) {
+  alert(`🎉${milestone}投稿達成おめでとうございます🎉`);
+}
+  
 <script>
 const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?output=csv";  
 const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
@@ -334,6 +420,7 @@ Promise.all([
 
 const top5 = ranking.slice(0, 5);
 const bottom5 = ranking.slice(5, 10);
+const totalPosts = treasureRows.length - 1 + heartRows.length - 1;  
 
   if (ranking.length === 0) {
     alert("ランキングに表示できる投稿者がいません");
@@ -397,6 +484,7 @@ document.querySelector(".bottomRankingArea").innerHTML =
   Array.from({ length: 5 }, (_, i) => createMemberHtml(bottom5[i], i + 5)).join("");
 
 document.querySelector(".thanksArea").innerHTML = thanksMessage;
+setupSpecialThanks(totalPosts);  
 document.querySelector(".topRankingArea").style.visibility = "visible";
 document.querySelector(".bottomRankingArea").style.visibility = "visible";
 })
