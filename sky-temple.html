@@ -311,15 +311,25 @@ Promise.all([
   .sort((a, b) => b[1] - a[1]);
 
 const top5 = ranking.slice(0, 5);
-const others = ranking.slice(5, 10);
+const bottom5 = ranking.slice(5, 10);
 
   if (ranking.length === 0) {
     alert("ランキングに表示できる投稿者がいません");
     return;
   }
 
-const medals = ["🥇", "🥈", "🥉", "🏅", "🏅"];
-const flowers = ["🌸", "🌱", "🌈", "✨", "🍀"];
+const medals = [
+  "🏆",
+  "🥈",
+  "🥉",
+  "🌈",
+  "🌞",
+  "🌟",
+  "🌸",
+  "🦋",
+  "💎",
+  "🍓"
+];
 
 function createMemberHtml(item, index) {
   const name = item[0];
@@ -331,7 +341,7 @@ function createMemberHtml(item, index) {
   <span class="medalIcon">${medals[index] || "🏅"}</span>
   <span class="memberRealName">${name}</span>
 </div>
-      <div class="memberText">${count}個の宝物を届けてくれました${flowers[index] || "✨"}</div>
+      <div class="memberText">${count}個の宝物を届けてくれました💐</div>
     </div>
   `;
 }
@@ -355,7 +365,7 @@ const thanksMessage = `
 `;
 
 document.querySelector(".bottomRankingArea").innerHTML =
-  others.map((item, i) => createMemberHtml(item, i + 5)).join("") + thanksMessage;
+  bottom5.map((item, i) => createMemberHtml(item, i + 5)).join("") + thanksMessage;
 
 document.querySelector(".topRankingArea").style.visibility = "visible";
 document.querySelector(".bottomRankingArea").style.visibility = "visible";
