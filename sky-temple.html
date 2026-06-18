@@ -95,6 +95,11 @@ h2 {
   font-size: 64px;
   line-height: 1.15;
   font-weight: 900;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
 }
 
 .memberText {
@@ -123,12 +128,8 @@ h2 {
 }
 
 .backButton {
-  position: fixed;
-
-  left: 50%;
-  bottom: 50px;
-
-  transform: translateX(-50%);
+display: inline-block;
+margin: 40px auto 160px;
 
   padding: 18px 40px;
 
@@ -152,7 +153,6 @@ h2 {
     0 0 30px rgba(255,255,255,0.95),
     0 0 45px rgba(120,210,160,0.8);
 
-  z-index: 99999;
 }
 
 .thanksMessage{
@@ -203,6 +203,8 @@ h2 {
 <div class="templeBottom">
 
   <div class="bottomRankingArea"></div>
+
+  <a class="backButton" href="index.html?return=true">🌎宝物地図へ戻る</a>
 
 </div>
 
