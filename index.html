@@ -1093,6 +1093,21 @@ background-position:100% 50%;
 }
 
 }
+
+.image-carousel.multi-images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  width: 100%;
+}
+
+.image-carousel.multi-images .popup-img,
+.image-carousel.multi-images .video-thumb {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
   
 </style>  
 </head>  
