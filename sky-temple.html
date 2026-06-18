@@ -202,6 +202,10 @@ margin: 40px auto 160px;
   text-align: left;
 }
   
+.topMedal{
+  font-size: 1.35em;
+}
+  
 </style>
 </head>
 
@@ -339,7 +343,9 @@ function createMemberHtml(item, index) {
   return `
     <div class="member">
       <div class="memberName">
-        <span class="medalIcon">${medals[index]}</span>
+        <span class="medalIcon ${index < 3 ? "topMedal" : ""}">
+  ${medals[index]}
+</span>
         <span class="memberRealName">${name}</span>
       </div>
 
