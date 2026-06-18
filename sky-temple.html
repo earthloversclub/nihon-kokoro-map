@@ -8,8 +8,14 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  background: url("images/sky-temple.png") center top no-repeat;
-  background-size: cover;
+  body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #eef7ff;
+  color: #000;
+  text-align: center;
+  min-height: 100vh;
+}
   color: #000;
   text-align: center;
   min-height: 100vh;
@@ -163,13 +169,25 @@ h2 {
     0 0 16px white,
     0 0 28px rgba(46,8,84,0.55);
 }
+
+.templeTop {
+  background: url("images/sky-temple.png") center top no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.templeBottom {
+  background: url("images/sky-temple2.png") center top repeat-y;
+  background-size: 100% auto;
+  min-height: 100vh;
+}
   
 </style>
 </head>
 
 <body>
 
-<div class="temple">
+<div class="templeTop">
 
   <h1>🏛️天空の神殿🏛️</h1>
 
@@ -182,7 +200,12 @@ h2 {
 
   <div class="topRankingArea"></div>
 
+</div>
+
+<div class="templeBottom">
+
   <div class="bottomRankingArea"></div>
+
 </div>
 
 <script>
