@@ -1141,6 +1141,16 @@ background-position:100% 50%;
 .mapCleanMode #resetMapViewBtn {
   display: block;
 }
+
+.mapCleanMode #categoryBox,
+.mapCleanMode #treasureBox,
+.mapCleanMode #growthMapButton,
+.mapCleanMode #growthButton,
+.mapCleanMode .growthButton,
+.mapCleanMode .treasureBox,
+.mapCleanMode .categoryBox {
+  display: none !important;
+}
   
 </style>  
 </head>  
@@ -1300,15 +1310,27 @@ const map = L.map('map', { zoomControl: false }).setView([37.8, 138.5], 5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution: '&copy; OpenStreetMap'
 }).addTo(map);
-  map.on("zoomstart", () => {
+  
+map.on("zoomstart", () => {
+  if (isResettingMap) return;
   document.body.classList.add("mapCleanMode");
 });
 
-  document.getElementById("resetMapViewBtn").addEventListener("click", () => {
+let isResettingMap = false;
+
+document.getElementById("resetMapViewBtn").addEventListener("click", () => {
+  isResettingMap = true;
+
   map.setView([37.8, 138.5], 5);
-  document.body.classList.remove("mapCleanMode");
+
+  setTimeout(() => {
+    document.body.classList.remove("mapCleanMode");
+    isResettingMap = false;
+  }, 400);
 });
+  
 map.on("dragstart", () => {
+  if (isResettingMap) return;
   document.body.classList.add("mapCleanMode");
 });
 
