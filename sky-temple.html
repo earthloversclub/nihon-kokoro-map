@@ -416,6 +416,8 @@ transform:translateX(-50%);
 const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?output=csv";  
 const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
 
+const DEBUG_MODE = true;  
+
 function parseCSV(text) {
   const rows = [];
   let row = [];
@@ -568,6 +570,8 @@ document.querySelector(".bottomRankingArea").style.visibility = "visible";
 });
 
 function setupSpecialThanks(totalPosts) {
+localStorage.removeItem("specialThanks_100");
+  
   const btn = document.getElementById("specialThanksBtn");
   const img = document.getElementById("specialThanksImage");
   const text = document.getElementById("specialThanksText");
