@@ -459,35 +459,17 @@ text-align:center;
    ハート鼓動
 =========================== */
 
-.heartBeat{
-  animation:heartBeat 3s ease-in-out;
+.specialHeartBeat{
+  animation:specialHeartBeat 3s ease-in-out;
 }
-@keyframes heartBeat{
 
-  0%{
-    transform:scale(1);
-  }
-
-  15%{
-    transform:scale(1.18);
-  }
-
-  30%{
-    transform:scale(1);
-  }
-
-  50%{
-    transform:scale(1.28);
-  }
-
-  70%{
-    transform:scale(1);
-  }
-
-  100%{
-    transform:scale(1);
-  }
-
+@keyframes specialHeartBeat{
+  0%{ transform:scale(1.6); }
+  15%{ transform:scale(2.05); }
+  30%{ transform:scale(1.6); }
+  50%{ transform:scale(2.20); }
+  70%{ transform:scale(1.6); }
+  100%{ transform:scale(1.6); }
 }
   
 </style>
@@ -702,56 +684,37 @@ document.querySelector(".bottomRankingArea").style.visibility = "visible";
 });
 
 function setupSpecialThanks(totalPosts) {
-localStorage.removeItem("specialThanks_100");
-  
   const btn = document.getElementById("specialThanksBtn");
   const img = document.getElementById("specialThanksImage");
+  const title = document.querySelector(".heartTitle");
+  const count = document.querySelector(".heartCount");
 
-btn.classList.add("heartBeat");
-console.log("heartBeat追加", btn.className);
-  
-setTimeout(() => {
-  btn.classList.remove("heartBeat");
-}, 1200);
-  
-  const text = document.getElementById("specialThanksText");
+  if (!btn || !img || !title || !count) return;
 
-  if (!btn || !img || !text) {
-    console.log("Special Thanks部品が見つかりません");
+  if (DEBUG_MODE) {
+    img.src = "images/special-thanks-lock.png";
+    title.textContent = "Special⭐Thanks";
+    count.innerHTML = `🎉100投稿達成🎉<br>✨押して祝福する✨`;
+
+    btn.classList.remove("locked");
+    btn.style.pointerEvents = "auto";
+    btn.style.cursor = "pointer";
+
+    btn.onclick = function() {
+      showSpecialThanksEffect(100);
+    };
+
     return;
   }
 
-  if (DEBUG_MODE) {
-  img.src = "images/special-thanks-lock.png";
-
-  document.querySelector(".heartTitle").textContent =
-  "Special⭐Thanks";
-
-  document.querySelector(".heartCount").innerHTML =
-  `🎉100投稿達成🎉<br>✨押して祝福する✨`;
-
-  btn.classList.remove("locked");
-btn.style.pointerEvents = "auto";
-btn.style.cursor = "pointer";
-
-  btn.onclick = function() {
-    showSpecialThanksEffect(100);
-  };
-    
-return;
-}
-
   let milestone = Math.floor(totalPosts / 100) * 100;
 
-  if (false) {
+  if (milestone < 100) {
     const next = 100;
 
     img.src = "images/special-thanks-lock.png";
-document.querySelector(".heartTitle").textContent =
-"Special⭐Thanks";
-
-document.querySelector(".heartCount").innerHTML =
-`${next}投稿達成まで<br>あと${next - totalPosts}投稿`;
+    title.textContent = "Special⭐Thanks";
+    count.innerHTML = `${next}投稿達成まで<br>あと${next - totalPosts}投稿`;
 
     btn.classList.add("locked");
     btn.onclick = null;
@@ -763,12 +726,9 @@ document.querySelector(".heartCount").innerHTML =
   }
 
   if (milestone > totalPosts) {
-    img.src = "images/special-thanks-lock.png";
-    document.querySelector(".heartTitle").textContent =
-"Special⭐Thanks";
-
-document.querySelector(".heartCount").innerHTML =
-`${milestone}投稿達成まで<br>あと${milestone - totalPosts}投稿`;
+    img.src = "images/special-thanks-open.png";
+    title.textContent = "";
+    count.innerHTML = "";
 
     btn.classList.add("locked");
     btn.onclick = null;
@@ -776,23 +736,19 @@ document.querySelector(".heartCount").innerHTML =
   }
 
   img.src = "images/special-thanks-open.png";
-  document.querySelector(".heartTitle").textContent =
-"Special⭐Thanks";
-
-document.querySelector(".heartCount").innerHTML =
-`🎉${milestone}投稿達成🎉<br>✨押して祝福する✨`;
+  title.textContent = "Special⭐Thanks";
+  count.innerHTML = `🎉${milestone}投稿達成🎉<br>✨押して祝福する✨`;
 
   btn.classList.remove("locked");
 
-btn.onclick = function() {
-  localStorage.setItem("specialThanks_" + milestone, "done");
+  btn.onclick = function() {
+    localStorage.setItem("specialThanks_" + milestone, "done");
 
-  img.src = "images/special-thanks-open.png";
-  btn.classList.add("locked");
-  btn.onclick = null;
+    btn.classList.add("locked");
+    btn.onclick = null;
 
-  showSpecialThanksEffect(milestone);
-};
+    showSpecialThanksEffect(milestone);
+  };
 }
 
 function showSpecialThanksEffect(milestone) {
@@ -803,14 +759,17 @@ function showSpecialThanksEffect(milestone) {
 
   if (!btn || !img || !title || !count) return;
 
+  const oldEffect = btn.querySelector(".specialThanksEffect");
+  if (oldEffect) oldEffect.remove();
+
   title.textContent = "";
   count.innerHTML = "";
 
-  btn.classList.add("heartBeat");
+  img.src = "images/special-thanks-lock.png";
+  img.classList.add("specialHeartBeat");
 
   setTimeout(() => {
-    btn.classList.remove("heartBeat");
-
+    img.classList.remove("specialHeartBeat");
     img.src = "images/special-thanks-open.png";
 
     const effect = document.createElement("div");
