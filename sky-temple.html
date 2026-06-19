@@ -464,24 +464,31 @@ text-align:center;
 }
 
 @keyframes heartBeat{
+
   0%{
-    transform:scale(1.6);
+    transform:scale(1);
   }
-  20%{
-    transform:scale(1.72);
+
+  18%{
+    transform:scale(1.06);
   }
+
   35%{
-    transform:scale(1.6);
+    transform:scale(1);
   }
+
   55%{
-    transform:scale(1.78);
+    transform:scale(1.10);
   }
-  75%{
-    transform:scale(1.6);
+
+  72%{
+    transform:scale(1);
   }
+
   100%{
-    transform:scale(1.6);
+    transform:scale(1);
   }
+
 }
   
 </style>
@@ -700,10 +707,13 @@ localStorage.removeItem("specialThanks_100");
   
   const btn = document.getElementById("specialThanksBtn");
   const img = document.getElementById("specialThanksImage");
-  img.classList.add("heartBeat");
+  
+const btn = document.getElementById("specialThanksBtn");
+
+btn.classList.add("heartBeat");
 
 setTimeout(() => {
-  img.classList.remove("heartBeat");
+  btn.classList.remove("heartBeat");
 }, 1200);
   
   const text = document.getElementById("specialThanksText");
