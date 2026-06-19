@@ -600,7 +600,11 @@ document.querySelector(".heartCount").innerHTML =
 
   if (milestone > totalPosts) {
     img.src = "images/special-thanks-lock.png";
-    text.innerHTML = `Special⭐Thanks<br>${milestone}投稿達成まで<br>あと${milestone - totalPosts}投稿`;
+    document.querySelector(".heartTitle").textContent =
+"Special⭐Thanks";
+
+document.querySelector(".heartCount").innerHTML =
+`${milestone}投稿達成まで<br>あと${milestone - totalPosts}投稿`;
 
     btn.classList.add("locked");
     btn.onclick = null;
