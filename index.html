@@ -91,9 +91,15 @@ header span {
 display: block;
 }
 }
-#map {
-height: calc(100vh - 52px);
-width: 100%;
+#mapContainer{
+  position:relative;
+  width:100%;
+  height:calc(100vh - 52px);
+}
+
+#map{
+  width:100%;
+  height:100%;
 }
 
 .legend {
@@ -1177,26 +1183,30 @@ background-position:100% 50%;
 <span>🌈日本の心の宝地図🌈</span>
 </header>
 
-<div id="mapSwitchBox">
-<button id="mapSwitchButton" onclick="showMapB()">🌷成長地図▶</button>
-</div>
+<div id="mapContainer">
 
-<div id="rainbowBox">
-<button onclick="location.href='heart.html'">🌈<br>虹の彼方</button>
-</div>
+  <div id="map"></div>
 
-<div id="skyTempleBox">
-<button onclick="location.href='sky-temple.html'">
-🏛️<br>天空の神殿
-</button>
-</div>
-  
-<div id="searchBox">
-<input type="text" id="searchInput" placeholder="地名やタイトル">
-<button onclick="searchPlace()">検索</button>
-</div>
+  <div id="mapSwitchBox">
+    <button id="mapSwitchButton" onclick="showMapB()">🌷成長地図▶</button>
+  </div>
 
-<div id="map"></div>
+  <div id="rainbowBox">
+    <button onclick="location.href='heart.html'">🌈<br>虹の彼方</button>
+  </div>
+
+  <div id="skyTempleBox">
+    <button onclick="location.href='sky-temple.html'">
+      🏛️<br>天空の神殿
+    </button>
+  </div>
+
+  <div id="searchBox">
+    <input type="text" id="searchInput" placeholder="地名やタイトル">
+    <button onclick="searchPlace()">検索</button>
+  </div>
+
+</div>
 <div id="growthMap" style="display:none;">
 <h2>🌷 成長地図 🌷</h2>
 
