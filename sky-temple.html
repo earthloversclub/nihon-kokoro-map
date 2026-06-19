@@ -369,7 +369,7 @@ transform:translateX(-50%);
   >
 
 <div id="specialThanksText" class="heartText">
-  <div class="heartTitle">❤Special Thanks❤</div>
+  <div class="heartTitle">Special🌟Thanks</div>
   <div class="heartCount">
     100投稿達成まで<br>
     あと79投稿
@@ -561,8 +561,8 @@ function setupSpecialThanks(totalPosts) {
     const next = 100;
 
     img.src = "images/special-thanks-lock.png";
-    document.querySelector(".heartTitle").textContent =
-"❤Special Thanks❤";
+document.querySelector(".heartTitle").textContent =
+"Special🌟Thanks";
 
 document.querySelector(".heartCount").innerHTML =
 `${next}投稿達成まで<br>あと${next - totalPosts}投稿`;
@@ -578,7 +578,7 @@ document.querySelector(".heartCount").innerHTML =
 
   if (milestone > totalPosts) {
     img.src = "images/special-thanks-lock.png";
-    text.innerHTML = `❤Special Thanks❤<br>${milestone}投稿まで<br>あと${milestone - totalPosts}投稿`;
+    text.innerHTML = `Special🌟Thanks<br>${milestone}投稿達成まで<br>あと${milestone - totalPosts}投稿`;
 
     btn.classList.add("locked");
     btn.onclick = null;
@@ -587,7 +587,7 @@ document.querySelector(".heartCount").innerHTML =
 
   img.src = "images/special-thanks-open.png";
   document.querySelector(".heartTitle").textContent =
-"❤Special Thanks❤";
+"Special🌟Thanks";
 
 document.querySelector(".heartCount").innerHTML =
 `🎉${milestone}投稿達成🎉<br>押して祝福する✨`;
