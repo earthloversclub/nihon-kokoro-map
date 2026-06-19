@@ -756,7 +756,9 @@ function showSpecialThanksEffect(milestone) {
     img.classList.remove("specialHeartBeat");
     img.src = "images/special-thanks-open.png";
 
-    const effect = document.createElement("div");
+setTimeout(() => {
+  const effect = document.createElement("div");
+  
     effect.className = "specialThanksEffect";
 
     effect.innerHTML = `
@@ -770,11 +772,13 @@ function showSpecialThanksEffect(milestone) {
       </div>
     `;
 
-    btn.appendChild(effect);
+      btn.appendChild(effect);
 
-    setTimeout(() => {
-      effect.remove();
-    }, 6000);
+  setTimeout(() => {
+    effect.remove();
+  }, 6000);
+
+}, 300);
 
   }, 3200);
 }
