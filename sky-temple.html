@@ -796,35 +796,44 @@ btn.onclick = function() {
 }
 
 function showSpecialThanksEffect(milestone) {
-  const img = document.getElementById("specialThanksImage");
-const title = document.querySelector(".heartTitle");
-const count = document.querySelector(".heartCount");
-
-if (img) img.src = "images/special-thanks-open.png";
-if (title) title.textContent = "";
-if (count) count.innerHTML = "";
-  const effect = document.createElement("div");
-  effect.className = "specialThanksEffect";
-  
-effect.innerHTML = `
-  <div class="specialThanksLight"></div>
-
-  <div class="specialThanksMessage">
-    <div class="specialTop">🎉${milestone}投稿達成🎉</div>
-    <div class="specialMain">Super Special<br>🌸Thanks🌸</div>
-    <div class="specialBottom">
-      ✨みんなの想いが<br>
-      天に届きました👼
-    </div>
-  </div>
-`;
-
   const btn = document.getElementById("specialThanksBtn");
-btn.appendChild(effect);
+  const img = document.getElementById("specialThanksImage");
+  const title = document.querySelector(".heartTitle");
+  const count = document.querySelector(".heartCount");
+
+  if (!btn || !img || !title || !count) return;
+
+  title.textContent = "";
+  count.innerHTML = "";
+
+  btn.classList.add("heartBeat");
 
   setTimeout(() => {
-    effect.remove();
-  }, 6000);
+    btn.classList.remove("heartBeat");
+
+    img.src = "images/special-thanks-open.png";
+
+    const effect = document.createElement("div");
+    effect.className = "specialThanksEffect";
+
+    effect.innerHTML = `
+      <div class="specialThanksMessage">
+        <div class="specialTop">🎉${milestone}投稿達成🎉</div>
+        <div class="specialMain">Super Special<br>🌸Thanks🌸</div>
+        <div class="specialBottom">
+          ✨みんなの想いが<br>
+          天に届きました👼
+        </div>
+      </div>
+    `;
+
+    btn.appendChild(effect);
+
+    setTimeout(() => {
+      effect.remove();
+    }, 6000);
+
+  }, 1400);
 }
   
 </script>
