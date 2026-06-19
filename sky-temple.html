@@ -355,11 +355,6 @@ transform:translateX(-50%);
   position:absolute;
   inset:0;
 
-  width:78%;
-  margin:auto;
-
-  transform:translateY(-40px);
-
   pointer-events:none;
 }
 
@@ -368,15 +363,16 @@ transform:translateX(-50%);
 =========================== */
 
 .specialTop{
-width:max-content;
-left:50%;
-transform:translateX(-50%);
-white-space:nowrap;
-position:relative;
+  position:absolute;
+  top:10px;
+  left:50%;
+  transform:translateX(-50%);
+
+  width:max-content;
+  white-space:nowrap;
   text-align:center;
 
   color:#7a1f45;
-
   font-size:40px;
   font-weight:900;
   line-height:1.2;
@@ -394,17 +390,17 @@ position:relative;
 =========================== */
 
 .specialMain{
-  margin-top:120px;
+  position:absolute;
+  top:75px;
+  left:50%;
+  transform:translateX(-50%);
 
-  width:160%;
-  margin-left:-30%;
-
-  text-align:center;
+  width:max-content;
   white-space:nowrap;
+  text-align:center;
 
-  color:#DB7093;
-
-  font-size:50px;
+  color:#7a1f45;
+  font-size:40px;
   font-weight:900;
   line-height:1.2;
 
@@ -415,22 +411,25 @@ position:relative;
   animation:fadeIn 0.8s ease;
 }
 
-
+  
 /* ===========================
    メッセージ
 =========================== */
 
 .specialBottom{
-  margin-top:140px;
+  position:absolute;
+  top:135px;
+  left:50%;
+  transform:translateX(-50%);
 
-  text-align:center;
+  width:max-content;
   white-space:nowrap;
+  text-align:center;
 
   color:#7a1f45;
-
   font-size:40px;
   font-weight:900;
-  line-height:1.4;
+  line-height:1.25;
 
   text-shadow:
     0 0 6px white,
