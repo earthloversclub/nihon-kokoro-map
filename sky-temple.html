@@ -254,27 +254,29 @@ margin: 0px auto 30px;
 }
 
 .heartText{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -54%);
-  width: 78%;
-  text-align: center;
-
-  font-size: 27px;
-  font-weight: 900;
-  line-height: 1.25;
-  color: #7a1f45;
-
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-54%);
+  width:78%;
+  text-align:center;
+  color:#7a1f45;
   text-shadow:
     0 0 6px white,
     0 0 12px white;
 }
 
- .heartTitle{
-  font-size:30px;
+.heartCount{
+  font-size:22px;
   font-weight:900;
-  line-height:1.1;
+  line-height:1.2;
+  margin-top:6px;
+}
+  color: #7a1f45;
+
+  text-shadow:
+    0 0 6px white,
+    0 0 12px white;
 }
 
 .heartCount{
@@ -317,6 +319,14 @@ margin: 0px auto 30px;
   line-height: 1.35;
   font-weight: 900;
 }
+
+.heartTitle{
+  font-size:30px;
+  font-weight:900;
+  line-height:1.1;
+
+  color:#7a1f45;
+}  
   
 </style>
 </head>
@@ -542,7 +552,11 @@ function setupSpecialThanks(totalPosts) {
     const next = 100;
 
     img.src = "images/special-thanks-lock.png";
-    text.innerHTML = `❤Special Thanks❤<br>${next}投稿まで<br>あと${next - totalPosts}投稿`;
+    document.querySelector(".heartTitle").textContent =
+"❤Special Thanks❤";
+
+document.querySelector(".heartCount").innerHTML =
+`${next}投稿まで<br>あと${next - totalPosts}投稿`;
 
     btn.classList.add("locked");
     btn.onclick = null;
@@ -563,7 +577,11 @@ function setupSpecialThanks(totalPosts) {
   }
 
   img.src = "images/special-thanks-open.png";
-  text.innerHTML = `❤Special Thanks❤<br>🎉${milestone}投稿達成🎉<br>押して祝福する✨`;
+  document.querySelector(".heartTitle").textContent =
+"❤Special Thanks❤";
+
+document.querySelector(".heartCount").innerHTML =
+`🎉${milestone}投稿達成🎉<br>押して祝福する✨`;
 
   btn.classList.remove("locked");
 
