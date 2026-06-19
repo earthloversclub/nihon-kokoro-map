@@ -579,7 +579,7 @@ function setupSpecialThanks(totalPosts) {
 
   let milestone = Math.floor(totalPosts / 100) * 100;
 
-  if (false) {
+  if (milestone < 100) {
     const next = 100;
 
     img.src = "images/special-thanks-lock.png";
@@ -616,11 +616,15 @@ document.querySelector(".heartCount").innerHTML =
 
   btn.classList.remove("locked");
 
-  btn.onclick = function() {
-    localStorage.setItem("specialThanks_" + milestone, "done");
-    showSpecialThanksEffect(milestone);
-    setupSpecialThanks(totalPosts);
-  };
+btn.onclick = function() {
+  localStorage.setItem("specialThanks_" + milestone, "done");
+
+  img.src = "images/special-thanks-open.png";
+  btn.classList.add("locked");
+  btn.onclick = null;
+
+  showSpecialThanksEffect(milestone);
+};
 }
 
 function showSpecialThanksEffect(milestone) {
