@@ -338,17 +338,55 @@ transform:translateX(-50%);
 
 .specialThanksEffect{
   position:absolute;
-  top:0;
-  left:0;
-
-  width:100%;
-  height:100%;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  inset:0;
 
   pointer-events:none;
+  overflow:hidden;
+}
+
+/* 白い祝福の光 */
+.specialThanksLight{
+  position:absolute;
+  left:50%;
+  top:50%;
+
+  width:20px;
+  height:20px;
+
+  border-radius:50%;
+
+  background:white;
+
+  transform:translate(-50%,-50%) scale(0);
+
+  opacity:0;
+
+  filter:blur(15px);
+
+  animation:holyLight 1.8s ease-out forwards;
+}
+
+@keyframes holyLight{
+
+  0%{
+    transform:translate(-50%,-50%) scale(0);
+    opacity:0;
+  }
+
+  15%{
+    opacity:1;
+  }
+
+  55%{
+    transform:translate(-50%,-50%) scale(14);
+    opacity:.95;
+  }
+
+  100%{
+    transform:translate(-50%,-50%) scale(22);
+    opacity:0;
+  }
+
 }
 
 .specialThanksMessage{
@@ -762,15 +800,25 @@ setTimeout(() => {
     effect.className = "specialThanksEffect";
 
     effect.innerHTML = `
-      <div class="specialThanksMessage">
-        <div class="specialTop">🎉${milestone}投稿達成🎉</div>
-        <div class="specialMain">Super Special<br>🌸Thanks🌸</div>
-        <div class="specialBottom">
-          ✨みんなの想いが<br>
-          天に届きました👼
-        </div>
-      </div>
-    `;
+<div class="specialThanksLight"></div>
+
+<div class="specialThanksMessage">
+
+  <div class="specialTop">
+    🎉${milestone}投稿達成🎉
+  </div>
+
+  <div class="specialMain">
+    Super Special<br>🌸Thanks🌸
+  </div>
+
+  <div class="specialBottom">
+    ✨みんなの想いが<br>
+    天に届きました👼
+  </div>
+
+</div>
+`;
 
       btn.appendChild(effect);
 
