@@ -673,7 +673,8 @@ if (count) count.innerHTML = "";
     </div>
   `;
 
-  document.body.appendChild(effect);
+  const btn = document.getElementById("specialThanksBtn");
+btn.appendChild(effect);
 
   setTimeout(() => {
     effect.remove();
