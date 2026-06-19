@@ -454,6 +454,35 @@ text-align:center;
 
   animation:fadeIn 0.8s ease;
 }
+
+/* ===========================
+   ハート鼓動
+=========================== */
+
+.heartBeat{
+  animation:heartBeat 1.2s ease-in-out;
+}
+
+@keyframes heartBeat{
+  0%{
+    transform:scale(1.6);
+  }
+  20%{
+    transform:scale(1.72);
+  }
+  35%{
+    transform:scale(1.6);
+  }
+  55%{
+    transform:scale(1.78);
+  }
+  75%{
+    transform:scale(1.6);
+  }
+  100%{
+    transform:scale(1.6);
+  }
+}
   
 </style>
 </head>
@@ -671,6 +700,12 @@ localStorage.removeItem("specialThanks_100");
   
   const btn = document.getElementById("specialThanksBtn");
   const img = document.getElementById("specialThanksImage");
+  img.classList.add("heartBeat");
+
+setTimeout(() => {
+  img.classList.remove("heartBeat");
+}, 1200);
+  
   const text = document.getElementById("specialThanksText");
 
   if (!btn || !img || !text) {
