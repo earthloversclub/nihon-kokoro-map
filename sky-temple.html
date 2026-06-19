@@ -581,6 +581,24 @@ localStorage.removeItem("specialThanks_100");
     return;
   }
 
+  if (DEBUG_MODE) {
+  img.src = "images/special-thanks-open.png";
+
+  document.querySelector(".heartTitle").textContent =
+  "Special⭐Thanks";
+
+  document.querySelector(".heartCount").innerHTML =
+  `🎉100投稿達成🎉<br>押して祝福する✨`;
+
+  btn.classList.remove("locked");
+
+  btn.onclick = function() {
+    showSpecialThanksEffect(100);
+  };
+
+  return;
+}
+
   let milestone = Math.floor(totalPosts / 100) * 100;
 
   if (false) {
