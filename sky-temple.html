@@ -708,7 +708,8 @@ localStorage.removeItem("specialThanks_100");
   const img = document.getElementById("specialThanksImage");
 
 btn.classList.add("heartBeat");
-
+console.log("heartBeat追加", btn.className);
+  
 setTimeout(() => {
   btn.classList.remove("heartBeat");
 }, 1200);
