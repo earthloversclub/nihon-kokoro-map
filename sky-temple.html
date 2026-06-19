@@ -602,7 +602,23 @@ document.querySelector(".heartCount").innerHTML =
 }
 
 function showSpecialThanksEffect(milestone) {
-  alert(`🎉${milestone}投稿達成おめでとうございます🎉`);
+  const effect = document.createElement("div");
+  effect.className = "specialThanksEffect";
+  effect.innerHTML = `
+    <div class="specialThanksLight"></div>
+
+    <div class="specialThanksMessage">
+      🎉${milestone}投稿達成！🎉<br>
+      🌈Super Special Thanks🌈<br>
+      みんなの想いが天に届きました✨
+    </div>
+  `;
+
+  document.body.appendChild(effect);
+
+  setTimeout(() => {
+    effect.remove();
+  }, 6000);
 }
   
 </script>
