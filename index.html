@@ -945,69 +945,56 @@ margin-top:10px;
   --gate-size: clamp(95px, 24vw, 120px);
 }
 
-/* スマホ共通：Android・iPhone自動調整 */
+/* スマホ専用：地図基準の固定配置 */
 @media (max-width: 767px) {
 
+  #map {
+    position: relative;
+  }
+
+  #searchBox {
+    top: 38px;
+    right: 8px;
+    width: 178px;
+    padding: 6px;
+  }
+
+  #searchInput {
+    width: 118px;
+    padding: 5px;
+    font-size: 13px;
+  }
+
+  #searchBox button {
+    padding: 5px 7px;
+    font-size: 13px;
+  }
+
+  #mapSwitchBox {
+    left: 12px;
+    bottom: 18px;
+  }
+
+  #mapSwitchBox button {
+    font-size: 14px;
+    padding: 7px 10px;
+  }
+
   #rainbowBox {
-    right: 5vw;
-    bottom: 24vh;
+    right: 12px;
+    bottom: 170px;
   }
 
   #skyTempleBox {
-    left: 7vw;
-    bottom: 38vh;
+    left: 12px;
+    bottom: 245px;
   }
 
   #rainbowBox button,
   #skyTempleBox button {
-    width: var(--gate-size);
-    height: var(--gate-size);
-    font-size: clamp(17px, 4.8vw, 21px);
-  }
-
-#searchBox {
-  top: 9vh;
-  right: 4vw;
-  width: min(46vw, 290px);
-}
-
-  #searchInput {
-    width: calc(100% - 58px);
-  }
-
-  #mapSwitchBox {
-    left: 5vw;
-    bottom: 3vh;
-  }
-}
-
-/* iPhone Safari 専用補正 */
-@supports (-webkit-touch-callout: none) {
-  @media (max-width: 767px) {
-
-    #searchBox {
-      right: 2vw;
-      width: min(44vw, 270px);
-    }
-
-    #searchInput {
-      width: calc(100% - 58px);
-    }
-
-    #rainbowBox {
-      right: 5vw;
-      bottom: 22vh;
-    }
-
-    #skyTempleBox {
-      left: 7vw;
-      bottom: 34vh;
-    }
-
-    #mapSwitchBox {
-      left: 5vw;
-      bottom: 3vh;
-    }
+    width: 96px;
+    height: 96px;
+    font-size: 16px;
   }
 }
 
