@@ -588,7 +588,7 @@ localStorage.removeItem("specialThanks_100");
   "Special⭐Thanks";
 
   document.querySelector(".heartCount").innerHTML =
-  `🎉100投稿達成🎉<br>押して祝福する✨`;
+  `🎉100投稿達成🎉<br>✨押して祝福する✨`;
 
   btn.classList.remove("locked");
 
@@ -638,7 +638,7 @@ document.querySelector(".heartCount").innerHTML =
 "Special⭐Thanks";
 
 document.querySelector(".heartCount").innerHTML =
-`🎉${milestone}投稿達成🎉<br>押して祝福する✨`;
+`🎉${milestone}投稿達成🎉<br>✨押して祝福する✨`;
 
   btn.classList.remove("locked");
 
@@ -654,6 +654,13 @@ btn.onclick = function() {
 }
 
 function showSpecialThanksEffect(milestone) {
+  const img = document.getElementById("specialThanksImage");
+const title = document.querySelector(".heartTitle");
+const count = document.querySelector(".heartCount");
+
+if (img) img.src = "images/special-thanks-open.png";
+if (title) title.textContent = "";
+if (count) count.innerHTML = "";
   const effect = document.createElement("div");
   effect.className = "specialThanksEffect";
   effect.innerHTML = `
