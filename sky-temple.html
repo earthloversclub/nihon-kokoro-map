@@ -807,7 +807,7 @@ setTimeout(() => {
     effect.innerHTML = `
 <div class="specialThanksLight" id="specialThanksLight"></div>
 
-<div class="specialThanksMessage">
+<div class="specialThanksMessage" style="opacity:0;">
 
   <div class="specialTop">
     🎉${milestone}投稿達成🎉
@@ -826,7 +826,11 @@ setTimeout(() => {
 `;
 
       btn.appendChild(effect);
-
+  
+setTimeout(() => {
+  effect.querySelector(".specialThanksMessage").style.opacity = "1";
+}, 1300);
+  
 const light = effect.querySelector("#specialThanksLight");
 
 /* ===== 演出設定 ===== */
