@@ -352,6 +352,83 @@ transform:translateX(-50%);
 }
 
 .specialThanksMessage{
+  position:absolute;
+  inset:0;
+
+  width:78%;
+  margin:auto;
+
+  transform:translateY(-40px);
+
+  pointer-events:none;
+}
+
+/* ===========================
+   100投稿達成タイトル
+=========================== */
+
+.specialTop{
+  text-align:center;
+
+  color:#7a1f45;
+
+  font-size:40px;
+  font-weight:900;
+  line-height:1.2;
+
+  text-shadow:
+    0 0 6px white,
+    0 0 12px white;
+
+  animation:fadeIn 0.8s ease;
+}
+
+
+/* ===========================
+   Super Special Thanks
+=========================== */
+
+.specialMain{
+  margin-top:8px;
+
+  text-align:center;
+
+  color:#7a1f45;
+
+  font-size:40px;
+  font-weight:900;
+  line-height:1.2;
+
+  text-shadow:
+    0 0 6px white,
+    0 0 12px white;
+
+  animation:fadeIn 0.8s ease;
+}
+
+
+/* ===========================
+   メッセージ
+=========================== */
+
+.specialBottom{
+  margin-top:8px;
+
+  text-align:center;
+
+  color:#7a1f45;
+
+  font-size:40px;
+  font-weight:900;
+  line-height:1.4;
+
+  text-shadow:
+    0 0 6px white,
+    0 0 12px white;
+
+  animation:fadeIn 0.8s ease;
+}
+  
   width:78%;
   transform:translateY(-40px);
 text-align:center;
@@ -674,15 +751,19 @@ if (title) title.textContent = "";
 if (count) count.innerHTML = "";
   const effect = document.createElement("div");
   effect.className = "specialThanksEffect";
-  effect.innerHTML = `
-    <div class="specialThanksLight"></div>
+  
+effect.innerHTML = `
+  <div class="specialThanksLight"></div>
 
-    <div class="specialThanksMessage">
-      🎉${milestone}投稿達成！🎉<br>
-      🌈Super Special Thanks🌈<br>
-      みんなの想いが天に届きました✨
+  <div class="specialThanksMessage">
+    <div class="specialTop">🎉${milestone}投稿達成！🎉</div>
+    <div class="specialMain">🌈Super Special Thanks🌈</div>
+    <div class="specialBottom">
+      みんなの想いが<br>
+      天に届きました✨
     </div>
-  `;
+  </div>
+`;
 
   const btn = document.getElementById("specialThanksBtn");
 btn.appendChild(effect);
