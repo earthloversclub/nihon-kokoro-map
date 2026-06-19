@@ -733,6 +733,8 @@ setTimeout(() => {
   `🎉100投稿達成🎉<br>✨押して祝福する✨`;
 
   btn.classList.remove("locked");
+btn.style.pointerEvents = "auto";
+btn.style.cursor = "pointer";
 
   btn.onclick = function() {
     showSpecialThanksEffect(100);
