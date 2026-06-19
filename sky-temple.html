@@ -829,13 +829,45 @@ setTimeout(() => {
 
 const light = effect.querySelector("#specialThanksLight");
 
-for(let i=0;i<60;i++){
+/* ===== 演出設定 ===== */
+
+const EFFECT_COUNT = 80;
+
+const EFFECT_RATE = {
+  light:50,     // ✨
+  sakura:25,    // 🌸
+  clover:15,    // 🍀
+  feather:10    // 🪽
+};
+  
+for(let i=0;i<EFFECT_COUNT;i++){
 
   const p=document.createElement("div");
 
   p.className="lightParticle";
-  const icons = ["✨","✨","✨","✨","🌸","🌸","🌸","🍀","🪽"];
-p.textContent = icons[Math.floor(Math.random() * icons.length)];
+const r = Math.random() * 100;
+
+let icon = "✨";
+
+if (r >= EFFECT_RATE.light) {
+
+  if (r < EFFECT_RATE.light + EFFECT_RATE.sakura) {
+    icon = "🌸";
+  }
+  else if (
+    r < EFFECT_RATE.light +
+        EFFECT_RATE.sakura +
+        EFFECT_RATE.clover
+  ) {
+    icon = "🍀";
+  }
+  else {
+    icon = "🪽";
+  }
+
+}
+
+p.textContent = icon;
 
   const angle=Math.random()*Math.PI*2;
   const distance=350+Math.random()*550;
