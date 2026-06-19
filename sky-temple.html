@@ -350,43 +350,46 @@ transform:translateX(-50%);
   left:50%;
   top:50%;
 
-  width:20px;
-  height:20px;
-
+  width:80px;
+  height:80px;
   border-radius:50%;
 
   background:white;
 
   transform:translate(-50%,-50%) scale(0);
-
   opacity:0;
 
-  filter:blur(15px);
+  z-index:1;
 
-  animation:holyLight 1.8s ease-out forwards;
+  box-shadow:
+    0 0 30px white,
+    0 0 70px white,
+    0 0 120px gold,
+    0 0 180px white;
+
+  animation:holyLight 2.2s ease-out forwards;
 }
 
 @keyframes holyLight{
-
   0%{
     transform:translate(-50%,-50%) scale(0);
     opacity:0;
   }
 
-  15%{
+  20%{
+    transform:translate(-50%,-50%) scale(1.5);
     opacity:1;
   }
 
-  55%{
-    transform:translate(-50%,-50%) scale(14);
-    opacity:.95;
+  60%{
+    transform:translate(-50%,-50%) scale(5);
+    opacity:.9;
   }
 
   100%{
-    transform:translate(-50%,-50%) scale(22);
+    transform:translate(-50%,-50%) scale(8);
     opacity:0;
   }
-
 }
 
 .specialThanksMessage{
