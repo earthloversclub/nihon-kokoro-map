@@ -951,15 +951,11 @@ margin-top:10px;
   --gate-size: clamp(95px, 24vw, 120px);
 }
 
-/* スマホ専用：地図基準の固定配置 */
+/* スマホ専用：mapContainer基準配置 */
 @media (max-width: 767px) {
 
-  #map {
-    position: relative;
-  }
-
   #searchBox {
-    top: 38px;
+    top: 50px;
     right: 8px;
     width: 178px;
     padding: 6px;
@@ -981,19 +977,16 @@ margin-top:10px;
     bottom: 18px;
   }
 
-  #mapSwitchBox button {
-    font-size: 14px;
-    padding: 7px 10px;
-  }
-
   #rainbowBox {
     right: 12px;
-    bottom: 170px;
+    top: 50%;
+    bottom: auto;
   }
 
   #skyTempleBox {
     left: 12px;
-    bottom: 245px;
+    top: 34%;
+    bottom: auto;
   }
 
   #rainbowBox button,
