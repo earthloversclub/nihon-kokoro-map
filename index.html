@@ -304,19 +304,7 @@ display: flex;
 gap: 8px;
 white-space: nowrap;
 }
-
-#growthBackBox button{
-  display: inline-block;
-  padding: 10px 18px;
-  border: 1px solid #333;
-  border-radius: 2px;
-  background: #f3f3f3;
-  color: #000;
-  cursor: pointer;
-  font-size: 18px;
-  line-height: 1.2;
-}
-  
+ 
 #rainbowBox {
 position: absolute;
 right: 21px;
@@ -429,16 +417,6 @@ z-index: 1000;
     font-size: 18px;
   }
 
-}
-  
-#growthBackBox button{
-font-size: 16px;
-padding: 8px 12px;
-background: #f5f5f5;
-color: #000;
-border: 1px solid #999;
-border-radius: 2px;
-cursor: pointer;
 }
   
 #searchBox {
@@ -1187,32 +1165,11 @@ background-position:100% 50%;
   overflow: visible;
 }
 
-/* 成長地図の宝物地図ボタン */
-#growthBackBox{
-  position: absolute;
-  left: 10px;
-bottom: -52px;
-  z-index: 3000;
-}
-
-#growthBackBox button{
-  font-size: 16px;
-  padding: 8px 12px;
-  border: none;
-  color: #256b3b;
-  cursor: pointer;
-}
-
 /* スマホ専用：成長地図ボタン */
 @media (max-width: 767px){
 
   #growthMapContainer{
     height: 520px;
-  }
-
-  #growthBackBox{
-    left: 14px;
-    bottom: 28px;
   }
 
 }
@@ -1243,6 +1200,15 @@ bottom: -52px;
 }
 
 #mapSwitchBox .mapReturnButton,
+
+/* 成長地図：宝物地図へ戻るボタン */
+#growthBackBox{
+  position:absolute !important;
+  left:14px !important;
+  bottom:-70px !important;
+  z-index:3000 !important;
+}
+
 #growthBackBox .mapReturnButton{
   display:inline-flex !important;
   align-items:center !important;
@@ -1258,10 +1224,6 @@ bottom: -52px;
   font-size:18px !important;
   font-weight:900 !important;
   line-height:1 !important;
-
-  box-shadow:
-    0 0 12px rgba(255,255,255,0.95),
-    0 0 18px rgba(159,216,178,0.55) !important;
 
   cursor:pointer !important;
   white-space:nowrap !important;
