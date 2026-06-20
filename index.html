@@ -1216,6 +1216,31 @@ background-position:100% 50%;
   }
 
 }
+
+ /* 共通：戻る・切替ボタン */
+.mapReturnButton{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:14px 34px;
+  border:3px solid #9fd8b2;
+  border-radius:999px;
+
+  background:#ffffff;
+  color:#256b3b;
+
+  font-size:22px;
+  font-weight:900;
+  line-height:1;
+
+  box-shadow:
+    0 0 12px rgba(255,255,255,0.95),
+    0 0 18px rgba(159,216,178,0.55);
+
+  cursor:pointer;
+  white-space:nowrap;
+}
   
 </style>  
 </head>  
@@ -1256,7 +1281,7 @@ background-position:100% 50%;
   <div id="map"></div>
 
   <div id="mapSwitchBox">
-    <button id="mapSwitchButton" onclick="showMapB()">🌷成長地図▶</button>
+    <button id="mapSwitchButton" class="mapReturnButton" onclick="showMapB()">🌷 成長地図▶</button>
   </div>
 
   <div id="rainbowBox">
@@ -1296,7 +1321,7 @@ background-position:100% 50%;
   </div>
 
 <div id="growthBackBox">
-    <button id="mapSwitchButton2" onclick="showMapA()">◀🌎宝物地図</button>
+    <button id="growthMapSwitchButton" class="mapReturnButton" onclick="showMapA()">◀🌎 宝物地図</button>
 </div>
 
 </div>
