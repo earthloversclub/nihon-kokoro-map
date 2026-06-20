@@ -955,10 +955,11 @@ margin-top:10px;
 @media (max-width: 767px) {
 
   #searchBox {
-    top: 50px;
+    top: 8px;
     right: 8px;
     width: 178px;
     padding: 6px;
+    z-index: 2000;
   }
 
   #searchInput {
@@ -973,20 +974,24 @@ margin-top:10px;
   }
 
   #mapSwitchBox {
-    left: 12px;
-    bottom: 18px;
+    left: 14px;
+    bottom: 36px;
+    z-index: 3000;
+    display: flex;
   }
 
   #rainbowBox {
     right: 12px;
-    top: 50%;
+    top: 56%;
     bottom: auto;
+    z-index: 2000;
   }
 
   #skyTempleBox {
     left: 12px;
-    top: 34%;
+    top: 39%;
     bottom: auto;
+    z-index: 2000;
   }
 
   #rainbowBox button,
@@ -996,7 +1001,6 @@ margin-top:10px;
     font-size: 16px;
   }
 }
-
 .leaflet-popup-content{
   max-height: 68vh;
   overflow-y: auto;
