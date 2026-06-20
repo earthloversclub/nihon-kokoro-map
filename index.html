@@ -1963,6 +1963,7 @@ if (!legend) return;
 }
 
 function showMapA() {
+document.getElementById("mapContainer").style.display = "block";
 document.getElementById("map").style.display = "block";
 document.getElementById("growthMap").style.display = "none";
 document.getElementById("searchBox").style.display = "block";
@@ -1970,17 +1971,22 @@ document.getElementById("rainbowBox").style.display = "block";
 document.getElementById("skyTempleBox").style.display = "block";
 document.getElementById("thanksEnergyLegend").style.display = "none";
 
+document.getElementById("mapContainer").appendChild(document.getElementById("mapSwitchBox"));
+
 document.getElementById("mapSwitchButton").textContent = "🌷成長地図▶";
 document.getElementById("mapSwitchButton").onclick = showMapB;
+
+setTimeout(() => {
+map.invalidateSize();
+}, 100);
 }
 
 function showMapB() {
-document.getElementById("map").style.display = "none";
+document.getElementById("mapContainer").style.display = "none";
 document.getElementById("growthMap").style.display = "block";
-document.getElementById("searchBox").style.display = "none";
-document.getElementById("rainbowBox").style.display = "none";
-document.getElementById("skyTempleBox").style.display = "none";
 document.getElementById("thanksEnergyLegend").style.display = "block";
+
+document.getElementById("growthMap").appendChild(document.getElementById("mapSwitchBox"));
 
 document.getElementById("mapSwitchButton").textContent = "◀🌎宝物地図";
 document.getElementById("mapSwitchButton").onclick = showMapA;
