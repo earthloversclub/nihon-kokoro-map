@@ -1143,90 +1143,56 @@ background-position:100% 50%;
   display: block !important;
 }
 
-/* スマホ専用：成長地図側の宝物地図ボタン位置 */
-@media (max-width: 767px) {
-
-  #growthMap #mapSwitchBox {
-    position: absolute !important;
-    left: 14px !important;
-    bottom: 60px !important;
-    z-index: 3000 !important;
-  }
-
-}
-
 /* 成長地図専用：地図基準の土台 */
 #growthMapContainer{
-  position: relative;
-  width: 100%;
-  max-width: 700px;
-  height: 520px;
-  margin: 25px auto 0;
-  overflow: visible;
+  position:relative;
+  width:100%;
+  max-width:700px;
+  height:520px;
+  margin:25px auto 0;
+  overflow:visible;
 }
 
-/* スマホ専用：成長地図ボタン */
-@media (max-width: 767px){
-
-  #growthMapContainer{
-    height: 520px;
-  }
-
-}
-
- /* 共通：戻る・切替ボタン */
+/* 共通：戻る・切替ボタン */
 .mapReturnButton{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-
-  padding:14px 34px;
-  border:3px solid #9fd8b2;
-  border-radius:999px;
-
-  background:#ffffff;
-  color:#256b3b;
-
-  font-size:22px;
-  font-weight:900;
-  line-height:1;
-
-  box-shadow:
-    0 0 12px rgba(255,255,255,0.95),
-    0 0 18px rgba(159,216,178,0.55);
-
-  cursor:pointer;
-  white-space:nowrap;
-}
-
-#mapSwitchBox .mapReturnButton,
-
-/* 成長地図：宝物地図へ戻るボタン */
-#growthBackBox{
-  position:absolute !important;
-  left:10px !important;
-  bottom:-70px !important;
-  z-index:3000 !important;
-}
-
-#growthBackBox .mapReturnButton{
   display:inline-flex !important;
   align-items:center !important;
   justify-content:center !important;
 
-  padding:8px 5px !important;
+  padding:6px 8px !important;
   border:3px solid #9fd8b2 !important;
   border-radius:999px !important;
 
   background:#ffffff !important;
   color:#256b3b !important;
 
-  font-size:16px !important;
+  font-size:14px !important;
   font-weight:900 !important;
   line-height:1 !important;
 
+  box-shadow:
+    0 0 12px rgba(255,255,255,0.95),
+    0 0 18px rgba(159,216,178,0.55) !important;
+
   cursor:pointer !important;
   white-space:nowrap !important;
+}
+
+/* 宝物地図側：成長地図ボタン位置 */
+#mapSwitchBox{
+  position:absolute !important;
+  left:12px !important;
+  bottom:170px !important;
+  z-index:3000 !important;
+  display:flex !important;
+}
+
+/* 成長地図側：宝物地図ボタン位置 */
+#growthBackBox{
+  position:absolute !important;
+  left:10px !important;
+  bottom:-70px !important;
+  z-index:3000 !important;
 }
   
 </style>  
