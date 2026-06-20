@@ -1158,6 +1158,48 @@ background-position:100% 50%;
   }
 
 }
+
+/* 成長地図専用：地図基準の土台 */
+#growthMapContainer{
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  height: 520px;
+  margin: 25px auto 0;
+  overflow: visible;
+}
+
+/* 成長地図の宝物地図ボタン */
+#growthBackBox{
+  position: absolute;
+  left: 14px;
+  bottom: 28px;
+  z-index: 3000;
+}
+
+#growthBackBox button{
+  font-size: 16px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 20px;
+  background: #dff3e5;
+  color: #256b3b;
+  cursor: pointer;
+}
+
+/* スマホ専用：成長地図ボタン */
+@media (max-width: 767px){
+
+  #growthMapContainer{
+    height: 520px;
+  }
+
+  #growthBackBox{
+    left: 14px;
+    bottom: 28px;
+  }
+
+}
   
 </style>  
 </head>  
@@ -1220,24 +1262,30 @@ background-position:100% 50%;
 <div id="growthMap" style="display:none;">
 <h2>🌷 成長地図 🌷</h2>
 
-<div id="japanGrowthMap">
+<div id="growthMapContainer">
 
-<div id="thanksFlowerBox">
-<div class="thanks-flower-count">
-<span id="thanksTotal">読み込み中...</span> 輪
+  <div id="japanGrowthMap">
+
+    <div id="thanksFlowerBox">
+      <div class="thanks-flower-count">
+        <span id="thanksTotal">読み込み中...</span> 輪
+      </div>
+    </div>
+
+    <div id="achievementBox">
+      <span id="achievementCount">0/47県</span>&nbsp;&nbsp;&nbsp;&nbsp;
+      <span id="achievementPercent">0%</span>
+    </div>
+
+  </div>
+
+  <div id="growthBackBox">
+    <button onclick="showMapA()">◀🌎宝物地図</button>
+  </div>
+
 </div>
-</div>
 
-<div id="achievementBox">
-
-<span id="achievementCount">0/47県</span>&nbsp;&nbsp;&nbsp;&nbsp;
-
-<span id="achievementPercent">0%</span>
-
-</div>
-</div>
 <div id="rankingBox">
-
 <span style="font-size:15px;font-weight:bold;">
 🏆満開ランキング
 </span><br>
@@ -1253,11 +1301,10 @@ background-position:100% 50%;
 4位 東京<br>
 5位 福岡<br>
 6位 神奈川
-
-</div>
 </div>
 
 <div id="thanksEnergyLegend"></div>
+</div>
 
 </div>
 </div>
@@ -1983,8 +2030,6 @@ document.getElementById("rainbowBox").style.display = "block";
 document.getElementById("skyTempleBox").style.display = "block";
 document.getElementById("thanksEnergyLegend").style.display = "none";
 
-document.getElementById("mapContainer").appendChild(document.getElementById("mapSwitchBox"));
-
 document.getElementById("mapSwitchButton").textContent = "🌷成長地図▶";
 document.getElementById("mapSwitchButton").onclick = showMapB;
 
@@ -1997,11 +2042,6 @@ function showMapB() {
 document.getElementById("mapContainer").style.display = "none";
 document.getElementById("growthMap").style.display = "block";
 document.getElementById("thanksEnergyLegend").style.display = "block";
-
-document.getElementById("growthMap").appendChild(document.getElementById("mapSwitchBox"));
-
-document.getElementById("mapSwitchButton").textContent = "◀🌎宝物地図";
-document.getElementById("mapSwitchButton").onclick = showMapA;
 
 setTimeout(function() {
 loadJapanGrowthMap();
