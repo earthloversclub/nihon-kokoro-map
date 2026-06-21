@@ -1686,8 +1686,12 @@ marker = L.marker([lat, lng], { icon: markerIcon })
 }
 
 allSpots.push({
-title: data["タイトル"] || data["名前"],
-marker: marker
+  title: data["タイトル"] || data["名前"],
+  description: data["説明"],
+  poster: data["投稿者"],
+  prefecture: data["都道府県"],
+  category: category,
+  marker: marker
 });
 
 marker.category = category;
