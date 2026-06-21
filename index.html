@@ -1199,6 +1199,45 @@ background-position:100% 50%;
   bottom:-70px !important;
   z-index:3000 !important;
 }
+
+#searchResultsBox{
+  display:none;
+  position:absolute;
+  top:52px;
+  right:8px;
+  width:260px;
+  max-height:320px;
+  overflow-y:auto;
+  background:white;
+  border:2px solid #9fd8b2;
+  border-radius:12px;
+  padding:8px;
+  z-index:3000;
+  box-shadow:0 0 12px rgba(0,0,0,0.25);
+  text-align:left;
+  font-size:13px;
+}
+
+.searchResultItem{
+  padding:8px;
+  border-bottom:1px solid #ddd;
+  cursor:pointer;
+}
+
+.searchResultItem:last-child{
+  border-bottom:none;
+}
+
+.searchResultTitle{
+  font-weight:900;
+  color:#256b3b;
+  margin-bottom:4px;
+}
+
+.searchResultMeta{
+  color:#555;
+  line-height:1.4;
+}
   
 </style>  
 </head>  
@@ -1256,7 +1295,8 @@ background-position:100% 50%;
     <input type="text" id="searchInput" placeholder="キーワード">
     <button onclick="searchPlace()">検索</button>
   </div>
-
+<div id="searchResultsBox"></div>
+  
 </div>
 <div id="growthMap" style="display:none;">
 <h2>🌷 成長地図 🌷</h2>
@@ -2352,6 +2392,7 @@ showFlowerConfetti("middle");
 }).addTo(growthMap);
 });
 }
+  
 function searchPlace() {
 
   const keyword = document
@@ -2360,9 +2401,15 @@ function searchPlace() {
     .trim()
     .toLowerCase();
 
-  if (!keyword) return;
+  const resultBox = document.getElementById("searchResultsBox");
 
-  const found = allSpots.find(spot => {
+  if (!keyword) {
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+    return;
+  }
+
+  const results = allSpots.filter(spot => {
 
     return [
       spot.title,
@@ -2378,13 +2425,60 @@ function searchPlace() {
 
   });
 
-  if (found) {
-    map.setView(found.marker.getLatLng(), 12);
-    found.marker.openPopup();
-  } else {
+  if (results.length === 0) {
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
     alert("見つかりませんでした");
+    return;
   }
 
+  if (results.length === 1) {
+    const found = results[0];
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+
+    map.setView(found.marker.getLatLng(), 12);
+    found.marker.openPopup();
+    return;
+  }
+
+  resultBox.innerHTML = `
+    <div style="font-weight:900; color:#256b3b; margin-bottom:6px;">
+      検索結果：${results.length}件
+    </div>
+    ${results.slice(0, 10).map((spot, index) => `
+      <div class="searchResultItem" onclick="openSearchResult(${index})">
+        <div class="searchResultTitle">${spot.title || "タイトルなし"}</div>
+        <div class="searchResultMeta">
+          ${spot.prefecture || ""}｜${spot.category || ""}<br>
+          投稿者：${spot.poster || "未入力"}
+        </div>
+      </div>
+    `).join("")}
+    ${results.length > 10 ? `
+      <div style="padding:8px; color:#777;">
+        ほか${results.length - 10}件あります<br>
+        キーワードを追加すると絞り込めます
+      </div>
+    ` : ""}
+  `;
+
+  window.currentSearchResults = results.slice(0, 10);
+  resultBox.style.display = "block";
+
+}
+
+function openSearchResult(index) {
+  const spot = window.currentSearchResults[index];
+  const resultBox = document.getElementById("searchResultsBox");
+
+  if (!spot) return;
+
+  resultBox.style.display = "none";
+  resultBox.innerHTML = "";
+
+  map.setView(spot.marker.getLatLng(), 12);
+  spot.marker.openPopup();
 }
 </script>
 </body>
