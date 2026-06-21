@@ -950,13 +950,18 @@ margin-top:10px;
 /* スマホ専用：mapContainer基準配置 */
 @media (max-width: 767px) {
 
-  #searchBox {
-    top: 8px;
-    right: 8px;
-    width: 178px;
-    padding: 6px;
-    z-index: 2000;
-  }
+#searchBox {
+  top: 8px;
+  right: 8px;
+  width: 178px;
+  padding: 6px;
+  z-index: 2000;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: nowrap;
+}
 
 #searchInput {
   width: 108px;
