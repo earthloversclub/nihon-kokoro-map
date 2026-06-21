@@ -644,15 +644,6 @@ width: 137px;
 
 }
 
-@keyframes rainbowMove {
-0% {
-background-position: 0% 50%;
-}
-
-100% {
-background-position: 200% 50%;
-}
-}
 @media (min-width: 601px) {
 
 #rankingBox {
@@ -1936,15 +1927,8 @@ document.getElementById("searchBox").style.display = "block";
 document.getElementById("rainbowBox").style.display = "block";
 document.getElementById("skyTempleBox").style.display = "block";
   
-
 });
-function changeCarouselImage(spotId, imageUrl) {
-const img = document.getElementById(`carousel-${spotId}`);
 
-if (img) {
-img.src = imageUrl;
-}
-}
 function updatePrefectureList() {
 
 const legend = document.querySelector('.legend');
