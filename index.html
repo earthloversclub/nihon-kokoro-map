@@ -1842,6 +1842,16 @@ video.src = item.url;
 
 document.getElementById('imageCounter').textContent =
 (modalIndex + 1) + " / " + modalItems.length;
+const modalPrev = document.getElementById('modalPrev');
+const modalNext = document.getElementById('modalNext');
+
+if (modalItems.length <= 1) {
+  modalPrev.style.display = "none";
+  modalNext.style.display = "none";
+} else {
+  modalPrev.style.display = "";
+  modalNext.style.display = "";
+}  
 }
 
 function showModalImage(direction) {
