@@ -714,8 +714,14 @@ margin-top:10px;
 
 #modalImage {
   transition: transform 0.25s ease, opacity 0.25s ease;
+  transform-origin: center center;
+  touch-action: none;
+  user-select: none;
 }
 
+.image-modal {
+  overflow: hidden;
+}  
 * {
   box-sizing: border-box;
 }
@@ -1603,6 +1609,41 @@ return div;
 legend.addTo(map);
 let modalItems = [];
 let modalIndex = 0;
+let modalScale = 1;
+let modalTranslateX = 0;
+let modalTranslateY = 0;
+
+let touchStartX = 0;
+let touchStartY = 0;
+let lastTouchX = 0;
+let lastTouchY = 0;
+let lastTouchDistance = 0;
+
+let isPinching = false;
+let hasDraggedImage = false;
+
+function applyModalImageTransform() {
+  const img = document.getElementById('modalImage');
+
+  img.style.transform =
+    `translate(${modalTranslateX}px, ${modalTranslateY}px) scale(${modalScale})`;
+}
+
+function resetModalZoom() {
+  modalScale = 1;
+  modalTranslateX = 0;
+  modalTranslateY = 0;
+  lastTouchDistance = 0;
+  isPinching = false;
+  hasDraggedImage = false;
+}
+
+function getTouchDistance(touches) {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+
+  return Math.sqrt(dx * dx + dy * dy);
+}  
 
 function openMediaModal(items, index) {
 modalItems = items;
@@ -1619,20 +1660,22 @@ const item = modalItems[modalIndex];
 const img = document.getElementById('modalImage');
 const video = document.getElementById('modalVideo');
 
+resetModalZoom();
+
 if (item.type === "image") {
 video.style.display = "none";
 video.src = "";
 
 img.style.display = "block";
 img.style.opacity = "0";
-img.style.transform = "translateX(25px)";
+img.style.transform = "translateX(25px) scale(1)";
 
 setTimeout(() => {
   img.src = item.url;
 
   setTimeout(() => {
     img.style.opacity = "1";
-    img.style.transform = "translateX(0)";
+    img.style.transform = "translateX(0) scale(1)";
   }, 30);
 }, 80);
 }
@@ -1669,13 +1712,85 @@ function closeImageModal() {
 document.getElementById('imageModal').style.display = 'none';
 document.getElementById('modalVideo').src = "";
 }
-let touchStartX = 0;
+const imageModal = document.getElementById('imageModal');
 
-document.getElementById('imageModal').addEventListener('touchstart', function(e) {
-  touchStartX = e.touches[0].clientX;
-}, { passive: true });
+imageModal.addEventListener('touchstart', function(e) {
+  if (modalItems[modalIndex]?.type !== "image") return;
 
-document.getElementById('imageModal').addEventListener('touchend', function(e) {
+  if (e.touches.length === 2) {
+    isPinching = true;
+    lastTouchDistance = getTouchDistance(e.touches);
+    e.preventDefault();
+    return;
+  }
+
+  if (e.touches.length === 1) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    lastTouchX = touchStartX;
+    lastTouchY = touchStartY;
+    hasDraggedImage = false;
+  }
+}, { passive: false });
+
+imageModal.addEventListener('touchmove', function(e) {
+  if (modalItems[modalIndex]?.type !== "image") return;
+
+  if (e.touches.length === 2) {
+    const distance = getTouchDistance(e.touches);
+
+    if (lastTouchDistance > 0) {
+      const zoomChange = distance / lastTouchDistance;
+
+      modalScale *= zoomChange;
+      modalScale = Math.max(1, Math.min(modalScale, 4));
+
+      if (modalScale === 1) {
+        modalTranslateX = 0;
+        modalTranslateY = 0;
+      }
+
+      applyModalImageTransform();
+    }
+
+    lastTouchDistance = distance;
+    isPinching = true;
+    e.preventDefault();
+    return;
+  }
+
+  if (e.touches.length === 1 && modalScale > 1) {
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+
+    modalTranslateX += currentX - lastTouchX;
+    modalTranslateY += currentY - lastTouchY;
+
+    lastTouchX = currentX;
+    lastTouchY = currentY;
+    hasDraggedImage = true;
+
+    applyModalImageTransform();
+    e.preventDefault();
+  }
+}, { passive: false });
+
+imageModal.addEventListener('touchend', function(e) {
+  if (modalItems[modalIndex]?.type !== "image") return;
+
+  if (e.touches.length === 0) {
+    lastTouchDistance = 0;
+  }
+
+  if (isPinching) {
+    isPinching = false;
+    return;
+  }
+
+  if (modalScale > 1 || hasDraggedImage) {
+    return;
+  }
+
   const touchEndX = e.changedTouches[0].clientX;
   const diffX = touchEndX - touchStartX;
 
