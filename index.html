@@ -1621,6 +1621,9 @@ let lastTouchDistance = 0;
 
 let isPinching = false;
 let hasDraggedImage = false;
+let isMouseDraggingImage = false;
+let lastMouseX = 0;
+let lastMouseY = 0;  
 
 function applyModalImageTransform() {
   const img = document.getElementById('modalImage');
@@ -1802,7 +1805,25 @@ imageModal.addEventListener('touchend', function(e) {
     showModalImage(1);
   }
 }, { passive: true });
+imageModal.addEventListener('wheel', function(e) {
+  if (modalItems[modalIndex]?.type !== "image") return;
 
+  e.preventDefault();
+
+  const zoomSpeed = 0.0015;
+  const oldScale = modalScale;
+
+  modalScale += -e.deltaY * zoomSpeed;
+  modalScale = Math.max(1, Math.min(modalScale, 4));
+
+  if (modalScale === 1) {
+    modalTranslateX = 0;
+    modalTranslateY = 0;
+  }
+
+  applyModalImageTransform();
+}, { passive: false });
+  
 function sendThanks(button, spotId) {
 const key = "thanks_" + spotId;
 const message = button.nextElementSibling;
