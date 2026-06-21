@@ -1621,6 +1621,11 @@ let lastTouchDistance = 0;
 
 let isPinching = false;
 let hasDraggedImage = false;
+let isModalSwiping = false;
+let modalSwipeX = 0;
+const MODAL_SWIPE_THRESHOLD = 70;
+const MODAL_SWIPE_OUT_DURATION = 220;
+
 let isMouseDraggingImage = false;
 let lastMouseX = 0;
 let lastMouseY = 0;  
@@ -1636,9 +1641,11 @@ function resetModalZoom() {
   modalScale = 1;
   modalTranslateX = 0;
   modalTranslateY = 0;
+  modalSwipeX = 0;
   lastTouchDistance = 0;
   isPinching = false;
   hasDraggedImage = false;
+  isModalSwiping = false;
 }
 
 function getTouchDistance(touches) {
@@ -1646,8 +1653,40 @@ function getTouchDistance(touches) {
   const dy = touches[0].clientY - touches[1].clientY;
 
   return Math.sqrt(dx * dx + dy * dy);
-}  
+} 
+  
+function moveModalImageForSwipe(x) {
+  const img = document.getElementById('modalImage');
 
+  modalSwipeX = x;
+  img.style.transition = "none";
+  img.style.transform = `translateX(${modalSwipeX}px) scale(1)`;
+}
+
+function returnModalImageFromSwipe() {
+  const img = document.getElementById('modalImage');
+
+  img.style.transition = "transform 0.25s ease, opacity 0.25s ease";
+  img.style.transform = "translateX(0) scale(1)";
+
+  modalSwipeX = 0;
+  isModalSwiping = false;
+}
+
+function switchModalImageBySwipe(direction) {
+  const img = document.getElementById('modalImage');
+  const slideX = direction > 0 ? -window.innerWidth : window.innerWidth;
+
+  img.style.transition = `transform ${MODAL_SWIPE_OUT_DURATION}ms ease, opacity 0.25s ease`;
+  img.style.transform = `translateX(${slideX}px) scale(1)`;
+
+  setTimeout(() => {
+    modalSwipeX = 0;
+    isModalSwiping = false;
+    showModalImage(direction);
+  }, MODAL_SWIPE_OUT_DURATION);
+}
+  
 function openMediaModal(items, index) {
 modalItems = items;
 modalIndex = index;
@@ -1727,13 +1766,15 @@ imageModal.addEventListener('touchstart', function(e) {
     return;
   }
 
-  if (e.touches.length === 1) {
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-    lastTouchX = touchStartX;
-    lastTouchY = touchStartY;
-    hasDraggedImage = false;
-  }
+if (e.touches.length === 1) {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  lastTouchX = touchStartX;
+  lastTouchY = touchStartY;
+  hasDraggedImage = false;
+  isModalSwiping = false;
+  modalSwipeX = 0;
+}
 }, { passive: false });
 
 imageModal.addEventListener('touchmove', function(e) {
@@ -1762,20 +1803,34 @@ imageModal.addEventListener('touchmove', function(e) {
     return;
   }
 
-  if (e.touches.length === 1 && modalScale > 1) {
-    const currentX = e.touches[0].clientX;
-    const currentY = e.touches[0].clientY;
+if (e.touches.length === 1 && modalScale > 1) {
+  const currentX = e.touches[0].clientX;
+  const currentY = e.touches[0].clientY;
 
-    modalTranslateX += currentX - lastTouchX;
-    modalTranslateY += currentY - lastTouchY;
+  modalTranslateX += currentX - lastTouchX;
+  modalTranslateY += currentY - lastTouchY;
 
-    lastTouchX = currentX;
-    lastTouchY = currentY;
-    hasDraggedImage = true;
+  lastTouchX = currentX;
+  lastTouchY = currentY;
+  hasDraggedImage = true;
 
-    applyModalImageTransform();
+  applyModalImageTransform();
+  e.preventDefault();
+  return;
+}
+
+if (e.touches.length === 1 && modalScale === 1) {
+  const currentX = e.touches[0].clientX;
+  const currentY = e.touches[0].clientY;
+  const diffX = currentX - touchStartX;
+  const diffY = currentY - touchStartY;
+
+  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 8) {
+    isModalSwiping = true;
+    moveModalImageForSwipe(diffX);
     e.preventDefault();
   }
+}
 }, { passive: false });
 
 imageModal.addEventListener('touchend', function(e) {
@@ -1794,16 +1849,21 @@ imageModal.addEventListener('touchend', function(e) {
     return;
   }
 
-  const touchEndX = e.changedTouches[0].clientX;
-  const diffX = touchEndX - touchStartX;
+const touchEndX = e.changedTouches[0].clientX;
+const diffX = touchEndX - touchStartX;
 
-  if (Math.abs(diffX) < 50) return;
+if (!isModalSwiping) return;
 
-  if (diffX > 0) {
-    showModalImage(-1);
-  } else {
-    showModalImage(1);
-  }
+if (Math.abs(diffX) < MODAL_SWIPE_THRESHOLD) {
+  returnModalImageFromSwipe();
+  return;
+}
+
+if (diffX > 0) {
+  switchModalImageBySwipe(-1);
+} else {
+  switchModalImageBySwipe(1);
+}
 }, { passive: true });
 imageModal.addEventListener('wheel', function(e) {
   if (modalItems[modalIndex]?.type !== "image") return;
