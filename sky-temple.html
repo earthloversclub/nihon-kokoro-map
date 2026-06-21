@@ -17,6 +17,15 @@ body {
   text-align: center;
   min-height: 100vh;
 }
+
+body.temple-loading {
+  opacity: 0;
+}
+
+body.temple-ready {
+  opacity: 1;
+}
+  
   color: #000;
   text-align: center;
   min-height: 100vh;
@@ -553,7 +562,7 @@ animation-play-state:paused;
 </style>
 </head>
 
-<body>
+<body class="temple-loading">
 
 <div class="templeTop">
 
@@ -978,6 +987,43 @@ else{
 }
   
 </script>
-  
+<script>
+(function () {
+  const imagePaths = [
+    "images/sky-temple.png",
+    "images/sky-temple2.png"
+  ];
+
+  let released = false;
+
+  function showTemple() {
+    if (released) return;
+    released = true;
+    document.body.classList.remove("temple-loading");
+    document.body.classList.add("temple-ready");
+  }
+
+  function loadAndDecode(src) {
+    return new Promise(function (resolve) {
+      const img = new Image();
+
+      img.onload = function () {
+        if (img.decode) {
+          img.decode().then(resolve).catch(resolve);
+        } else {
+          resolve();
+        }
+      };
+
+      img.onerror = resolve;
+      img.src = src;
+    });
+  }
+
+  Promise.all(imagePaths.map(loadAndDecode)).then(showTemple);
+
+  setTimeout(showTemple, 3000);
+})();
+</script>  
 </body>
 </html>
