@@ -62,7 +62,7 @@ h2 {
   line-height: 1.45;
 
   margin-top: 20px;
-  margin-bottom: 100px;
+  margin-bottom: px;
 
   text-shadow:
     0 0 8px white,
@@ -102,7 +102,7 @@ h2 {
 
 .medalIcon {
   position: absolute;
-  right: calc(100% + 14px);
+  right: calc(% + 14px);
   top: 50%;
   transform: translateY(-50%);
   width: 70px;
@@ -122,7 +122,7 @@ h2 {
 
 @keyframes heroGlow {
 
-  0%,100%{
+  0%,%{
     text-shadow:
       0 0 8px white,
       0 0 15px white,
@@ -157,7 +157,7 @@ margin: 0px auto 30px;
     radial-gradient(circle at center,
       #ffffff 0%,
       #ffffff 55%,
-      #e8fff1 100%);
+      #e8fff1 %);
 
   box-shadow:
     0 0 15px white,
@@ -182,13 +182,13 @@ margin: 0px auto 30px;
 .templeTop {
   background: url("images/sky-temple.png") center top no-repeat;
   background-size: cover;
-  min-height: 100vh;
+  min-height: vh;
 }
 
 .templeBottom {
   background: url("images/sky-temple2.png") center top repeat-y;
-  background-size: 100% auto;
-  min-height: 100vh;
+  background-size: % auto;
+  min-height: vh;
 }
 
 .medalIcon {
@@ -226,7 +226,7 @@ margin: 0px auto 30px;
 }
 
 .specialThanksButton img{
-  width:100%;
+  width:%;
   height:auto;
   display:block;
   transform:scale(1.6);
@@ -243,7 +243,7 @@ margin: 0px auto 30px;
   top:-108px;
   left:0;
 
-  width:100%;
+  width:%;
   text-align:center;
 
   font-size:35px;
@@ -324,7 +324,7 @@ transform:translateX(-50%);
   top:234px;
   left:50%;
   transform:translateX(-50%);
-  width:100%;
+  width:%;
   white-space:nowrap;
   text-align:center;
 
@@ -382,7 +382,7 @@ transform:translateX(-50%);
     opacity:1;
   }
 
-  100%{
+  %{
     opacity:0;
     transform:
       translate(
@@ -406,7 +406,7 @@ animation-play-state:paused;
 }
 
 /* ===========================
-   100投稿達成タイトル
+   投稿達成タイトル
 =========================== */
 
 .specialTop{
@@ -560,7 +560,7 @@ animation-play-state:paused;
 <div id="specialThanksText" class="heartText">
   <div class="heartTitle">Special⭐Thanks</div>
   <div class="heartCount">
-    100投稿達成まで<br>
+    111投稿達成まで<br>
     あと79投稿
   </div>
 </div>
@@ -747,41 +747,45 @@ function setupSpecialThanks(totalPosts) {
 
   if (!btn || !img || !title || !count) return;
 
+  const angelMilestones = [111, 222, 333, 444, 555, 666, 777, 888, 999];
+
   if (DEBUG_MODE) {
-    img.src = "images/special-thanks-lock.png";
+    const debugMilestone = 111;
+
+    img.src = "images/special-thanks-open.png";
     title.textContent = "Special⭐Thanks";
-    count.innerHTML = `🎉100投稿達成🎉<br>✨押して祝福する✨`;
+    count.innerHTML = `👼${debugMilestone}エンジェルナンバー達成👼<br>✨押して祝福する✨`;
 
     btn.classList.remove("locked");
     btn.style.pointerEvents = "auto";
     btn.style.cursor = "pointer";
 
     btn.onclick = function() {
-      showSpecialThanksEffect(100);
+      showSpecialThanksEffect(debugMilestone);
     };
 
     return;
   }
 
-  let milestone = Math.floor(totalPosts / 100) * 100;
+  const availableMilestone = angelMilestones.find(function(n) {
+    return totalPosts >= n && !localStorage.getItem("specialThanks_" + n);
+  });
 
-  if (milestone < 100) {
-    const next = 100;
+  if (!availableMilestone) {
+    const nextMilestone = angelMilestones.find(function(n) {
+      return totalPosts < n;
+    });
 
-    img.src = "images/special-thanks-lock.png";
-    title.textContent = "Special⭐Thanks";
-    count.innerHTML = `${next}投稿達成まで<br>あと${next - totalPosts}投稿`;
+    if (nextMilestone) {
+      img.src = "images/special-thanks-lock.png";
+      title.textContent = "Special⭐Thanks";
+      count.innerHTML = `👼${nextMilestone}投稿達成まで👼<br>あと${nextMilestone - totalPosts}投稿`;
 
-    btn.classList.add("locked");
-    btn.onclick = null;
-    return;
-  }
+      btn.classList.add("locked");
+      btn.onclick = null;
+      return;
+    }
 
-  while (localStorage.getItem("specialThanks_" + milestone) && milestone <= totalPosts) {
-    milestone += 100;
-  }
-
-  if (milestone > totalPosts) {
     img.src = "images/special-thanks-open.png";
     title.textContent = "";
     count.innerHTML = "";
@@ -793,20 +797,21 @@ function setupSpecialThanks(totalPosts) {
 
   img.src = "images/special-thanks-open.png";
   title.textContent = "Special⭐Thanks";
-  count.innerHTML = `🎉${milestone}投稿達成🎉<br>✨押して祝福する✨`;
+  count.innerHTML = `👼${availableMilestone}エンジェルナンバー達成👼<br>✨押して祝福する✨`;
 
   btn.classList.remove("locked");
+  btn.style.pointerEvents = "auto";
+  btn.style.cursor = "pointer";
 
   btn.onclick = function() {
-    localStorage.setItem("specialThanks_" + milestone, "done");
+    localStorage.setItem("specialThanks_" + availableMilestone, "done");
 
     btn.classList.add("locked");
     btn.onclick = null;
 
-    showSpecialThanksEffect(milestone);
+    showSpecialThanksEffect(availableMilestone);
   };
 }
-
 function showSpecialThanksEffect(milestone) {
   const btn = document.getElementById("specialThanksBtn");
   const img = document.getElementById("specialThanksImage");
