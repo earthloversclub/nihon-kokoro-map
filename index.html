@@ -718,7 +718,19 @@ margin-top:10px;
   touch-action: none;
   user-select: none;
 }
-
+#modalSlideImage {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  max-width: 92%;
+  max-height: 90%;
+  border-radius: 10px;
+  transform-origin: center center;
+  touch-action: none;
+  user-select: none;
+  pointer-events: none;
+}
 .image-modal {
   overflow: hidden;
 }  
@@ -1117,6 +1129,7 @@ background-position:100% 50%;
 <button id="modalPrev" onclick="showModalImage(-1)">◀</button>
 
 <img id="modalImage" src="" draggable="false">
+<img id="modalSlideImage" src="" draggable="false">
 <iframe id="modalVideo" class="modal-video" src="" allow="autoplay" allowfullscreen></iframe>
 <div id="imageCounter">1 / 1</div>
 
@@ -1622,6 +1635,12 @@ let lastTouchDistance = 0;
 let isPinching = false;
 let hasDraggedImage = false;
 
+let isModalSlideSwiping = false;
+let modalSlideDirection = 0;
+let modalSlideX = 0;
+const MODAL_SLIDE_THRESHOLD = 70;
+const MODAL_SLIDE_DURATION = 220;
+
 let isMouseDraggingImage = false;
 let lastMouseX = 0;
 let lastMouseY = 0;  
@@ -1640,6 +1659,7 @@ function resetModalZoom() {
   lastTouchDistance = 0;
   isPinching = false;
   hasDraggedImage = false;
+  resetModalSlideImage();
 }
 
 function getTouchDistance(touches) {
@@ -1648,7 +1668,100 @@ function getTouchDistance(touches) {
 
   return Math.sqrt(dx * dx + dy * dy);
 } 
-  
+function getModalNeighborIndex(direction) {
+  let index = modalIndex + direction;
+
+  if (index < 0) {
+    index = modalItems.length - 1;
+  }
+
+  if (index >= modalItems.length) {
+    index = 0;
+  }
+
+  return index;
+}
+
+function resetModalSlideImage() {
+  const slideImg = document.getElementById('modalSlideImage');
+
+  slideImg.style.display = "none";
+  slideImg.src = "";
+  slideImg.style.transition = "none";
+  slideImg.style.transform = "translate(-50%, -50%) scale(1)";
+
+  isModalSlideSwiping = false;
+  modalSlideDirection = 0;
+  modalSlideX = 0;
+}
+
+function moveModalImagesForSlide(diffX) {
+  const img = document.getElementById('modalImage');
+  const slideImg = document.getElementById('modalSlideImage');
+
+  const direction = diffX < 0 ? 1 : -1;
+  const neighborItem = modalItems[getModalNeighborIndex(direction)];
+
+  if (!neighborItem || neighborItem.type !== "image") return;
+
+  if (!isModalSlideSwiping || modalSlideDirection !== direction) {
+    modalSlideDirection = direction;
+    slideImg.src = neighborItem.url;
+    slideImg.style.display = "block";
+  }
+
+  isModalSlideSwiping = true;
+  modalSlideX = diffX;
+
+  const windowWidth = window.innerWidth;
+  const slideStartX = direction === 1 ? windowWidth : -windowWidth;
+
+  img.style.transition = "none";
+  slideImg.style.transition = "none";
+
+  img.style.transform = `translateX(${diffX}px) scale(1)`;
+  slideImg.style.transform =
+    `translate(calc(-50% + ${slideStartX + diffX}px), -50%) scale(1)`;
+}
+
+function cancelModalImageSlide() {
+  const img = document.getElementById('modalImage');
+  const slideImg = document.getElementById('modalSlideImage');
+
+  const windowWidth = window.innerWidth;
+  const slideBackX = modalSlideDirection === 1 ? windowWidth : -windowWidth;
+
+  img.style.transition = `transform ${MODAL_SLIDE_DURATION}ms ease, opacity 0.25s ease`;
+  slideImg.style.transition = `transform ${MODAL_SLIDE_DURATION}ms ease`;
+
+  img.style.transform = "translateX(0) scale(1)";
+  slideImg.style.transform =
+    `translate(calc(-50% + ${slideBackX}px), -50%) scale(1)`;
+
+  setTimeout(() => {
+    resetModalSlideImage();
+  }, MODAL_SLIDE_DURATION);
+}
+
+function completeModalImageSlide() {
+  const img = document.getElementById('modalImage');
+  const slideImg = document.getElementById('modalSlideImage');
+
+  const windowWidth = window.innerWidth;
+  const currentEndX = modalSlideDirection === 1 ? -windowWidth : windowWidth;
+
+  img.style.transition = `transform ${MODAL_SLIDE_DURATION}ms ease, opacity 0.25s ease`;
+  slideImg.style.transition = `transform ${MODAL_SLIDE_DURATION}ms ease`;
+
+  img.style.transform = `translateX(${currentEndX}px) scale(1)`;
+  slideImg.style.transform = "translate(-50%, -50%) scale(1)";
+
+  setTimeout(() => {
+    modalIndex = getModalNeighborIndex(modalSlideDirection);
+    resetModalSlideImage();
+    renderModalItem();
+  }, MODAL_SLIDE_DURATION);
+}  
 function openMediaModal(items, index) {
 modalItems = items;
 modalIndex = index;
@@ -1734,6 +1847,10 @@ if (e.touches.length === 1) {
   lastTouchX = touchStartX;
   lastTouchY = touchStartY;
   hasDraggedImage = false;
+
+  if (modalScale === 1) {
+    resetModalSlideImage();
+  }
 }
 }, { passive: false });
 
@@ -1763,31 +1880,36 @@ imageModal.addEventListener('touchmove', function(e) {
     return;
   }
 
-if (e.touches.length === 1 && modalScale > 1) {
-  const currentX = e.touches[0].clientX;
-  const currentY = e.touches[0].clientY;
+}, { passive: false });
 
-  modalTranslateX += currentX - lastTouchX;
-  modalTranslateY += currentY - lastTouchY;
+  if (e.touches.length === 1 && modalScale > 1) {
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
 
-  lastTouchX = currentX;
-  lastTouchY = currentY;
-  hasDraggedImage = true;
+    modalTranslateX += currentX - lastTouchX;
+    modalTranslateY += currentY - lastTouchY;
 
-  applyModalImageTransform();
-  e.preventDefault();
-  return;
-}
-const touchEndX = e.changedTouches[0].clientX;
-const diffX = touchEndX - touchStartX;
+    lastTouchX = currentX;
+    lastTouchY = currentY;
+    hasDraggedImage = true;
 
-if (Math.abs(diffX) < 50) return;
+    applyModalImageTransform();
+    e.preventDefault();
+    return;
+  }
 
-if (diffX > 0) {
-  showModalImage(-1);
-} else {
-  showModalImage(1);
-}
+  if (e.touches.length === 1 && modalScale === 1) {
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const diffX = currentX - touchStartX;
+    const diffY = currentY - touchStartY;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 8) {
+      moveModalImagesForSlide(diffX);
+      e.preventDefault();
+      return;
+    }
+  }
 }, { passive: false });
 
 imageModal.addEventListener('touchend', function(e) {
@@ -1806,22 +1928,19 @@ imageModal.addEventListener('touchend', function(e) {
     return;
   }
 
-const touchEndX = e.changedTouches[0].clientX;
-const diffX = touchEndX - touchStartX;
+  const touchEndX = e.changedTouches[0].clientX;
+  const diffX = touchEndX - touchStartX;
 
-if (!isModalSwiping) return;
+  if (!isModalSlideSwiping) return;
 
-if (Math.abs(diffX) < MODAL_SWIPE_THRESHOLD) {
-  returnModalImageFromSwipe();
-  return;
-}
+  if (Math.abs(diffX) < MODAL_SLIDE_THRESHOLD) {
+    cancelModalImageSlide();
+    return;
+  }
 
-if (diffX > 0) {
-  switchModalImageBySwipe(-1);
-} else {
-  switchModalImageBySwipe(1);
-}
+  completeModalImageSlide();
 }, { passive: true });
+  
 imageModal.addEventListener('wheel', function(e) {
   if (modalItems[modalIndex]?.type !== "image") return;
 
