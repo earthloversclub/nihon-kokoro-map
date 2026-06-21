@@ -1285,11 +1285,6 @@ function hideCleanMode() {
   document.body.classList.remove("mapCleanMode");
 }
 
-map.on("dragstart", () => {
-  if (isResettingMap) return;
-  showCleanMode();
-});
-
 document.getElementById("resetMapViewBtn").addEventListener("click", () => {
   isResettingMap = true;
   
