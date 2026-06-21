@@ -2349,23 +2349,38 @@ showFlowerConfetti("middle");
 });
 }
 function searchPlace() {
-const keyword = document
-.getElementById("searchInput")
-.value
-.trim()
-.toLowerCase();
 
-const found = allSpots.find(spot =>
-spot.title &&
-spot.title.toLowerCase().includes(keyword)
-);
+  const keyword = document
+    .getElementById("searchInput")
+    .value
+    .trim()
+    .toLowerCase();
 
-if (found) {
-map.setView(found.marker.getLatLng(), 12);
-found.marker.openPopup();
-} else {
-alert("見つかりませんでした");
-}
+  if (!keyword) return;
+
+  const found = allSpots.find(spot => {
+
+    return [
+      spot.title,
+      spot.description,
+      spot.poster,
+      spot.prefecture,
+      spot.category
+    ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase()
+    .includes(keyword);
+
+  });
+
+  if (found) {
+    map.setView(found.marker.getLatLng(), 12);
+    found.marker.openPopup();
+  } else {
+    alert("見つかりませんでした");
+  }
+
 }
 </script>
 </body>
