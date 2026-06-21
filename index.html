@@ -1983,6 +1983,56 @@ imageModal.addEventListener('touchend', function(e) {
 
   completeModalSwipe();
 }, { passive: true });
+imageModal.addEventListener('wheel', function(e) {
+  if (modalItems[modalIndex]?.type !== "image") return;
+
+  resetModalSwipeStage();
+  e.preventDefault();
+
+  modalScale += -e.deltaY * 0.0015;
+  modalScale = Math.max(1, Math.min(modalScale, 4));
+
+  if (modalScale === 1) {
+    modalTranslateX = 0;
+    modalTranslateY = 0;
+  }
+
+  applyModalImageTransform();
+}, { passive: false });
+
+document.getElementById('modalImage').addEventListener('dragstart', function(e) {
+  e.preventDefault();
+});
+
+imageModal.addEventListener('mousedown', function(e) {
+  if (modalItems[modalIndex]?.type !== "image") return;
+  if (modalScale <= 1) return;
+  if (e.target.id !== "modalImage") return;
+
+  resetModalSwipeStage();
+
+  isMouseDraggingImage = true;
+  lastMouseX = e.clientX;
+  lastMouseY = e.clientY;
+
+  e.preventDefault();
+});
+
+document.addEventListener('mousemove', function(e) {
+  if (!isMouseDraggingImage) return;
+
+  modalTranslateX += e.clientX - lastMouseX;
+  modalTranslateY += e.clientY - lastMouseY;
+
+  lastMouseX = e.clientX;
+  lastMouseY = e.clientY;
+
+  applyModalImageTransform();
+});
+
+document.addEventListener('mouseup', function() {
+  isMouseDraggingImage = false;
+});  
 function sendThanks(button, spotId) {
 const key = "thanks_" + spotId;
 const message = button.nextElementSibling;
