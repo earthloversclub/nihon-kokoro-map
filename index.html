@@ -1423,6 +1423,10 @@ map.on("zoomstart", () => {
   showCleanMode();
 });
 
+map.on("click", function() {
+  closeSearchResults();
+});  
+
 let isResettingMap = false;
 
 function showCleanMode() {
@@ -2442,10 +2446,16 @@ function searchPlace() {
     return;
   }
 
-  resultBox.innerHTML = `
-    <div style="font-weight:900; color:#256b3b; margin-bottom:6px;">
+resultBox.innerHTML = `
+    <div style="position:relative; font-weight:900; color:#256b3b; margin-bottom:6px; padding-right:28px;">
       検索結果：${results.length}件
+      <button
+        type="button"
+        onclick="closeSearchResults()"
+        style="position:absolute; top:-4px; right:0; border:none; background:transparent; font-size:18px; font-weight:900; cursor:pointer;"
+      >×</button>
     </div>
+    
     ${results.slice(0, 10).map((spot, index) => `
       <div class="searchResultItem" onclick="openSearchResult(${index})">
         <div class="searchResultTitle">${spot.title || "タイトルなし"}</div>
@@ -2480,6 +2490,16 @@ function openSearchResult(index) {
   map.setView(spot.marker.getLatLng(), 12);
   spot.marker.openPopup();
 }
+
+function closeSearchResults() {
+  const resultBox = document.getElementById("searchResultsBox");
+
+  if (!resultBox) return;
+
+  resultBox.style.display = "none";
+  resultBox.innerHTML = "";
+}
+  
 </script>
 </body>
 </html>
