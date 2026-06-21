@@ -718,19 +718,26 @@ margin-top:10px;
   touch-action: none;
   user-select: none;
 }
-#modalSlideImage {
+#modalSwipeStage {
   display: none;
   position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.modal-swipe-img {
+  position: absolute;
   top: 50%;
   left: 50%;
   max-width: 92%;
   max-height: 90%;
   border-radius: 10px;
-  transform-origin: center center;
+  transform: translate(-50%, -50%);
   touch-action: none;
   user-select: none;
-  pointer-events: none;
 }
+
 .image-modal {
   overflow: hidden;
 }  
@@ -1129,7 +1136,10 @@ background-position:100% 50%;
 <button id="modalPrev" onclick="showModalImage(-1)">◀</button>
 
 <img id="modalImage" src="" draggable="false">
-<img id="modalSlideImage" src="" draggable="false">
+<div id="modalSwipeStage">
+  <img id="modalSwipeCurrent" class="modal-swipe-img" src="" draggable="false">
+  <img id="modalSwipeNeighbor" class="modal-swipe-img" src="" draggable="false">
+</div>
 <iframe id="modalVideo" class="modal-video" src="" allow="autoplay" allowfullscreen></iframe>
 <div id="imageCounter">1 / 1</div>
 
@@ -1635,11 +1645,10 @@ let lastTouchDistance = 0;
 let isPinching = false;
 let hasDraggedImage = false;
 
-let isModalSlideSwiping = false;
-let modalSlideDirection = 0;
-let modalSlideX = 0;
-const MODAL_SLIDE_THRESHOLD = 70;
-const MODAL_SLIDE_DURATION = 220;
+let isModalSwipeActive = false;
+let modalSwipeDirection = 0;
+const MODAL_SWIPE_THRESHOLD = 70;
+const MODAL_SWIPE_DURATION = 220;
 
 let isMouseDraggingImage = false;
 let lastMouseX = 0;
@@ -1659,7 +1668,7 @@ function resetModalZoom() {
   lastTouchDistance = 0;
   isPinching = false;
   hasDraggedImage = false;
-  resetModalSlideImage();
+  resetModalSwipeStage();
 }
 
 function getTouchDistance(touches) {
@@ -1667,101 +1676,117 @@ function getTouchDistance(touches) {
   const dy = touches[0].clientY - touches[1].clientY;
 
   return Math.sqrt(dx * dx + dy * dy);
-} 
+}
+
 function getModalNeighborIndex(direction) {
   let index = modalIndex + direction;
 
-  if (index < 0) {
-    index = modalItems.length - 1;
-  }
-
-  if (index >= modalItems.length) {
-    index = 0;
-  }
+  if (index < 0) index = modalItems.length - 1;
+  if (index >= modalItems.length) index = 0;
 
   return index;
 }
 
-function resetModalSlideImage() {
-  const slideImg = document.getElementById('modalSlideImage');
+function resetModalSwipeStage() {
+  const stage = document.getElementById('modalSwipeStage');
+  const current = document.getElementById('modalSwipeCurrent');
+  const neighbor = document.getElementById('modalSwipeNeighbor');
+  const img = document.getElementById('modalImage');
 
-  slideImg.style.display = "none";
-  slideImg.src = "";
-  slideImg.style.transition = "none";
-  slideImg.style.transform = "translate(-50%, -50%) scale(1)";
+  if (!stage || !current || !neighbor || !img) return;
 
-  isModalSlideSwiping = false;
-  modalSlideDirection = 0;
-  modalSlideX = 0;
+  stage.style.display = "none";
+  current.src = "";
+  neighbor.src = "";
+
+  current.style.transition = "none";
+  neighbor.style.transition = "none";
+
+  current.style.transform = "translate(-50%, -50%)";
+  neighbor.style.transform = "translate(-50%, -50%)";
+
+  img.style.visibility = "visible";
+
+  isModalSwipeActive = false;
+  modalSwipeDirection = 0;
 }
 
-function moveModalImagesForSlide(diffX) {
-  const img = document.getElementById('modalImage');
-  const slideImg = document.getElementById('modalSlideImage');
-
+function moveModalSwipe(diffX) {
+  const item = modalItems[modalIndex];
   const direction = diffX < 0 ? 1 : -1;
   const neighborItem = modalItems[getModalNeighborIndex(direction)];
 
+  if (!item || item.type !== "image") return;
   if (!neighborItem || neighborItem.type !== "image") return;
 
-  if (!isModalSlideSwiping || modalSlideDirection !== direction) {
-    modalSlideDirection = direction;
-    slideImg.src = neighborItem.url;
-    slideImg.style.display = "block";
+  const stage = document.getElementById('modalSwipeStage');
+  const current = document.getElementById('modalSwipeCurrent');
+  const neighbor = document.getElementById('modalSwipeNeighbor');
+  const img = document.getElementById('modalImage');
+
+  if (!isModalSwipeActive || modalSwipeDirection !== direction) {
+    modalSwipeDirection = direction;
+    current.src = item.url;
+    neighbor.src = neighborItem.url;
+    stage.style.display = "block";
+    img.style.visibility = "hidden";
   }
 
-  isModalSlideSwiping = true;
-  modalSlideX = diffX;
+  isModalSwipeActive = true;
 
-  const windowWidth = window.innerWidth;
-  const slideStartX = direction === 1 ? windowWidth : -windowWidth;
+  const width = window.innerWidth;
+  const neighborBaseX = direction === 1 ? width : -width;
 
-  img.style.transition = "none";
-  slideImg.style.transition = "none";
+  current.style.transition = "none";
+  neighbor.style.transition = "none";
 
-  img.style.transform = `translateX(${diffX}px) scale(1)`;
-  slideImg.style.transform =
-    `translate(calc(-50% + ${slideStartX + diffX}px), -50%) scale(1)`;
+  current.style.transform =
+    `translate(calc(-50% + ${diffX}px), -50%)`;
+
+  neighbor.style.transform =
+    `translate(calc(-50% + ${neighborBaseX + diffX}px), -50%)`;
 }
 
-function cancelModalImageSlide() {
-  const img = document.getElementById('modalImage');
-  const slideImg = document.getElementById('modalSlideImage');
+function cancelModalSwipe() {
+  const current = document.getElementById('modalSwipeCurrent');
+  const neighbor = document.getElementById('modalSwipeNeighbor');
 
-  const windowWidth = window.innerWidth;
-  const slideBackX = modalSlideDirection === 1 ? windowWidth : -windowWidth;
+  const width = window.innerWidth;
+  const neighborBaseX = modalSwipeDirection === 1 ? width : -width;
 
-  img.style.transition = `transform ${MODAL_SLIDE_DURATION}ms ease, opacity 0.25s ease`;
-  slideImg.style.transition = `transform ${MODAL_SLIDE_DURATION}ms ease`;
+  current.style.transition = `transform ${MODAL_SWIPE_DURATION}ms ease`;
+  neighbor.style.transition = `transform ${MODAL_SWIPE_DURATION}ms ease`;
 
-  img.style.transform = "translateX(0) scale(1)";
-  slideImg.style.transform =
-    `translate(calc(-50% + ${slideBackX}px), -50%) scale(1)`;
+  current.style.transform = "translate(-50%, -50%)";
+  neighbor.style.transform =
+    `translate(calc(-50% + ${neighborBaseX}px), -50%)`;
 
   setTimeout(() => {
-    resetModalSlideImage();
-  }, MODAL_SLIDE_DURATION);
+    resetModalSwipeStage();
+  }, MODAL_SWIPE_DURATION);
 }
 
-function completeModalImageSlide() {
-  const img = document.getElementById('modalImage');
-  const slideImg = document.getElementById('modalSlideImage');
+function completeModalSwipe() {
+  const current = document.getElementById('modalSwipeCurrent');
+  const neighbor = document.getElementById('modalSwipeNeighbor');
 
-  const windowWidth = window.innerWidth;
-  const currentEndX = modalSlideDirection === 1 ? -windowWidth : windowWidth;
+  const width = window.innerWidth;
+  const currentEndX = modalSwipeDirection === 1 ? -width : width;
 
-  img.style.transition = `transform ${MODAL_SLIDE_DURATION}ms ease, opacity 0.25s ease`;
-  slideImg.style.transition = `transform ${MODAL_SLIDE_DURATION}ms ease`;
+  current.style.transition = `transform ${MODAL_SWIPE_DURATION}ms ease`;
+  neighbor.style.transition = `transform ${MODAL_SWIPE_DURATION}ms ease`;
 
-  img.style.transform = `translateX(${currentEndX}px) scale(1)`;
-  slideImg.style.transform = "translate(-50%, -50%) scale(1)";
+  current.style.transform =
+    `translate(calc(-50% + ${currentEndX}px), -50%)`;
+
+  neighbor.style.transform = "translate(-50%, -50%)";
 
   setTimeout(() => {
-    modalIndex = getModalNeighborIndex(modalSlideDirection);
-    resetModalSlideImage();
-    renderModalItem();
-  }, MODAL_SLIDE_DURATION);
-}  
+    modalIndex = getModalNeighborIndex(modalSwipeDirection);
+    renderModalItem(true);
+  }, MODAL_SWIPE_DURATION);
+}
+  
 function openMediaModal(items, index) {
 modalItems = items;
 modalIndex = index;
@@ -1771,7 +1796,7 @@ renderModalItem();
 document.getElementById('imageModal').style.display = 'flex';
 }
 
-function renderModalItem() {
+function renderModalItem(skipAnimation = false) {
 const item = modalItems[modalIndex];
 
 const img = document.getElementById('modalImage');
@@ -1784,17 +1809,24 @@ video.style.display = "none";
 video.src = "";
 
 img.style.display = "block";
-img.style.opacity = "0";
-img.style.transform = "translateX(25px) scale(1)";
 
-setTimeout(() => {
+if (skipAnimation) {
   img.src = item.url;
+  img.style.opacity = "1";
+  img.style.transform = "translateX(0) scale(1)";
+} else {
+  img.style.opacity = "0";
+  img.style.transform = "translateX(25px) scale(1)";
 
   setTimeout(() => {
-    img.style.opacity = "1";
-    img.style.transform = "translateX(0) scale(1)";
-  }, 30);
-}, 80);
+    img.src = item.url;
+
+    setTimeout(() => {
+      img.style.opacity = "1";
+      img.style.transform = "translateX(0) scale(1)";
+    }, 30);
+  }, 80);
+}
 }
 
 if (item.type === "video") {
@@ -1828,6 +1860,7 @@ renderModalItem();
 function closeImageModal() {
 document.getElementById('imageModal').style.display = 'none';
 document.getElementById('modalVideo').src = "";
+resetModalSwipeStage();
 }
 const imageModal = document.getElementById('imageModal');
 
@@ -1837,6 +1870,7 @@ imageModal.addEventListener('touchstart', function(e) {
   if (e.touches.length === 2) {
     isPinching = true;
     lastTouchDistance = getTouchDistance(e.touches);
+    resetModalSwipeStage();
     e.preventDefault();
     return;
   }
@@ -1849,7 +1883,7 @@ if (e.touches.length === 1) {
   hasDraggedImage = false;
 
   if (modalScale === 1) {
-    resetModalSlideImage();
+    resetModalSwipeStage();
   }
 }
 }, { passive: false });
@@ -1876,40 +1910,39 @@ imageModal.addEventListener('touchmove', function(e) {
 
     lastTouchDistance = distance;
     isPinching = true;
+    resetModalSwipeStage();
     e.preventDefault();
     return;
   }
 
-}, { passive: false });
+if (e.touches.length === 1 && modalScale > 1) {
+  const currentX = e.touches[0].clientX;
+  const currentY = e.touches[0].clientY;
 
-  if (e.touches.length === 1 && modalScale > 1) {
-    const currentX = e.touches[0].clientX;
-    const currentY = e.touches[0].clientY;
+  modalTranslateX += currentX - lastTouchX;
+  modalTranslateY += currentY - lastTouchY;
 
-    modalTranslateX += currentX - lastTouchX;
-    modalTranslateY += currentY - lastTouchY;
+  lastTouchX = currentX;
+  lastTouchY = currentY;
+  hasDraggedImage = true;
 
-    lastTouchX = currentX;
-    lastTouchY = currentY;
-    hasDraggedImage = true;
+  applyModalImageTransform();
+  e.preventDefault();
+  return;
+}
 
-    applyModalImageTransform();
+if (e.touches.length === 1 && modalScale === 1) {
+  const currentX = e.touches[0].clientX;
+  const currentY = e.touches[0].clientY;
+  const diffX = currentX - touchStartX;
+  const diffY = currentY - touchStartY;
+
+  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 8) {
+    moveModalSwipe(diffX);
     e.preventDefault();
     return;
   }
-
-  if (e.touches.length === 1 && modalScale === 1) {
-    const currentX = e.touches[0].clientX;
-    const currentY = e.touches[0].clientY;
-    const diffX = currentX - touchStartX;
-    const diffY = currentY - touchStartY;
-
-    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 8) {
-      moveModalImagesForSlide(diffX);
-      e.preventDefault();
-      return;
-    }
-  }
+}
 }, { passive: false });
 
 imageModal.addEventListener('touchend', function(e) {
@@ -1921,6 +1954,7 @@ imageModal.addEventListener('touchend', function(e) {
 
   if (isPinching) {
     isPinching = false;
+    resetModalSwipeStage();
     return;
   }
 
@@ -1931,66 +1965,24 @@ imageModal.addEventListener('touchend', function(e) {
   const touchEndX = e.changedTouches[0].clientX;
   const diffX = touchEndX - touchStartX;
 
-  if (!isModalSlideSwiping) return;
+  if (!isModalSwipeActive) {
+    if (Math.abs(diffX) < 50) return;
 
-  if (Math.abs(diffX) < MODAL_SLIDE_THRESHOLD) {
-    cancelModalImageSlide();
+    if (diffX > 0) {
+      showModalImage(-1);
+    } else {
+      showModalImage(1);
+    }
     return;
   }
 
-  completeModalImageSlide();
-}, { passive: true });
-  
-imageModal.addEventListener('wheel', function(e) {
-  if (modalItems[modalIndex]?.type !== "image") return;
-
-  e.preventDefault();
-
-  const zoomSpeed = 0.0015;
-  const oldScale = modalScale;
-
-  modalScale += -e.deltaY * zoomSpeed;
-  modalScale = Math.max(1, Math.min(modalScale, 4));
-
-  if (modalScale === 1) {
-    modalTranslateX = 0;
-    modalTranslateY = 0;
+  if (Math.abs(diffX) < MODAL_SWIPE_THRESHOLD) {
+    cancelModalSwipe();
+    return;
   }
 
-  applyModalImageTransform();
-}, { passive: false });
-  document.getElementById('modalImage').addEventListener('dragstart', function(e) {
-  e.preventDefault();
-});
-
-imageModal.addEventListener('mousedown', function(e) {
-  if (modalItems[modalIndex]?.type !== "image") return;
-  if (modalScale <= 1) return;
-  if (e.target.id !== "modalImage") return;
-
-  isMouseDraggingImage = true;
-  lastMouseX = e.clientX;
-  lastMouseY = e.clientY;
-
-  e.preventDefault();
-});
-
-document.addEventListener('mousemove', function(e) {
-  if (!isMouseDraggingImage) return;
-
-  modalTranslateX += e.clientX - lastMouseX;
-  modalTranslateY += e.clientY - lastMouseY;
-
-  lastMouseX = e.clientX;
-  lastMouseY = e.clientY;
-
-  applyModalImageTransform();
-});
-
-document.addEventListener('mouseup', function() {
-  isMouseDraggingImage = false;
-});
-  
+  completeModalSwipe();
+}, { passive: true });
 function sendThanks(button, spotId) {
 const key = "thanks_" + spotId;
 const message = button.nextElementSibling;
