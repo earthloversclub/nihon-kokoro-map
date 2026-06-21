@@ -669,7 +669,7 @@ position:fixed;
 inset:0;
 background:#eafff1;
 z-index:999999;
-display:flex;
+display:none;
 align-items:center;
 justify-content:center;
 }
@@ -1162,7 +1162,7 @@ map.invalidateSize();
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const fromReturn = location.search.includes("return=true");
+  const fromReturn = localStorage.getItem("fromReturn");
 
   if (fromReturn) {
     document.getElementById("passwordGate").style.display = "none";
@@ -1173,7 +1173,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (localStorage.getItem("treasureMapAccess") === "ok") {
     openTreasureMap();
+    return;
   }
+
+  document.getElementById("passwordGate").style.display = "flex";
 
 });
 
