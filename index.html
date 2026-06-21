@@ -54,6 +54,9 @@ cursor: pointer;
 width: 48px;
 height: 48px;
 
+position: relative;
+z-index: 3;
+
 background: rgba(0,0,0,0.8);
 color: white;
 
@@ -717,6 +720,8 @@ margin-top:10px;
   transform-origin: center center;
   touch-action: none;
   user-select: none;
+  position: relative;
+  z-index: 2;
 }
 
 .image-modal {
@@ -1116,7 +1121,7 @@ background-position:100% 50%;
 
 <button id="modalPrev" onclick="showModalImage(-1)">◀</button>
 
-<img id="modalImage" src="">
+<img id="modalImage" src="" draggable="false">
 <iframe id="modalVideo" class="modal-video" src="" allow="autoplay" allowfullscreen></iframe>
 <div id="imageCounter">1 / 1</div>
 
@@ -1823,6 +1828,37 @@ imageModal.addEventListener('wheel', function(e) {
 
   applyModalImageTransform();
 }, { passive: false });
+  document.getElementById('modalImage').addEventListener('dragstart', function(e) {
+  e.preventDefault();
+});
+
+imageModal.addEventListener('mousedown', function(e) {
+  if (modalItems[modalIndex]?.type !== "image") return;
+  if (modalScale <= 1) return;
+  if (e.target.id !== "modalImage") return;
+
+  isMouseDraggingImage = true;
+  lastMouseX = e.clientX;
+  lastMouseY = e.clientY;
+
+  e.preventDefault();
+});
+
+document.addEventListener('mousemove', function(e) {
+  if (!isMouseDraggingImage) return;
+
+  modalTranslateX += e.clientX - lastMouseX;
+  modalTranslateY += e.clientY - lastMouseY;
+
+  lastMouseX = e.clientX;
+  lastMouseY = e.clientY;
+
+  applyModalImageTransform();
+});
+
+document.addEventListener('mouseup', function() {
+  isMouseDraggingImage = false;
+});
   
 function sendThanks(button, spotId) {
 const key = "thanks_" + spotId;
