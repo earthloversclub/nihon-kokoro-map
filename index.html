@@ -1285,11 +1285,6 @@ function hideCleanMode() {
   document.body.classList.remove("mapCleanMode");
 }
 
-map.on("zoomstart", () => {
-  if (isResettingMap) return;
-  showCleanMode();
-});
-
 map.on("dragstart", () => {
   if (isResettingMap) return;
   showCleanMode();
