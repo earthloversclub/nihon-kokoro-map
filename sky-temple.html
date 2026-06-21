@@ -767,6 +767,8 @@ document.querySelector(".thanksArea").innerHTML = thanksMessage;
 setupSpecialThanks(totalPosts);  
 document.querySelector(".topRankingArea").style.visibility = "visible";
 document.querySelector(".bottomRankingArea").style.visibility = "visible";
+document.body.classList.remove("temple-loading");
+document.body.classList.add("temple-ready");  
 })
 .catch(err => {
   alert("ランキング読み込みエラー");
@@ -987,43 +989,6 @@ else{
 }
   
 </script>
-<script>
-(function () {
-  const imagePaths = [
-    "images/sky-temple.png",
-    "images/sky-temple2.png"
-  ];
 
-  let released = false;
-
-  function showTemple() {
-    if (released) return;
-    released = true;
-    document.body.classList.remove("temple-loading");
-    document.body.classList.add("temple-ready");
-  }
-
-  function loadAndDecode(src) {
-    return new Promise(function (resolve) {
-      const img = new Image();
-
-      img.onload = function () {
-        if (img.decode) {
-          img.decode().then(resolve).catch(resolve);
-        } else {
-          resolve();
-        }
-      };
-
-      img.onerror = resolve;
-      img.src = src;
-    });
-  }
-
-  Promise.all(imagePaths.map(loadAndDecode)).then(showTemple);
-
-  setTimeout(showTemple, 3000);
-})();
-</script>  
 </body>
 </html>
