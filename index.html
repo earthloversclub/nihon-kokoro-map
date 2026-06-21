@@ -1199,11 +1199,6 @@ map.on("dragstart", () => {
   if (isResettingMap) return;
   document.body.classList.add("mapCleanMode");
 });
-  
-map.on("zoomstart", () => {
-  if (isResettingMap) return;
-  showCleanMode();
-});
 
 map.on("click", function() {
   closeSearchResults();
