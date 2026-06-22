@@ -485,6 +485,9 @@ let largeImageY = 0;
 let isLargeImageDragging = false;
 let largeImageDragStartX = 0;
 let largeImageDragStartY = 0;
+let isLargeImagePinching = false;
+let largeImagePinchStartDistance = 0;
+let largeImagePinchStartScale = 1;
   
 const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
 
@@ -697,10 +700,20 @@ function resetLargeZoom() {
   largeImageX = 0;
   largeImageY = 0;
   isLargeImageDragging = false;
+  isLargeImagePinching = false;
+  largeImagePinchStartDistance = 0;
+  largeImagePinchStartScale = 1;
 
   image.classList.remove("isZoomed");
   image.classList.remove("isDragging");
   updateLargeImageTransform();
+}
+
+function getTouchDistance(touches) {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+
+  return Math.sqrt(dx * dx + dy * dy);
 }
 
 function closeImage() {
@@ -934,20 +947,81 @@ document.addEventListener("mouseup", () => {
 });
 
 document.getElementById("imageModal").addEventListener("touchstart", e => {
+  const item = currentMedia[currentMediaIndex];
+
+  if (!item || item.type !== "image") return;
+
+  if (e.touches.length === 2) {
+    isLargeImagePinching = true;
+    isLargeImageDragging = false;
+    largeImagePinchStartDistance = getTouchDistance(e.touches);
+    largeImagePinchStartScale = largeImageScale;
+    resetLargeSwipeStage();
+    e.preventDefault();
+    return;
+  }
+
   if (e.touches.length !== 1) return;
 
   startX = e.touches[0].clientX;
   startY = e.touches[0].clientY;
+
+  if (largeImageScale > 1) {
+    isLargeImageDragging = true;
+    largeImageDragStartX = startX - largeImageX;
+    largeImageDragStartY = startY - largeImageY;
+    document.getElementById("largeImage").classList.add("isDragging");
+    resetLargeSwipeStage();
+    e.preventDefault();
+    return;
+  }
+
   resetLargeSwipeStage();
-}, { passive: true });
+}, { passive: false });
 
 document.getElementById("imageModal").addEventListener("touchmove", e => {
+  const item = currentMedia[currentMediaIndex];
+
+  if (!item || item.type !== "image") return;
+
+  if (e.touches.length === 2 && isLargeImagePinching) {
+    const distance = getTouchDistance(e.touches);
+
+    if (largeImagePinchStartDistance > 0) {
+      largeImageScale =
+        largeImagePinchStartScale * (distance / largeImagePinchStartDistance);
+
+      if (largeImageScale < 1) {
+        largeImageScale = 1;
+        largeImageX = 0;
+        largeImageY = 0;
+      }
+
+      if (largeImageScale > 4) {
+        largeImageScale = 4;
+      }
+
+      updateLargeImageTransform();
+    }
+
+    e.preventDefault();
+    return;
+  }
+
   if (e.touches.length !== 1) return;
 
   const currentX = e.touches[0].clientX;
   const currentY = e.touches[0].clientY;
   const diffX = currentX - startX;
   const diffY = currentY - startY;
+
+  if (largeImageScale > 1 && isLargeImageDragging) {
+    largeImageX = currentX - largeImageDragStartX;
+    largeImageY = currentY - largeImageDragStartY;
+    updateLargeImageTransform();
+    e.preventDefault();
+    return;
+  }
 
   if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 8) {
     moveLargeSwipe(diffX);
@@ -959,6 +1033,26 @@ document.getElementById("imageModal").addEventListener("touchmove", e => {
 }, { passive: false });
 
 document.getElementById("imageModal").addEventListener("touchend", e => {
+  if (isLargeImagePinching) {
+    if (e.touches.length < 2) {
+      isLargeImagePinching = false;
+
+      if (largeImageScale <= 1) {
+        resetLargeZoom();
+      }
+    }
+
+    return;
+  }
+
+  if (isLargeImageDragging) {
+    isLargeImageDragging = false;
+    document.getElementById("largeImage").classList.remove("isDragging");
+    return;
+  }
+
+  if (largeImageScale > 1) return;
+
   const endX = e.changedTouches[0].clientX;
   const diff = endX - startX;
 
@@ -979,6 +1073,12 @@ document.getElementById("imageModal").addEventListener("touchend", e => {
   } else {
     changeLargeImage(1);
   }
+}, { passive: true });
+
+document.getElementById("imageModal").addEventListener("touchcancel", () => {
+  isLargeImagePinching = false;
+  isLargeImageDragging = false;
+  document.getElementById("largeImage").classList.remove("isDragging");
 }, { passive: true });
   
 </script>
