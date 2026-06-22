@@ -354,14 +354,6 @@
   border-radius: 12px;
 }
 
-#largeVideo {
-  width: 92%;
-  height: 70%;
-  border: none;
-  background: black;
-  display: none;
-}
-
 #largeImage {
   cursor: zoom-in;
   user-select: none;
@@ -375,7 +367,15 @@
 #largeImage.isDragging {
   cursor: grabbing;
 }
-    
+
+#largeVideo {
+  width: 92%;
+  height: 70%;
+  border: none;
+  background: black;
+  display: none;
+}
+
 #largeSwipeStage {
   display: none;
   position: fixed;
@@ -479,7 +479,6 @@
 
 let currentMedia = [];
 let currentMediaIndex = 0;
-
 let largeImageScale = 1;
 let largeImageX = 0;
 let largeImageY = 0;
@@ -703,7 +702,7 @@ function resetLargeZoom() {
   image.classList.remove("isDragging");
   updateLargeImageTransform();
 }
-  
+
 function closeImage() {
   resetLargeSwipeStage();
   resetLargeZoom();
@@ -735,7 +734,6 @@ function changeLargeImage(direction) {
 function showCurrentMedia() {
   resetLargeSwipeStage();
   resetLargeZoom();
-  const image = document.getElementById("largeImage");
   const image = document.getElementById("largeImage");
   const video = document.getElementById("largeVideo");
   const item = currentMedia[currentMediaIndex];
@@ -934,7 +932,7 @@ document.addEventListener("mouseup", () => {
   isLargeImageDragging = false;
   document.getElementById("largeImage").classList.remove("isDragging");
 });
-  
+
 document.getElementById("imageModal").addEventListener("touchstart", e => {
   if (e.touches.length !== 1) return;
 
