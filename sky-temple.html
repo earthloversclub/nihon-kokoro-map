@@ -106,7 +106,7 @@ h2 {
 }
 
 .memberName {
-  font-size: 50px;
+  font-size: 64px;
   line-height: 1.15;
   font-weight: 900;
 
@@ -622,25 +622,28 @@ animation-play-state:paused;
   }
 
   .memberName {
-    font-size: 38px !important;
+    font-size: 34px !important;
     line-height: 1.08 !important;
     max-width: 100% !important;
   }
 
   .memberText {
-    font-size: 25px !important;
+    font-size: 22px !important;
     line-height: 1.25 !important;
     max-width: 100% !important;
   }
 
-  .medalIcon {
-    position: static !important;
-    transform: none !important;
+.medalIcon {
+    position: absolute !important;
+    right: calc(100% + 4px) !important;
+    left: auto !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
     display: inline-block !important;
-    width: auto !important;
-    margin-right: -4px !important;
+    width: 38px !important;
+    text-align: right !important;
     vertical-align: middle !important;
-  }
+}
 
   .specialThanksButton {
     width: 250px !important;
