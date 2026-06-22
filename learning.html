@@ -362,6 +362,26 @@
   background: black;
   display: none;
 }
+
+#largeSwipeStage {
+  display: none;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.largeSwipeImage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 92%;
+  max-height: 90%;
+  border-radius: 12px;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  touch-action: none;
+}
     
 @media (max-width: 768px) {
 
@@ -430,6 +450,11 @@
   <button id="imagePrevBtn" class="imageNavBtn left" onclick="changeLargeImage(-1)">◀</button>
 
   <img id="largeImage" src="">
+
+  <div id="largeSwipeStage">
+    <img id="largeSwipeCurrent" class="largeSwipeImage" src="" draggable="false">
+    <img id="largeSwipeNeighbor" class="largeSwipeImage" src="" draggable="false">
+  </div>
 
   <iframe id="largeVideo" allow="autoplay" allowfullscreen></iframe>
 
@@ -634,6 +659,7 @@ function openMedia(index) {
 }
 
 function closeImage() {
+  resetLargeSwipeStage();
   document.getElementById("imageModal").style.display = "none";
 
   document.getElementById("largeImage").src = "";
@@ -660,6 +686,7 @@ function changeLargeImage(direction) {
 }
 
 function showCurrentMedia() {
+  resetLargeSwipeStage();
   const image = document.getElementById("largeImage");
   const video = document.getElementById("largeVideo");
   const item = currentMedia[currentMediaIndex];
@@ -697,14 +724,154 @@ function updateImageNavButtons() {
 }
 
 let startX = 0;
+let startY = 0;
+let isLargeSwipeActive = false;
+let largeSwipeDirection = 0;
+const LARGE_SWIPE_THRESHOLD = 70;
+const LARGE_SWIPE_DURATION = 220;
+
+function getLargeNeighborIndex(direction) {
+  let index = currentMediaIndex + direction;
+
+  if (index < 0) index = currentMedia.length - 1;
+  if (index >= currentMedia.length) index = 0;
+
+  return index;
+}
+
+function resetLargeSwipeStage() {
+  const stage = document.getElementById("largeSwipeStage");
+  const current = document.getElementById("largeSwipeCurrent");
+  const neighbor = document.getElementById("largeSwipeNeighbor");
+  const image = document.getElementById("largeImage");
+
+  if (!stage || !current || !neighbor || !image) return;
+
+  stage.style.display = "none";
+  current.src = "";
+  neighbor.src = "";
+  current.style.transition = "none";
+  neighbor.style.transition = "none";
+  current.style.transform = "translate(-50%, -50%)";
+  neighbor.style.transform = "translate(-50%, -50%)";
+  image.style.visibility = "visible";
+
+  isLargeSwipeActive = false;
+  largeSwipeDirection = 0;
+}
+
+function moveLargeSwipe(diffX) {
+  if (currentMedia.length <= 1) return;
+
+  const item = currentMedia[currentMediaIndex];
+  const direction = diffX < 0 ? 1 : -1;
+  const neighborItem = currentMedia[getLargeNeighborIndex(direction)];
+
+  if (!item || item.type !== "image") return;
+  if (!neighborItem || neighborItem.type !== "image") return;
+
+  const stage = document.getElementById("largeSwipeStage");
+  const current = document.getElementById("largeSwipeCurrent");
+  const neighbor = document.getElementById("largeSwipeNeighbor");
+  const image = document.getElementById("largeImage");
+
+  if (!isLargeSwipeActive || largeSwipeDirection !== direction) {
+    largeSwipeDirection = direction;
+    current.src = item.url;
+    neighbor.src = neighborItem.url;
+    stage.style.display = "block";
+    image.style.visibility = "hidden";
+  }
+
+  isLargeSwipeActive = true;
+
+  const width = window.innerWidth;
+  const neighborBaseX = direction === 1 ? width : -width;
+
+  current.style.transition = "none";
+  neighbor.style.transition = "none";
+  current.style.transform =
+    `translate(calc(-50% + ${diffX}px), -50%)`;
+  neighbor.style.transform =
+    `translate(calc(-50% + ${neighborBaseX + diffX}px), -50%)`;
+}
+
+function cancelLargeSwipe() {
+  const current = document.getElementById("largeSwipeCurrent");
+  const neighbor = document.getElementById("largeSwipeNeighbor");
+
+  const width = window.innerWidth;
+  const neighborBaseX = largeSwipeDirection === 1 ? width : -width;
+
+  current.style.transition = `transform ${LARGE_SWIPE_DURATION}ms ease`;
+  neighbor.style.transition = `transform ${LARGE_SWIPE_DURATION}ms ease`;
+  current.style.transform = "translate(-50%, -50%)";
+  neighbor.style.transform =
+    `translate(calc(-50% + ${neighborBaseX}px), -50%)`;
+
+  setTimeout(() => {
+    resetLargeSwipeStage();
+  }, LARGE_SWIPE_DURATION);
+}
+
+function completeLargeSwipe() {
+  const current = document.getElementById("largeSwipeCurrent");
+  const neighbor = document.getElementById("largeSwipeNeighbor");
+
+  const width = window.innerWidth;
+  const currentEndX = largeSwipeDirection === 1 ? -width : width;
+
+  current.style.transition = `transform ${LARGE_SWIPE_DURATION}ms ease`;
+  neighbor.style.transition = `transform ${LARGE_SWIPE_DURATION}ms ease`;
+  current.style.transform =
+    `translate(calc(-50% + ${currentEndX}px), -50%)`;
+  neighbor.style.transform = "translate(-50%, -50%)";
+
+  setTimeout(() => {
+    currentMediaIndex = getLargeNeighborIndex(largeSwipeDirection);
+    resetLargeSwipeStage();
+    showCurrentMedia();
+  }, LARGE_SWIPE_DURATION);
+}
 
 document.getElementById("imageModal").addEventListener("touchstart", e => {
+  if (e.touches.length !== 1) return;
+
   startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+  resetLargeSwipeStage();
 }, { passive: true });
+
+document.getElementById("imageModal").addEventListener("touchmove", e => {
+  if (e.touches.length !== 1) return;
+
+  const currentX = e.touches[0].clientX;
+  const currentY = e.touches[0].clientY;
+  const diffX = currentX - startX;
+  const diffY = currentY - startY;
+
+  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 8) {
+    moveLargeSwipe(diffX);
+
+    if (isLargeSwipeActive) {
+      e.preventDefault();
+    }
+  }
+}, { passive: false });
 
 document.getElementById("imageModal").addEventListener("touchend", e => {
   const endX = e.changedTouches[0].clientX;
   const diff = endX - startX;
+
+  if (isLargeSwipeActive) {
+    if (Math.abs(diff) < LARGE_SWIPE_THRESHOLD) {
+      cancelLargeSwipe();
+      return;
+    }
+
+    completeLargeSwipe();
+    return;
+  }
 
   if (Math.abs(diff) < 50) return;
 
@@ -714,8 +881,7 @@ document.getElementById("imageModal").addEventListener("touchend", e => {
     changeLargeImage(1);
   }
 }, { passive: true });
-  
-</script>
+  </script>
 
 </body>
 </html>
