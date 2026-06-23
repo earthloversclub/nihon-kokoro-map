@@ -1524,7 +1524,7 @@ marker.category = category;
 
 marker.addTo(map);
 marker.on("popupopen", function(){
-  document.getElementById("mapSwitchBox").style.display = "none";
+  document.getElementById("mapSwitchBox").style.visibility = "hidden";
 });
 
 marker.on("popupclose", function(){
@@ -2158,7 +2158,7 @@ box.style.display = "block";
 document.getElementById("searchBox").style.display = "block";
 document.getElementById("rainbowBox").style.display = "block";
 document.getElementById("skyTempleBox").style.display = "block";
-document.getElementById("mapSwitchBox").style.display = "block";
+document.getElementById("mapSwitchBox").style.visibility = "visible";
   
 });
 
