@@ -1176,9 +1176,26 @@ map.invalidateSize();
 
 document.addEventListener("DOMContentLoaded", () => {
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const isReturn = urlParams.get("return") === "true";
+
+  if (isReturn) {
+    localStorage.setItem("treasureMapAccess", "ok");
+    localStorage.removeItem("fromReturn");
+
+    document.getElementById("passwordGate").style.display = "none";
+    document.getElementById("titleSplash").style.display = "none";
+
+    openTreasureMap();
+
+    window.history.replaceState({}, document.title, window.location.pathname);
+    return;
+  }
+
   const fromReturn = localStorage.getItem("fromReturn");
 
   if (fromReturn) {
+    localStorage.removeItem("fromReturn");
     document.getElementById("passwordGate").style.display = "none";
     document.getElementById("titleSplash").style.display = "none";
     openTreasureMap();
@@ -1186,6 +1203,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (localStorage.getItem("treasureMapAccess") === "ok") {
+    document.getElementById("titleSplash").style.display = "none";
     openTreasureMap();
     return;
   }
