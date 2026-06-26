@@ -232,15 +232,20 @@ font-size: 14px;
 }
   
 .thanks-message{
-  display:inline-block;
+  display:none;
   margin-top:8px;
-  padding:8px 18px;
+  padding:0;
   border-radius:999px;
   background:linear-gradient(90deg, #ffe9b8, #fff6d8);
   color:#c27a00;
   font-weight:bold;
   text-align:center;
   box-shadow:0 2px 6px rgba(0,0,0,0.12);
+}
+
+.thanks-message:not(:empty){
+  display:inline-block;
+  padding:8px 18px;
 }
 
 #mapSwitchBox {
@@ -2108,6 +2113,10 @@ localStorage.setItem(key, "done");
 button.style.display = "none";
 message.style.display = "block";
 message.textContent = makeThanksMessage();
+const hint = button.parentElement.querySelector(".thanks-hint");
+if (hint) {
+  hint.style.display = "none";
+}  
 showSparkles();
 }
 
@@ -2170,6 +2179,10 @@ button.style.display = "none";
 
 message.style.display = "block";
 message.textContent = makeThanksMessage();
+const hint = button.parentElement.querySelector(".thanks-hint");
+if (hint) {
+  hint.style.display = "none";
+}  
 showSparkles();
 }
 
