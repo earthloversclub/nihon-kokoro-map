@@ -2091,6 +2091,10 @@ if (localStorage.getItem(key)) {
 button.style.display = "none";
 message.style.display = "block";
 message.textContent = makeThanksMessage();
+const hint = button.parentElement.querySelector(".thanks-hint");
+if (hint) {
+  hint.style.display = "none";
+}  
 return;
 }
 
@@ -2136,13 +2140,9 @@ setTimeout(() => sparkle.remove(), 1200);
 }
 }
 function makeThanksMessage() {
-const flowers = ["🌸", "🌼", "🌷", "🌻", "🌺", "🪻"];
-const flower = flowers[Math.floor(Math.random() * flowers.length)];
-const hint = button.parentElement.querySelector(".thanks-hint");
-if (hint) {
-  hint.style.display = "none";
-}
-return "ありがとうを届けました" + flower;
+  const flowers = ["🌸", "🌼", "🌷", "🌻", "🌺", "🪻"];
+  const flower = flowers[Math.floor(Math.random() * flowers.length)];
+  return "ありがとうを届けました" + flower;
 }
 map.on("popupopen", function(e) {
 
