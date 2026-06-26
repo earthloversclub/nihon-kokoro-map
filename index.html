@@ -233,14 +233,16 @@ font-size: 14px;
   
 .thanks-message{
   display:none;
-  margin:8px auto 0;
   padding:8px 18px;
   border-radius:999px;
   background:linear-gradient(90deg,#ffe9b8,#fff6d8);
   color:#c27a00;
   font-weight:bold;
-  text-align:center;
   box-shadow:0 2px 6px rgba(0,0,0,.12);
+}
+
+.thanks-message-wrapper{
+  text-align:center;
 }
   
 #mapSwitchBox {
@@ -1389,7 +1391,9 @@ let popup = `
   🌸 あなたの1輪が、日本を育てます
 </div>
 
-<div class="thanks-message"></div>
+<div class="thanks-message-wrapper">
+  <div class="thanks-message"></div>
+</div>
 `;
 
 function convertDriveImageUrl(url) {
