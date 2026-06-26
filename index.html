@@ -234,7 +234,7 @@ font-size: 14px;
 .thanks-message{
   display:none;
   margin-top:8px;
-  padding:0;
+  padding:8px 18px;
   border-radius:999px;
   background:linear-gradient(90deg, #ffe9b8, #fff6d8);
   color:#c27a00;
@@ -242,12 +242,6 @@ font-size: 14px;
   text-align:center;
   box-shadow:0 2px 6px rgba(0,0,0,0.12);
 }
-
-.thanks-message:not(:empty){
-  display:inline-block;
-  padding:8px 18px;
-}
-
 #mapSwitchBox {
 position: absolute;
 bottom: 170px;
@@ -2094,7 +2088,7 @@ const message = button.parentElement.querySelector(".thanks-message");
 
 if (localStorage.getItem(key)) {
 button.style.display = "none";
-message.style.display = "block";
+message.style.display = "inline-block";
 message.textContent = makeThanksMessage();
 const hint = button.parentElement.querySelector(".thanks-hint");
 if (hint) {
@@ -2111,7 +2105,7 @@ fetch("https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03j
 localStorage.setItem(key, "done");
 
 button.style.display = "none";
-message.style.display = "block";
+message.style.display = "inline-block";
 message.textContent = makeThanksMessage();
 const hint = button.parentElement.querySelector(".thanks-hint");
 if (hint) {
@@ -2177,7 +2171,7 @@ if (localStorage.getItem(key)) {
 
 button.style.display = "none";
 
-message.style.display = "block";
+message.style.display = "inline-block";
 message.textContent = makeThanksMessage();
 const hint = button.parentElement.querySelector(".thanks-hint");
 if (hint) {
