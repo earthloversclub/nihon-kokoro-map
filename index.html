@@ -2124,7 +2124,8 @@ function showSparkles() {
 for (let i = 0; i < 20; i++) {
 const sparkle = document.createElement("div");
 
-sparkle.innerHTML = "✨";
+const effects = ["✨", "🌸"];
+sparkle.innerHTML = effects[Math.floor(Math.random() * effects.length)];
 sparkle.style.position = "fixed";
 sparkle.style.left = Math.random() * window.innerWidth + "px";
 sparkle.style.top = Math.random() * window.innerHeight + "px";
