@@ -247,7 +247,7 @@ display: flex;
 gap: 8px;
 white-space: nowrap;
 }
- 
+
 #rainbowBox {
 position: absolute;
 right: 21px;
@@ -255,7 +255,6 @@ bottom: 190px;
 z-index: 1000;
 }
 
-/* PC専用：虹の彼方ボタン調整 */
 @media (min-width: 768px) {
 
   #rainbowBox {
@@ -269,7 +268,7 @@ z-index: 1000;
     font-size: 18px;
   }
 
-}  
+}
 
 #rainbowBox button {
 width: 105px;
@@ -338,7 +337,7 @@ cursor: pointer;
 text-align: center;
 line-height: 1.25;
 }
-  
+
 #skyTempleBox {
 position: absolute;
 left: 50px;
@@ -346,7 +345,6 @@ bottom: 356px;
 z-index: 1000;
 }
 
-/* PC専用 */
 @media (min-width: 768px) {
 
   #skyTempleBox {
@@ -361,23 +359,23 @@ z-index: 1000;
   }
 
 }
-  
+
 #searchBox {
   position: absolute;
   top: 90px;
-  right: 10px;           
+  right: 10px;
   z-index: 1000;
   background: white;
   padding: 8px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  
-  width: 210px;          
+
+  width: 210px;
 }
 
 #searchInput {
-  width: 150px;          
-  padding: 5px 8px;      
+  width: 150px;
+  padding: 5px 8px;
 }
 
 #growthMap {
@@ -411,7 +409,6 @@ align-items: center;
 color: #b24a68;
 }
 
-/* PC専用：検索ボックス調整 */
 @media (min-width: 768px) {
 
   #searchBox {
@@ -434,7 +431,7 @@ color: #b24a68;
   }
 
 }
-  
+
 #achievementBox {
 
 position: absolute;
@@ -499,7 +496,6 @@ display: none;
 margin-top: 45px;
 font-size: 27px;
 font-weight: bold;
-}
 }
 
 .leaflet-popup-content-wrapper {
@@ -741,12 +737,11 @@ margin-top:10px;
 
 .image-modal {
   overflow: hidden;
-}  
+}
 * {
   box-sizing: border-box;
 }
 
-/* スマホ専用：mapContainer基準配置 */
 @media (max-width: 767px) {
 
 #searchBox {
@@ -942,7 +937,6 @@ background-position:100% 50%;
   display: block !important;
 }
 
-/* 成長地図専用：地図基準の土台 */
 #growthMapContainer{
   position:relative;
   width:100%;
@@ -952,7 +946,6 @@ background-position:100% 50%;
   overflow:visible;
 }
 
-/* 共通：戻る・切替ボタン */
 .mapReturnButton{
   display:inline-flex !important;
   align-items:center !important;
@@ -977,7 +970,6 @@ background-position:100% 50%;
   white-space:nowrap !important;
 }
 
-/* 宝物地図側：成長地図ボタン位置 */
 #mapSwitchBox{
   position:absolute !important;
   left:10px !important;
@@ -986,7 +978,6 @@ background-position:100% 50%;
   display:flex !important;
 }
 
-/* 成長地図側：宝物地図ボタン位置 */
 #growthBackBox{
   position:absolute !important;
   left:10px !important;
@@ -1032,17 +1023,17 @@ background-position:100% 50%;
   color:#555;
   line-height:1.4;
 }
-  
-</style>  
-</head>  
+
+</style>
+</head>
 
 <body>
 
 <button id="resetMapViewBtn" type="button">🌎 全体に戻る</button>
-  
+
 <div id="passwordGate">
 <div id="passwordBox">
-  
+
 <h2>🌎 地球大好きっ子クラブ 🌎</h2>
 <p>合言葉を入力してください</p>
 <input id="passwordInput" type="password" placeholder="合言葉">
@@ -1091,7 +1082,7 @@ background-position:100% 50%;
     <button onclick="searchPlace()">検索</button>
   </div>
 <div id="searchResultsBox"></div>
-  
+
 </div>
 <div id="growthMap" style="display:none;">
 <h2>🌷 成長地図 🌷</h2>
@@ -1240,7 +1231,7 @@ map.on("dragstart", () => {
 
 map.on("click", function() {
   closeSearchResults();
-});  
+});
 
 let isResettingMap = false;
 
@@ -1250,9 +1241,9 @@ function hideCleanMode() {
 
 document.getElementById("resetMapViewBtn").addEventListener("click", () => {
   isResettingMap = true;
-  
+
 map.closePopup();
-  
+
   map.setView([37.8, 138.5], 5);
 
   setTimeout(() => {
@@ -1260,7 +1251,7 @@ map.closePopup();
     isResettingMap = false;
   }, 400);
 });
-  
+
 function icon(color) {
 return new L.Icon({
 iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-${color}.png`,
@@ -1496,7 +1487,7 @@ const popupClassMap = {
 };
 
 const popupClass = popupClassMap[category] || "popup-default";
-  
+
 let marker;
 
 if (angelEmoji) {
@@ -1548,7 +1539,7 @@ marker.on("popupopen", function(){
 marker.on("popupclose", function(){
   document.getElementById("mapSwitchBox").style.display = "flex";
 });
-  
+
 markers.push(marker);
 
 const totalPostsCountEl =
@@ -1570,7 +1561,7 @@ const totalPostsBox = L.control({ position: 'bottomright' });
 
 totalPostsBox.onAdd = function () {
 
-const isPC = window.innerWidth >= 768;  
+const isPC = window.innerWidth >= 768;
 const div = L.DomUtil.create('div', 'legend');
 
 div.style.width = isPC ? "420px" : "330px";
@@ -1614,7 +1605,7 @@ const legend = L.control({ position: 'topleft' });
 legend.onAdd = function () {
 const div = L.DomUtil.create('div', 'legend');
 
-const isPC = window.innerWidth >= 768;  
+const isPC = window.innerWidth >= 768;
 
 div.style.marginTop = isPC ? "-10px" : "-18px";
 div.style.marginLeft = "-9px";
@@ -1687,7 +1678,7 @@ const MODAL_SWIPE_DURATION = 220;
 
 let isMouseDraggingImage = false;
 let lastMouseX = 0;
-let lastMouseY = 0;  
+let lastMouseY = 0;
 
 function applyModalImageTransform() {
   const img = document.getElementById('modalImage');
@@ -1821,7 +1812,7 @@ function completeModalSwipe() {
     renderModalItem(true);
   }, MODAL_SWIPE_DURATION);
 }
-  
+
 function openMediaModal(items, index) {
 modalItems = items;
 modalIndex = index;
@@ -1883,7 +1874,7 @@ if (modalItems.length <= 1) {
 } else {
   modalPrev.style.display = "";
   modalNext.style.display = "";
-}  
+}
 }
 
 function showModalImage(direction) {
@@ -2077,7 +2068,7 @@ document.addEventListener('mousemove', function(e) {
 
 document.addEventListener('mouseup', function() {
   isMouseDraggingImage = false;
-});  
+});
 function sendThanks(button, spotId) {
 const key = "thanks_" + spotId;
 const message = button.nextElementSibling;
@@ -2093,7 +2084,7 @@ fetch("https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03j
   method: "GET",
   mode: "no-cors"
 });
-  
+
 localStorage.setItem(key, "done");
 
 button.style.display = "none";
@@ -2146,7 +2137,7 @@ document.getElementById("searchBox").style.display = "none";
 document.getElementById("rainbowBox").style.display = "none";
 document.getElementById("skyTempleBox").style.display = "none";
 document.getElementById("mapSwitchBox").style.display = "none";
-  
+
 const button =
 e.popup.getElement().querySelector(".thanks-btn");
 
@@ -2177,7 +2168,7 @@ document.getElementById("searchBox").style.display = "block";
 document.getElementById("rainbowBox").style.display = "block";
 document.getElementById("skyTempleBox").style.display = "block";
 document.getElementById("mapSwitchBox").style.visibility = "visible";
-  
+
 });
 
 function showMapA() {
@@ -2481,7 +2472,7 @@ showFlowerConfetti("middle");
 }).addTo(growthMap);
 });
 }
-  
+
 function searchPlace() {
 
   const keyword = document
@@ -2540,7 +2531,7 @@ resultBox.innerHTML = `
         style="position:absolute; top:-4px; right:0; border:none; background:transparent; font-size:18px; font-weight:900; cursor:pointer;"
       >×</button>
     </div>
-    
+
     ${results.slice(0, 10).map((spot, index) => `
       <div class="searchResultItem" onclick="openSearchResult(${index})">
         <div class="searchResultTitle">${spot.title || "タイトルなし"}</div>
@@ -2584,7 +2575,7 @@ function closeSearchResults() {
   resultBox.style.display = "none";
   resultBox.innerHTML = "";
 }
-  
+
 </script>
 </body>
 </html>
