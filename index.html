@@ -2165,7 +2165,7 @@ if (!button) return;
 
 const spotId = button.dataset.spotId;
 const key = "thanks_" + spotId;
-const message = button.nextElementSibling;
+const message = button.parentElement.querySelector(".thanks-message");
 
 if (localStorage.getItem(key)) {
 
