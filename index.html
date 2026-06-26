@@ -2121,30 +2121,73 @@ showSparkles();
 }
 
 function showSparkles() {
-for (let i = 0; i < 20; i++) {
-const sparkle = document.createElement("div");
 
-const effects = ["✨", "🌸"];
-sparkle.innerHTML = effects[Math.floor(Math.random() * effects.length)];
-sparkle.style.position = "fixed";
-sparkle.style.left = Math.random() * window.innerWidth + "px";
-sparkle.style.top = Math.random() * window.innerHeight + "px";
-sparkle.style.fontSize = "24px";
-sparkle.style.pointerEvents = "none";
-sparkle.style.zIndex = "9999";
+  // ✨キラキラ
+  for (let i = 0; i < 20; i++) {
 
-document.body.appendChild(sparkle);
+    const sparkle = document.createElement("div");
 
-sparkle.animate(
-[
-{ transform: "translateY(0px)", opacity: 1 },
-{ transform: "translateY(-100px)", opacity: 0 }
-],
-{
-duration: 1200,
-easing: "ease-out"
+    sparkle.innerHTML = "✨";
+    sparkle.style.position = "fixed";
+    sparkle.style.left = Math.random() * window.innerWidth + "px";
+    sparkle.style.top = Math.random() * window.innerHeight + "px";
+    sparkle.style.fontSize = "24px";
+    sparkle.style.pointerEvents = "none";
+    sparkle.style.zIndex = "9999";
+
+    document.body.appendChild(sparkle);
+
+    sparkle.animate(
+      [
+        { transform: "translateY(0px)", opacity: 1 },
+        { transform: "translateY(-100px)", opacity: 0 }
+      ],
+      {
+        duration: 1200,
+        easing: "ease-out"
+      }
+    );
+
+    setTimeout(() => sparkle.remove(), 1200);
+  }
+
+
+  // 🌸花びら
+  for (let i = 0; i < 7; i++) {
+
+    const petal = document.createElement("div");
+
+    petal.innerHTML = "🌸";
+    petal.style.position = "fixed";
+    petal.style.left = Math.random() * window.innerWidth + "px";
+    petal.style.top = Math.random() * window.innerHeight + "px";
+    petal.style.fontSize = "22px";
+    petal.style.pointerEvents = "none";
+    petal.style.zIndex = "9999";
+
+    document.body.appendChild(petal);
+
+    petal.animate(
+      [
+        {
+          transform: "translate(0px,0px) rotate(0deg)",
+          opacity: 1
+        },
+        {
+          transform: "translate(40px,-120px) rotate(180deg)",
+          opacity: 0
+        }
+      ],
+      {
+        duration: 1800,
+        easing: "ease-out"
+      }
+    );
+
+    setTimeout(() => petal.remove(), 1800);
+  }
+
 }
-);
 
 setTimeout(() => sparkle.remove(), 1200);
 }
