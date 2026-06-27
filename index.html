@@ -1248,6 +1248,35 @@ background-position:100% 50%;
     transform:scale(0.92);
   }
 }
+
+.levelLightFlash{
+  position:fixed;
+  inset:0;
+  z-index:999998;
+  pointer-events:none;
+  background:radial-gradient(
+    circle,
+    rgba(255,255,255,0.95) 0%,
+    rgba(255,245,180,0.55) 28%,
+    rgba(255,255,255,0) 70%
+  );
+  animation:levelLightFlash 1.2s ease-out forwards;
+}
+
+@keyframes levelLightFlash{
+  0%{
+    opacity:0;
+    transform:scale(0.4);
+  }
+  25%{
+    opacity:1;
+    transform:scale(1);
+  }
+  100%{
+    opacity:0;
+    transform:scale(1.5);
+  }
+}
   
 </style>
 </head>
@@ -2534,6 +2563,14 @@ function showLevelUpEffect(level, title) {
     oldOverlay.remove();
   }
 
+const light = document.createElement("div");
+light.className = "levelLightFlash";
+document.body.appendChild(light);
+
+setTimeout(() => {
+  light.remove();
+}, 1200);
+  
   const overlay = document.createElement("div");
   overlay.className = "levelUpOverlay";
 
