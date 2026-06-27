@@ -418,19 +418,52 @@
 }
 
 .heartThanksBtn{
-...
+  display:block;
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  border:none;
+  border-radius:999px;
+  background:#ffdff0;
+  color:#c03c74;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .heartThanksBtn.thanked{
-...
+  background:#dddddd;
+  color:#777;
+  cursor:default;
 }
 
 .heartThanksMessage{
-...
+  display:none;
+  margin-top:10px;
+  text-align:center;
+  color:#c03c74;
+  font-size:15px;
+  font-weight:bold;
+  animation: thanksFloat 1.4s ease forwards;
 }
 
 @keyframes thanksFloat{
-...
+  0%{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  25%{
+    opacity:1;
+    transform:translateY(0);
+  }
+  75%{
+    opacity:1;
+    transform:translateY(-4px);
+  }
+  100%{
+    opacity:0;
+    transform:translateY(-10px);
+  }
 }
     
   </style>
