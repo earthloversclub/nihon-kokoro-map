@@ -735,6 +735,19 @@ animation-play-state:paused;
     font-size: 23px !important;
     line-height: 1.2 !important;
   }
+
+#changeNameBtn{
+  display:block;
+  margin:12px auto 80px;
+  padding:7px 16px;
+  border:none;
+  border-radius:999px;
+  background:#fff8d9;
+  color:#444;
+  font-size:13px;
+  font-weight:bold;
+  box-shadow:0 1px 6px rgba(0,0,0,.18);
+}
   
 </style>
 </head>
@@ -786,6 +799,10 @@ animation-play-state:paused;
 
 <div class="buttonArea">
   <a class="backButton" href="index.html?return=true">🌎宝物地図へ戻る</a>
+
+  <button id="changeNameBtn" onclick="changeMyName()">
+    ✏️ 名前を変更
+  </button>
 </div>
 
 </div>
@@ -1163,6 +1180,16 @@ else{
 }, 300);
 
   }, 3200);
+}
+
+function changeMyName(){
+  const name = prompt("オープンチャットで使っている名前を入力してください😊");
+
+  if(!name) return;
+
+  localStorage.setItem("myPosterName", name.trim());
+
+  alert("🌸 名前を変更しました✨");
 }
   
 </script>
