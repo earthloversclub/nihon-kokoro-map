@@ -1553,16 +1553,17 @@ map.invalidateSize();
 
 document.addEventListener("DOMContentLoaded", () => {
 
-setTimeout(() => {
-  const btn = document.getElementById("registerNameBtn");
-  if(btn && localStorage.getItem("myPosterName")){
-    btn.style.display = "none";
-  }
-}, 0);
-  
+  setTimeout(() => {
+    const btn = document.getElementById("registerNameBtn");
+    if (btn && localStorage.getItem("myPosterName")) {
+      btn.style.display = "none";
+    }
+  }, 0);
+
   const urlParams = new URLSearchParams(window.location.search);
   const isReturn = urlParams.get("return") === "true";
 
+  // 島・神殿・成長地図から戻った時
   if (isReturn) {
     localStorage.setItem("treasureMapAccess", "ok");
     localStorage.removeItem("fromReturn");
@@ -1576,33 +1577,47 @@ setTimeout(() => {
     return;
   }
 
-  const fromReturn = localStorage.getItem("fromReturn");
-
-  if (fromReturn) {
+  // fromReturn対応
+  if (localStorage.getItem("fromReturn")) {
     localStorage.removeItem("fromReturn");
+
     document.getElementById("passwordGate").style.display = "none";
     document.getElementById("titleSplash").style.display = "none";
+
     openTreasureMap();
     return;
   }
 
-const nav = performance.getEntriesByType("navigation")[0];
-const isReload = nav && nav.type === "reload";
+  // リロード
+  const nav = performance.getEntriesByType("navigation")[0];
+  const isReload = nav && nav.type === "reload";
 
-if (isReload) {
-  document.getElementById("titleSplash").style.display = "none";
-  openTreasureMap();
-  return;
-}
+  if (isReload) {
+    document.getElementById("passwordGate").style.display = "none";
+    document.getElementById("titleSplash").style.display = "none";
 
-// 一度合言葉を通過していればパスワード画面は出さない
-if (localStorage.getItem("treasureMapAccess") === "ok") {
-  document.getElementById("passwordGate").style.display = "none";
-  return;
-}
+    openTreasureMap();
+    return;
+  }
 
-document.getElementById("passwordGate").style.display = "flex";
+  // 一度合言葉を通過済み
+  if (localStorage.getItem("treasureMapAccess") === "ok") {
 
+    document.getElementById("passwordGate").style.display = "none";
+
+    // オープニングは表示（CSSの3秒アニメーション）
+    document.getElementById("titleSplash").style.display = "flex";
+
+    setTimeout(() => {
+      document.getElementById("titleSplash").style.display = "none";
+      openTreasureMap();
+    }, 3000);
+
+    return;
+  }
+
+  // 初回のみパスワード
+  document.getElementById("passwordGate").style.display = "flex";
 });
 
 function checkPassword() {
