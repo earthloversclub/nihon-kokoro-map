@@ -1410,7 +1410,10 @@ background-position:100% 50%;
   <span class="recordIcon">🌸</span>
   <span class="recordLabel">ありがとう</span>
   <span class="recordValue" id="myRecordThanks">0回</span>
-
+<div class="recordRow">
+  <span class="recordLabel">⭐ポイント</span>
+  <span class="recordValue" id="myRecordPoint">0 / 0 pt</span>
+</div>
 </div>
  </div> 
   <div id="skyTempleBox">
@@ -2770,6 +2773,12 @@ const myName = localStorage.getItem("myPosterName") || MY_POSTER_NAME;
 const myCount = counts[myName] || 0;
 const myThanksCount = Number(localStorage.getItem("myThanksCount") || 0);
 const levelInfo = getMyLevelInfo(myCount, myThanksCount);
+const nextPoint = levelInfo.level >= 99
+  ? levelInfo.point
+  : Math.pow(levelInfo.level, 2);
+
+const pointText =
+  levelInfo.point + " / " + nextPoint + " pt";    
 const lastLevel = Number(localStorage.getItem("myLastLevel") || levelInfo.level);
 
 if (levelInfo.level > lastLevel) {
@@ -2785,6 +2794,8 @@ document.getElementById("myRecordTitle").textContent =
 
 document.getElementById("myRecordPosts").textContent =
   myCount + "件";
+document.getElementById("myRecordPoint").textContent =
+  pointText;    
   })
   .catch(() => {
     document.getElementById("myRecordPosts").textContent = "0件";
