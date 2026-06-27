@@ -1190,11 +1190,12 @@ function changeMyName(){
 
   localStorage.setItem("myPosterName", name.trim());
 
-  loadMyRecordPosts();
-
   alert("🌸 名前を変更しました✨");
+
+  if(typeof loadMyRecordPosts === "function"){
+    loadMyRecordPosts();
+  }
 }
-  
 </script>
 
 </body>
