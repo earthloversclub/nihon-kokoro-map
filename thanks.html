@@ -416,6 +416,55 @@
   width: 100% !important;
   margin: 12px 0 0 !important;
 }
+
+.heartThanksBtn{
+  display:block;
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  border:none;
+  border-radius:999px;
+  background:#ffdff0;
+  color:#c03c74;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.heartThanksBtn.thanked{
+  background:#dddddd;
+  color:#777;
+  cursor:default;
+}
+
+.heartThanksMessage{
+  display:none;
+  margin-top:10px;
+  text-align:center;
+  color:#c03c74;
+  font-size:15px;
+  font-weight:bold;
+  animation: thanksFloat 1.4s ease forwards;
+}
+
+@keyframes thanksFloat{
+  0%{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  25%{
+    opacity:1;
+    transform:translateY(0);
+  }
+  75%{
+    opacity:1;
+    transform:translateY(-4px);
+  }
+  100%{
+    opacity:0;
+    transform:translateY(-10px);
+  }
+}
     
   </style>
 </head>
@@ -454,6 +503,11 @@
 <div id="modalText" class="text"></div>
 <div id="modalImages" class="detailImages"></div>
 <div id="modalVideoBox" style="display:none;"></div>
+<button id="modalThanksBtn" class="heartThanksBtn"></button>
+
+<div id="heartThanksMessage" class="heartThanksMessage">
+  🌸ありがとうを届けました😊✨
+</div>
     
   </div>
 </div>
@@ -492,7 +546,8 @@ let largeImagePinchStartDistance = 0;
 let largeImagePinchStartScale = 1;;
   
 const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
-
+const GAS_URL = "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec";
+  
 let treasures = [];
 
 function parseCSV(text) {
@@ -667,9 +722,68 @@ function openDetail(index) {
   document.getElementById("modalText").innerHTML =
     escapeHtml(data["本文"] || "").replace(/\n/g, "<br>");
 
+const postId = data["ID"];
+const thanksKey = "thanks_" + postId;
+const alreadyThanks = localStorage.getItem(thanksKey);
+const thanksBtn = document.getElementById("modalThanksBtn");
+
+thanksBtn.textContent = alreadyThanks ? "🌸ありがとう済み" : "🌸ありがとう";
+thanksBtn.classList.toggle("thanked", !!alreadyThanks);
+thanksBtn.disabled = !!alreadyThanks;
+thanksBtn.onclick = function() {
+  sendHeartThanks(thanksBtn, postId);
+};  
   document.getElementById("detailModal").style.display = "block";
 }
 
+function sendHeartThanks(button, postId) {
+  if (!postId) return;
+
+  const key = "thanks_" + postId;
+
+  if (localStorage.getItem(key)) {
+    alert("この宝物には、もうありがとうを届けています😊");
+    return;
+  }
+
+  localStorage.setItem(key, "true");
+
+  const myThanksCount =
+    Number(localStorage.getItem("myThanksCount") || 0) + 1;
+
+  localStorage.setItem("myThanksCount", myThanksCount);
+
+  const recordThanks = document.getElementById("myRecordThanks");
+  if (recordThanks) {
+    recordThanks.textContent = myThanksCount + "回";
+  }
+
+  button.textContent = "🌸ありがとう済み";
+  button.classList.add("thanked");
+  button.disabled = true;
+
+  const thanksMessage = document.getElementById("heartThanksMessage");
+  if (thanksMessage) {
+    thanksMessage.style.display = "block";
+    thanksMessage.style.animation = "none";
+    thanksMessage.offsetHeight;
+    thanksMessage.style.animation = "thanksFloat 1.4s ease forwards";
+
+    setTimeout(() => {
+      thanksMessage.style.display = "none";
+    }, 1400);
+  }
+
+  fetch(GAS_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "thanks",
+      postType: "heart",
+      id: postId
+    })
+  });
+}
+  
 function closeDetail() {
   document.getElementById("detailModal").style.display = "none";
 }
