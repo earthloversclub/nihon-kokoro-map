@@ -830,7 +830,15 @@ margin-top:10px;
   white-space:nowrap;
 }
 
-.myRecordTopRow,
+.myRecordTopRow{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  margin:2px 0;
+  white-space:nowrap;
+}
+
 .myRecordPointRow{
   display:grid;
   grid-template-columns:32px 1fr 32px;
@@ -842,16 +850,11 @@ margin-top:10px;
 }
 
 .myRecordTopText{
-  grid-column:1 / 4;
-  justify-self:center;
   display:inline-flex;
   align-items:center;
+  justify-content:center;
   gap:14px;
   white-space:nowrap;
-}
-
-.myRecordTopTitle{
-  margin-left:0;
 }
 
 .myRecordPointText{
@@ -1428,7 +1431,7 @@ background-position:100% 50%;
 <div class="myRecordTopRow">
   <span class="myRecordTopText">
     👑<span id="myRecordLevel">Lv.1</span>
-    <span class="myRecordTopTitle" id="myRecordTitle">旅人</span>
+    <span id="myRecordTitle">旅人</span>
   </span>
 </div>
 
