@@ -1595,7 +1595,13 @@ if (isReload) {
   return;
 }
 
-  document.getElementById("passwordGate").style.display = "flex";
+// 一度合言葉を通過していればパスワード画面は出さない
+if (localStorage.getItem("treasureMapAccess") === "ok") {
+  document.getElementById("passwordGate").style.display = "none";
+  return;
+}
+
+document.getElementById("passwordGate").style.display = "flex";
 
 });
 
