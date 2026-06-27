@@ -1183,11 +1183,14 @@ else{
 }
 
 function changeMyName(){
+
   const name = prompt("オープンチャットで使っている名前を入力してください😊");
 
   if(!name) return;
 
   localStorage.setItem("myPosterName", name.trim());
+
+  loadMyRecordPosts();
 
   alert("🌸 名前を変更しました✨");
 }
