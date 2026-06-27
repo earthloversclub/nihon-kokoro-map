@@ -473,7 +473,7 @@
 <div id="modalText" class="text"></div>
 <div id="modalImages" class="detailImages"></div>
 <div id="modalVideoBox" style="display:none;"></div>
-    
+<button id="modalThanksBtn" class="heartThanksBtn"></button>    
   </div>
 </div>
 
@@ -627,12 +627,6 @@ ${thumb ? `
 投稿者：${escapeHtml(data["投稿者"] || "匿名さん")}
 </div>
 
-<button
-class="heartThanksBtn ${alreadyThanks ? 'thanked' : ''}"
-onclick="event.stopPropagation();sendHeartThanks(this,'${postId}')"
-${alreadyThanks ? 'disabled' : ''}>
-${alreadyThanks ? '🌸ありがとう済み' : '🌸ありがとう'}
-</button>
         </div>
       `;
     });
@@ -699,6 +693,18 @@ function openDetail(index) {
   document.getElementById("modalText").innerHTML =
     escapeHtml(data["本文"] || "").replace(/\n/g, "<br>");
 
+const postId = data["ID"];
+const thanksKey = "thanks_" + postId;
+const alreadyThanks = localStorage.getItem(thanksKey);
+const thanksBtn = document.getElementById("modalThanksBtn");
+
+thanksBtn.textContent = alreadyThanks ? "🌸ありがとう済み" : "🌸ありがとう";
+thanksBtn.classList.toggle("thanked", !!alreadyThanks);
+thanksBtn.disabled = !!alreadyThanks;
+thanksBtn.onclick = function() {
+  sendHeartThanks(thanksBtn, postId);
+};
+  
   document.getElementById("detailModal").style.display = "block";
 }
 
