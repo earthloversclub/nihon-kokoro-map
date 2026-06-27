@@ -316,6 +316,35 @@
   color:#777;
   cursor:default;
 }
+
+.heartThanksMessage{
+  display:none;
+  margin-top:10px;
+  text-align:center;
+  color:#c03c74;
+  font-size:15px;
+  font-weight:bold;
+  animation: thanksFloat 1.4s ease forwards;
+}
+
+@keyframes thanksFloat{
+  0%{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  25%{
+    opacity:1;
+    transform:translateY(0);
+  }
+  75%{
+    opacity:1;
+    transform:translateY(-4px);
+  }
+  100%{
+    opacity:0;
+    transform:translateY(-10px);
+  }
+}
     
     @media (max-width: 420px) {
       #treasureList {
@@ -473,7 +502,10 @@
 <div id="modalText" class="text"></div>
 <div id="modalImages" class="detailImages"></div>
 <div id="modalVideoBox" style="display:none;"></div>
-<button id="modalThanksBtn" class="heartThanksBtn"></button>    
+<button id="modalThanksBtn" class="heartThanksBtn"></button> 
+    <div id="heartThanksMessage" class="heartThanksMessage">
+  🌸ありがとうを届けました😊✨
+</div>
   </div>
 </div>
 
@@ -735,6 +767,18 @@ function sendHeartThanks(button, postId) {
   button.classList.add("thanked");
   button.disabled = true;
 
+const thanksMessage = document.getElementById("heartThanksMessage");
+if (thanksMessage) {
+  thanksMessage.style.display = "block";
+  thanksMessage.style.animation = "none";
+  thanksMessage.offsetHeight;
+  thanksMessage.style.animation = "thanksFloat 1.4s ease forwards";
+
+  setTimeout(() => {
+    thanksMessage.style.display = "none";
+  }, 1400);
+}
+  
   fetch(GAS_URL, {
     method: "POST",
     body: JSON.stringify({
