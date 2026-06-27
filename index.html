@@ -2770,7 +2770,7 @@ const myName = localStorage.getItem("myPosterName") || MY_POSTER_NAME;
 const myCount = counts[myName] || 0;
 const myThanksCount = Number(localStorage.getItem("myThanksCount") || 0);
 const levelInfo = getMyLevelInfo(myCount, myThanksCount);
-const lastLevel = 1;
+const lastLevel = Number(localStorage.getItem("myLastLevel") || levelInfo.level);
 
 if (levelInfo.level > lastLevel) {
   showLevelUpEffect(levelInfo.level, levelInfo.title);
