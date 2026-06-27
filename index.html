@@ -1206,8 +1206,23 @@ background-position:100% 50%;
 }
 
 .levelUpLevel{
-  font-size:30px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
   margin-bottom:8px;
+}
+
+.levelMedal{
+  font-size:36px;
+  line-height:1;
+}
+
+.levelText{
+  font-size:56px;
+  font-weight:bold;
+  color:#7a3a00;
+  line-height:1;
 }
 
 .levelUpRank{
@@ -2527,7 +2542,10 @@ function showLevelUpEffect(level, title) {
   overlay.innerHTML = `
     <div class="levelUpBox">
       <div class="levelUpTitle">🎉レベルアップ🎉</div>
-      <div class="levelUpLevel">🏅Lv.${level}</div>
+      <div class="levelUpLevel">
+  <span class="levelMedal">🏅</span>
+  <span class="levelText">Lv.${level}</span>
+</div>
       <div class="levelUpRank">${title}</div>
     </div>
   `;
