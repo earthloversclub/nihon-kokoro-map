@@ -2454,6 +2454,44 @@ loadJapanGrowthMap();
 }, 100);
 }
 
+function getMyLevelInfo(postCount, thanksCount) {
+  const point = postCount * 10 + thanksCount * 2;
+
+  let level = Math.floor(Math.sqrt(point)) + 1;
+
+  if (level > 99) {
+    level = 99;
+  }
+
+  let title = "旅人";
+
+  if (level >= 90) {
+    title = "地球愛の神";
+  } else if (level >= 80) {
+    title = "奇跡の光使";
+  } else if (level >= 70) {
+    title = "祝福の女神";
+  } else if (level >= 60) {
+    title = "光の守護者";
+  } else if (level >= 50) {
+    title = "愛の天使";
+  } else if (level >= 40) {
+    title = "光の癒し手";
+  } else if (level >= 30) {
+    title = "幸せの紡ぎ手";
+  } else if (level >= 20) {
+    title = "虹の使者";
+  } else if (level >= 10) {
+    title = "吟遊詩人";
+  }
+
+  return {
+    point: point,
+    level: level,
+    title: title
+  };
+}
+  
 function loadMyRecordPosts() {
   Promise.all([
     fetch(sheetUrl + "&t=" + Date.now()).then(response => response.text()),
@@ -2468,10 +2506,19 @@ function loadMyRecordPosts() {
     addPosterCounts(treasureRows, counts);
     addPosterCounts(heartRows, counts);
 
-    const myName = localStorage.getItem("myPosterName") || MY_POSTER_NAME;
+const myName = localStorage.getItem("myPosterName") || MY_POSTER_NAME;
 const myCount = counts[myName] || 0;
+const myThanksCount = Number(localStorage.getItem("myThanksCount") || 0);
+const levelInfo = getMyLevelInfo(myCount, myThanksCount);
 
-    document.getElementById("myRecordPosts").textContent = myCount + "件";
+document.getElementById("myRecordLevel").textContent =
+  "Lv." + levelInfo.level;
+
+document.getElementById("myRecordTitle").textContent =
+  levelInfo.title;
+
+document.getElementById("myRecordPosts").textContent =
+  myCount + "件";
   })
   .catch(() => {
     document.getElementById("myRecordPosts").textContent = "0件";
