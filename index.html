@@ -1300,6 +1300,34 @@ background-position:100% 50%;
     transform:translateY(-180px) translateX(var(--drift)) rotate(360deg) scale(1.2);
   }
 }
+
+.levelSparkle{
+  position:fixed;
+  z-index:999999;
+  pointer-events:none;
+  font-size:22px;
+  opacity:0;
+  animation:levelSparkleFloat 2s ease-out forwards;
+}
+
+@keyframes levelSparkleFloat{
+  0%{
+    opacity:0;
+    transform:scale(0.3);
+  }
+  20%{
+    opacity:1;
+    transform:scale(1.2);
+  }
+  100%{
+    opacity:0;
+    transform:
+      translateY(-80px)
+      translateX(var(--sparkX))
+      rotate(180deg)
+      scale(0.8);
+  }
+}
   
 </style>
 </head>
@@ -2580,6 +2608,31 @@ loadJapanGrowthMap();
 }, 100);
 }
 
+function showLevelSparkles() {
+  for (let i = 0; i < 35; i++) {
+    const sparkle = document.createElement("div");
+    sparkle.className = "levelSparkle";
+    sparkle.textContent = "✨";
+
+    sparkle.style.left =
+      (window.innerWidth / 2 + Math.random() * 280 - 140) + "px";
+
+    sparkle.style.top =
+      (window.innerHeight / 2 + Math.random() * 180 - 90) + "px";
+
+    sparkle.style.setProperty(
+      "--sparkX",
+      (Math.random() * 140 - 70) + "px"
+    );
+
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => {
+      sparkle.remove();
+    }, 2000);
+  }
+}
+  
 function showLevelPetals() {
   for (let i = 0; i < 24; i++) {
     const petal = document.createElement("div");
@@ -2616,6 +2669,7 @@ light.className = "levelLightFlash";
 document.body.appendChild(light);
 
 showLevelPetals();
+showLevelSparkles();
   
 setTimeout(() => {
   light.remove();
