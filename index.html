@@ -2651,8 +2651,12 @@ box.style.display = "block";
 });
 
 document.getElementById("searchBox").style.display = "block";
-document.getElementById("rainbowBox").style.display = "block";
-document.getElementById("skyTempleBox").style.display = "block";
+
+if (document.getElementById("map").style.display !== "none") {
+  document.getElementById("rainbowBox").style.display = "block";
+  document.getElementById("skyTempleBox").style.display = "block";
+}
+
 document.getElementById("mapSwitchBox").style.visibility = "visible";
 document.getElementById("myRecordBox").style.display = "block";
   
