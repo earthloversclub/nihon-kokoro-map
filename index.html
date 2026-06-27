@@ -1277,6 +1277,29 @@ background-position:100% 50%;
     transform:scale(1.5);
   }
 }
+
+.levelPetal{
+  position:fixed;
+  z-index:999999;
+  pointer-events:none;
+  font-size:22px;
+  opacity:0;
+  animation:levelPetalFloat 2.8s ease-out forwards;
+}
+
+@keyframes levelPetalFloat{
+  0%{
+    opacity:0;
+    transform:translateY(30px) rotate(0deg) scale(0.8);
+  }
+  15%{
+    opacity:1;
+  }
+  100%{
+    opacity:0;
+    transform:translateY(-180px) translateX(var(--drift)) rotate(360deg) scale(1.2);
+  }
+}
   
 </style>
 </head>
@@ -2557,6 +2580,31 @@ loadJapanGrowthMap();
 }, 100);
 }
 
+function showLevelPetals() {
+  for (let i = 0; i < 10; i++) {
+    const petal = document.createElement("div");
+    petal.className = "levelPetal";
+    petal.textContent = "🌸";
+
+    petal.style.left =
+      (window.innerWidth / 2 + Math.random() * 220 - 110) + "px";
+
+    petal.style.top =
+      (window.innerHeight / 2 + Math.random() * 120 - 20) + "px";
+
+    petal.style.setProperty(
+      "--drift",
+      (Math.random() * 120 - 60) + "px"
+    );
+
+    document.body.appendChild(petal);
+
+    setTimeout(() => {
+      petal.remove();
+    }, 2800);
+  }
+}
+  
 function showLevelUpEffect(level, title) {
   const oldOverlay = document.querySelector(".levelUpOverlay");
   if (oldOverlay) {
@@ -2567,6 +2615,8 @@ const light = document.createElement("div");
 light.className = "levelLightFlash";
 document.body.appendChild(light);
 
+showLevelPetals();
+  
 setTimeout(() => {
   light.remove();
 }, 1200);
