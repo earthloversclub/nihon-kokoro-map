@@ -1586,11 +1586,14 @@ setTimeout(() => {
     return;
   }
 
-  if (localStorage.getItem("treasureMapAccess") === "ok") {
-    document.getElementById("titleSplash").style.display = "none";
-    openTreasureMap();
-    return;
-  }
+const nav = performance.getEntriesByType("navigation")[0];
+const isReload = nav && nav.type === "reload";
+
+if (isReload) {
+  document.getElementById("titleSplash").style.display = "none";
+  openTreasureMap();
+  return;
+}
 
   document.getElementById("passwordGate").style.display = "flex";
 
