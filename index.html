@@ -2391,7 +2391,51 @@ setTimeout(function() {
 loadJapanGrowthMap();
 }, 100);
 }
-function loadThanksTotal() {
+
+function loadMyRecordPosts() {
+  Promise.all([
+    fetch(sheetUrl + "&t=" + Date.now()).then(response => response.text()),
+    fetch(heartCsvUrl + "&t=" + Date.now()).then(response => response.text())
+  ])
+  .then(([treasureCsv, heartCsv]) => {
+    const treasureRows = parseCSV(treasureCsv);
+    const heartRows = parseCSV(heartCsv);
+
+    const counts = {};
+
+    addPosterCounts(treasureRows, counts);
+    addPosterCounts(heartRows, counts);
+
+    const myCount = counts[MY_POSTER_NAME] || 0;
+
+    document.getElementById("myRecordPosts").textContent = myCount + "件";
+  })
+  .catch(() => {
+    document.getElementById("myRecordPosts").textContent = "0件";
+  });
+}
+
+function addPosterCounts(rows, counts) {
+  const headers = rows[0];
+
+  rows.slice(1).forEach(row => {
+    const data = {};
+
+    headers.forEach((h, i) => {
+      const key = h.replace(/\s/g, "").trim();
+      data[key] = row[i];
+    });
+
+    const name = (data["投稿者"] || "").trim();
+
+    if (!name) return;
+    if (name === "未入力") return;
+    if (name === "匿名") return;
+
+    counts[name] = (counts[name] || 0) + 1;
+  });
+}  
+  function loadThanksTotal() {
 fetch("https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=total")
 .then(response => response.json())
 .then(data => {
@@ -2403,7 +2447,8 @@ document.getElementById("thanksTotal").textContent = "0";
 }
 
 loadThanksTotal();
-
+loadMyRecordPosts();
+  
 function loadAchievement() {
 const total = 47;
 const achieved = Object.keys(prefectureCounts).length;
