@@ -1293,25 +1293,13 @@ background-position:100% 50%;
 }
 
 .levelUpLevel{
-  position:relative;
-  display:inline-block;
-  font-size:30px;
+  font-size:22px;
   font-weight:bold;
   color:#7a3a00;
   margin-bottom:10px;
   text-shadow:
     0 0 6px white,
     0 0 10px rgba(255,220,120,0.8);
-}
-
-.levelMedal{
-  display:inline-block;
-  transform:translateX(-6px);
-}
-
-.levelText{
-  display:inline-block;
-  transform:translateX(-3px);
 }
 
 .levelUpRank{
@@ -2701,13 +2689,13 @@ function showLevelUpEffect(level, title) {
         🎉 レベルアップ 🎉
       </div>
 
-      <div class="levelUpLevel">
-        <span class="levelMedal">🏅</span>
-        <span class="levelText">Lv.${level}</span>
+            <div class="levelUpLevel">
+        ⭐ Lv.${level} ⭐
+      </div>
       </div>
 
       <div class="levelUpRank">
-        ✨ ${title} ✨
+        👑${title}👑
       </div>
 
     </div>
