@@ -2287,7 +2287,17 @@ fetch("https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03j
 });
 
 localStorage.setItem(key, "done");
+const thanksCount = Number(localStorage.getItem("myThanksCount") || 0) + 1;
 
+localStorage.setItem("myThanksCount", thanksCount);
+
+document.getElementById("myRecordThanks").textContent = thanksCount + "回";
+const thanksCount = Number(localStorage.getItem("myThanksCount") || 0) + 1;
+
+localStorage.setItem("myThanksCount", thanksCount);
+
+document.getElementById("myRecordThanks").textContent = thanksCount + "回";
+  
 button.style.display = "none";
 message.style.display = "inline-block";
 message.textContent = makeThanksMessage();
@@ -2520,6 +2530,8 @@ document.getElementById("thanksTotal").textContent = "0";
 
 loadThanksTotal();
 loadMyRecordPosts();
+const thanksCount = Number(localStorage.getItem("myThanksCount") || 0);
+document.getElementById("myRecordThanks").textContent = thanksCount + "回";
   
 function loadAchievement() {
 const total = 47;
