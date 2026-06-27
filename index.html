@@ -2461,7 +2461,8 @@ function loadMyRecordPosts() {
     addPosterCounts(treasureRows, counts);
     addPosterCounts(heartRows, counts);
 
-    const myCount = counts[MY_POSTER_NAME] || 0;
+    const myName = localStorage.getItem("myPosterName") || MY_POSTER_NAME;
+const myCount = counts[myName] || 0;
 
     document.getElementById("myRecordPosts").textContent = myCount + "件";
   })
