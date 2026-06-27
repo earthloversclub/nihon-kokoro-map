@@ -832,11 +832,25 @@ text-shadow:
   white-space:nowrap;
 }
 
-.myRecordRow:first-of-type .recordLabel{
+#myRecordBox > .myRecordTitle + .myRecordRow{
+  justify-content:center;
+  white-space:nowrap;
+}
+
+#myRecordBox > .myRecordTitle + .myRecordRow .recordLabel{
   flex:0 0 auto;
   width:auto;
+  margin-right:2em;
+}
+
+#myRecordBox > .myRecordTitle + .myRecordRow .recordValue{
+  flex:0 0 auto;
   min-width:0;
+  margin-left:0;
+  margin-right:0;
+  text-align:left;
   white-space:nowrap;
+  overflow:visible;
 }
   
 #searchBox {
