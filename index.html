@@ -831,13 +831,6 @@ text-shadow:
   text-align:right;
   white-space:nowrap;
 }
-
-.pointValue{
-  flex:0 0 35px;
-  text-align:center;
-  margin-left:auto;
-  white-space:nowrap;
-}
   
 #myRecordBox > .myRecordTitle + .myRecordRow{
   justify-content:center;
@@ -1345,6 +1338,23 @@ background-position:100% 50%;
     transform:translateY(-8px) scale(0.96);
   }
 }
+
+.myRecordPointRow{
+  display:grid;
+  grid-template-columns: 28px 1fr;
+  align-items:center;
+  column-gap:4px;
+  font-size:20px;
+  font-weight:bold;
+  text-shadow:
+    0 0 4px white,
+    0 0 8px white;
+}
+
+.myRecordPointRow #myRecordPoint{
+  text-align:center;
+  white-space:nowrap;
+}
   
 </style>
 </head>
@@ -1419,10 +1429,12 @@ background-position:100% 50%;
   <span class="recordValue" id="myRecordThanks">0回</span>
 </div>
 
-<div class="myRecordRow">
+<div class="myRecordPointRow">
   <span class="recordIcon">⭐</span>
+  <span id="myRecordPoint">0 / 0 pt</span>
+</div>
+  
   <span class="recordLabel"></span>
-  <span class="recordValue pointValue" id="myRecordPoint">0 / 0 pt</span>
 </div>
   
  </div> 
