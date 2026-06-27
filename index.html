@@ -1175,78 +1175,6 @@ background-position:100% 50%;
   line-height:1.4;
 }
 
-.levelUpOverlay{
-  position:fixed;
-  inset:0;
-  z-index:999999;
-  background:rgba(0,0,0,0.45);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  pointer-events:none;
-}
-
-.levelUpBox{
-  background:rgba(255,255,255,0.96);
-  border-radius:26px;
-  padding:26px 28px;
-  text-align:center;
-  color:#7a3a00;
-  font-weight:bold;
-  box-shadow:
-    0 0 24px rgba(255,255,255,0.95),
-    0 0 55px rgba(255,220,120,0.9);
-  animation:levelUpPop 2.2s ease forwards;
-}
-
-.levelUpTitle{
-  font-size:25px;
-  color:#ff4fa0;
-  margin-bottom:12px;
-}
-
-.levelUpLevel{
-  position:relative;
-  font-size:30px;
-  margin-bottom:8px;
-  color:#7a3a00;
-  font-weight:bold;
-}
-
-.levelMedal{
-  position:relative;
-  left:-8px;
-}
-
-.levelText{
-  position:relative;
-  left:-4px;
-}
-
-.levelUpRank{
-  font-size:25px;
-  color:#4b3fb0;
-}
-
-@keyframes levelUpPop{
-  0%{
-    opacity:0;
-    transform:scale(0.6);
-  }
-  18%{
-    opacity:1;
-    transform:scale(1.08);
-  }
-  35%{
-    transform:scale(1);
-  }
-  80%{
-    opacity:1;
-  }
-  100%{
-    opacity:0;
-    transform:scale(0.92);
-  }
 }
 
 .levelLightFlash{
@@ -1326,6 +1254,93 @@ background-position:100% 50%;
       translateX(var(--sparkX))
       rotate(180deg)
       scale(0.8);
+  }
+}
+
+.levelUpOverlay{
+  position:fixed;
+  inset:0;
+  z-index:999997;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+
+.levelUpBox{
+  min-width:240px;
+  max-width:82vw;
+  padding:24px 28px 26px;
+  border-radius:28px;
+  text-align:center;
+  background:rgba(255,255,255,0.94);
+  border:2px solid rgba(255,230,150,0.9);
+  box-shadow:
+    0 0 22px rgba(255,255,255,0.95),
+    0 0 45px rgba(255,220,140,0.85),
+    0 8px 24px rgba(0,0,0,0.18);
+  animation:levelPanelAppear 2.5s ease forwards;
+}
+
+.levelUpTitle{
+  font-size:24px;
+  font-weight:bold;
+  color:#ff4fa0;
+  margin-bottom:12px;
+  text-shadow:
+    0 0 6px white,
+    0 0 12px rgba(255,180,220,0.9);
+}
+
+.levelUpLevel{
+  position:relative;
+  display:inline-block;
+  font-size:30px;
+  font-weight:bold;
+  color:#7a3a00;
+  margin-bottom:10px;
+  text-shadow:
+    0 0 6px white,
+    0 0 10px rgba(255,220,120,0.8);
+}
+
+.levelMedal{
+  display:inline-block;
+  transform:translateX(-6px);
+}
+
+.levelText{
+  display:inline-block;
+  transform:translateX(-3px);
+}
+
+.levelUpRank{
+  font-size:24px;
+  font-weight:bold;
+  color:#4b3fb0;
+  text-shadow:
+    0 0 6px white,
+    0 0 12px rgba(180,170,255,0.8);
+}
+
+@keyframes levelPanelAppear{
+  0%{
+    opacity:0;
+    transform:translateY(18px) scale(0.75);
+  }
+  18%{
+    opacity:1;
+    transform:translateY(0) scale(1.06);
+  }
+  32%{
+    transform:translateY(0) scale(1);
+  }
+  82%{
+    opacity:1;
+  }
+  100%{
+    opacity:0;
+    transform:translateY(-8px) scale(0.96);
   }
 }
   
@@ -2657,35 +2672,44 @@ function showLevelPetals() {
     }, 2800);
   }
 }
-  
+
 function showLevelUpEffect(level, title) {
+
   const oldOverlay = document.querySelector(".levelUpOverlay");
   if (oldOverlay) {
     oldOverlay.remove();
   }
 
-const light = document.createElement("div");
-light.className = "levelLightFlash";
-document.body.appendChild(light);
+  const light = document.createElement("div");
+  light.className = "levelLightFlash";
+  document.body.appendChild(light);
 
-showLevelPetals();
-showLevelSparkles();
-  
-setTimeout(() => {
-  light.remove();
-}, 1200);
-  
+  showLevelPetals();
+  showLevelSparkles();
+
+  setTimeout(() => {
+    light.remove();
+  }, 1200);
+
   const overlay = document.createElement("div");
   overlay.className = "levelUpOverlay";
 
   overlay.innerHTML = `
     <div class="levelUpBox">
-      <div class="levelUpTitle">🎉レベルアップ🎉</div>
+
+      <div class="levelUpTitle">
+        🎉 レベルアップ 🎉
+      </div>
+
       <div class="levelUpLevel">
-  <span class="levelMedal">🏅</span>
-  <span class="levelText">Lv.${level}</span>
-</div>
-      <div class="levelUpRank">${title}</div>
+        <span class="levelMedal">🏅</span>
+        <span class="levelText">Lv.${level}</span>
+      </div>
+
+      <div class="levelUpRank">
+        ✨ ${title} ✨
+      </div>
+
     </div>
   `;
 
@@ -2693,7 +2717,7 @@ setTimeout(() => {
 
   setTimeout(() => {
     overlay.remove();
-  }, 2200);
+  }, 2500);
 }
   
 function getMyLevelInfo(postCount, thanksCount) {
