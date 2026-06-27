@@ -853,6 +853,27 @@ text-shadow:
   overflow:visible;
 }
 
+#nameRegisterBox{
+  position:absolute;
+  right:28px;
+  top:58%;
+  z-index:2100;
+}
+
+#registerNameBtn{
+  padding:7px 14px;
+  border:none;
+  border-radius:999px;
+  background:#fff8d9;
+  color:#333;
+  font-size:13px;
+  font-weight:bold;
+  white-space:nowrap;
+  box-shadow:
+    0 0 6px white,
+    0 2px 8px rgba(0,0,0,.18);
+}
+  
 #registerNameBtn{
   margin-top:5px;
   padding:3px 10px;
@@ -1189,6 +1210,12 @@ background-position:100% 50%;
     <button id="mapSwitchButton" class="mapReturnButton" onclick="showMapB()">🌷成長地図▶</button>
   </div>
 
+<div id="nameRegisterBox">
+  <button id="registerNameBtn" onclick="registerMyName()">
+    🌸 名前を登録 🌸
+  </button>
+</div>
+  
   <div id="rainbowBox">
     <button onclick="location.href='heart.html'">🌈<br>虹の彼方</button>
   </div>
@@ -2465,10 +2492,10 @@ function registerMyName(){
 
   alert("🌸 登録しました✨");
 
-  const btn = document.getElementById("registerNameBtn");
-  if(btn){
-    btn.style.display = "none";
-  }
+const box = document.getElementById("nameRegisterBox");
+if(box){
+  box.style.display = "none";
+}
 }
   
   function loadThanksTotal() {
