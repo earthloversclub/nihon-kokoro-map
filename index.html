@@ -852,6 +852,18 @@ text-shadow:
   white-space:nowrap;
   overflow:visible;
 }
+
+#registerNameBtn{
+  margin-top:5px;
+  padding:3px 10px;
+  font-size:12px;
+  border:none;
+  border-radius:20px;
+  background:#fff8d9;
+  color:#444;
+  cursor:pointer;
+  box-shadow:0 1px 4px rgba(0,0,0,.15);
+}
   
 #searchBox {
   top: 8px;
@@ -1199,6 +1211,9 @@ background-position:100% 50%;
   <span class="recordIcon">🌸</span>
   <span class="recordLabel">ありがとう</span>
   <span class="recordValue" id="myRecordThanks">0回</span>
+<button id="registerNameBtn" onclick="registerMyName()">
+  名前を登録
+</button>
 </div>
  </div> 
   <div id="skyTempleBox">
@@ -1300,6 +1315,13 @@ map.invalidateSize();
 
 document.addEventListener("DOMContentLoaded", () => {
 
+setTimeout(() => {
+  const btn = document.getElementById("registerNameBtn");
+  if(btn && localStorage.getItem("myPosterName")){
+    btn.style.display = "none";
+  }
+}, 0);
+  
   const urlParams = new URLSearchParams(window.location.search);
   const isReturn = urlParams.get("return") === "true";
 
@@ -2434,7 +2456,23 @@ function addPosterCounts(rows, counts) {
 
     counts[name] = (counts[name] || 0) + 1;
   });
-}  
+} 
+
+function registerMyName(){
+  const name = prompt("オープンチャットで使っている名前を入力してください😊");
+
+  if(!name) return;
+
+  localStorage.setItem("myPosterName", name.trim());
+
+  alert("🌸 登録しました✨");
+
+  const btn = document.getElementById("registerNameBtn");
+  if(btn){
+    btn.style.display = "none";
+  }
+}
+  
   function loadThanksTotal() {
 fetch("https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=total")
 .then(response => response.json())
