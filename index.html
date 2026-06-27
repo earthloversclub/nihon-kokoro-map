@@ -774,6 +774,41 @@ margin-top:10px;
 
 @media (max-width: 767px) {
 
+#myRecordBox{
+  position:absolute;
+  top:100px;
+  right:15px;
+  width:170px;
+
+  z-index:2000;
+
+  text-align:center;
+
+  color:#2f7a35;
+  font-weight:bold;
+
+  text-shadow:
+    0 0 5px white,
+    0 0 10px white;
+
+  line-height:1.3;
+  pointer-events:none;
+}
+
+.myRecordTitle{
+  font-size:16px;
+  margin-bottom:4px;
+}
+
+.myRecordLevel{
+  font-size:15px;
+  margin-bottom:4px;
+}
+
+.myRecordRow{
+  font-size:14px;
+}  
+
 #searchBox {
   top: 8px;
   right: 8px;
@@ -1101,6 +1136,13 @@ background-position:100% 50%;
     <button onclick="location.href='heart.html'">🌈<br>虹の彼方</button>
   </div>
 
+<div id="myRecordBox">
+  <div class="myRecordTitle">☀️あなたの記録☀️</div>
+  <div class="myRecordLevel">🏅 Lv.1　旅人</div>
+  <div class="myRecordRow">📝 投稿数　0件</div>
+  <div class="myRecordRow">🌸 ありがとう　0回</div>
+</div>
+  
   <div id="skyTempleBox">
     <button onclick="location.href='sky-temple.html'">
       🏛️<br>天空の神殿
