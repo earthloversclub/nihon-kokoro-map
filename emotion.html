@@ -693,13 +693,6 @@ ${thumb ? `
 function openDetail(index) {
   const data = treasures[index];
 
-  const postId = data["ID"];
-  localStorage.setItem("heart_viewed_" + postId, "true");
-
-  const cards = document.querySelectorAll(".miniCard");
-  const badge = cards[index]?.querySelector(".heartNewBadge");
-  if (badge) badge.remove();
-
   document.getElementById("modalTitle").textContent =
     data["タイトル"] || "";
 
