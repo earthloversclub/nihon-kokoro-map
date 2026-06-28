@@ -1368,6 +1368,27 @@ background-position:100% 50%;
   text-align:center;
   white-space:nowrap;
 }
+
+.newPinWrap{
+  position:relative;
+  text-align:center;
+}
+
+.newBadge{
+  position:absolute;
+  left:50%;
+  top:-18px;
+  transform:translateX(-50%);
+  background:#ff3b6b;
+  color:white;
+  font-size:11px;
+  font-weight:900;
+  padding:2px 7px;
+  border-radius:999px;
+  border:2px solid white;
+  box-shadow:0 1px 5px rgba(0,0,0,.25);
+  white-space:nowrap;
+}
   
 </style>
 </head>
@@ -1706,6 +1727,25 @@ className: ""
 })
 };
 
+function makeNewIcon(baseIcon) {
+  const size = baseIcon.options.iconSize;
+  const anchor = baseIcon.options.iconAnchor;
+  const popupAnchor = baseIcon.options.popupAnchor;
+
+  return L.divIcon({
+    html: `
+      <div class="newPinWrap">
+        <div class="newBadge">NEW!</div>
+        <img src="${baseIcon.options.iconUrl}" style="width:${size[0]}px;height:${size[1]}px;">
+      </div>
+    `,
+    className: "",
+    iconSize: [size[0], size[1] + 20],
+    iconAnchor: [anchor[0], anchor[1] + 20],
+    popupAnchor: popupAnchor
+  });
+}
+  
 function parseCSV(text) {
 const rows = [];
 let row = [], cell = '', quote = false;
@@ -1767,7 +1807,11 @@ prefectureCounts[prefecture] =
 prefectureThanks[prefecture] =
 (prefectureThanks[prefecture] || 0) + (Number(data["ありがとう数"]) || 0);
 }
+  
 const markerIcon = icons[category] || icon("blue");
+const spotId = data["ID"];
+const isViewed = localStorage.getItem("viewed_" + spotId);
+const displayMarkerIcon = isViewed ? markerIcon : makeNewIcon(markerIcon);
 
 let popup = `
 <div style="font-size:17px; line-height:1.45;">
@@ -1935,7 +1979,8 @@ marker = L.marker([lat, lng], { icon: specialIcon })
 });
 
 } else {
-marker = L.marker([lat, lng], { icon: markerIcon })
+  
+marker = L.marker([lat, lng], { icon: displayMarkerIcon })
 .bindPopup(popup, {
   minWidth: 230,
   maxWidth: 280,
@@ -1955,8 +2000,12 @@ allSpots.push({
 marker.category = category;
 
 marker.addTo(map);
+  
 marker.on("popupopen", function(){
   document.getElementById("mapSwitchBox").style.visibility = "hidden";
+
+  localStorage.setItem("viewed_" + spotId, "true");
+  marker.setIcon(markerIcon);
 });
 
 marker.on("popupclose", function(){
