@@ -650,17 +650,8 @@ fetch(heartCsvUrl + "&t=" + Date.now())
 const index = treasures.length - 1;
 const postId = data["ID"];
 const viewedKey = "heart_viewed_" + postId;
-localStorage.setItem(viewedKey, "true");
-
-const currentCard = document.querySelectorAll(".miniCard")[index];
-if (currentCard) {
-  const badge = currentCard.querySelector(".heartNewBadge");
-  if (badge) badge.remove();
-}
-
 const isViewed = localStorage.getItem(viewedKey);
 const thanksKey = "thanks_" + postId;
-      
 const hasVideo = data["動画"];
 
 const thumb =
@@ -670,7 +661,7 @@ const thumb =
   data["画像4"] ||
   (hasVideo ? getVideoThumb(hasVideo) : "");
 
-console.log("thumb=", thumb);      
+console.log("thumb=", thumb);     
 
 list.innerHTML += `
 <div class="miniCard" onclick="openDetail(${index})">
