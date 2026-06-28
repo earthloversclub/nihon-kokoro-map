@@ -647,11 +647,9 @@ fetch(heartCsvUrl + "&t=" + Date.now())
 
       treasures.push(data);
 
-      const index = treasures.length - 1;
-      const postId = data["ID"];
+const index = treasures.length - 1;
+const postId = data["ID"];
 const thanksKey = "thanks_" + postId;
-const alreadyThanks = localStorage.getItem(thanksKey);
-const hasVideo = data["動画"];
 
 const thumb =
   data["画像"] ||
@@ -664,7 +662,6 @@ console.log("thumb=", thumb);
 
 list.innerHTML += `
         <div class="miniCard" onclick="openDetail(${index})">
-        ${!isViewed ? `<div class="heartNewBadge">NEW!</div>` : ""}
         
 ${thumb ? `
 
