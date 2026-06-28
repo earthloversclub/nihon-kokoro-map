@@ -663,7 +663,7 @@ const thumb =
 console.log("thumb=", thumb);      
 
 list.innerHTML += `
-        <div class="miniCard" id="heartCard_${postId}" onclick="openDetail(${index})">
+        <div class="miniCard" onclick="openDetail(${index})">
         ${!isViewed ? `<div class="heartNewBadge">NEW!</div>` : ""}
         
 ${thumb ? `
@@ -693,12 +693,6 @@ function openDetail(index) {
   const data = treasures[index];
 const postId = data["ID"];
 localStorage.setItem("heart_viewed_" + postId, "true");
-
-const card = document.getElementById("heartCard_" + postId);
-if (card) {
-  const badge = card.querySelector(".heartNewBadge");
-  if (badge) badge.remove();
-}
   
   document.getElementById("modalTitle").textContent =
     data["タイトル"] || "";
