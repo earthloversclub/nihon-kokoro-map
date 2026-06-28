@@ -691,9 +691,7 @@ ${thumb ? `
 
 function openDetail(index) {
   const data = treasures[index];
-const postId = data["ID"];
-localStorage.setItem("heart_viewed_" + postId, "true");
-  
+
   document.getElementById("modalTitle").textContent =
     data["タイトル"] || "";
 
