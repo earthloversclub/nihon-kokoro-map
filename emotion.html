@@ -464,6 +464,25 @@
   width: 100% !important;
   margin: 12px 0 0 !important;
 }
+
+.miniCard{
+  position:relative;
+}
+
+.heartNewBadge{
+  position:absolute;
+  top:-10px;
+  left:-8px;
+  background:#ff3b6b;
+  color:white;
+  font-size:13px;
+  font-weight:900;
+  padding:3px 8px;
+  border-radius:999px;
+  border:2px solid white;
+  box-shadow:0 2px 6px rgba(0,0,0,.25);
+  z-index:5;
+}
     
   </style>
 </head>
@@ -643,10 +662,12 @@ const thumb =
 
 console.log("thumb=", thumb);      
 
-      list.innerHTML += `
-        <div class="miniCard" onclick="openDetail(${index})">
+list.innerHTML += `
+        <div class="miniCard" id="heartCard_${postId}" onclick="openDetail(${index})">
+        ${!isViewed ? `<div class="heartNewBadge">NEW!</div>` : ""}
         
 ${thumb ? `
+
   <div class="thumbWrap">
     <img src="${thumb}" alt="">
     ${hasVideo && !data["画像"] ? `<div class="playMark">▶</div>` : ""}
@@ -670,7 +691,15 @@ ${thumb ? `
 
 function openDetail(index) {
   const data = treasures[index];
+const postId = data["ID"];
+localStorage.setItem("heart_viewed_" + postId, "true");
 
+const card = document.getElementById("heartCard_" + postId);
+if (card) {
+  const badge = card.querySelector(".heartNewBadge");
+  if (badge) badge.remove();
+}
+  
   document.getElementById("modalTitle").textContent =
     data["タイトル"] || "";
 
@@ -726,6 +755,8 @@ function openDetail(index) {
     escapeHtml(data["本文"] || "").replace(/\n/g, "<br>");
 
 const postId = data["ID"];
+const viewedKey = "heart_viewed_" + postId;
+const isViewed = localStorage.getItem(viewedKey);
 const thanksKey = "thanks_" + postId;
 const alreadyThanks = localStorage.getItem(thanksKey);
 const thanksBtn = document.getElementById("modalThanksBtn");
