@@ -965,6 +965,13 @@ margin-top:10px;
   transform:scale(1.03);
 }
 
+.nameGuideNote{
+  margin-top:12px;
+  font-size:16px;
+  color:#cc4c6b;
+  text-shadow:0 0 4px rgba(255,255,255,0.9);
+}
+  
 @media (max-width: 767px){
 
   #nameGuideBox{
@@ -1192,7 +1199,14 @@ z-index: 3000 !important;
     height: 96px;
     font-size: 16px;
   }
+
+.nameGuideNote{
+  font-size:13px;
+  margin-top:10px;
 }
+
+}
+  
 .leaflet-popup-content{
   max-height: 68vh;
   overflow-y: auto;
@@ -1683,8 +1697,11 @@ background-position:100% 50%;
     </div>
 
     <button id="nameGuideRegisterBtn" type="button" onclick="registerMyName()">
-      🌸 名前を登録する 🌸
+      名前を登録して始める
     </button>
+    <div class="nameGuideNote">
+  ※名前はいつでも変更できます😊
+</div>
   </div>
 </div>
   
