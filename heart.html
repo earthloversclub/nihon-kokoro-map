@@ -148,19 +148,19 @@
     💓感動の島🏝<span class="count" id="countEmotion">0件</span>
   </a>
 
-  <a class="island experience" href="experience.html">
+  <a class="island experience" href="experience.html" id="experienceIsland">
     🌟体験の島🏝<span class="count" id="countExperience">0件</span>
   </a>
 
-  <a class="island learning" href="learning.html">
+  <a class="island learning" href="learning.html" id="learningIsland">
     📚学びの島🏝<span class="count" id="countLearning">0件</span>
   </a>
 
-  <a class="island thanks" href="thanks.html">
+  <a class="island thanks" href="thanks.html" id="thanksIsland">
     🌸感謝の島🏝<span class="count" id="countThanks">0件</span>
   </a>
 
-  <a class="island healing" href="healing.html">
+  <a class="island healing" href="healing.html" id="healingIsland">
     🐱癒しの島🏝<span class="count" id="countHealing">0件</span>
   </a>
 </div>
@@ -233,28 +233,38 @@ fetch(heartCsvUrl + "&t=" + Date.now())
       }
     });
 
-    document.getElementById("countEmotion").textContent = counts["🏝感動の島"] + "件";
-    document.getElementById("countExperience").textContent = counts["🏝体験の島"] + "件";
-    document.getElementById("countLearning").textContent = counts["🏝学びの島"] + "件";
-    document.getElementById("countThanks").textContent = counts["🏝感謝の島"] + "件";
-    document.getElementById("countHealing").textContent = counts["🏝癒しの島"] + "件";
-    
-    const emotionUnread = rows.slice(1).some(row => {
-  const data = {};
-  headers.forEach((h, i) => data[h] = row[i] || "");
+document.getElementById("countEmotion").textContent = counts["🏝感動の島"] + "件";
+document.getElementById("countExperience").textContent = counts["🏝体験の島"] + "件";
+document.getElementById("countLearning").textContent = counts["🏝学びの島"] + "件";
+document.getElementById("countThanks").textContent = counts["🏝感謝の島"] + "件";
+document.getElementById("countHealing").textContent = counts["🏝癒しの島"] + "件";
 
-  if (data["表示"] !== "表示") return false;
-  if (data["島カテゴリ"] !== "🏝感動の島") return false;
+const islands = [
+  { name: "🏝感動の島", id: "emotionIsland" },
+  { name: "🏝体験の島", id: "experienceIsland" },
+  { name: "🏝学びの島", id: "learningIsland" },
+  { name: "🏝感謝の島", id: "thanksIsland" },
+  { name: "🏝癒しの島", id: "healingIsland" }
+];
 
-  return !localStorage.getItem("heart_viewed_" + data["ID"]);
+islands.forEach(island => {
+  const unread = rows.slice(1).some(row => {
+    const data = {};
+    headers.forEach((h, i) => data[h] = row[i] || "");
+
+    if (data["表示"] !== "表示") return false;
+    if (data["島カテゴリ"] !== island.name) return false;
+
+    return !localStorage.getItem("heart_viewed_" + data["ID"]);
+  });
+
+  if (unread) {
+    document.getElementById(island.id).insertAdjacentHTML(
+      "afterbegin",
+      `<span class="newIsland">NEW!</span>`
+    );
+  }
 });
-
-if (emotionUnread) {
-  document.getElementById("emotionIsland").insertAdjacentHTML(
-    "afterbegin",
-    `<span class="newIsland">NEW!</span>`
-  );
-}
   });
 </script>
   
