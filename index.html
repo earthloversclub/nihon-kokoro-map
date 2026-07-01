@@ -1825,19 +1825,17 @@ localStorage.setItem("treasureMapAccess", "ok");
 document.getElementById("passwordGate").style.display = "none";
 
 setTimeout(() => {
-map.invalidateSize();
+  map.invalidateSize();
+
+  const guide = document.getElementById("nameGuideOverlay");
+
+  if (guide && !localStorage.getItem("myPosterName")) {
+    guide.style.display = "flex";
+  }
 }, 800);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
-  setTimeout(() => {
-    const guide = document.getElementById("nameGuideOverlay");
-
-    if (guide && !localStorage.getItem("myPosterName")) {
-      guide.style.display = "flex";
-    }
-  }, 3200);
   
   setTimeout(() => {
     const btn = document.getElementById("registerNameBtn");
