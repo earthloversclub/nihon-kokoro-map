@@ -772,6 +772,88 @@ margin-top:10px;
   box-sizing: border-box;
 }
 
+@media (min-width: 768px) {
+
+#myRecordBox{
+  position:absolute;
+  top:95px;
+  right:390px;
+  width:230px;
+  z-index:2000;
+  text-align:center;
+  color:#222;
+  font-weight:bold;
+  text-shadow:
+    0 0 5px white,
+    0 0 10px white,
+    0 0 16px white;
+  line-height:1.35;
+  pointer-events:none;
+}
+
+.myRecordTitle{
+  font-size:22px;
+  margin-bottom:6px;
+}
+
+.myRecordTopRow{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  margin:4px 0;
+  white-space:nowrap;
+}
+
+.myRecordTopText{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  white-space:nowrap;
+}
+
+.myRecordRow{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  font-size:20px;
+  margin:4px 0;
+}
+
+.recordIcon{
+  flex:0 0 34px;
+  width:34px;
+  text-align:center;
+}
+
+.recordLabel{
+  flex:0 0 95px;
+  width:95px;
+  text-align:left;
+}
+
+.recordValue{
+  flex:1;
+  text-align:right;
+  white-space:nowrap;
+}
+
+.myRecordPointRow{
+  display:grid;
+  grid-template-columns:34px 1fr 34px;
+  align-items:center;
+  font-size:20px;
+  margin:4px 0;
+}
+
+.myRecordPointText{
+  grid-column:2;
+  justify-self:center;
+  white-space:nowrap;
+}
+
+}
+  
 @media (max-width: 767px) {
 
 /* @media (max-width: 767px) 内
