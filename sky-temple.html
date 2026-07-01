@@ -748,6 +748,23 @@ animation-play-state:paused;
   font-weight:bold;
   box-shadow:0 1px 6px rgba(0,0,0,.18);
 }
+
+.changeNameNote{
+  width:min(520px,90%);
+  margin:-60px auto 40px;
+  text-align:center;
+
+  font-size:14px;
+  line-height:1.7;
+  color:#7a4d3a;
+
+  text-shadow:
+    0 0 5px rgba(255,255,255,.9);
+
+  background:rgba(255,255,255,.55);
+  padding:14px 18px;
+  border-radius:18px;
+}
   
 </style>
 </head>
@@ -803,6 +820,16 @@ animation-play-state:paused;
   <button id="changeNameBtn" onclick="changeMyName()">
     ✏️ 名前を変更
   </button>
+
+  <div class="changeNameNote">
+    💡 名前はいつでも変更できます<br><br>
+
+    ※変更すると投稿数・ありがとう・レベルは<br>
+    新しい名前で記録されます。<br><br>
+
+    ※以前に送った「ありがとう」は<br>
+    引き継がれず、再び送ることはできません。
+  </div>
 </div>
 
 </div>
