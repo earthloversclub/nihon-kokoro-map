@@ -748,6 +748,14 @@ function openDetail(index) {
     escapeHtml(data["本文"] || "").replace(/\n/g, "<br>");
 
 const postId = data["ID"];
+const viewedKey = "heart_viewed_" + postId;
+localStorage.setItem(viewedKey, "true");
+
+const currentCard = document.querySelectorAll(".miniCard")[index];
+if (currentCard) {
+  const badge = currentCard.querySelector(".heartNewBadge");
+  if (badge) badge.remove();
+}  
 const thanksKey = "thanks_" + postId;
 const alreadyThanks = localStorage.getItem(thanksKey);
 const thanksBtn = document.getElementById("modalThanksBtn");
