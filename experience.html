@@ -406,6 +406,25 @@
 
 }
 
+.miniCard{
+  position:relative;
+}
+
+.heartNewBadge{
+  position:absolute;
+  top:-10px;
+  left:-8px;
+  background:#ff3b6b;
+  color:white;
+  font-size:13px;
+  font-weight:900;
+  padding:3px 8px;
+  border-radius:999px;
+  border:2px solid white;
+  box-shadow:0 2px 6px rgba(0,0,0,.25);
+  z-index:5;
+}
+    
 .modalContent {
   width: 360px !important;
   max-width: calc(100vw - 20px) !important;
@@ -632,8 +651,11 @@ fetch(heartCsvUrl + "&t=" + Date.now())
 
       treasures.push(data);
 
-      const index = treasures.length - 1;
-      
+const index = treasures.length - 1;
+const postId = data["ID"];
+const viewedKey = "heart_viewed_" + postId;
+const isViewed = localStorage.getItem(viewedKey);
+const thanksKey = "thanks_" + postId;
 const hasVideo = data["動画"];
 
 const thumb =
@@ -646,7 +668,9 @@ const thumb =
 console.log("thumb=", thumb);      
 
       list.innerHTML += `
-        <div class="miniCard" onclick="openDetail(${index})">
+<div class="miniCard" onclick="openDetail(${index})">
+${!isViewed ? `<div class="heartNewBadge">NEW!</div>` : ""}
+${!isViewed ? `<div class="heartNewBadge">NEW!</div>` : ""}
         
 ${thumb ? `
   <div class="thumbWrap">
