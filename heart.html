@@ -109,6 +109,19 @@
   color: #7a3f9d;
   font-weight: bold;
 }
+
+.newIsland{
+  display:inline-block;
+  margin-right:10px;
+  padding:2px 8px;
+  background:#ff3b6b;
+  color:#fff;
+  font-size:13px;
+  font-weight:bold;
+  border-radius:999px;
+  border:2px solid white;
+  box-shadow:0 2px 6px rgba(0,0,0,.2);
+}
     
   </style>
 </head>
@@ -131,7 +144,7 @@
   </div>
 
 <div class="islands">
-  <a class="island emotion" href="emotion.html">
+  <a class="island emotion" href="emotion.html" id="emotionIsland">
     💓感動の島🏝<span class="count" id="countEmotion">0件</span>
   </a>
 
@@ -225,6 +238,23 @@ fetch(heartCsvUrl + "&t=" + Date.now())
     document.getElementById("countLearning").textContent = counts["🏝学びの島"] + "件";
     document.getElementById("countThanks").textContent = counts["🏝感謝の島"] + "件";
     document.getElementById("countHealing").textContent = counts["🏝癒しの島"] + "件";
+    
+    const emotionUnread = rows.slice(1).some(row => {
+  const data = {};
+  headers.forEach((h, i) => data[h] = row[i] || "");
+
+  if (data["表示"] !== "表示") return false;
+  if (data["島カテゴリ"] !== "🏝感動の島") return false;
+
+  return !localStorage.getItem("heart_viewed_" + data["ID"]);
+});
+
+if (emotionUnread) {
+  document.getElementById("emotionIsland").insertAdjacentHTML(
+    "afterbegin",
+    `<span class="newIsland">NEW!</span>`
+  );
+}
   });
 </script>
   
