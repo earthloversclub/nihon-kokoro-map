@@ -214,65 +214,95 @@ function parseCSV(text) {
 }
 
 /* CSV loading and island updates */
-fetch(heartCsvUrl)
-  .then(response => response.text())
-  .then(csv => {
-    const rows = parseCSV(csv);
-    const headers = rows[0];
+const HEART_CACHE_KEY = "heartCsvCache";
+const HEART_CACHE_TIME_KEY = "heartCsvCacheTime";
+const HEART_CACHE_LIMIT = 10 * 60 * 1000;
 
-    const counts = {
-      "🏝感動の島": 0,
-      "🏝体験の島": 0,
-      "🏝学びの島": 0,
-      "🏝感謝の島": 0,
-      "🏝癒しの島": 0
-    };
+function saveHeartCsvCache(csv) {
+  localStorage.setItem(HEART_CACHE_KEY, csv);
+  localStorage.setItem(HEART_CACHE_TIME_KEY, String(Date.now()));
+}
 
-    rows.slice(1).forEach(row => {
+function getHeartCsvCache() {
+  const csv = localStorage.getItem(HEART_CACHE_KEY);
+  const savedTime = Number(localStorage.getItem(HEART_CACHE_TIME_KEY) || 0);
+
+  if (!csv || !savedTime) return null;
+
+  const isFresh = Date.now() - savedTime < HEART_CACHE_LIMIT;
+  if (!isFresh) return null;
+
+  return csv;
+}
+
+function updateHeartIslands(csv) {
+  const rows = parseCSV(csv);
+  const headers = rows[0];
+
+  const counts = {
+    "🏝感動の島": 0,
+    "🏝体験の島": 0,
+    "🏝学びの島": 0,
+    "🏝感謝の島": 0,
+    "🏝癒しの島": 0
+  };
+
+  rows.slice(1).forEach(row => {
+    const data = {};
+    headers.forEach((h, i) => data[h] = row[i] || "");
+
+    if (data["表示"] !== "表示") return;
+
+    if (counts[data["島カテゴリ"]] !== undefined) {
+      counts[data["島カテゴリ"]]++;
+    }
+  });
+
+  const islands = [
+    { name: "🏝感動の島", id: "emotionIsland", countId: "countEmotion" },
+    { name: "🏝体験の島", id: "experienceIsland", countId: "countExperience" },
+    { name: "🏝学びの島", id: "learningIsland", countId: "countLearning" },
+    { name: "🏝感謝の島", id: "thanksIsland", countId: "countThanks" },
+    { name: "🏝癒しの島", id: "healingIsland", countId: "countHealing" }
+  ];
+
+  islands.forEach(island => {
+    document.getElementById(island.countId).textContent =
+      counts[island.name] + "件";
+  });
+
+  islands.forEach(island => {
+    const unread = rows.slice(1).some(row => {
       const data = {};
       headers.forEach((h, i) => data[h] = row[i] || "");
 
-      if (data["表示"] !== "表示") return;
+      if (data["表示"] !== "表示") return false;
+      if (data["島カテゴリ"] !== island.name) return false;
 
-      if (counts[data["島カテゴリ"]] !== undefined) {
-        counts[data["島カテゴリ"]]++;
-      }
+      return !localStorage.getItem("heart_viewed_" + data["ID"]);
     });
 
-    /* Island definitions */
-    const islands = [
-      { name: "🏝感動の島", id: "emotionIsland", countId: "countEmotion" },
-      { name: "🏝体験の島", id: "experienceIsland", countId: "countExperience" },
-      { name: "🏝学びの島", id: "learningIsland", countId: "countLearning" },
-      { name: "🏝感謝の島", id: "thanksIsland", countId: "countThanks" },
-      { name: "🏝癒しの島", id: "healingIsland", countId: "countHealing" }
-    ];
-
-    /* Count display */
-    islands.forEach(island => {
-      document.getElementById(island.countId).textContent = counts[island.name] + "件";
-    });
-
-    /* NEW badge display */
-    islands.forEach(island => {
-      const unread = rows.slice(1).some(row => {
-        const data = {};
-        headers.forEach((h, i) => data[h] = row[i] || "");
-
-        if (data["表示"] !== "表示") return false;
-        if (data["島カテゴリ"] !== island.name) return false;
-
-        return !localStorage.getItem("heart_viewed_" + data["ID"]);
-      });
-
-      if (unread) {
-        document.getElementById(island.id).insertAdjacentHTML(
-          "afterbegin",
-          `<span class="newIsland">NEW!</span>`
-        );
-      }
-    });
+    if (unread && !document.querySelector(`#${island.id} .newIsland`)) {
+      document.getElementById(island.id).insertAdjacentHTML(
+        "afterbegin",
+        `<span class="newIsland">NEW!</span>`
+      );
+    }
   });
+}
+
+const cachedHeartCsv = getHeartCsvCache();
+
+if (cachedHeartCsv) {
+  updateHeartIslands(cachedHeartCsv);
+} else {
+  fetch(heartCsvUrl)
+    .then(response => response.text())
+    .then(csv => {
+      saveHeartCsvCache(csv);
+      updateHeartIslands(csv);
+    });
+}
 </script>
   
 </body>
