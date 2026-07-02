@@ -97,14 +97,3 @@ function loadHeartData(callback) {
       callback(rows, headers);
     });
 }
-
-  fetch(HEART_CSV_URL + "&t=" + Date.now())
-    .then(response => response.text())
-    .then(csv => {
-      saveHeartCsvCache(csv);
-
-      const rows = parseHeartCSV(csv);
-      const headers = rows[0];
-      callback(rows, headers);
-    });
-}
