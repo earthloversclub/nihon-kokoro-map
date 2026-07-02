@@ -527,6 +527,7 @@
 
 </div>
 
+<script src="heartData.js"></script>  
 <script>
 
 /* State */
@@ -615,9 +616,7 @@ function getVideoThumb(url) {
 }
 
 /* Treasure loading */
-function loadEmotionTreasures(csv) {
-  const rows = parseCSV(csv);
-  const headers = rows[0];
+function loadEmotionTreasures(rows, headers) {
   const list = document.getElementById("treasureList");
 
   rows.slice(1).forEach(row => {
@@ -668,20 +667,10 @@ ${thumb ? `
   }
 }
 
-const cachedHeartCsv = localStorage.getItem("heartCsvCache");
-
-if (cachedHeartCsv) {
-  loadEmotionTreasures(cachedHeartCsv);
-} else {
-  fetch(heartCsvUrl)
-    .then(response => response.text())
-    .then(csv => {
-      localStorage.setItem("heartCsvCache", csv);
-      localStorage.setItem("heartCsvCacheTime", String(Date.now()));
-      loadEmotionTreasures(csv);
-    });
-}
-
+loadHeartData(function(rows, headers) {
+  loadEmotionTreasures(rows, headers);
+});
+  
 /* Detail modal */
 function openDetail(index) {
   const data = treasures[index];
