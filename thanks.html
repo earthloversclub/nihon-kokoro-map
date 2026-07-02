@@ -546,7 +546,7 @@
   <button id="imageNextBtn" class="imageNavBtn right" onclick="changeLargeImage(1)">▶</button>
 
 </div>
-
+<script src="heartData.js?v=2"></script>
 <script>
 /* State */
 let currentMedia = [];
@@ -634,43 +634,35 @@ function getVideoThumb(url) {
 }
 
 /* Treasure loading */
-fetch(heartCsvUrl)
-  .then(response => response.text())
-  .then(csv => {
-    const rows = parseCSV(csv);
-    const headers = rows[0];
-    const list = document.getElementById("treasureList");
+function loadThanksTreasures(rows, headers) {
+  const list = document.getElementById("treasureList");
 
-    rows.slice(1).forEach(row => {
-      const data = {};
-      headers.forEach((h, i) => data[h] = row[i]);
+  rows.slice(1).forEach(row => {
+    const data = {};
+    headers.forEach((h, i) => data[h] = row[i] || "");
 
-      if (data["表示"] !== "表示") return;
-      if (data["島カテゴリ"] !== "🏝感謝の島") return;
+    if (data["表示"] !== "表示") return;
+    if (data["島カテゴリ"] !== "🏝感謝の島") return;
 
-      treasures.push(data);
+    treasures.push(data);
 
-      const index = treasures.length - 1;
-      const postId = data["ID"];
-      const viewedKey = "heart_viewed_" + postId;
-      const isViewed = localStorage.getItem(viewedKey);
-      const thanksKey = "thanks_" + postId;
-      const hasVideo = data["動画"];
+    const index = treasures.length - 1;
+    const postId = data["ID"];
+    const viewedKey = "heart_viewed_" + postId;
+    const isViewed = localStorage.getItem(viewedKey);
+    const hasVideo = data["動画"];
 
-      const thumb =
+    const thumb =
       data["画像"] ||
       data["画像2"] ||
       data["画像3"] ||
       data["画像4"] ||
       (hasVideo ? getVideoThumb(hasVideo) : "");
 
-      console.log("thumb=", thumb);
-
-
-      list.innerHTML += `
+    list.innerHTML += `
 <div class="miniCard" onclick="openDetail(${index})">
 ${!isViewed ? `<div class="heartNewBadge">NEW!</div>` : ""}
-        
+
 ${thumb ? `
   <div class="thumbWrap">
     <img src="${thumb}" alt="">
@@ -678,16 +670,24 @@ ${thumb ? `
   </div>
 ` : ""}
 
-          <div class="miniTitle">${escapeHtml(data["タイトル"] || "")}</div>
-          <div class="miniPoster">投稿者：${escapeHtml(data["投稿者"] || "匿名さん")}</div>
-        </div>
-      `;
-    });
+<div class="miniTitle">${escapeHtml(data["タイトル"] || "")}</div>
 
-    if (!list.innerHTML.trim()) {
-      list.innerHTML = `<div class="message">まだ感謝の宝物はありません🌱</div>`;
-    }
+<div class="miniPoster">
+投稿者：${escapeHtml(data["投稿者"] || "匿名さん")}
+</div>
+
+</div>
+    `;
   });
+
+  if (!list.innerHTML.trim()) {
+    list.innerHTML = `<div class="message">まだ感謝の宝物はありません🌱</div>`;
+  }
+}
+
+loadHeartData(function(rows, headers) {
+  loadThanksTreasures(rows, headers);
+});
 
 /* Detail modal */
 function openDetail(index) {
