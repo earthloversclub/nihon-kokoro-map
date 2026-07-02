@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -7,14 +7,15 @@
   <title>🌟体験の島🏝</title>
 
   <style>
+    /* Base layout */
     body {
       margin: 0;
       font-family: sans-serif;
       background: linear-gradient(
-  180deg,
-  #fff8ec,
-    #ffe8c2
-  );
+        180deg,
+        #fff8ec,
+        #ffe8c2
+      );
       color: #2f5f3a;
       text-align: center;
     }
@@ -46,6 +47,7 @@
       margin-bottom: 28px;
     }
 
+    /* Treasure list */
     #treasureList {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -55,12 +57,13 @@
 
     .miniCard {
       background: white;
-      border:2px solid #e0b347;
+      border: 2px solid #e0b347;
       border-radius: 18px;
       padding: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       cursor: pointer;
       text-align: center;
+      position: relative;
     }
 
     .miniCard img {
@@ -85,175 +88,173 @@
       font-weight: bold;
     }
 
-.videoThumb {
-  width: 100%;
-  height: 85px;
-  border-radius: 6px;
-  object-fit: cover;
-  display: block;
-  margin: 0;
-  border: none;
-}
-    
-.thumbWrap {
-  position: relative;
-}
+    /* Media thumbnails */
+    .videoThumb {
+      width: 100%;
+      height: 85px;
+      border-radius: 6px;
+      object-fit: cover;
+      display: block;
+      margin: 0;
+      border: none;
+    }
 
-.playMark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0,0,0,0.65);
-  color: white;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  padding-left: 3px;
-}
-    
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 99999;
-  inset: 0;
-  background: rgba(0,0,0,0.65);
-  padding: 12px;
-  box-sizing: border-box;
-  overflow-y: auto;
-}
+    .thumbWrap {
+      position: relative;
+    }
 
-.modalContent {
-  background: white;
-  width: 280px;
-  max-width: calc(100vw - 28px);
-  margin: 40px auto;
-  border-radius: 14px;
-  padding: 12px;
-  text-align: left;
-  border: 4px solid #e0b347;
-  box-shadow: 0 0 15px rgba(255,215,120,0.6);
+    .playMark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.65);
+      color: white;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      padding-left: 3px;
+    }
 
-  position: relative;
-}
+    /* Detail modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99999;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      padding: 12px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
 
- .detailClose {
-  position: absolute;
-  top: 6px;
-  right: 10px;
-  font-size: 22px;
-  font-weight: bold;
-  color: #777;
-  cursor: pointer;
-  line-height: 1;
-}   
+    .modalContent {
+      background: white;
+      width: 280px;
+      max-width: calc(100vw - 28px);
+      margin: 40px auto;
+      border-radius: 14px;
+      padding: 12px;
+      text-align: left;
+      border: 4px solid #e0b347;
+      box-shadow: 0 0 15px rgba(255,215,120,0.6);
+      position: relative;
+    }
 
-.modalContent h2 {
-  font-size: 22px;
-  text-align: left;
-  color: #111;
-  margin: 0 0 4px;
-}
+    .detailClose {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #777;
+      cursor: pointer;
+      line-height: 1;
+    }
 
-.poster {
-  text-align: left;
-  font-size: 18px;
-  font-weight: normal;
-  color: #333;
-  margin-bottom: 6px;
-}
+    .modalContent h2 {
+      font-size: 22px;
+      text-align: left;
+      color: #111;
+      margin: 0 0 4px;
+    }
 
-.detailImages {
-  width: 100%;
-  margin: 8px 0;
-}
+    .poster {
+      text-align: left;
+      font-size: 18px;
+      font-weight: normal;
+      color: #333;
+      margin-bottom: 6px;
+    }
 
-.detailImages img,
-.detailImages .videoThumb {
-  width: 100%;
-  height: 125px;
-  object-fit: cover;
-  border-radius: 6px;
-  cursor: pointer;
-  display: block;
-  margin: 0;
-}
+    .detailImages {
+      width: 100%;
+      margin: 8px 0;
+    }
 
-.detailImages.count-1 {
-  display: block;
-}
+    /* Detail media grid */
+    .detailImages img,
+    .detailImages .videoThumb {
+      width: 100%;
+      height: 125px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      display: block;
+      margin: 0;
+    }
 
-.detailImages.count-1 img,
-.detailImages.count-1 .videoThumb {
-  width: 220px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
+    .detailImages.count-1 {
+      display: block;
+    }
 
-.detailImages.count-2,
-.detailImages.count-4 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4px;
-}
+    .detailImages.count-1 img,
+    .detailImages.count-1 .videoThumb {
+      width: 220px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
 
-.detailImages.count-3 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4px;
-}
+    .detailImages.count-2,
+    .detailImages.count-3,
+    .detailImages.count-4 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+    }
 
-.detailImages.count-3 > :first-child {
-  grid-row: 1 / span 2;
-}
+    .detailImages.count-3 > :first-child {
+      grid-row: 1 / span 2;
+    }
 
-.detailImages.count-3 > :first-child img,
-.detailImages.count-3 > :first-child .videoThumb,
-.detailImages.count-3 > img:first-child {
-  height: 254px !important;
-}
+    .detailImages.count-3 > :first-child img,
+    .detailImages.count-3 > :first-child .videoThumb,
+    .detailImages.count-3 > img:first-child {
+      height: 254px !important;
+    }
 
-.detailImages .thumbWrap {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
+    .detailImages .thumbWrap {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
-.detailVideo {
-  width: 100%;
-  height: 260px;
-  border: none;
-  border-radius: 14px;
-  margin-bottom: 16px;
-  background: black;
-}
+    .detailVideo {
+      width: 100%;
+      height: 260px;
+      border: none;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      background: black;
+    }
 
-.text {
-   font-size: 17px;
-  line-height: 1.7;
-  color: #333;
-  margin: 6px 0 8px;
-}
-    
-.closeButton {
-  display: block;
-  margin: 12px auto 0;
-  padding: 7px 18px;
-  border: none;
-  border-radius: 999px;
-  background: #fff1dd;
-　　　color: #d97706;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    .text {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #333;
+      margin: 6px 0 8px;
+    }
 
+    .closeButton {
+      display: block;
+      margin: 12px auto 0;
+      padding: 7px 18px;
+      border: none;
+      border-radius: 999px;
+      background: #fff1dd;
+      color: #d97706;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Image modal */
     .imageModal {
       display: none;
       position: fixed;
@@ -279,7 +280,8 @@
       font-weight: bold;
       cursor: pointer;
     }
-    
+
+    /* Navigation */
     .buttonArea {
       margin-top: 28px;
     }
@@ -297,6 +299,134 @@
       box-shadow: 0 3px 8px rgba(0,0,0,0.18);
     }
 
+    /* Thanks */
+    .heartThanksBtn {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 999px;
+      background: #ffdff0;
+      color: #c03c74;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .heartThanksBtn.thanked {
+      background: #dddddd;
+      color: #777;
+      cursor: default;
+    }
+
+    .heartThanksMessage {
+      display: none;
+      margin-top: 10px;
+      text-align: center;
+      color: #c03c74;
+      font-size: 15px;
+      font-weight: bold;
+      animation: thanksFloat 1.4s ease forwards;
+    }
+
+    @keyframes thanksFloat {
+      0% {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      25% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      75% {
+        opacity: 1;
+        transform: translateY(-4px);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Large media controls */
+    .imageNavBtn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+      width: 56px;
+      height: 56px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.8);
+      color: #333;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .imageNavBtn.left {
+      left: 20px;
+    }
+
+    .imageNavBtn.right {
+      right: 20px;
+    }
+
+    #largeImage,
+    #largeVideo {
+      max-width: 92%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+
+    #largeImage {
+      cursor: zoom-in;
+      user-select: none;
+      touch-action: none;
+    }
+
+    #largeImage.isZoomed {
+      cursor: grab;
+    }
+
+    #largeImage.isDragging {
+      cursor: grabbing;
+    }
+
+    #largeVideo {
+      width: 92%;
+      height: 70%;
+      border: none;
+      background: black;
+      display: none;
+    }
+
+    #largeSwipeStage {
+      display: none;
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .largeSwipeImage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      max-width: 92%;
+      max-height: 90%;
+      border-radius: 12px;
+      transform: translate(-50%, -50%);
+      user-select: none;
+      touch-action: none;
+    }
+
+    /* Responsive */
     @media (max-width: 420px) {
       #treasureList {
         gap: 10px;
@@ -319,172 +449,39 @@
       }
     }
 
- .imageNavBtn{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  z-index:9999;
+    @media (max-width: 768px) {
+      .imageNavBtn {
+        display: none !important;
+      }
+    }
 
-  width:56px;
-  height:56px;
+    /* Final modal sizing */
+    .modalContent {
+      width: 360px !important;
+      max-width: calc(100vw - 20px) !important;
+      padding: 14px !important;
+    }
 
-  border:none;
-  border-radius:50%;
+    .detailImages {
+      width: 100% !important;
+      margin: 12px 0 0 !important;
+    }
 
-  background:rgba(255,255,255,0.8);
-  color:#333;
-
-  font-size:30px;
-  font-weight:bold;
-
-  cursor:pointer;
-}
-
-.imageNavBtn.left{
-  left:20px;
-}
-
-.imageNavBtn.right{
-  right:20px;
-} 
-
-#largeImage,
-#largeVideo {
-  max-width: 92%;
-  max-height: 90%;
-  border-radius: 12px;
-}
-
-#largeImage {
-  cursor: zoom-in;
-  user-select: none;
-  touch-action: none;
-}
-
-#largeImage.isZoomed {
-  cursor: grab;
-}
-
-#largeImage.isDragging {
-  cursor: grabbing;
-}
-
-#largeVideo {
-  width: 92%;
-  height: 70%;
-  border: none;
-  background: black;
-  display: none;
-}
-
-
-#largeSwipeStage {
-  display: none;
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.largeSwipeImage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  max-width: 92%;
-  max-height: 90%;
-  border-radius: 12px;
-  transform: translate(-50%, -50%);
-  user-select: none;
-  touch-action: none;
-}
-    
-@media (max-width: 768px) {
-
-  .imageNavBtn {
-    display: none !important;
-  }
-
-}
-
-.miniCard{
-  position:relative;
-}
-
-.heartNewBadge{
-  position:absolute;
-  top:-10px;
-  left:-8px;
-  background:#ff3b6b;
-  color:white;
-  font-size:13px;
-  font-weight:900;
-  padding:3px 8px;
-  border-radius:999px;
-  border:2px solid white;
-  box-shadow:0 2px 6px rgba(0,0,0,.25);
-  z-index:5;
-}
-    
-.modalContent {
-  width: 360px !important;
-  max-width: calc(100vw - 20px) !important;
-  padding: 14px !important;
-}
-
-.detailImages {
-  width: 100% !important;
-  margin: 12px 0 0 !important;
-}
-
-.heartThanksBtn{
-  display:block;
-  width:100%;
-  margin-top:10px;
-  padding:10px;
-  border:none;
-  border-radius:999px;
-  background:#ffdff0;
-  color:#c03c74;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.heartThanksBtn.thanked{
-  background:#dddddd;
-  color:#777;
-  cursor:default;
-}
-
-.heartThanksMessage{
-  display:none;
-  margin-top:10px;
-  text-align:center;
-  color:#c03c74;
-  font-size:15px;
-  font-weight:bold;
-  animation: thanksFloat 1.4s ease forwards;
-}
-
-@keyframes thanksFloat{
-  0%{
-    opacity:0;
-    transform:translateY(8px);
-  }
-  25%{
-    opacity:1;
-    transform:translateY(0);
-  }
-  75%{
-    opacity:1;
-    transform:translateY(-4px);
-  }
-  100%{
-    opacity:0;
-    transform:translateY(-10px);
-  }
-}
-    
+    /* NEW badge */
+    .heartNewBadge {
+      position: absolute;
+      top: -10px;
+      left: -8px;
+      background: #ff3b6b;
+      color: white;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 2px solid white;
+      box-shadow: 0 2px 6px rgba(0,0,0,.25);
+      z-index: 5;
+    }
   </style>
 </head>
 
@@ -552,7 +549,7 @@
 </div>
 
 <script>
-
+/* State */
 let currentMedia = [];
 let currentMediaIndex = 0;
 let largeImageScale = 1;
@@ -565,11 +562,12 @@ let isLargeImagePinching = false;
 let largeImagePinchStartDistance = 0;
 let largeImagePinchStartScale = 1;
 
-  
+/* Config */
 const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
 const GAS_URL = "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec";
 let treasures = [];
 
+/* CSV and text helpers */
 function parseCSV(text) {
   const rows = [];
   let row = [], cell = '', quote = false;
@@ -634,7 +632,8 @@ function getVideoThumb(url) {
     ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000`
     : "";
 }
-  
+
+/* Treasure loading */
 fetch(heartCsvUrl + "&t=" + Date.now())
   .then(response => response.text())
   .then(csv => {
@@ -651,21 +650,22 @@ fetch(heartCsvUrl + "&t=" + Date.now())
 
       treasures.push(data);
 
-const index = treasures.length - 1;
-const postId = data["ID"];
-const viewedKey = "heart_viewed_" + postId;
-const isViewed = localStorage.getItem(viewedKey);
-const thanksKey = "thanks_" + postId;
-const hasVideo = data["動画"];
+      const index = treasures.length - 1;
+      const postId = data["ID"];
+      const viewedKey = "heart_viewed_" + postId;
+      const isViewed = localStorage.getItem(viewedKey);
+      const thanksKey = "thanks_" + postId;
+      const hasVideo = data["動画"];
 
-const thumb =
-  data["画像"] ||
-  data["画像2"] ||
-  data["画像3"] ||
-  data["画像4"] ||
-  (hasVideo ? getVideoThumb(hasVideo) : "");
+      const thumb =
+      data["画像"] ||
+      data["画像2"] ||
+      data["画像3"] ||
+      data["画像4"] ||
+      (hasVideo ? getVideoThumb(hasVideo) : "");
 
-console.log("thumb=", thumb);      
+      console.log("thumb=", thumb);
+
 
       list.innerHTML += `
 <div class="miniCard" onclick="openDetail(${index})">
@@ -690,6 +690,7 @@ ${thumb ? `
     }
   });
 
+/* Detail modal */
 function openDetail(index) {
   const data = treasures[index];
 
@@ -747,29 +748,30 @@ function openDetail(index) {
   document.getElementById("modalText").innerHTML =
     escapeHtml(data["本文"] || "").replace(/\n/g, "<br>");
 
-const postId = data["ID"];
-const viewedKey = "heart_viewed_" + postId;
-localStorage.setItem(viewedKey, "true");
+  const postId = data["ID"];
+  const viewedKey = "heart_viewed_" + postId;
+  localStorage.setItem(viewedKey, "true");
 
-const currentCard = document.querySelectorAll(".miniCard")[index];
-if (currentCard) {
+  const currentCard = document.querySelectorAll(".miniCard")[index];
+  if (currentCard) {
   const badge = currentCard.querySelector(".heartNewBadge");
   if (badge) badge.remove();
-}  
-const thanksKey = "thanks_" + postId;
-const alreadyThanks = localStorage.getItem(thanksKey);
-const thanksBtn = document.getElementById("modalThanksBtn");
+  }
+  const thanksKey = "thanks_" + postId;
+  const alreadyThanks = localStorage.getItem(thanksKey);
+  const thanksBtn = document.getElementById("modalThanksBtn");
 
-thanksBtn.textContent = alreadyThanks ? "🌸ありがとう済み" : "🌸ありがとう";
-thanksBtn.classList.toggle("thanked", !!alreadyThanks);
-thanksBtn.disabled = !!alreadyThanks;
-thanksBtn.onclick = function() {
+  thanksBtn.textContent = alreadyThanks ? "🌸ありがとう済み" : "🌸ありがとう";
+  thanksBtn.classList.toggle("thanked", !!alreadyThanks);
+  thanksBtn.disabled = !!alreadyThanks;
+  thanksBtn.onclick = function() {
   sendHeartThanks(thanksBtn, postId);
-};
+  };
 
-document.getElementById("detailModal").style.display = "block";
+  document.getElementById("detailModal").style.display = "block";
 }
 
+/* Thanks */
 function sendHeartThanks(button, postId) {
   if (!postId) return;
 
@@ -818,6 +820,7 @@ function sendHeartThanks(button, postId) {
   });
 }
 
+/* Modal controls */
 function closeDetail() {
   document.getElementById("detailModal").style.display = "none";
 }
@@ -830,6 +833,7 @@ function openMedia(index) {
   showCurrentMedia();
 }
 
+/* Large image zoom and drag */
 function updateLargeImageTransform() {
   const image = document.getElementById("largeImage");
 
@@ -866,6 +870,7 @@ function getTouchDistance(touches) {
   return Math.sqrt(dx * dx + dy * dy);
 }
 
+/* Large media viewer */
 function closeImage() {
   resetLargeSwipeStage();
   resetLargeZoom();
@@ -933,6 +938,7 @@ function updateImageNavButtons() {
   }
 }
 
+/* Large image swipe */
 let startX = 0;
 let startY = 0;
 let isLargeSwipeActive = false;
@@ -1044,6 +1050,7 @@ function completeLargeSwipe() {
   }, LARGE_SWIPE_DURATION);
 }
 
+/* Mouse wheel and drag events */
 document.getElementById("imageModal").addEventListener("wheel", e => {
   const item = currentMedia[currentMediaIndex];
 
@@ -1096,6 +1103,7 @@ document.addEventListener("mouseup", () => {
   document.getElementById("largeImage").classList.remove("isDragging");
 });
 
+/* Touch pinch, drag, and swipe events */
 document.getElementById("imageModal").addEventListener("touchstart", e => {
   const item = currentMedia[currentMediaIndex];
 
@@ -1230,10 +1238,7 @@ document.getElementById("imageModal").addEventListener("touchcancel", () => {
   isLargeImageDragging = false;
   document.getElementById("largeImage").classList.remove("isDragging");
 }, { passive: true });
-
-  
 </script>
 
 </body>
 </html>
-
