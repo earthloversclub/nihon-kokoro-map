@@ -1758,17 +1758,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // fromReturn対応
-  if (localStorage.getItem("fromReturn")) {
-    localStorage.removeItem("fromReturn");
-
-    document.getElementById("passwordGate").style.display = "none";
-    document.getElementById("titleSplash").style.display = "none";
-
-    openTreasureMap();
-    return;
-  }
-
   // リロード
   const nav = performance.getEntriesByType("navigation")[0];
   const isReload = nav && nav.type === "reload";
