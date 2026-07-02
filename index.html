@@ -1807,10 +1807,6 @@ map.on("click", function() {
 
 let isResettingMap = false;
 
-function hideCleanMode() {
-  document.body.classList.remove("mapCleanMode");
-}
-
 document.getElementById("resetMapViewBtn").addEventListener("click", () => {
   isResettingMap = true;
 
@@ -1819,7 +1815,7 @@ map.closePopup();
   map.setView([37.8, 138.5], 5);
 
   setTimeout(() => {
-    hideCleanMode();
+    document.body.classList.remove("mapCleanMode");
     isResettingMap = false;
   }, 400);
 });
