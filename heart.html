@@ -7,36 +7,38 @@
   <title>💗心の宝箱💗</title>
 
   <style>
+    /* Base */
     body {
-  margin: 0;
-  font-family: sans-serif;
-  background: linear-gradient(
-    180deg,
-    #fff0f6 0%,
-    #fff9e6 25%,
-    #eef8ff 50%,
-    #f2fff2 75%,
-    #fff0f6 100%
-  );
-  color: #2f5f3a;
-  text-align: center;
-}
+      margin: 0;
+      font-family: sans-serif;
+      background: linear-gradient(
+        180deg,
+        #fff0f6 0%,
+        #fff9e6 25%,
+        #eef8ff 50%,
+        #f2fff2 75%,
+        #fff0f6 100%
+      );
+      color: #2f5f3a;
+      text-align: center;
+    }
 
     header {
-  padding: 18px 10px;
-  background: linear-gradient(
-    90deg,
-    #ffd6ec,
-    #fff0b3,
-    #dff0ff,
-    #dff7df
-  );
-  font-size: 24px;
-  font-weight: bold;
-  color: #7a3f9d;
-  line-height: 1.5;
-}
+      padding: 18px 10px;
+      background: linear-gradient(
+        90deg,
+        #ffd6ec,
+        #fff0b3,
+        #dff0ff,
+        #dff7df
+      );
+      font-size: 24px;
+      font-weight: bold;
+      color: #7a3f9d;
+      line-height: 1.5;
+    }
 
+    /* Main content */
     .main {
       padding: 30px 15px;
     }
@@ -53,6 +55,7 @@
       margin-bottom: 30px;
     }
 
+    /* Islands */
     .islands {
       display: grid;
       grid-template-columns: 1fr;
@@ -83,46 +86,47 @@
       box-shadow: 0 3px 8px rgba(0,0,0,0.18);
     }
 
-  .emotion {
-  background: #f1e6ff;
-}
+    /* Island colors */
+    .emotion {
+      background: #f1e6ff;
+    }
 
-.thanks {
-  background: #ffd9e8;
-}
+    .thanks {
+      background: #ffd9e8;
+    }
 
-.learning {
-  background: #e5f3ff;
-}
+    .learning {
+      background: #e5f3ff;
+    }
 
-.experience {
-  background: #fff1dd;
-}
+    .experience {
+      background: #fff1dd;
+    }
 
-.healing {
-  background: #e7f9e8;
-}
+    .healing {
+      background: #e7f9e8;
+    }
 
-.count {
-  margin-left: 18px;
-  font-size: 0.9em;
-  color: #7a3f9d;
-  font-weight: bold;
-}
+    /* Badges and counts */
+    .count {
+      margin-left: 18px;
+      font-size: 0.9em;
+      color: #7a3f9d;
+      font-weight: bold;
+    }
 
-.newIsland{
-  display:inline-block;
-  margin-right:10px;
-  padding:2px 8px;
-  background:#ff3b6b;
-  color:#fff;
-  font-size:13px;
-  font-weight:bold;
-  border-radius:999px;
-  border:2px solid white;
-  box-shadow:0 2px 6px rgba(0,0,0,.2);
-}
-    
+    .newIsland {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 2px 8px;
+      background: #ff3b6b;
+      color: #fff;
+      font-size: 13px;
+      font-weight: bold;
+      border-radius: 999px;
+      border: 2px solid white;
+      box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    }
   </style>
 </head>
 
@@ -171,6 +175,7 @@
 <script>
 const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
 
+/* CSV parsing */
 function parseCSV(text) {
   const rows = [];
   let row = [], cell = '', quote = false;
@@ -208,6 +213,7 @@ function parseCSV(text) {
   return rows;
 }
 
+/* CSV loading and island updates */
 fetch(heartCsvUrl + "&t=" + Date.now())
   .then(response => response.text())
   .then(csv => {
@@ -233,38 +239,39 @@ fetch(heartCsvUrl + "&t=" + Date.now())
       }
     });
 
-document.getElementById("countEmotion").textContent = counts["🏝感動の島"] + "件";
-document.getElementById("countExperience").textContent = counts["🏝体験の島"] + "件";
-document.getElementById("countLearning").textContent = counts["🏝学びの島"] + "件";
-document.getElementById("countThanks").textContent = counts["🏝感謝の島"] + "件";
-document.getElementById("countHealing").textContent = counts["🏝癒しの島"] + "件";
+    /* Island definitions */
+    const islands = [
+      { name: "🏝感動の島", id: "emotionIsland", countId: "countEmotion" },
+      { name: "🏝体験の島", id: "experienceIsland", countId: "countExperience" },
+      { name: "🏝学びの島", id: "learningIsland", countId: "countLearning" },
+      { name: "🏝感謝の島", id: "thanksIsland", countId: "countThanks" },
+      { name: "🏝癒しの島", id: "healingIsland", countId: "countHealing" }
+    ];
 
-const islands = [
-  { name: "🏝感動の島", id: "emotionIsland" },
-  { name: "🏝体験の島", id: "experienceIsland" },
-  { name: "🏝学びの島", id: "learningIsland" },
-  { name: "🏝感謝の島", id: "thanksIsland" },
-  { name: "🏝癒しの島", id: "healingIsland" }
-];
+    /* Count display */
+    islands.forEach(island => {
+      document.getElementById(island.countId).textContent = counts[island.name] + "件";
+    });
 
-islands.forEach(island => {
-  const unread = rows.slice(1).some(row => {
-    const data = {};
-    headers.forEach((h, i) => data[h] = row[i] || "");
+    /* NEW badge display */
+    islands.forEach(island => {
+      const unread = rows.slice(1).some(row => {
+        const data = {};
+        headers.forEach((h, i) => data[h] = row[i] || "");
 
-    if (data["表示"] !== "表示") return false;
-    if (data["島カテゴリ"] !== island.name) return false;
+        if (data["表示"] !== "表示") return false;
+        if (data["島カテゴリ"] !== island.name) return false;
 
-    return !localStorage.getItem("heart_viewed_" + data["ID"]);
-  });
+        return !localStorage.getItem("heart_viewed_" + data["ID"]);
+      });
 
-  if (unread) {
-    document.getElementById(island.id).insertAdjacentHTML(
-      "afterbegin",
-      `<span class="newIsland">NEW!</span>`
-    );
-  }
-});
+      if (unread) {
+        document.getElementById(island.id).insertAdjacentHTML(
+          "afterbegin",
+          `<span class="newIsland">NEW!</span>`
+        );
+      }
+    });
   });
 </script>
   
