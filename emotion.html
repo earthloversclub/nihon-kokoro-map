@@ -240,19 +240,6 @@
   color: #333;
   margin: 6px 0 8px;
 }
-    
-.closeButton {
-  display: block;
-  margin: 12px auto 0;
-  padding: 7px 18px;
-  border: none;
-  border-radius: 999px;
-  background: #ffe4b3;
-  color: #b86a00;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-}
 
     .imageModal {
       display: none;
@@ -651,7 +638,6 @@ const index = treasures.length - 1;
 const postId = data["ID"];
 const viewedKey = "heart_viewed_" + postId;
 const isViewed = localStorage.getItem(viewedKey);
-const thanksKey = "thanks_" + postId;
 const hasVideo = data["動画"];
 
 const thumb =
