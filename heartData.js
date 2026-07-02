@@ -59,7 +59,10 @@ function getHeartCsvCache() {
 }
 
 function loadHeartData(callback) {
-  const cachedCsv = getHeartCsvCache();
+  const params = new URLSearchParams(location.search);
+  const forceFresh = params.get("fresh") === "1";
+
+  const cachedCsv = forceFresh ? null : getHeartCsvCache();
 
   if (cachedCsv) {
     const rows = parseHeartCSV(cachedCsv);
@@ -68,7 +71,7 @@ function loadHeartData(callback) {
     return;
   }
 
-  fetch(HEART_CSV_URL)
+  fetch(HEART_CSV_URL + "&t=" + Date.now())
     .then(response => response.text())
     .then(csv => {
       saveHeartCsvCache(csv);
