@@ -645,9 +645,7 @@ const thumb =
   data["画像2"] ||
   data["画像3"] ||
   data["画像4"] ||
-  (hasVideo ? getVideoThumb(hasVideo) : "");
-
-console.log("thumb=", thumb);     
+  (hasVideo ? getVideoThumb(hasVideo) : ""); 
 
 list.innerHTML += `
 <div class="miniCard" onclick="openDetail(${index})">
