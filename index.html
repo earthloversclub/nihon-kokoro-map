@@ -3126,21 +3126,6 @@ function registerMyName(){
     guide.style.display = "none";
   }
 }
-
-// ★本番前リセット（終わったら削除）
-if (!localStorage.getItem("thanksReset2026")) {
-
-  localStorage.removeItem("myThanksCount");
-  localStorage.removeItem("myLastLevel");
-
-  Object.keys(localStorage).forEach(key => {
-    if (key.startsWith("thanks_")) {
-      localStorage.removeItem(key);
-    }
-  });
-
-  localStorage.setItem("thanksReset2026", "done");
-}
   
   function loadThanksTotal() {
 fetch("https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=total")
