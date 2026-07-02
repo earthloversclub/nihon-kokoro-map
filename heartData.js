@@ -41,21 +41,38 @@ function parseHeartCSV(text) {
   return rows;
 }
 
-function saveHeartCsvCache(csv) {
-  localStorage.setItem(HEART_CACHE_KEY, csv);
-  localStorage.setItem(HEART_CACHE_TIME_KEY, String(Date.now()));
+function saveHeartData(rows, headers) {
+  const data = {
+    headers,
+    rows
+  };
+
+  localStorage.setItem(
+    HEART_CACHE_KEY,
+    JSON.stringify(data)
+  );
+
+  localStorage.setItem(
+    HEART_CACHE_TIME_KEY,
+    String(Date.now())
+  );
 }
 
-function getHeartCsvCache() {
-  const csv = localStorage.getItem(HEART_CACHE_KEY);
+function getHeartData() {
+  const json = localStorage.getItem(HEART_CACHE_KEY);
   const savedTime = Number(localStorage.getItem(HEART_CACHE_TIME_KEY) || 0);
 
-  if (!csv || !savedTime) return null;
+  if (!json || !savedTime) return null;
 
-  const isFresh = Date.now() - savedTime < HEART_CACHE_LIMIT;
-  if (!isFresh) return null;
+  if (Date.now() - savedTime > HEART_CACHE_LIMIT) {
+    return null;
+  }
 
-  return csv;
+  try {
+    return JSON.parse(json);
+  } catch {
+    return null;
+  }
 }
 
 function loadHeartData(callback) {
