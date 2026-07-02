@@ -1748,7 +1748,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // 島・神殿・成長地図から戻った時
   if (isReturn) {
     localStorage.setItem("treasureMapAccess", "ok");
-    localStorage.removeItem("fromReturn");
 
     document.getElementById("passwordGate").style.display = "none";
     document.getElementById("titleSplash").style.display = "none";
