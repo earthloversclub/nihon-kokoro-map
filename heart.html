@@ -171,7 +171,7 @@
 
   <a class="backButton" href="index.html?return=true">🌎宝物地図へ戻る</a>
 </div>
-
+<script src="heartData.js"></script>
 <script>
 const heartCsvUrl = "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=heartCsv";
 
@@ -214,31 +214,7 @@ function parseCSV(text) {
 }
 
 /* CSV loading and island updates */
-const HEART_CACHE_KEY = "heartCsvCache";
-const HEART_CACHE_TIME_KEY = "heartCsvCacheTime";
-const HEART_CACHE_LIMIT = 10 * 60 * 1000;
-
-function saveHeartCsvCache(csv) {
-  localStorage.setItem(HEART_CACHE_KEY, csv);
-  localStorage.setItem(HEART_CACHE_TIME_KEY, String(Date.now()));
-}
-
-function getHeartCsvCache() {
-  const csv = localStorage.getItem(HEART_CACHE_KEY);
-  const savedTime = Number(localStorage.getItem(HEART_CACHE_TIME_KEY) || 0);
-
-  if (!csv || !savedTime) return null;
-
-  const isFresh = Date.now() - savedTime < HEART_CACHE_LIMIT;
-  if (!isFresh) return null;
-
-  return csv;
-}
-
-function updateHeartIslands(csv) {
-  const rows = parseCSV(csv);
-  const headers = rows[0];
-
+function updateHeartIslands(rows, headers) {
   const counts = {
     "🏝感動の島": 0,
     "🏝体験の島": 0,
@@ -282,8 +258,13 @@ function updateHeartIslands(csv) {
       return !localStorage.getItem("heart_viewed_" + data["ID"]);
     });
 
-    if (unread && !document.querySelector(`#${island.id} .newIsland`)) {
-      document.getElementById(island.id).insertAdjacentHTML(
+    const islandBox = document.getElementById(island.id);
+    const oldBadge = islandBox.querySelector(".newIsland");
+
+    if (oldBadge) oldBadge.remove();
+
+    if (unread) {
+      islandBox.insertAdjacentHTML(
         "afterbegin",
         `<span class="newIsland">NEW!</span>`
       );
@@ -291,18 +272,9 @@ function updateHeartIslands(csv) {
   });
 }
 
-const cachedHeartCsv = getHeartCsvCache();
-
-if (cachedHeartCsv) {
-  updateHeartIslands(cachedHeartCsv);
-} else {
-  fetch(heartCsvUrl)
-    .then(response => response.text())
-    .then(csv => {
-      saveHeartCsvCache(csv);
-      updateHeartIslands(csv);
-    });
-}
+loadHeartData(function(rows, headers) {
+  updateHeartIslands(rows, headers);
+});
 </script>
   
 </body>
