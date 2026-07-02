@@ -79,14 +79,24 @@ function loadHeartData(callback) {
   const params = new URLSearchParams(location.search);
   const forceFresh = params.get("fresh") === "1";
 
-  const cachedCsv = forceFresh ? null : getHeartCsvCache();
+  const cachedData = forceFresh ? null : getHeartData();
 
-  if (cachedCsv) {
-    const rows = parseHeartCSV(cachedCsv);
-    const headers = rows[0];
-    callback(rows, headers);
+  if (cachedData) {
+    callback(cachedData.rows, cachedData.headers);
     return;
   }
+
+  fetch(HEART_CSV_URL + "&t=" + Date.now())
+    .then(response => response.text())
+    .then(csv => {
+      const rows = parseHeartCSV(csv);
+      const headers = rows[0];
+
+      saveHeartData(rows, headers);
+
+      callback(rows, headers);
+    });
+}
 
   fetch(HEART_CSV_URL + "&t=" + Date.now())
     .then(response => response.text())
