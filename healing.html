@@ -633,7 +633,7 @@ function getVideoThumb(url) {
 }
 
 /* Treasure loading */
-fetch(heartCsvUrl + "&t=" + Date.now())
+fetch(heartCsvUrl)
   .then(response => response.text())
   .then(csv => {
     const rows = parseCSV(csv);
