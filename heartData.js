@@ -2,7 +2,7 @@ const HEART_CSV_URL = "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZu
 
 const HEART_CACHE_KEY = "heartCsvCache";
 const HEART_CACHE_TIME_KEY = "heartCsvCacheTime";
-const HEART_CACHE_LIMIT = 10 * 60 * 1000;
+const HEART_CACHE_LIMIT = 1 * 60 * 1000;
 
 function parseHeartCSV(text) {
   const rows = [];
