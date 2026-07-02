@@ -1747,13 +1747,6 @@ setTimeout(() => {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  
-  setTimeout(() => {
-    const btn = document.getElementById("registerNameBtn");
-    if (btn && localStorage.getItem("myPosterName")) {
-      btn.style.display = "none";
-    }
-  }, 0);
 
   const urlParams = new URLSearchParams(window.location.search);
   const isReturn = urlParams.get("return") === "true";
