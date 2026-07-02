@@ -8,7 +8,103 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
 <style>
+/* === Base / Global === */
 body { margin: 0; font-family: sans-serif; }
+
+* {
+  box-sizing: border-box;
+}
+
+header {
+padding: 8px;
+text-align: center;
+background: #e9f8ef;
+color: #256b3b;
+font-weight: bold;
+font-size: 20px;
+}
+
+@media (max-width: 600px) {
+header span {
+display: block;
+}
+}
+
+/* === Map Shell / Leaflet Base === */
+#mapContainer{
+  position:relative;
+  width:100%;
+  height:calc(100vh - 52px);
+}
+
+#map{
+  width:100%;
+  height:100%;
+}
+
+.legend {
+background: white;
+padding: 8px 10px;
+border-radius: 10px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+font-size: 14px;
+line-height: 1.5;
+z-index: 1 !important;
+}
+
+.leaflet-control-container {
+z-index: 600;
+}
+
+.leaflet-popup {
+z-index: 9999 !important;
+}
+
+.leaflet-control {
+z-index: 500 !important;
+}
+
+.leaflet-popup-pane {
+z-index: 2000 !important;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+z-index: 400 !important;
+}
+
+#resetMapViewBtn {
+  display: none;
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 99999;
+
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: 3px solid #9fd8b2;
+  background: #ffffff;
+  color: #256b3b;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 0 16px rgba(255,255,255,0.95);
+}
+
+.mapCleanMode .legend,
+.mapCleanMode #mapSwitchBox,
+.mapCleanMode #searchBox,
+.mapCleanMode #rainbowBox,
+.mapCleanMode #skyTempleBox,
+.mapCleanMode #myRecordBox {
+  display: none !important;
+}
+
+.mapCleanMode #resetMapViewBtn {
+  display: block !important;
+}
+
+/* === Image Modal === */
 .image-modal {
 display: none;
 position: fixed;
@@ -70,84 +166,39 @@ cursor: pointer;
 background: rgba(0,0,0,1);
 }
 
-.growthMapHint{
-  text-align:center;
-  font-size:15px;
-  font-weight:bold;
-  color:#3f8d3a;
-  margin-top:-14px;
-  margin-bottom:-20px;
-  text-shadow:
-    0 0 6px rgba(255,255,255,0.9);
-}
-
-.growthTitle{
-  position:relative;
-  top:-12px;
-  margin-bottom:-8px;
-}
-  
 @media (max-width: 600px) {
 .image-modal button {
 display: none;
 }
 }
-header {
-padding: 8px;
-text-align: center;
-background: #e9f8ef;
-color: #256b3b;
-font-weight: bold;
-font-size: 20px;
+
+#modalImage {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  transform-origin: center center;
+  touch-action: none;
+  user-select: none;
+}
+#modalSwipeStage {
+  display: none;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-@media (max-width: 600px) {
-header span {
-display: block;
-}
-}
-#mapContainer{
-  position:relative;
-  width:100%;
-  height:calc(100vh - 52px);
-}
-
-#map{
-  width:100%;
-  height:100%;
+.modal-swipe-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 92%;
+  max-height: 90%;
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+  touch-action: none;
+  user-select: none;
 }
 
-.legend {
-background: white;
-padding: 8px 10px;
-border-radius: 10px;
-box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-font-size: 14px;
-line-height: 1.5;
-z-index: 1 !important;
-}
-
-.leaflet-control-container {
-z-index: 600;
-}
-
-.leaflet-popup {
-z-index: 9999 !important;
-}
-
-.leaflet-control {
-z-index: 500 !important;
-}
-
-.leaflet-popup-pane {
-z-index: 2000 !important;
-}
-
-.leaflet-top,
-.leaflet-bottom {
-z-index: 400 !important;
-}
-
+/* === Popup Media / Thanks === */
 .popup-img {
 width: 180px;
 max-width: 100%;
@@ -227,7 +278,184 @@ font-size: 14px;
 .thanks-message-wrapper{
   text-align:center;
 }
-  
+
+.image-carousel:not(.multi-images) .popup-img,
+.image-carousel:not(.multi-images) .video-thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  margin-top: 8px;
+  border-radius: 8px;
+}
+
+.image-carousel.multi-images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  width: 100%;
+}
+
+.image-carousel.multi-images .popup-img,
+.image-carousel.multi-images .video-thumb {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.image-carousel.multi-images.media-count-3 > :first-child {
+  grid-row: 1 / span 2;
+  height: 100% !important;
+  aspect-ratio: auto !important;
+}
+
+.image-carousel.multi-images.media-count-3 > :first-child.popup-img,
+.image-carousel.multi-images.media-count-3 > :first-child.video-thumb {
+  height: 100% !important;
+  aspect-ratio: auto !important;
+  object-fit: cover;
+}
+
+.leaflet-popup-content-wrapper {
+border: 3px solid #ffb6d9 !important;
+box-shadow: 0 0 15px rgba(255,182,217,0.7) !important;
+}
+
+.growth-gray .leaflet-popup-content-wrapper {
+border: 3px solid #b8b8b8 !important;
+box-shadow: 0 0 18px #b8b8b8 !important;
+}
+
+.growth-brown .leaflet-popup-content-wrapper {
+border: 3px solid #c49a6c !important;
+box-shadow: 0 0 18px #c49a6c !important;
+}
+
+.growth-lightgreen .leaflet-popup-content-wrapper {
+border: 3px solid #7fd36f !important;
+box-shadow: 0 0 18px #7fd36f !important;
+}
+
+.growth-green .leaflet-popup-content-wrapper {
+border: 3px solid #4caf50 !important;
+box-shadow: 0 0 18px #4caf50 !important;
+}
+
+.growth-deepgreen .leaflet-popup-content-wrapper {
+border: 3px solid #2e7d32 !important;
+box-shadow: 0 0 18px #2e7d32 !important;
+}
+
+.growth-yellow .leaflet-popup-content-wrapper {
+border: 3px solid #ffd54f !important;
+box-shadow: 0 0 18px #ffd54f !important;
+}
+
+.growth-orange .leaflet-popup-content-wrapper {
+border: 3px solid #ff9800 !important;
+box-shadow: 0 0 18px #ff9800 !important;
+}
+
+.growth-pink .leaflet-popup-content-wrapper {
+border: 3px solid #ff80ab !important;
+box-shadow: 0 0 18px #ff80ab !important;
+}
+
+.growth-rainbow .leaflet-popup-content-wrapper {
+border: 3px solid #ff80ab !important;
+box-shadow:
+0 0 10px #ff3333,
+0 0 18px #ff9800,
+0 0 26px #fff176,
+0 0 34px #66cc66,
+0 0 42px #4da3ff,
+0 0 50px #b388ff !important;
+}
+
+.leaflet-popup-content{
+  max-height: 68vh;
+  overflow-y: auto;
+
+  margin: 22px 17px 22px 17px;
+
+  scrollbar-width: none;
+}
+
+.leaflet-popup-content::-webkit-scrollbar{
+  display: none;
+}
+
+.popup-onsen .leaflet-popup-content-wrapper{
+  border:3px solid #e84b4b !important;
+  box-shadow:0 0 18px rgba(232,75,75,0.75) !important;
+}
+
+.popup-nature .leaflet-popup-content-wrapper{
+  border:3px solid #3f8cff !important;
+  box-shadow:0 0 18px rgba(63,140,255,0.75) !important;
+}
+
+.popup-gourmet .leaflet-popup-content-wrapper{
+  border:3px solid #ff9800 !important;
+  box-shadow:0 0 18px rgba(255,152,0,0.75) !important;
+}
+
+.popup-shrine .leaflet-popup-content-wrapper{
+  border:3px solid #8e44ad !important;
+  box-shadow:0 0 18px rgba(142,68,173,0.75) !important;
+}
+
+.popup-farm .leaflet-popup-content-wrapper{
+  border:3px solid #43a047 !important;
+  box-shadow:0 0 18px rgba(67,160,71,0.75) !important;
+}
+
+.popup-event .leaflet-popup-content-wrapper{
+  border:3px solid #d4af37 !important;
+  box-shadow:0 0 20px rgba(212,175,55,0.85) !important;
+}
+
+.popup-rainbow .leaflet-popup-content-wrapper{
+
+  border:4px solid transparent !important;
+
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(
+      90deg,
+      #ff3333,
+      #ff9800,
+      #fff176,
+      #66cc66,
+      #4da3ff,
+      #7c4dff,
+      #ff3333
+    ) border-box;
+
+  background-size:120% 120%;
+
+  animation:rainbowBorder 7s linear infinite;
+
+  box-shadow:
+    0 0 12px rgba(255,255,255,.95),
+    0 0 20px rgba(255,120,180,.55),
+    0 0 30px rgba(100,180,255,.45);
+
+}
+
+@keyframes rainbowBorder{
+
+0%{
+background-position:0% 50%;
+}
+
+100%{
+background-position:100% 50%;
+}
+
+}
+
+/* === Floating Map Controls === */
 #rainbowBox {
 position: absolute;
 right: 21px;
@@ -352,6 +580,86 @@ z-index: 1000;
   padding: 5px 8px;
 }
 
+@media (min-width: 768px) {
+
+  #searchBox {
+    top: 95px;
+    right: 30px;
+    width: 330px;
+    padding: 12px;
+    white-space: nowrap;
+  }
+
+  #searchInput {
+    width: 230px;
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+
+  #searchBox button {
+    padding: 8px 14px;
+    font-size: 16px;
+  }
+
+}
+
+.mapReturnButton{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  padding:11px 10px !important;
+  border:3px solid #9fd8b2 !important;
+  border-radius:999px !important;
+
+  background:#ffffff !important;
+  color:#256b3b !important;
+
+  font-size:18px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+
+  box-shadow:
+    0 0 12px rgba(255,255,255,0.95),
+    0 0 18px rgba(159,216,178,0.55) !important;
+
+  cursor:pointer !important;
+  white-space:nowrap !important;
+}
+
+#mapSwitchBox{
+  position:absolute !important;
+  left:10px !important;
+  bottom:110px !important;
+  z-index:3000 !important;
+  display:flex !important;
+}
+
+#growthBackBox{
+  position:absolute !important;
+  left:10px !important;
+  bottom:-70px !important;
+  z-index:3000 !important;
+}
+
+/* === Growth Map === */
+.growthMapHint{
+  text-align:center;
+  font-size:15px;
+  font-weight:bold;
+  color:#3f8d3a;
+  margin-top:-14px;
+  margin-bottom:-20px;
+  text-shadow:
+    0 0 6px rgba(255,255,255,0.9);
+}
+
+.growthTitle{
+  position:relative;
+  top:-12px;
+  margin-bottom:-8px;
+}
+
 #growthMap {
 padding: 5px 10px 10px;
 text-align: center;
@@ -383,27 +691,13 @@ align-items: center;
 color: #b24a68;
 }
 
-@media (min-width: 768px) {
-
-  #searchBox {
-    top: 95px;
-    right: 30px;
-    width: 330px;
-    padding: 12px;
-    white-space: nowrap;
-  }
-
-  #searchInput {
-    width: 230px;
-    padding: 8px 10px;
-    font-size: 16px;
-  }
-
-  #searchBox button {
-    padding: 8px 14px;
-    font-size: 16px;
-  }
-
+#growthMapContainer{
+  position:relative;
+  width:100%;
+  max-width:700px;
+  height:520px;
+  margin:25px auto 0;
+  overflow:visible;
 }
 
 #achievementBox {
@@ -472,62 +766,6 @@ font-size: 27px;
 font-weight: bold;
 }
 
-.leaflet-popup-content-wrapper {
-border: 3px solid #ffb6d9 !important;
-box-shadow: 0 0 15px rgba(255,182,217,0.7) !important;
-}
-
-.growth-gray .leaflet-popup-content-wrapper {
-border: 3px solid #b8b8b8 !important;
-box-shadow: 0 0 18px #b8b8b8 !important;
-}
-
-.growth-brown .leaflet-popup-content-wrapper {
-border: 3px solid #c49a6c !important;
-box-shadow: 0 0 18px #c49a6c !important;
-}
-
-.growth-lightgreen .leaflet-popup-content-wrapper {
-border: 3px solid #7fd36f !important;
-box-shadow: 0 0 18px #7fd36f !important;
-}
-
-.growth-green .leaflet-popup-content-wrapper {
-border: 3px solid #4caf50 !important;
-box-shadow: 0 0 18px #4caf50 !important;
-}
-
-.growth-deepgreen .leaflet-popup-content-wrapper {
-border: 3px solid #2e7d32 !important;
-box-shadow: 0 0 18px #2e7d32 !important;
-}
-
-.growth-yellow .leaflet-popup-content-wrapper {
-border: 3px solid #ffd54f !important;
-box-shadow: 0 0 18px #ffd54f !important;
-}
-
-.growth-orange .leaflet-popup-content-wrapper {
-border: 3px solid #ff9800 !important;
-box-shadow: 0 0 18px #ff9800 !important;
-}
-
-.growth-pink .leaflet-popup-content-wrapper {
-border: 3px solid #ff80ab !important;
-box-shadow: 0 0 18px #ff80ab !important;
-}
-
-.growth-rainbow .leaflet-popup-content-wrapper {
-border: 3px solid #ff80ab !important;
-box-shadow:
-0 0 10px #ff3333,
-0 0 18px #ff9800,
-0 0 26px #fff176,
-0 0 34px #66cc66,
-0 0 42px #4da3ff,
-0 0 50px #b388ff !important;
-}
-
 @media (min-width: 601px) {
 
 #rankingBox {
@@ -546,6 +784,8 @@ transform: translateX(-50%);
 }
 
 }
+
+/* === Splash / Password === */
 #titleSplash {
 position: fixed;
 inset: 0;
@@ -674,45 +914,7 @@ color:red;
 margin-top:10px;
 }
 
-.image-carousel:not(.multi-images) .popup-img,
-.image-carousel:not(.multi-images) .video-thumb {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  margin-top: 8px;
-  border-radius: 8px;
-}
-
-#modalImage {
-  transition: transform 0.25s ease, opacity 0.25s ease;
-  transform-origin: center center;
-  touch-action: none;
-  user-select: none;
-}
-#modalSwipeStage {
-  display: none;
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.modal-swipe-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  max-width: 92%;
-  max-height: 90%;
-  border-radius: 10px;
-  transform: translate(-50%, -50%);
-  touch-action: none;
-  user-select: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
+/* === My Record / Name Guide === */
 @media (min-width: 768px) {
 
 #myRecordBox{
@@ -948,11 +1150,9 @@ box-shadow:0 0 10px rgba(255,255,255,.9);
     padding:14px 28px;
   }
 }
-  
+
 @media (max-width: 767px) {
 
-/* @media (max-width: 767px) 内
-   #myRecordBox から #nameRegisterBox の直前まで差し替え */
 
 #myRecordBox{
   position:absolute;
@@ -1101,197 +1301,8 @@ box-shadow:0 0 10px rgba(255,255,255,.9);
 }
 
 }
-  
-.leaflet-popup-content{
-  max-height: 68vh;
-  overflow-y: auto;
 
-  margin: 22px 17px 22px 17px;
-
-  scrollbar-width: none;
-}
-
-.leaflet-popup-content::-webkit-scrollbar{
-  display: none;
-}
-
-.popup-onsen .leaflet-popup-content-wrapper{
-  border:3px solid #e84b4b !important;
-  box-shadow:0 0 18px rgba(232,75,75,0.75) !important;
-}
-
-.popup-nature .leaflet-popup-content-wrapper{
-  border:3px solid #3f8cff !important;
-  box-shadow:0 0 18px rgba(63,140,255,0.75) !important;
-}
-
-.popup-gourmet .leaflet-popup-content-wrapper{
-  border:3px solid #ff9800 !important;
-  box-shadow:0 0 18px rgba(255,152,0,0.75) !important;
-}
-
-.popup-shrine .leaflet-popup-content-wrapper{
-  border:3px solid #8e44ad !important;
-  box-shadow:0 0 18px rgba(142,68,173,0.75) !important;
-}
-
-.popup-farm .leaflet-popup-content-wrapper{
-  border:3px solid #43a047 !important;
-  box-shadow:0 0 18px rgba(67,160,71,0.75) !important;
-}
-
-.popup-event .leaflet-popup-content-wrapper{
-  border:3px solid #d4af37 !important;
-  box-shadow:0 0 20px rgba(212,175,55,0.85) !important;
-}
-
-.popup-rainbow .leaflet-popup-content-wrapper{
-
-  border:4px solid transparent !important;
-
-  background:
-    linear-gradient(white, white) padding-box,
-    linear-gradient(
-      90deg,
-      #ff3333,
-      #ff9800,
-      #fff176,
-      #66cc66,
-      #4da3ff,
-      #7c4dff,
-      #ff3333
-    ) border-box;
-
-  background-size:120% 120%;
-
-  animation:rainbowBorder 7s linear infinite;
-
-  box-shadow:
-    0 0 12px rgba(255,255,255,.95),
-    0 0 20px rgba(255,120,180,.55),
-    0 0 30px rgba(100,180,255,.45);
-
-}
-
-@keyframes rainbowBorder{
-
-0%{
-background-position:0% 50%;
-}
-
-100%{
-background-position:100% 50%;
-}
-
-}
-
-.image-carousel.multi-images {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4px;
-  width: 100%;
-}
-
-.image-carousel.multi-images .popup-img,
-.image-carousel.multi-images .video-thumb {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-}
-
-.image-carousel.multi-images.media-count-3 > :first-child {
-  grid-row: 1 / span 2;
-  height: 100% !important;
-  aspect-ratio: auto !important;
-}
-
-.image-carousel.multi-images.media-count-3 > :first-child.popup-img,
-.image-carousel.multi-images.media-count-3 > :first-child.video-thumb {
-  height: 100% !important;
-  aspect-ratio: auto !important;
-  object-fit: cover;
-}
-
-#resetMapViewBtn {
-  display: none;
-  position: fixed;
-  left: 50%;
-  bottom: 28px;
-  transform: translateX(-50%);
-  z-index: 99999;
-
-  padding: 12px 24px;
-  border-radius: 999px;
-  border: 3px solid #9fd8b2;
-  background: #ffffff;
-  color: #256b3b;
-  font-size: 18px;
-  font-weight: 900;
-  box-shadow: 0 0 16px rgba(255,255,255,0.95);
-}
-
-.mapCleanMode .legend,
-.mapCleanMode #mapSwitchBox,
-.mapCleanMode #searchBox,
-.mapCleanMode #rainbowBox,
-.mapCleanMode #skyTempleBox,
-.mapCleanMode #myRecordBox {
-  display: none !important;
-}
-
-.mapCleanMode #resetMapViewBtn {
-  display: block !important;
-}
-
-#growthMapContainer{
-  position:relative;
-  width:100%;
-  max-width:700px;
-  height:520px;
-  margin:25px auto 0;
-  overflow:visible;
-}
-
-.mapReturnButton{
-  display:inline-flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-
-  padding:11px 10px !important;
-  border:3px solid #9fd8b2 !important;
-  border-radius:999px !important;
-
-  background:#ffffff !important;
-  color:#256b3b !important;
-
-  font-size:18px !important;
-  font-weight:900 !important;
-  line-height:1 !important;
-
-  box-shadow:
-    0 0 12px rgba(255,255,255,0.95),
-    0 0 18px rgba(159,216,178,0.55) !important;
-
-  cursor:pointer !important;
-  white-space:nowrap !important;
-}
-
-#mapSwitchBox{
-  position:absolute !important;
-  left:10px !important;
-  bottom:110px !important;
-  z-index:3000 !important;
-  display:flex !important;
-}
-
-#growthBackBox{
-  position:absolute !important;
-  left:10px !important;
-  bottom:-70px !important;
-  z-index:3000 !important;
-}
-
+/* === Search Results === */
 #searchResultsBox{
   display:none;
   position:absolute;
@@ -1333,6 +1344,7 @@ background-position:100% 50%;
 
 }
 
+/* === Level Up Effects === */
 .levelLightFlash{
   position:fixed;
   inset:0;
@@ -1495,6 +1507,7 @@ background-position:100% 50%;
   }
 }
 
+/* === New Pin Badge === */
 .newPinWrap{
   position:relative;
   text-align:center;
@@ -1515,7 +1528,6 @@ background-position:100% 50%;
   box-shadow:0 1px 5px rgba(0,0,0,.25);
   white-space:nowrap;
 }
-  
 </style>
 </head>
 
@@ -1706,7 +1718,7 @@ background-position:100% 50%;
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-
+// === Access Control ===
 const SITE_PASSWORD = "yumemigaoka";
 
 function openTreasureMap() {
@@ -1783,6 +1795,8 @@ openTreasureMap();
 document.getElementById("passwordError").textContent = "合言葉が違います";
 }
 }
+
+// === Map Setup / Shared State ===
 const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?output=csv";
 const heartCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRcio7JJ0K_QHu4SnBsdge-HEsqytJZP2ps-v40CNsKzTus67itmVJ4NY45nYz_QLW400WRXj9XjDkM/pub?gid=247430186&single=true&output=csv";
   
@@ -1914,6 +1928,7 @@ rows.push(row);
 return rows;
 }
 
+// === Treasure CSV / Markers ===
 fetch(sheetUrl + "&t=" + Date.now())
 .then(response => response.text())
 .then(csv => {
@@ -2160,6 +2175,7 @@ loadRanking();
 
 });
 
+// === Leaflet Controls ===
 const totalPostsBox = L.control({ position: 'bottomright' });
 
 totalPostsBox.onAdd = function () {
@@ -2259,6 +2275,8 @@ if (map.hasLayer(marker)) map.removeLayer(marker);
 return div;
 };
 legend.addTo(map);
+
+// === Media Modal ===
 let modalItems = [];
 let modalIndex = 0;
 let modalScale = 1;
@@ -2672,6 +2690,8 @@ document.addEventListener('mousemove', function(e) {
 document.addEventListener('mouseup', function() {
   isMouseDraggingImage = false;
 });
+
+// === Thanks / Popup Visibility ===
 function sendThanks(button, spotId) {
 const key = "thanks_" + spotId;
 const message = button.parentElement.querySelector(".thanks-message");
@@ -2839,6 +2859,7 @@ document.getElementById("myRecordBox").style.display = "block";
   
 });
 
+// === Map Switching ===
 function showMapA() {
 document.getElementById("mapContainer").style.display = "block";
 document.getElementById("rainbowBox").style.display = "block";
@@ -2868,6 +2889,7 @@ loadJapanGrowthMap();
 }, 100);
 }
 
+// === Level / My Record ===
 function showLevelSparkles() {
   for (let i = 0; i < 35; i++) {
     const sparkle = document.createElement("div");
@@ -3098,12 +3120,7 @@ document.getElementById("thanksTotal").textContent = "0";
 });
 }
 
-loadThanksTotal();
-loadMyRecordPosts();
-
-const thanksCount = Number(localStorage.getItem("myThanksCount") || 0);
-document.getElementById("myRecordThanks").textContent = thanksCount + "回";  
-  
+// === Growth Map / Ranking ===
 function loadAchievement() {
 const total = 47;
 const achieved = Object.keys(prefectureCounts).length;
@@ -3367,6 +3384,14 @@ showFlowerConfetti("middle");
 });
 }
 
+// === Initial Counters ===
+loadThanksTotal();
+loadMyRecordPosts();
+
+const thanksCount = Number(localStorage.getItem("myThanksCount") || 0);
+document.getElementById("myRecordThanks").textContent = thanksCount + "回";  
+
+// === Search ===
 function searchPlace() {
 
   const keyword = document
@@ -3469,7 +3494,6 @@ function closeSearchResults() {
   resultBox.style.display = "none";
   resultBox.innerHTML = "";
 }
-
 </script>
 </body>
 </html>
