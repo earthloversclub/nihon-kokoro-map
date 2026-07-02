@@ -789,8 +789,8 @@ function addPosterCounts(rows, counts) {
 }
 
 Promise.all([
-  fetch(sheetUrl + "&t=" + Date.now()).then(response => response.text()),
-  fetch(heartCsvUrl + "&t=" + Date.now()).then(response => response.text())
+  fetch(sheetUrl).then(response => response.text()),
+  fetch(heartCsvUrl).then(response => response.text())
 ])
 .then(([treasureCsv, heartCsv]) => {
   const treasureRows = parseCSV(treasureCsv);
