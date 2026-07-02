@@ -3055,7 +3055,7 @@ function loadMyRecordPosts() {
     addPosterCounts(treasureRows, counts);
     addPosterCounts(heartRows, counts);
 
-const myName = localStorage.getItem("myPosterName") || MY_POSTER_NAME;
+const myName = localStorage.getItem("myPosterName") || "";
 const myCount = counts[myName] || 0;
 const myThanksCount = Number(localStorage.getItem("myThanksCount") || 0);
 const levelInfo = getMyLevelInfo(myCount, myThanksCount);
