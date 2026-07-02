@@ -10,7 +10,10 @@
 <link rel="preload" as="image" href="images/sky-temple2.png">
   
 <style>
-  
+/* ===========================
+   基本レイアウト
+=========================== */
+
 body {
   margin: 0;
   font-family: sans-serif;
@@ -27,13 +30,25 @@ body.temple-loading {
 body.temple-ready {
   opacity: 1;
 }
-  
+
 .templeTop {
   width: 100%;
   margin: 0 auto;
   padding: 55px 8px 170px;
   box-sizing: border-box;
+  background: url("images/sky-temple.png") center top no-repeat;
+  background-size: cover;
 }
+
+.templeBottom {
+  background: url("images/sky-temple2.png") center top repeat-y;
+  background-size: cover;
+  margin-top: -117px !important;
+}
+
+/* ===========================
+   見出し・メッセージ
+=========================== */
 
 /* 天空の神殿 */
 h1 {
@@ -69,7 +84,6 @@ h2 {
   font-weight: 900;
   color: #2E0854;
   line-height: 1.45;
-
   margin-top: 20px;
 
   text-shadow:
@@ -78,161 +92,17 @@ h2 {
     0 0 28px rgba(46, 8, 84, 0.55);
 }
 
-/* ランキング全体の位置 */
+/* ===========================
+   ランキング
+=========================== */
+
 .topRankingArea {
   margin-top: 490px;
-  visibility: hidden;
+  visibility: visible !important;
 }
 
 .bottomRankingArea {
   padding-top: 91px;  /* ここを増やすと6〜10位だけ下がる */
-  visibility: hidden;
-}
-
-.medalIcon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 70px;
-  text-align: right;
-}
-
-.backButton {
-display: inline-block;
-margin: 0px auto 30px;
-
-  padding: 18px 40px;
-
-  font-size: 42px;
-  font-weight: 900;
-
-  color: #256b3b;
-  text-decoration: none;
-
-  border-radius: 999px;
-  border: 4px solid #9fd8b2;
-
-  background:
-    radial-gradient(circle at center,
-      #ffffff 0%,
-      #ffffff 55%,
-      #e8fff1 %);
-
-  box-shadow:
-    0 0 15px white,
-    0 0 30px rgba(255,255,255,0.95),
-    0 0 45px rgba(120,210,160,0.8);
-
-}
-
-.thanksMessage{
-  margin:120px auto 40px;
-  font-size:43px;
-  font-weight:900;
-  line-height:1.35;
-  color:#2E0854;
-
-  text-shadow:
-    0 0 8px white,
-    0 0 16px white,
-    0 0 28px rgba(46,8,84,0.55);
-}
-
-.templeTop {
-  background: url("images/sky-temple.png") center top no-repeat;
-  background-size: cover;
-}
-
-.templeBottom {
-  background: url("images/sky-temple2.png") center top repeat-y;
-    background-size: cover;
-}
-
-.medalIcon {
-  position: static !important;
-  transform: none !important;
-  display: inline-block;
-  width: 70px;
-  text-align: right;
-  vertical-align: middle;
-}
-
-.memberRealName {
-  display: inline-block;
-  text-align: left;
-}
-  
-.topMedal{
-  font-size: 1.25em;
-}
-
-.buttonArea {
-  text-align: center;
-  margin-top: 80px;      /* ボタンだけ上下 */
-  padding-bottom: 20px; /* ページ下の余白 */
-}
-
-.thanksMessage {
-  margin-top: 230px;  /* メッセージだけ下へ */
-}
-
-.thanksArea {
-  margin-top: 170px;   /* メッセージだけ上下 */
-}
-
-.specialThanksArea{
-  text-align:center;
-  margin:80px auto 70px;
-}
-
-.specialThanksButton img{
-  width:100%;
-  height:auto;
-  display:block;
-  transform:scale(1.7);
-  transform-origin:center center;
-}
-
-#specialThanksBtn.locked{
-  opacity:0.65;
-  cursor:not-allowed;
-}
-
-.specialThanksNote{
-  position:relative;
-  top:-108px;
-  left:0;
-
-  text-align:center;
-
-  font-size:35px;
-  font-weight:900;
-  color:#5b2b55;
-  text-shadow:0 0 8px white;
-  white-space:nowrap;
-}
-
-.specialThanksButton{
-  position: relative;
-  width: 380px;
-  margin: 0 auto;
-  cursor: pointer;
-}
-
-  color: #7a1f45;
-
-  text-shadow:
-    0 0 6px white,
-    0 0 12px white;
-}
-
-.specialThanksButton.locked{
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.topRankingArea,
-.bottomRankingArea {
   visibility: visible !important;
 }
 
@@ -249,8 +119,8 @@ margin: 0px auto 30px;
   font-size: 64px;
   line-height: 1.15;
   font-weight: 900;
-  display: inline-block;
-  position: relative;
+  display: inline-block !important;
+  position: relative !important;
 }
 
 .memberText {
@@ -260,87 +130,202 @@ margin: 0px auto 30px;
   font-weight: 900;
 }
 
-.heartTitle{
-  position:absolute;
-  top:148px;
-left:50%;
-  transform:translateX(-50%);
-  width:auto;
-  text-align:center;
-
-  font-size:50px;
-  font-weight:900;
-  line-height:1.1;
-  color:#7a1f45;
-  white-space: nowrap;
-
-  text-shadow:0 0 6px white, 0 0 12px white;
+.memberRealName {
+  display: inline-block;
+  text-align: left;
 }
 
-.heartCount{
-  position:absolute;
-  top:234px;
-  left:50%;
-  transform:translateX(-50%);
-  white-space:nowrap;
-  text-align:center;
-
-  font-size:37px;
-  font-weight:900;
-  line-height:1.2;
-  color:#8a4d68;
-
-  text-shadow:0 0 6px white, 0 0 12px white;
+.medalIcon {
+  position: absolute !important;
+  right: calc(100% + 14px) !important;
+  left: auto !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  display: inline-block;
+  width: 70px;
+  text-align: right;
+  vertical-align: middle;
 }
 
-.specialThanksEffect{
-  position:absolute;
-  inset:0;
-
-  pointer-events:none;
-  overflow:visible;
+.topMedal {
+  font-size: 1.25em;
 }
 
-/* 白い祝福の光 */
 /* ===========================
-   神々しい光
+   ありがとうメッセージ・ボタン
 =========================== */
 
-.specialThanksLight{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
+.thanksArea {
+  margin-top: 170px;   /* メッセージだけ上下 */
 }
 
-.lightParticle{
-  position:absolute;
-  left:50%;
-  top:50%;
+.thanksMessage {
+  margin: 120px auto 40px;
+  margin-top: 230px;  /* メッセージだけ下へ */
+  font-size: 43px;
+  font-weight: 900;
+  line-height: 1.35;
+  color: #2E0854;
 
-  font-size:26px;
-  opacity:0;
+  text-shadow:
+    0 0 8px white,
+    0 0 16px white,
+    0 0 28px rgba(46, 8, 84, 0.55);
+}
+
+.buttonArea {
+  text-align: center;
+  margin-top: 80px;      /* ボタンだけ上下 */
+  padding-bottom: 20px; /* ページ下の余白 */
+}
+
+.backButton {
+  display: inline-block;
+  margin: 0px auto 30px;
+  padding: 18px 40px;
+
+  font-size: 42px;
+  font-weight: 900;
+
+  color: #256b3b;
+  text-decoration: none;
+
+  border-radius: 999px;
+  border: 4px solid #9fd8b2;
+
+  box-shadow:
+    0 0 15px white,
+    0 0 30px rgba(255,255,255,0.95),
+    0 0 45px rgba(120,210,160,0.8);
+}
+
+/* ===========================
+   Special Thanks ボタン
+=========================== */
+
+.specialThanksArea {
+  text-align: center;
+  margin: 80px auto 70px;
+}
+
+.specialThanksButton {
+  position: relative;
+  width: 380px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.specialThanksButton img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: scale(1.7);
+  transform-origin: center center;
+}
+
+#specialThanksBtn.locked {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.specialThanksButton.locked {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.specialThanksNote {
+  position: relative;
+  top: -108px;
+  left: 0;
+
+  text-align: center;
+
+  font-size: 35px;
+  font-weight: 900;
+  color: #5b2b55;
+  text-shadow: 0 0 8px white;
+  white-space: nowrap;
+}
+
+.heartTitle {
+  position: absolute;
+  top: 148px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  text-align: center;
+
+  font-size: 50px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #7a1f45;
+  white-space: nowrap;
+
+  text-shadow: 0 0 6px white, 0 0 12px white;
+}
+
+.heartCount {
+  position: absolute;
+  top: 234px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  text-align: center;
+
+  font-size: 37px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: #8a4d68;
+
+  text-shadow: 0 0 6px white, 0 0 12px white;
+}
+
+/* ===========================
+   Special Thanks 演出
+=========================== */
+
+.specialThanksEffect {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+  overflow: visible;
+}
+
+.specialThanksLight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.lightParticle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  font-size: 26px;
+  opacity: 0;
 
   text-shadow:
     0 0 8px white,
     0 0 16px white,
     0 0 28px #fff6b8;
 
-  animation:lightBurst 3s ease-out forwards;
+  animation: lightBurst 3s ease-out forwards;
 }
 
-@keyframes lightBurst{
-
-  0%{
-    opacity:0;
-    transform:translate(0,0) scale(.2);
+@keyframes lightBurst {
+  0% {
+    opacity: 0;
+    transform: translate(0,0) scale(.2);
   }
 
-  15%{
-    opacity:1;
+  15% {
+    opacity: 1;
   }
 
-  100%{
-    opacity:0;
+  100% {
+    opacity: 0;
     transform:
       translate(
         calc(var(--x) * 1px),
@@ -348,160 +333,121 @@ left:50%;
       )
       scale(1.6);
   }
-
 }
 
-.specialThanksMessage{
-  position:absolute;
-  inset:0;
-pointer-events:none;
+.specialThanksMessage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 
-opacity:0;
-animation:messageAppear 1.5s ease forwards;
-animation-play-state:paused;
-  
+  opacity: 0;
+  animation: messageAppear 1.5s ease forwards;
+  animation-play-state: paused;
 }
 
-/* ===========================
-   投稿達成タイトル
-=========================== */
+.specialTop {
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  transform: translateX(-50%);
 
-.specialTop{
-  position:absolute;
-  top:45px;
-  left:50%;
-  transform:translateX(-50%);
+  width: max-content;
+  white-space: nowrap;
+  text-align: center;
 
-  width:max-content;
-  white-space:nowrap;
-  text-align:center;
-
-  color:#7a1f45;
-  font-size:50px;
-  font-weight:900;
-  line-height:1.2;
+  color: #7a1f45;
+  font-size: 50px;
+  font-weight: 900;
+  line-height: 1.2;
 
   text-shadow:
     0 0 6px white,
     0 0 12px white;
 
-  animation:fadeIn 0.8s ease;
+  animation: fadeIn 0.8s ease;
 }
 
+.specialMain {
+  position: absolute;
+  top: 122px;
+  left: 50%;
+  transform: translateX(-50%);
 
-/* ===========================
-   Super Special Thanks
-=========================== */
+  width: max-content;
+  white-space: nowrap;
+  text-align: center;
 
-.specialMain{
-  position:absolute;
-  top:122px;
-  left:50%;
-  transform:translateX(-50%);
-
-  width:max-content;
-  white-space:nowrap;
-  text-align:center;
-
-  color:#FF0000;
-  font-size:71px;
-  font-weight:900;
-  line-height:1.2;
+  color: #FF0000;
+  font-size: 71px;
+  font-weight: 900;
+  line-height: 1.2;
 
   text-shadow:
     0 0 6px white,
     0 0 12px white;
 
-  animation:fadeIn 0.8s ease;
+  animation: fadeIn 0.8s ease;
 }
 
-  
-/* ===========================
-   メッセージ
-=========================== */
+.specialBottom {
+  position: absolute;
+  top: 300px;
+  left: 50%;
+  transform: translateX(-50%);
 
-.specialBottom{
-  position:absolute;
-  top:300px;
-  left:50%;
-  transform:translateX(-50%);
+  width: max-content;
+  white-space: nowrap;
+  text-align: center;
 
-  width:max-content;
-  white-space:nowrap;
-  text-align:center;
-
-  color:#7a1f45;
-  font-size:40px;
-  font-weight:900;
-  line-height:1.25;
+  color: #7a1f45;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1.25;
 
   text-shadow:
     0 0 6px white,
     0 0 12px white;
 
-  animation:fadeIn 0.8s ease;
+  animation: fadeIn 0.8s ease;
 }
 
+.specialHeartBeat {
+  animation: specialHeartBeat 3s ease-in-out;
+}
+
+@keyframes specialHeartBeat {
+  0% { transform: scale(1.6); }
+  15% { transform: scale(2.05); }
+  30% { transform: scale(1.6); }
+  50% { transform: scale(2.20); }
+  70% { transform: scale(1.6); }
+  100% { transform: scale(1.6); }
+}
+
+@keyframes messageAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(.7);
+    filter: blur(8px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.08);
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
 
 /* ===========================
-   ハート鼓動
+   スマホ調整
 =========================== */
 
-.specialHeartBeat{
-  animation:specialHeartBeat 3s ease-in-out;
-}
-
-@keyframes specialHeartBeat{
-  0%{ transform:scale(1.6); }
-  15%{ transform:scale(2.05); }
-  30%{ transform:scale(1.6); }
-  50%{ transform:scale(2.20); }
-  70%{ transform:scale(1.6); }
-  100%{ transform:scale(1.6); }
-}
-
-@keyframes messageAppear{
-
-  0%{
-    opacity:0;
-    transform:translateY(30px) scale(.7);
-    filter:blur(8px);
-  }
-
-  60%{
-    opacity:1;
-    transform:translateY(-6px) scale(1.08);
-    filter:blur(0);
-  }
-
-  100%{
-    opacity:1;
-    transform:translateY(0) scale(1);
-    filter:blur(0);
-  }
-
-}
-
-/* ランキング：名前中央のまま、絵文字だけ左に置く */
-.medalIcon{
-  position:absolute !important;
-  right:calc(100% + 14px) !important;
-  left:auto !important;
-  top:50% !important;
-  transform:translateY(-50%) !important;
-}
-
-.memberName{
-  position:relative !important;
-  display:inline-block !important;
-}
-
-/* 上下背景の境目の白線消し */
-.templeBottom{
-  margin-top:-117px !important;
-}
-
-/* スマホ表示のサイズ調整 */
 @media screen and (max-width: 630px) {
   html,
   body {
@@ -522,11 +468,11 @@ animation-play-state:paused;
     background-position: center top !important;
   }
 
-.templeBottom {
-  margin-top: -140px !important;
-}
-  
-.templeTop {
+  .templeBottom {
+    margin-top: -140px !important;
+  }
+
+  .templeTop {
     padding: 12px 10px 85px !important;
   }
 
@@ -535,7 +481,6 @@ animation-play-state:paused;
     line-height: 1.08 !important;
     margin: 4px 0 14px !important;
     white-space: nowrap !important;
-    
   }
 
   h2 {
@@ -543,7 +488,7 @@ animation-play-state:paused;
     line-height: 1.2 !important;
     margin: 10px 0 48px !important;
     white-space: nowrap !important;
-    transform: translateY(5px); 
+    transform: translateY(5px);
   }
 
   .templeMessage {
@@ -579,7 +524,7 @@ animation-play-state:paused;
     max-width: 100% !important;
   }
 
-.medalIcon {
+  .medalIcon {
     position: absolute !important;
     right: calc(100% + 4px) !important;
     left: auto !important;
@@ -589,14 +534,14 @@ animation-play-state:paused;
     width: 38px !important;
     text-align: right !important;
     vertical-align: middle !important;
-}
+  }
 
   .specialThanksButton {
     width: 250px !important;
     max-width: 80vw !important;
   }
 
-    .specialThanksButton img {
+  .specialThanksButton img {
     transform: scale(1.3);
     transform-origin: center center;
   }
@@ -629,83 +574,90 @@ animation-play-state:paused;
   }
 }
 
-  .specialHeartBeat {
-    animation: specialHeartBeat 3s ease-in-out !important;
-  }
+/* ===========================
+   Special Thanks 演出の上書き
+=========================== */
 
-  @keyframes specialHeartBeat {
-    0%   { transform: scale(1.3); }
-    15%  { transform: scale(1.7); }
-    30%  { transform: scale(1.3); }
-    50%  { transform: scale(1.85); }
-    70%  { transform: scale(1.3); }
-    100% { transform: scale(1.3); }
-  }
-
-  .specialThanksEffect {
-    inset: 0 !important;
-    overflow: visible !important;
-  }
-
-  .specialThanksLight {
-    inset: 0 !important;
-    overflow: visible !important;
-  }
-
-  .lightParticle {
-    left: 50% !important;
-    top: 50% !important;
-    font-size: 18px !important;
-  }
-
-  .specialTop {
-    top: 65px !important;
-    font-size: 26px !important;
-    line-height: 1.15 !important;
-  }
-
-  .specialMain {
-    top: 107px !important;
-    font-size: 39px !important;
-    line-height: 1.08 !important;
-  }
-
-  .specialBottom {
-    top: 206px !important;
-    font-size: 23px !important;
-    line-height: 1.2 !important;
-  }
-
-#changeNameBtn{
-  display:block;
-  margin:12px auto 80px;
-  padding:7px 16px;
-  border:none;
-  border-radius:999px;
-  background:#fff8d9;
-  color:#444;
-  font-size:13px;
-  font-weight:bold;
-  box-shadow:0 1px 6px rgba(0,0,0,.18);
+.specialHeartBeat {
+  animation: specialHeartBeat 3s ease-in-out !important;
 }
 
-.changeNameNote{
-  width:min(520px,90%);
-  margin:-60px auto 40px;
-  text-align:center;
+@keyframes specialHeartBeat {
+  0%   { transform: scale(1.3); }
+  15%  { transform: scale(1.7); }
+  30%  { transform: scale(1.3); }
+  50%  { transform: scale(1.85); }
+  70%  { transform: scale(1.3); }
+  100% { transform: scale(1.3); }
+}
 
-  font-size:14px;
-  line-height:1.7;
-  color:#7a4d3a;
+.specialThanksEffect {
+  inset: 0 !important;
+  overflow: visible !important;
+}
+
+.specialThanksLight {
+  inset: 0 !important;
+  overflow: visible !important;
+}
+
+.lightParticle {
+  left: 50% !important;
+  top: 50% !important;
+  font-size: 18px !important;
+}
+
+.specialTop {
+  top: 65px !important;
+  font-size: 26px !important;
+  line-height: 1.15 !important;
+}
+
+.specialMain {
+  top: 107px !important;
+  font-size: 39px !important;
+  line-height: 1.08 !important;
+}
+
+.specialBottom {
+  top: 206px !important;
+  font-size: 23px !important;
+  line-height: 1.2 !important;
+}
+
+/* ===========================
+   名前変更
+=========================== */
+
+#changeNameBtn {
+  display: block;
+  margin: 12px auto 80px;
+  padding: 7px 16px;
+  border: none;
+  border-radius: 999px;
+  background: #fff8d9;
+  color: #444;
+  font-size: 13px;
+  font-weight: bold;
+  box-shadow: 0 1px 6px rgba(0,0,0,.18);
+}
+
+.changeNameNote {
+  width: min(520px,90%);
+  margin: -60px auto 40px;
+  text-align: center;
+
+  font-size: 14px;
+  line-height: 1.7;
+  color: #7a4d3a;
 
   text-shadow:
     0 0 5px rgba(255,255,255,.9);
 
-  background:rgba(255,255,255,.55);
-  padding:14px 18px;
-  border-radius:18px;
+  background: rgba(255,255,255,.55);
+  padding: 14px 18px;
+  border-radius: 18px;
 }
-  
 </style>
 </head>
 
