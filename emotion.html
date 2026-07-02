@@ -615,41 +615,38 @@ function getVideoThumb(url) {
 }
 
 /* Treasure loading */
-fetch(heartCsvUrl)
-  .then(response => response.text())
-  .then(csv => {
-    const rows = parseCSV(csv);
-    const headers = rows[0];
-    const list = document.getElementById("treasureList");
+function loadEmotionTreasures(csv) {
+  const rows = parseCSV(csv);
+  const headers = rows[0];
+  const list = document.getElementById("treasureList");
 
-    rows.slice(1).forEach(row => {
-      const data = {};
-      headers.forEach((h, i) => data[h] = row[i]);
+  rows.slice(1).forEach(row => {
+    const data = {};
+    headers.forEach((h, i) => data[h] = row[i] || "");
 
-      if (data["表示"] !== "表示") return;
-      if (data["島カテゴリ"] !== "🏝感動の島") return;
+    if (data["表示"] !== "表示") return;
+    if (data["島カテゴリ"] !== "🏝感動の島") return;
 
-      treasures.push(data);
+    treasures.push(data);
 
-      const index = treasures.length - 1;
-      const postId = data["ID"];
-      const viewedKey = "heart_viewed_" + postId;
-      const isViewed = localStorage.getItem(viewedKey);
-      const hasVideo = data["動画"];
+    const index = treasures.length - 1;
+    const postId = data["ID"];
+    const viewedKey = "heart_viewed_" + postId;
+    const isViewed = localStorage.getItem(viewedKey);
+    const hasVideo = data["動画"];
 
-      const thumb =
-        data["画像"] ||
-        data["画像2"] ||
-        data["画像3"] ||
-        data["画像4"] ||
-        (hasVideo ? getVideoThumb(hasVideo) : "");
+    const thumb =
+      data["画像"] ||
+      data["画像2"] ||
+      data["画像3"] ||
+      data["画像4"] ||
+      (hasVideo ? getVideoThumb(hasVideo) : "");
 
-      list.innerHTML += `
+    list.innerHTML += `
 <div class="miniCard" onclick="openDetail(${index})">
 ${!isViewed ? `<div class="heartNewBadge">NEW!</div>` : ""}
-        
-${thumb ? `
 
+${thumb ? `
   <div class="thumbWrap">
     <img src="${thumb}" alt="">
     ${hasVideo && !data["画像"] ? `<div class="playMark">▶</div>` : ""}
@@ -662,14 +659,28 @@ ${thumb ? `
 投稿者：${escapeHtml(data["投稿者"] || "匿名さん")}
 </div>
 
-        </div>
-      `;
-    });
-
-    if (!list.innerHTML.trim()) {
-      list.innerHTML = `<div class="message">まだ感動の宝物はありません🌱</div>`;
-    }
+</div>
+    `;
   });
+
+  if (!list.innerHTML.trim()) {
+    list.innerHTML = `<div class="message">まだ感動の宝物はありません🌱</div>`;
+  }
+}
+
+const cachedHeartCsv = localStorage.getItem("heartCsvCache");
+
+if (cachedHeartCsv) {
+  loadEmotionTreasures(cachedHeartCsv);
+} else {
+  fetch(heartCsvUrl)
+    .then(response => response.text())
+    .then(csv => {
+      localStorage.setItem("heartCsvCache", csv);
+      localStorage.setItem("heartCsvCacheTime", String(Date.now()));
+      loadEmotionTreasures(csv);
+    });
+}
 
 /* Detail modal */
 function openDetail(index) {
