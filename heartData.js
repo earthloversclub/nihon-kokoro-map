@@ -2,7 +2,7 @@ const HEART_JSON_URL = "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZ
 
 const HEART_CACHE_KEY = "heartJsonCache";
 const HEART_CACHE_TIME_KEY = "heartJsonCacheTime";
-const HEART_CACHE_LIMIT = 1 * 60 * 1000;
+const HEART_CACHE_LIMIT = 10 * 60 * 1000;
 
 function saveHeartData(rows, headers) {
   const data = {
