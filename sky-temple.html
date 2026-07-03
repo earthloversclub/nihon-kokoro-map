@@ -866,9 +866,9 @@ Promise.all([
   document.body.classList.remove("temple-loading");
   document.body.classList.add("temple-ready");
 })
-.catch(err => {
+  
+.catch(() => {
   alert("ランキング読み込みエラー");
-  console.log(err);
 });
 
 function setupSpecialThanks(totalPosts) {
