@@ -3041,14 +3041,39 @@ function getMyLevelInfo(postCount, thanksCount) {
 }
   
 function loadMyRecordPosts() {
-  Promise.all([
-    fetch(sheetUrl + "&t=" + Date.now()).then(response => response.text()),
-    fetch(heartCsvUrl + "&t=" + Date.now()).then(response => response.text())
-  ])
-  .then(([treasureCsv, heartCsv]) => {
-    const treasureRows = parseCSV(treasureCsv);
-    const heartRows = parseCSV(heartCsv);
+  function loadRows(loader) {
+    return new Promise((resolve, reject) => {
+      try {
+        loader(function(rows, headers) {
+          if (!Array.isArray(rows)) {
+            reject(new Error("rows is not array"));
+            return;
+          }
 
+          // rows[0] が headers でないJSON実装にも備える保険
+          const firstRow = rows[0] || [];
+          const hasHeaderRow =
+            Array.isArray(firstRow) &&
+            firstRow.some(h => String(h).replace(/\s/g, "").trim() === "投稿者");
+
+          if (!hasHeaderRow && Array.isArray(headers)) {
+            resolve([headers, ...rows]);
+            return;
+          }
+
+          resolve(rows);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  Promise.all([
+    loadRows(loadMapData),
+    loadRows(loadHeartData)
+  ])
+  .then(([treasureRows, heartRows]) => {
     const counts = {};
 
     addPosterCounts(treasureRows, counts);
@@ -3087,7 +3112,8 @@ function loadMyRecordPosts() {
     document.getElementById("myRecordPoint").textContent =
       pointText;
   })
-  .catch(() => {
+  .catch(error => {
+    console.error("loadMyRecordPosts failed:", error);
     document.getElementById("myRecordPosts").textContent = "0件";
   });
 }
