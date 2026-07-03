@@ -1930,7 +1930,7 @@ return rows;
 
 // === Treasure CSV / Markers ===
 loadMapData(function(rows, headers) {
-
+console.time("ALL markers");
 rows.slice(1).forEach(row => {
 const data = {};
 headers.forEach((h, i) => data[h] = row[i]);
@@ -1955,7 +1955,6 @@ const spotId = data["ID"];
 const isViewed = localStorage.getItem("viewed_" + spotId);
 const displayMarkerIcon = isViewed ? markerIcon : makeNewIcon(markerIcon);
 
-console.time("popup build");  
 let popup = `
 <div style="font-size:17px; line-height:1.45;">
 
@@ -2097,7 +2096,7 @@ const popupClassMap = {
 };
 
 const popupClass = popupClassMap[category] || "popup-default";
-console.timeEnd("popup build");
+
 let marker;
 
 if (angelEmoji) {
@@ -2142,9 +2141,7 @@ allSpots.push({
 
 marker.category = category;
 
-console.time("marker addTo");
 marker.addTo(map);
-console.timeEnd("marker addTo");
   
 marker.on("popupopen", function(){
   document.getElementById("mapSwitchBox").style.visibility = "hidden";
@@ -2168,7 +2165,7 @@ markers.length + "件";
 }
 
 });
-
+console.timeEnd("ALL markers");
 loadAchievement();
 loadRanking();
 
