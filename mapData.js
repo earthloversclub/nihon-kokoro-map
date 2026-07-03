@@ -41,12 +41,11 @@ function loadMapData(callback) {
     callback(cachedData.rows, cachedData.headers);
     return;
   }
-const fetchStart = performance.now();
+
   fetch(MAP_JSON_URL + "&t=" + Date.now())
     .then(response => response.json())
     .then(data => {
 
-      console.log("JSON fetch:", performance.now() - fetchStart, "ms");
       const headers = data.length > 0 ? Object.keys(data[0]) : [];
       const rows = [
         headers,
