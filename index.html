@@ -2141,7 +2141,9 @@ allSpots.push({
 
 marker.category = category;
 
+console.time("marker addTo");
 marker.addTo(map);
+console.timeEnd("marker addTo");
   
 marker.on("popupopen", function(){
   document.getElementById("mapSwitchBox").style.visibility = "hidden";
