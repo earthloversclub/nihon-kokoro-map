@@ -3027,51 +3027,59 @@ function getMyLevelInfo(postCount, thanksCount) {
   
 function loadMyRecordPosts() {
   Promise.all([
-    fetch(sheetUrl + "&t=" + Date.now()).then(response => response.text()),
-    fetch(heartCsvUrl + "&t=" + Date.now()).then(response => response.text())
+    new Promise(resolve => {
+      loadMapData((rows, headers) => {
+        resolve(rows);
+      });
+    }),
+    new Promise(resolve => {
+      loadHeartData((rows, headers) => {
+        resolve(rows);
+      });
+    })
   ])
-  .then(([treasureCsv, heartCsv]) => {
-    const treasureRows = parseCSV(treasureCsv);
-    const heartRows = parseCSV(heartCsv);
-
+  .then(([treasureRows, heartRows]) => {
     const counts = {};
 
     addPosterCounts(treasureRows, counts);
     addPosterCounts(heartRows, counts);
 
-const myName = localStorage.getItem("myPosterName") || "";
-const myCount = counts[myName] || 0;
-const myThanksCount = Number(localStorage.getItem("myThanksCount") || 0);
-const levelInfo = getMyLevelInfo(myCount, myThanksCount);
-const nextPoint = levelInfo.level >= 99
-  ? levelInfo.point
-  : Math.pow(levelInfo.level, 2);
+    const myName = localStorage.getItem("myPosterName") || "";
+    const myCount = counts[myName] || 0;
+    const myThanksCount = Number(localStorage.getItem("myThanksCount") || 0);
+    const levelInfo = getMyLevelInfo(myCount, myThanksCount);
 
-const pointText =
-  levelInfo.point + " / " + nextPoint + " pt";    
-const lastLevel = Number(localStorage.getItem("myLastLevel") || levelInfo.level);
+    const nextPoint = levelInfo.level >= 99
+      ? levelInfo.point
+      : Math.pow(levelInfo.level, 2);
 
-if (levelInfo.level > lastLevel) {
-  showLevelUpEffect(levelInfo.level, levelInfo.title);
-}
+    const pointText =
+      levelInfo.point + " / " + nextPoint + " pt";
 
-localStorage.setItem("myLastLevel", levelInfo.level);
-document.getElementById("myRecordLevel").textContent =
-  "Lv." + levelInfo.level;
+    const lastLevel = Number(localStorage.getItem("myLastLevel") || levelInfo.level);
 
-document.getElementById("myRecordTitle").textContent =
-  levelInfo.title;
+    if (levelInfo.level > lastLevel) {
+      showLevelUpEffect(levelInfo.level, levelInfo.title);
+    }
 
-document.getElementById("myRecordPosts").textContent =
-  myCount + "件";
-document.getElementById("myRecordPoint").textContent =
-  pointText;    
+    localStorage.setItem("myLastLevel", levelInfo.level);
+
+    document.getElementById("myRecordLevel").textContent =
+      "Lv." + levelInfo.level;
+
+    document.getElementById("myRecordTitle").textContent =
+      levelInfo.title;
+
+    document.getElementById("myRecordPosts").textContent =
+      myCount + "件";
+
+    document.getElementById("myRecordPoint").textContent =
+      pointText;
   })
   .catch(() => {
     document.getElementById("myRecordPosts").textContent = "0件";
   });
 }
-
 function addPosterCounts(rows, counts) {
   const headers = rows[0];
 
