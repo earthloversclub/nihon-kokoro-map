@@ -2169,7 +2169,10 @@ markers.length + "件";
 console.log("ALL markers:", performance.now() - allMarkersStart, "ms");
 
 loadAchievement();
+
+const rankingStart = performance.now();
 loadRanking();
+console.log("loadRanking:", performance.now() - rankingStart, "ms");
 
 });
 
