@@ -2156,13 +2156,7 @@ marker.on("popupclose", function(){
 
 markers.push(marker);
 
-const totalPostsCountEl =
-document.getElementById("totalPostsCount");
-
-if (totalPostsCountEl) {
-totalPostsCountEl.textContent =
-markers.length + "件";
-}
+updateTotalPostsCount();
 
 });
 
@@ -2185,6 +2179,17 @@ if (totalPostsCountEl) {
 });
 
 // === Leaflet Controls ===
+
+function updateTotalPostsCount() {
+  const totalPostsCountEl =
+    document.getElementById("totalPostsCount");
+
+  if (totalPostsCountEl) {
+    totalPostsCountEl.textContent =
+      markers.length + "件";
+  }
+}
+  
 const totalPostsBox = L.control({ position: 'bottomright' });
 
 totalPostsBox.onAdd = function () {
@@ -2228,6 +2233,7 @@ return div;
 };
 
 totalPostsBox.addTo(map);
+updateTotalPostsCount();  
 const legend = L.control({ position: 'topleft' });
 
 legend.onAdd = function () {
