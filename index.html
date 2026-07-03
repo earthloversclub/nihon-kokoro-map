@@ -1930,7 +1930,7 @@ return rows;
 
 // === Treasure CSV / Markers ===
 loadMapData(function(rows, headers) {
-console.time("ALL markers");
+const allMarkersStart = performance.now();
 rows.slice(1).forEach(row => {
 const data = {};
 headers.forEach((h, i) => data[h] = row[i]);
@@ -2165,7 +2165,9 @@ markers.length + "件";
 }
 
 });
-console.timeEnd("ALL markers");
+
+console.log("ALL markers:", performance.now() - allMarkersStart, "ms");
+
 loadAchievement();
 loadRanking();
 
