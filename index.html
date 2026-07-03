@@ -1892,43 +1892,6 @@ function makeNewIcon(baseIcon) {
   });
 }
   
-function parseCSV(text) {
-const rows = [];
-let row = [], cell = '', quote = false;
-
-for (let i = 0; i < text.length; i++) {
-const c = text[i];
-const next = text[i + 1];
-
-if (c === '"' && quote && next === '"') {
-cell += '"';
-i++;
-} else if (c === '"') {
-quote = !quote;
-} else if (c === ',' && !quote) {
-row.push(cell);
-cell = '';
-} else if ((c === '\n' || c === '\r') && !quote) {
-if (cell || row.length) {
-row.push(cell);
-rows.push(row);
-row = [];
-cell = '';
-}
-if (c === '\r' && next === '\n') i++;
-} else {
-cell += c;
-}
-}
-
-if (cell || row.length) {
-row.push(cell);
-rows.push(row);
-}
-
-return rows;
-}
-
 // === Treasure CSV / Markers ===
 loadMapData(function(rows, headers) {
 
