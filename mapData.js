@@ -1,45 +1,8 @@
-const MAP_CSV_URL = "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=mapCsv";
+const MAP_JSON_URL = "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=mapJson";
 
-const MAP_CACHE_KEY = "mapCsvCache";
-const MAP_CACHE_TIME_KEY = "mapCsvCacheTime";
+const MAP_CACHE_KEY = "mapJsonCache";
+const MAP_CACHE_TIME_KEY = "mapJsonCacheTime";
 const MAP_CACHE_LIMIT = 1 * 60 * 1000;
-
-function parseMapCSV(text) {
-  const rows = [];
-  let row = [], cell = "", quote = false;
-
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    const next = text[i + 1];
-
-    if (c === '"' && quote && next === '"') {
-      cell += '"';
-      i++;
-    } else if (c === '"') {
-      quote = !quote;
-    } else if (c === "," && !quote) {
-      row.push(cell);
-      cell = "";
-    } else if ((c === "\n" || c === "\r") && !quote) {
-      if (cell || row.length) {
-        row.push(cell);
-        rows.push(row);
-        row = [];
-        cell = "";
-      }
-      if (c === "\r" && next === "\n") i++;
-    } else {
-      cell += c;
-    }
-  }
-
-  if (cell || row.length) {
-    row.push(cell);
-    rows.push(row);
-  }
-
-  return rows;
-}
 
 function saveMapData(rows, headers) {
   const data = {
@@ -79,11 +42,14 @@ function loadMapData(callback) {
     return;
   }
 
-  fetch(MAP_CSV_URL + "&t=" + Date.now())
-    .then(response => response.text())
-    .then(csv => {
-      const rows = parseMapCSV(csv);
-      const headers = rows[0];
+  fetch(MAP_JSON_URL + "&t=" + Date.now())
+    .then(response => response.json())
+    .then(data => {
+      const headers = data.length > 0 ? Object.keys(data[0]) : [];
+      const rows = [
+        headers,
+        ...data.map(item => headers.map(header => item[header] ?? ""))
+      ];
 
       saveMapData(rows, headers);
 
