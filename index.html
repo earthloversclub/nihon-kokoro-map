@@ -3027,18 +3027,13 @@ function getMyLevelInfo(postCount, thanksCount) {
   
 function loadMyRecordPosts() {
   Promise.all([
-    new Promise(resolve => {
-      loadMapData((rows, headers) => {
-        resolve(rows);
-      });
-    }),
-    new Promise(resolve => {
-      loadHeartData((rows, headers) => {
-        resolve(rows);
-      });
-    })
+    fetch(sheetUrl + "&t=" + Date.now()).then(response => response.text()),
+    fetch(heartCsvUrl + "&t=" + Date.now()).then(response => response.text())
   ])
-  .then(([treasureRows, heartRows]) => {
+  .then(([treasureCsv, heartCsv]) => {
+    const treasureRows = parseCSV(treasureCsv);
+    const heartRows = parseCSV(heartCsv);
+
     const counts = {};
 
     addPosterCounts(treasureRows, counts);
@@ -3049,9 +3044,10 @@ function loadMyRecordPosts() {
     const myThanksCount = Number(localStorage.getItem("myThanksCount") || 0);
     const levelInfo = getMyLevelInfo(myCount, myThanksCount);
 
-    const nextPoint = levelInfo.level >= 99
-      ? levelInfo.point
-      : Math.pow(levelInfo.level, 2);
+    const nextPoint =
+      levelInfo.level >= 99
+        ? levelInfo.point
+        : Math.pow(levelInfo.level, 2);
 
     const pointText =
       levelInfo.point + " / " + nextPoint + " pt";
