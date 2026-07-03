@@ -1798,9 +1798,6 @@ document.getElementById("passwordError").textContent = "合言葉が違います
 }
 
 // === Map Setup / Shared State ===
-const sheetUrl = "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=mapCsv";
-const heartCsvUrl = "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=heartCsv";
-  
 const map = L.map('map', { zoomControl: false }).setView([37.8, 138.5], 5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution: '&copy; OpenStreetMap'
