@@ -791,96 +791,121 @@ function addPosterCounts(rows, counts) {
   });
 }
 
-Promise.all([
-  fetch(sheetUrl).then(response => response.text()),
-  fetch(heartCsvUrl).then(response => response.text())
-])
-.then(([treasureCsv, heartCsv]) => {
-  const treasureRows = parseCSV(treasureCsv);
-  const heartRows = parseCSV(heartCsv);
+function loadRows(loader) {
+  return new Promise((resolve, reject) => {
+    try {
+      loader(function(rows, headers) {
+        if (!Array.isArray(rows)) {
+          reject(new Error("rows is not array"));
+          return;
+        }
 
+        const firstRow = rows[0] || [];
+        const hasHeaderRow =
+          Array.isArray(firstRow) &&
+          firstRow.some(h => String(h).replace(/\s/g, "").trim() === "投稿者");
+
+        if (!hasHeaderRow && Array.isArray(headers)) {
+          resolve([headers, ...rows]);
+          return;
+        }
+
+        resolve(rows);
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+Promise.all([
+  loadRows(loadMapData),
+  loadRows(loadHeartData)
+])
+.then(([treasureRows, heartRows]) => {
   const counts = {};
 
   addPosterCounts(treasureRows, counts);
   addPosterCounts(heartRows, counts);
 
   const ranking = Object.entries(counts)
-  .sort((a, b) => b[1] - a[1]);
+    .sort((a, b) => b[1] - a[1]);
 
-const top5 = ranking.slice(0, 5);
-const bottom5 = ranking.slice(5, 10);
-const totalPosts = treasureRows.length - 1 + heartRows.length - 1;  
+  const top5 = ranking.slice(0, 5);
+  const bottom5 = ranking.slice(5, 10);
+  const totalPosts = treasureRows.length - 1 + heartRows.length - 1;
 
   if (ranking.length === 0) {
     alert("ランキングに表示できる投稿者がいません");
     return;
   }
 
-const medals = [
-  "🏆",
-  "🥈",
-  "🥉",
-  "🌈",
-  "🌞",
-  "🌟",
-  "🐬",
-  "🌸",
-  "🐦",
-  "🍓"
-];
+  const medals = [
+    "🏆",
+    "🥈",
+    "🥉",
+    "🌈",
+    "🌞",
+    "🌟",
+    "🐬",
+    "🌸",
+    "🐦",
+    "🍓"
+  ];
 
-function createMemberHtml(item, index) {
+  function createMemberHtml(item, index) {
+    const name = item ? item[0] : "";
+    const count = item ? item[1] : "";
 
-  const name = item ? item[0] : "";
-  const count = item ? item[1] : "";
+    return `
+      <div class="member">
+        <div class="memberName">
+          <span class="medalIcon ${index < 3 ? "topMedal" : ""}">
+            ${medals[index]}
+          </span>
+          <span class="memberRealName">${name}</span>
+        </div>
 
-  return `
-    <div class="member">
-      <div class="memberName">
-        <span class="medalIcon ${index < 3 ? "topMedal" : ""}">
-  ${medals[index]}
-</span>
-        <span class="memberRealName">${name}</span>
+        <div class="memberText">
+          ${name ? `${count}個の宝物を届けてくれました💐` : ""}
+        </div>
       </div>
+    `;
+  }
 
-      <div class="memberText">
-        ${name ? `${count}個の宝物を届けてくれました💐` : ""}
-      </div>
-    </div>
-  `;
-}
-document.querySelector(".topRankingArea").innerHTML =
-  Array.from({ length: 5 }, (_, i) => createMemberHtml(top5[i], i)).join("");
+  document.querySelector(".topRankingArea").innerHTML =
+    Array.from({ length: 5 }, (_, i) => createMemberHtml(top5[i], i)).join("");
 
-const thanksMessage = `
-  <div class="thanksMessage">
-    
+  const thanksMessage = `
+    <div class="thanksMessage">
+
 🌸🌼🌸🌼🌸🌼🌸🌼🌸🌼🌸🌼🌸🌼🌸<br><br>
 
-    🍀宝物を届けてくれた<br>
-    すべての仲間たちへ🍀<br><br>
+      🍀宝物を届けてくれた<br>
+      すべての仲間たちへ🍀<br><br>
 
-    貴方が大切だと感じた想いが<br>
-    誰かの心の希望になり<br><br>
+      貴方が大切だと感じた想いが<br>
+      誰かの心の希望になり<br><br>
 
-    届けたいとおもったその心が<br>
-    人と人に紡がれて<br><br>
+      届けたいとおもったその心が<br>
+      人と人に紡がれて<br><br>
 　未来を創る軌跡になる🌈<br><br>
- 
-  🌼🌸🌼🌸🌼🌸🌼🌸🌼🌸🌼🌸🌼🌸🌼<br><br>
-  
-  </div>
-`;
 
-document.querySelector(".bottomRankingArea").innerHTML =
-  Array.from({ length: 5 }, (_, i) => createMemberHtml(bottom5[i], i + 5)).join("");
+    🌼🌸🌼🌸🌼🌸🌼🌸🌼🌸🌼🌸🌼🌸🌼<br><br>
 
-document.querySelector(".thanksArea").innerHTML = thanksMessage;
-setupSpecialThanks(totalPosts);  
-document.querySelector(".topRankingArea").style.visibility = "visible";
-document.querySelector(".bottomRankingArea").style.visibility = "visible";
-document.body.classList.remove("temple-loading");
-document.body.classList.add("temple-ready");  
+    </div>
+  `;
+
+  document.querySelector(".bottomRankingArea").innerHTML =
+    Array.from({ length: 5 }, (_, i) => createMemberHtml(bottom5[i], i + 5)).join("");
+
+  document.querySelector(".thanksArea").innerHTML = thanksMessage;
+  setupSpecialThanks(totalPosts);
+
+  document.querySelector(".topRankingArea").style.visibility = "visible";
+  document.querySelector(".bottomRankingArea").style.visibility = "visible";
+  document.body.classList.remove("temple-loading");
+  document.body.classList.add("temple-ready");
 })
 .catch(err => {
   alert("ランキング読み込みエラー");
