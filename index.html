@@ -2174,6 +2174,14 @@ const rankingStart = performance.now();
 loadRanking();
 console.log("loadRanking:", performance.now() - rankingStart, "ms");
 
+const totalPostsCountEl =
+document.getElementById("totalPostsCount");
+
+if (totalPostsCountEl) {
+  totalPostsCountEl.textContent =
+    markers.length + "件";
+}
+  
 });
 
 // === Leaflet Controls ===
