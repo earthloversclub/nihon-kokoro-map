@@ -1955,6 +1955,7 @@ const spotId = data["ID"];
 const isViewed = localStorage.getItem("viewed_" + spotId);
 const displayMarkerIcon = isViewed ? markerIcon : makeNewIcon(markerIcon);
 
+console.time("popup build");  
 let popup = `
 <div style="font-size:17px; line-height:1.45;">
 
@@ -2096,7 +2097,7 @@ const popupClassMap = {
 };
 
 const popupClass = popupClassMap[category] || "popup-default";
-
+console.timeEnd("popup build");
 let marker;
 
 if (angelEmoji) {
