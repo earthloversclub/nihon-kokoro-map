@@ -1832,6 +1832,15 @@ map.closePopup();
 
   setTimeout(() => {
     document.body.classList.remove("mapCleanMode");
+    document.querySelectorAll(".legend").forEach(box => {
+  box.style.display = "block";
+});
+
+document.getElementById("searchBox").style.display = "block";
+document.getElementById("mapSwitchBox").style.display = "flex";
+document.getElementById("rainbowBox").style.display = "block";
+document.getElementById("skyTempleBox").style.display = "block";
+document.getElementById("myRecordBox").style.display = "block";
     isResettingMap = false;
   }, 400);
 });
