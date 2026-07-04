@@ -14,20 +14,7 @@ function saveMapData(rows, headers) {
 }
 
 function getMapData() {
-  const json = localStorage.getItem(MAP_CACHE_KEY);
-  const savedTime = Number(localStorage.getItem(MAP_CACHE_TIME_KEY) || 0);
-
-  if (!json || !savedTime) return null;
-
-  if (Date.now() - savedTime > MAP_CACHE_LIMIT) {
-    return null;
-  }
-
-  try {
-    return JSON.parse(json);
-  } catch {
-    return null;
-  }
+  return getJsonCache(MAP_CACHE_KEY, MAP_CACHE_TIME_KEY, MAP_CACHE_LIMIT);
 }
 
 function loadMapData(callback) {
