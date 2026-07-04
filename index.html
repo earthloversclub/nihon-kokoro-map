@@ -1715,8 +1715,8 @@ box-shadow:0 0 10px rgba(255,255,255,.9);
 </div>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="jsonDataLoader.js"></script>
-<script src="mapData.js?v=3"></script>
-<script src="heartData.js?v=3"></script>
+<script src="mapData.js?v=2"></script>
+<script src="heartData.js?v=2"></script>
 <script src="mediaModal.js?v=1"></script>
 <script src="search.js?v=1"></script>
 <script>
@@ -1832,15 +1832,6 @@ map.closePopup();
 
   setTimeout(() => {
     document.body.classList.remove("mapCleanMode");
-    document.querySelectorAll(".legend").forEach(box => {
-  box.style.display = "block";
-});
-
-document.getElementById("searchBox").style.display = "block";
-document.getElementById("mapSwitchBox").style.display = "flex";
-document.getElementById("rainbowBox").style.display = "block";
-document.getElementById("skyTempleBox").style.display = "block";
-document.getElementById("myRecordBox").style.display = "block";
     isResettingMap = false;
   }, 400);
 });
