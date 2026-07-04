@@ -14,20 +14,7 @@ function saveHeartData(rows, headers) {
 }
 
 function getHeartData() {
-  const json = localStorage.getItem(HEART_CACHE_KEY);
-  const savedTime = Number(localStorage.getItem(HEART_CACHE_TIME_KEY) || 0);
-
-  if (!json || !savedTime) return null;
-
-  if (Date.now() - savedTime > HEART_CACHE_LIMIT) {
-    return null;
-  }
-
-  try {
-    return JSON.parse(json);
-  } catch {
-    return null;
-  }
+  return getJsonCache(HEART_CACHE_KEY, HEART_CACHE_TIME_KEY, HEART_CACHE_LIMIT);
 }
 
 function loadHeartData(callback) {
