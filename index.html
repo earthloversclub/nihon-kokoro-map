@@ -2125,15 +2125,11 @@ markers.push(marker);
 updateTotalPostsCount();
 
 });
-setTimeout(() => {
-  if (typeof loadAchievement === "function") {
-    loadAchievement();
-  }
 
-  if (typeof loadRanking === "function") {
-    loadRanking();
-  }
-}, 0);
+loadAchievement();
+
+loadRanking();
+
 });
 
 // === Leaflet Controls ===
