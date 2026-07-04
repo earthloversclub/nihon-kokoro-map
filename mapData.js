@@ -1,7 +1,7 @@
 const MAP_JSON_URL = "https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=mapJson";
 
-const MAP_CACHE_KEY = "mapJsonCache";
-const MAP_CACHE_TIME_KEY = "mapJsonCacheTime";
+const MAP_CACHE_KEY = "mapJsonCache_v2";
+const MAP_CACHE_TIME_KEY = "mapJsonCacheTime_v2";
 const MAP_CACHE_LIMIT = 10 * 60 * 1000;
 
 function saveMapData(rows, headers) {
