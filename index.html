@@ -2126,7 +2126,9 @@ loadRanking();
 
 });
 
-// === Leaflet Controls ===
+// ===============================
+// Leaflet Controls
+// ===============================
 
 function updateTotalPostsCount() {
   const totalPostsCountEl =
@@ -2239,7 +2241,10 @@ return div;
 };
 legend.addTo(map);
 
-// === Media Modal ===
+// ===============================
+// Media Modal
+// ===============================
+  
 let modalItems = [];
 let modalIndex = 0;
 let modalScale = 1;
@@ -3382,7 +3387,10 @@ loadMyRecordPosts();
 const thanksCount = Number(localStorage.getItem("myThanksCount") || 0);
 document.getElementById("myRecordThanks").textContent = thanksCount + "回";  
 
-// === Search ===
+// ===============================
+// Search
+// ===============================
+  
 function searchPlace() {
 
   const keyword = document
