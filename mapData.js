@@ -10,8 +10,7 @@ function saveMapData(rows, headers) {
     rows
   };
 
-  localStorage.setItem(MAP_CACHE_KEY, JSON.stringify(data));
-  localStorage.setItem(MAP_CACHE_TIME_KEY, String(Date.now()));
+  saveJsonCache(MAP_CACHE_KEY, MAP_CACHE_TIME_KEY, data);
 }
 
 function getMapData() {
