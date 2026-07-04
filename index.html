@@ -1719,9 +1719,7 @@ box-shadow:0 0 10px rgba(255,255,255,.9);
 <script src="heartData.js?v=2"></script>
 <script>
   
-// ===============================
-// Access Control
-// ===============================
+// === Access Control ===
   
 const SITE_PASSWORD = "yumemigaoka";
 
@@ -1800,9 +1798,7 @@ document.getElementById("passwordError").textContent = "合言葉が違います
 }
 }
 
-// ===============================
-// Map Setup / Shared State
-// ===============================
+// === Map Setup / Shared State ===
   
 const map = L.map('map', { zoomControl: false }).setView([37.8, 138.5], 5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -1895,9 +1891,7 @@ function makeNewIcon(baseIcon) {
   });
 }
   
-// ===============================
-// Treasure Data / Markers
-// ===============================
+// === Treasure Data / Markers ===
   
 loadMapData(function(rows, headers) {
 
@@ -2136,9 +2130,7 @@ loadRanking();
 
 });
 
-// ===============================
-// Leaflet Controls
-// ===============================
+// === Leaflet Controls ===
 
 function updateTotalPostsCount() {
   const totalPostsCountEl =
@@ -2251,9 +2243,7 @@ return div;
 };
 legend.addTo(map);
 
-// ===============================
-// Media Modal
-// ===============================
+// === Media Modal ===
   
 let modalItems = [];
 let modalIndex = 0;
@@ -3115,7 +3105,7 @@ function registerMyName(){
   }
 }
   
-  function loadThanksTotal() {
+function loadThanksTotal() {
 fetch("https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03jwS0_F9vuhbkW2RkpfXK8KOpSot8Za8BE6r/exec?action=total")
 .then(response => response.json())
 .then(data => {
@@ -3224,6 +3214,7 @@ easing: "ease-in"
 setTimeout(() => flower.remove(), duration + 1000);
 }
 }
+
 function loadJapanGrowthMap() {
 
 const growthMap = L.map("japanGrowthMap", {
@@ -3397,9 +3388,7 @@ loadMyRecordPosts();
 const thanksCount = Number(localStorage.getItem("myThanksCount") || 0);
 document.getElementById("myRecordThanks").textContent = thanksCount + "回";  
 
-// ===============================
-// Search
-// ===============================
+// === Search ===
   
 function searchPlace() {
 
