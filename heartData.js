@@ -10,15 +10,7 @@ function saveHeartData(rows, headers) {
     rows
   };
 
-  localStorage.setItem(
-    HEART_CACHE_KEY,
-    JSON.stringify(data)
-  );
-
-  localStorage.setItem(
-    HEART_CACHE_TIME_KEY,
-    String(Date.now())
-  );
+  saveJsonCache(HEART_CACHE_KEY, HEART_CACHE_TIME_KEY, data);
 }
 
 function getHeartData() {
