@@ -1718,7 +1718,11 @@ box-shadow:0 0 10px rgba(255,255,255,.9);
 <script src="mapData.js?v=2"></script>
 <script src="heartData.js?v=2"></script>
 <script>
-// === Access Control ===
+  
+// ===============================
+// Access Control
+// ===============================
+  
 const SITE_PASSWORD = "yumemigaoka";
 
 function openTreasureMap() {
@@ -1796,7 +1800,10 @@ document.getElementById("passwordError").textContent = "合言葉が違います
 }
 }
 
-// === Map Setup / Shared State ===
+// ===============================
+// Map Setup / Shared State
+// ===============================
+  
 const map = L.map('map', { zoomControl: false }).setView([37.8, 138.5], 5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution: '&copy; OpenStreetMap'
@@ -1888,7 +1895,10 @@ function makeNewIcon(baseIcon) {
   });
 }
   
-// === Treasure CSV / Markers ===
+// ===============================
+// Treasure Data / Markers
+// ===============================
+  
 loadMapData(function(rows, headers) {
 
 rows.slice(1).forEach(row => {
