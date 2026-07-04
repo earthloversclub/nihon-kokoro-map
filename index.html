@@ -2804,6 +2804,9 @@ showFlowerConfetti("middle");
 loadThanksTotal();
 loadMyRecordPosts();
 
+loadAchievement();
+loadRanking();
+
 const thanksCount = Number(localStorage.getItem("myThanksCount") || 0);
 document.getElementById("myRecordThanks").textContent = thanksCount + "回";  
 
