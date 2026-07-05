@@ -1621,19 +1621,19 @@ margin-top:10px;
 @media (min-width: 768px) {
 
   :root{
-    --pc-header-height:148px;
-    --pc-side-right:22px;
-    --pc-side-width:315px;
-    --pc-side-gap:14px;
+    --pc-header-height:146px;
+    --pc-side-right:20px;
+    --pc-side-width:318px;
+    --pc-side-gap:16px;
     --pc-glass-bg:
-      linear-gradient(145deg, rgba(255,255,255,.58), rgba(153,225,238,.44) 48%, rgba(77,170,196,.34)),
-      linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.16));
+      linear-gradient(145deg, rgba(255,255,255,.28), rgba(47,156,178,.72) 48%, rgba(22,83,116,.78)),
+      linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.08));
     --pc-gold-line:rgba(255,226,126,.9);
     --pc-panel-shadow:
-      0 14px 28px rgba(26,85,105,.18),
-      0 0 18px rgba(255,255,255,.62),
-      inset 0 1px 0 rgba(255,255,255,.72),
-      inset 0 -12px 20px rgba(37,139,166,.12);
+      0 16px 30px rgba(13,57,82,.26),
+      0 0 18px rgba(255,255,255,.54),
+      inset 0 1px 0 rgba(255,255,255,.62),
+      inset 0 -12px 22px rgba(9,48,72,.22);
   }
 
   header{
@@ -1645,13 +1645,13 @@ margin-top:10px;
     justify-content:center;
     overflow:hidden;
     background:
-      linear-gradient(180deg, #ecfbff 0%, #f7fff7 64%, #d9f4ef 100%);
+      radial-gradient(circle at 50% 20%, rgba(255,255,255,.98), rgba(230,251,255,.9) 46%, rgba(216,244,236,.92) 100%);
     color:transparent;
     font-size:0;
     line-height:0;
     box-shadow:
       0 1px 0 rgba(255,255,255,.92) inset,
-      0 8px 18px rgba(36,84,62,.13);
+      0 8px 18px rgba(36,84,62,.16);
   }
 
   header::before{
@@ -1661,7 +1661,7 @@ margin-top:10px;
     display:block;
     width:100%;
     height:100%;
-    background:url("images/header.png") center center / contain no-repeat;
+    background:url("images/header.png") center 48% / min(1640px, 88vw) auto no-repeat;
     filter:none;
   }
 
@@ -1678,19 +1678,19 @@ margin-top:10px;
     position:absolute;
     top:12px;
     right:14px;
-    width:calc(var(--pc-side-width) + 28px);
-    height:min(650px, calc(100% - 24px));
+    width:calc(var(--pc-side-width) + 24px);
+    height:min(668px, calc(100% - 24px));
     z-index:1500;
     pointer-events:none;
-    border:1px solid rgba(255,236,155,.62);
+    border:1px solid rgba(255,235,156,.7);
     border-radius:28px;
     background:
-      linear-gradient(180deg, rgba(255,255,255,.58), rgba(255,250,230,.3) 38%, rgba(219,246,255,.28)),
-      linear-gradient(145deg, rgba(137,232,255,.24), rgba(255,163,207,.18) 48%, rgba(255,229,103,.18));
+      linear-gradient(180deg, rgba(255,255,255,.28), rgba(227,251,255,.18) 32%, rgba(24,102,129,.16)),
+      linear-gradient(145deg, rgba(28,131,158,.3), rgba(255,214,113,.16) 50%, rgba(160,115,215,.2));
     box-shadow:
-      0 18px 36px rgba(19,84,106,.14),
-      0 0 22px rgba(255,255,255,.45),
-      inset 0 1px 0 rgba(255,255,255,.78);
+      0 18px 36px rgba(13,59,82,.2),
+      0 0 20px rgba(255,255,255,.42),
+      inset 0 1px 0 rgba(255,255,255,.6);
   }
 
   #searchBox,
@@ -1712,9 +1712,9 @@ margin-top:10px;
     padding:10px 12px;
     white-space:nowrap;
     background:
-      linear-gradient(180deg, rgba(255,255,255,.95), rgba(226,255,230,.9)),
-      linear-gradient(90deg, rgba(120,226,120,.52), rgba(255,236,135,.38));
-    border:2px solid rgba(116,205,98,.78);
+      linear-gradient(180deg, rgba(255,255,255,.96), rgba(225,255,227,.92)),
+      linear-gradient(90deg, rgba(89,201,93,.65), rgba(255,225,99,.38));
+    border:2px solid rgba(83,185,82,.92);
     border-radius:20px;
     box-shadow:
       0 10px 20px rgba(46,135,76,.18),
@@ -1731,8 +1731,8 @@ margin-top:10px;
     border-radius:15px;
     background:rgba(255,255,255,.88);
     color:#20383c;
-    font-size:16px;
-    font-weight:700;
+    font-size:17px;
+    font-weight:800;
     outline:none;
     box-shadow:inset 0 1px 4px rgba(18,46,54,.15);
   }
@@ -1746,9 +1746,9 @@ margin-top:10px;
     padding:10px 15px;
     border:1px solid rgba(255,255,255,.88);
     border-radius:15px;
-    background:linear-gradient(180deg, #99f08f, #35aa52);
+    background:linear-gradient(180deg, #7ee86e, #238e43);
     color:white;
-    font-size:16px;
+    font-size:17px;
     font-weight:900;
     box-shadow:
       0 3px 8px rgba(42,132,70,.26),
@@ -1764,7 +1764,7 @@ margin-top:10px;
     z-index:3200;
     padding:9px;
     background:rgba(255,255,255,.96);
-    border:2px solid rgba(116,205,98,.65);
+    border:2px solid rgba(83,185,82,.75);
     border-radius:16px;
     box-shadow:
       0 12px 26px rgba(15,35,45,.25),
@@ -1780,21 +1780,21 @@ margin-top:10px;
   }
 
   #myRecordBox{
-    top:94px;
+    top:92px;
     right:var(--pc-side-right);
     width:var(--pc-side-width);
     z-index:1900;
     padding:15px 16px 16px;
     background:
-      linear-gradient(180deg, rgba(230,255,255,.96), rgba(126,216,232,.86)),
-      linear-gradient(145deg, rgba(255,255,255,.5), rgba(67,169,203,.28));
-    border:2px solid rgba(255,236,153,.86);
+      linear-gradient(180deg, rgba(104,217,232,.94), rgba(38,137,166,.92)),
+      linear-gradient(145deg, rgba(255,255,255,.38), rgba(17,79,113,.3));
+    border:2px solid rgba(255,232,137,.94);
     border-radius:24px;
     box-shadow:
-      0 14px 26px rgba(28,112,139,.24),
-      0 0 18px rgba(255,255,255,.78),
-      inset 0 1px 0 rgba(255,255,255,.82),
-      inset 0 -12px 18px rgba(50,139,161,.18);
+      0 14px 26px rgba(16,79,111,.34),
+      0 0 18px rgba(255,255,255,.58),
+      inset 0 1px 0 rgba(255,255,255,.72),
+      inset 0 -12px 18px rgba(10,70,104,.24);
   }
 
   #myRecordBox::before{
@@ -1802,38 +1802,66 @@ margin-top:10px;
   }
 
   .myRecordTitle{
-    margin-bottom:9px;
+    margin-bottom:10px;
     color:#fffbe3;
+    font-size:23px;
     text-shadow:
-      0 1px 3px rgba(19,94,111,.55),
-      0 0 10px rgba(255,246,178,.8);
+      0 2px 4px rgba(6,65,92,.72),
+      0 0 10px rgba(255,246,178,.86);
+  }
+
+  .myRecordTopRow{
+    color:#fff;
+    font-size:21px;
+    background:linear-gradient(180deg, rgba(255,255,255,.34), rgba(11,111,145,.35));
+    border:1px solid rgba(255,255,255,.52);
   }
 
   .myRecordTopRow,
   .myRecordRow,
   .myRecordPointRow{
-    min-height:34px;
+    min-height:36px;
   }
 
   .myRecordRow{
     margin:5px 0;
-    background:linear-gradient(90deg, rgba(255,255,255,.42), rgba(44,156,183,.22));
-    border-color:rgba(255,255,255,.5);
+    color:#fff;
+    font-size:21px;
+    background:linear-gradient(90deg, rgba(9,89,123,.46), rgba(255,255,255,.2));
+    border-color:rgba(255,255,255,.42);
+  }
+
+  .recordLabel{
+    color:#fff;
+  }
+
+  .recordValue,
+  #myRecordLevel,
+  #myRecordTitle,
+  .myRecordPointText{
+    color:#ffe983;
+    text-shadow:
+      0 2px 3px rgba(45,34,4,.78),
+      0 0 8px rgba(255,242,158,.74);
   }
 
   .myRecordPointRow{
     margin-top:7px;
+    color:#fff;
+    font-size:21px;
+    background:linear-gradient(90deg, rgba(255,210,82,.28), rgba(8,93,126,.42));
+    border-color:rgba(255,232,137,.58);
   }
 
   #rainbowBox{
-    top:326px;
+    top:356px;
     left:auto;
     bottom:auto;
     z-index:1700;
   }
 
   #skyTempleBox{
-    top:402px;
+    top:434px;
     left:auto;
     right:var(--pc-side-right);
     bottom:auto;
@@ -1844,7 +1872,7 @@ margin-top:10px;
   #rainbowBox button,
   #skyTempleBox button{
     width:100%;
-    height:62px;
+    height:64px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -1886,30 +1914,65 @@ margin-top:10px;
 
   .leaflet-bottom.leaflet-right .legend{
     position:fixed !important;
-    top:calc(var(--pc-header-height) + 476px) !important;
+    top:calc(var(--pc-header-height) + 516px) !important;
     right:var(--pc-side-right) !important;
     bottom:auto !important;
-    width:315px !important;
-    height:140px !important;
+    width:318px !important;
+    height:154px !important;
     margin:0 !important;
-    background-size:contain !important;
-    background-position:center center !important;
-    background-repeat:no-repeat !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    border:2px solid rgba(255,226,126,.96) !important;
+    border-radius:22px !important;
+    background:
+      linear-gradient(180deg, rgba(52,177,203,.92), rgba(23,92,134,.95)),
+      linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,212,89,.18)) !important;
     z-index:1650 !important;
     filter:none !important;
     box-shadow:
-      0 14px 24px rgba(95,58,14,.24),
-      0 0 18px rgba(255,246,180,.55) !important;
+      0 14px 26px rgba(12,54,82,.34),
+      0 0 16px rgba(255,238,145,.56),
+      inset 0 1px 0 rgba(255,255,255,.68),
+      inset 0 -12px 20px rgba(6,53,86,.28) !important;
+  }
+
+  .leaflet-bottom.leaflet-right .legend::before{
+    content:"地球の宝物";
+    position:absolute;
+    top:18px;
+    left:0;
+    right:0;
+    text-align:center;
+    color:#fff7c8;
+    font-size:26px;
+    font-weight:900;
+    line-height:1;
+    text-shadow:
+      0 2px 4px rgba(35,38,10,.72),
+      0 0 10px rgba(255,235,135,.75);
+  }
+
+  .leaflet-bottom.leaflet-right .legend::after{
+    content:"総投稿数";
+    position:absolute;
+    top:50px;
+    left:0;
+    right:0;
+    text-align:center;
+    color:rgba(255,255,255,.92);
+    font-size:15px;
+    font-weight:900;
+    text-shadow:0 1px 3px rgba(10,44,62,.7);
   }
 
   #totalPostsCount{
-    top:75px !important;
-    font-size:44px !important;
-    color:#ffad33 !important;
+    top:78px !important;
+    font-size:52px !important;
+    color:#ffd35c !important;
     text-shadow:
-      0 2px 4px rgba(85,42,0,.58),
-      0 0 8px white,
-      0 0 22px rgba(255,230,140,.92) !important;
+      0 3px 5px rgba(47,35,5,.78),
+      0 0 8px rgba(255,255,255,.9),
+      0 0 18px rgba(255,226,111,.85) !important;
   }
 }
 </style>
