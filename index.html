@@ -1661,7 +1661,7 @@ margin-top:10px;
     display:block;
     width:100%;
     height:100%;
-    background:url("images/header.png") center 48% / min(1530px, 82vw) auto no-repeat;
+    background:url("images/header.png") center 48% / min(1640px, 88vw) auto no-repeat;
     filter:none;
   }
 
@@ -1720,20 +1720,6 @@ margin-top:10px;
       0 10px 20px rgba(46,135,76,.18),
       0 0 14px rgba(255,255,255,.75),
       inset 0 1px 0 rgba(255,255,255,.88);
-    transition:
-      transform .22s ease,
-      box-shadow .22s ease,
-      border-color .22s ease,
-      background .22s ease;
-  }
-
-  #searchBox:hover{
-    transform:translateY(-3px);
-    border-color:rgba(146,232,126,.98);
-    box-shadow:
-      0 14px 26px rgba(46,135,76,.26),
-      0 0 20px rgba(210,255,190,.88),
-      inset 0 1px 0 rgba(255,255,255,.95);
   }
 
   #searchInput{
@@ -1768,19 +1754,6 @@ margin-top:10px;
       0 3px 8px rgba(42,132,70,.26),
       inset 0 1px 0 rgba(255,255,255,.7);
     cursor:pointer;
-    transition:
-      transform .2s ease,
-      box-shadow .2s ease,
-      filter .2s ease;
-  }
-
-  #searchBox button:hover{
-    transform:translateY(-1px);
-    filter:brightness(1.08);
-    box-shadow:
-      0 5px 12px rgba(42,132,70,.34),
-      0 0 12px rgba(180,255,160,.75),
-      inset 0 1px 0 rgba(255,255,255,.78);
   }
 
   #searchResultsBox{
@@ -1822,34 +1795,6 @@ margin-top:10px;
       0 0 18px rgba(255,255,255,.58),
       inset 0 1px 0 rgba(255,255,255,.72),
       inset 0 -12px 18px rgba(10,70,104,.24);
-    pointer-events:auto;
-    transition:
-      transform .24s ease,
-      box-shadow .24s ease,
-      filter .24s ease,
-      border-color .24s ease;
-  }
-
-  #myRecordBox:hover{
-    transform:translateY(-3px);
-    border-color:rgba(255,241,168,.98);
-    filter:brightness(1.06);
-    box-shadow:
-      0 18px 32px rgba(16,79,111,.4),
-      0 0 24px rgba(255,255,255,.72),
-      0 0 18px rgba(255,230,128,.35),
-      inset 0 1px 0 rgba(255,255,255,.82),
-      inset 0 -12px 18px rgba(10,70,104,.2);
-  }
-
-  #myRecordBox::after{
-    height:58px;
-    opacity:.82;
-    transition:opacity .24s ease;
-  }
-
-  #myRecordBox:hover::after{
-    opacity:1;
   }
 
   #myRecordBox::before{
@@ -1859,7 +1804,7 @@ margin-top:10px;
   .myRecordTitle{
     margin-bottom:10px;
     color:#fffbe3;
-    font-size:24px;
+    font-size:23px;
     text-shadow:
       0 2px 4px rgba(6,65,92,.72),
       0 0 10px rgba(255,246,178,.86);
@@ -1868,7 +1813,6 @@ margin-top:10px;
   .myRecordTopRow{
     color:#fff;
     font-size:21px;
-    font-weight:900;
     background:linear-gradient(180deg, rgba(255,255,255,.34), rgba(11,111,145,.35));
     border:1px solid rgba(255,255,255,.52);
   }
@@ -1883,16 +1827,12 @@ margin-top:10px;
     margin:5px 0;
     color:#fff;
     font-size:21px;
-    font-weight:900;
     background:linear-gradient(90deg, rgba(9,89,123,.46), rgba(255,255,255,.2));
     border-color:rgba(255,255,255,.42);
   }
 
   .recordLabel{
     color:#fff;
-    text-shadow:
-      0 2px 3px rgba(5,52,74,.74),
-      0 0 8px rgba(255,255,255,.34);
   }
 
   .recordValue,
@@ -1950,41 +1890,6 @@ margin-top:10px;
       0 0 16px rgba(255,255,255,.45),
       inset 0 1px 0 rgba(255,255,255,.58),
       inset 0 -10px 18px rgba(12,36,49,.24);
-    position:relative;
-    overflow:hidden;
-    background-size:190% 100%;
-    background-position:0% 50%;
-    transition:
-      transform .24s ease,
-      box-shadow .24s ease,
-      filter .24s ease,
-      background-position .7s ease;
-  }
-
-  #rainbowBox button::after,
-  #skyTempleBox button::after{
-    content:"";
-    position:absolute;
-    inset:-40% -20%;
-    pointer-events:none;
-    opacity:0;
-    transform:translateX(-36%) rotate(16deg);
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
-    transition:
-      opacity .24s ease,
-      transform .62s ease;
-  }
-
-  #rainbowBox button:hover,
-  #skyTempleBox button:hover{
-    transform:translateY(-3px);
-    filter:brightness(1.08);
-  }
-
-  #rainbowBox button:hover::after,
-  #skyTempleBox button:hover::after{
-    opacity:1;
-    transform:translateX(36%) rotate(16deg);
   }
 
   #rainbowBox button{
@@ -1997,16 +1902,6 @@ margin-top:10px;
       0 0 10px rgba(255,255,255,.9);
   }
 
-  #rainbowBox button:hover{
-    background-position:100% 50%;
-    box-shadow:
-      0 14px 26px rgba(98,50,138,.28),
-      0 0 18px rgba(255,255,255,.62),
-      0 0 20px rgba(255,171,218,.42),
-      inset 0 1px 0 rgba(255,255,255,.68),
-      inset 0 -10px 18px rgba(68,34,104,.18);
-  }
-
   #skyTempleBox button{
     background:
       linear-gradient(180deg, rgba(255,255,255,.94), rgba(220,212,255,.86) 45%, rgba(151,107,221,.78)),
@@ -2017,33 +1912,21 @@ margin-top:10px;
       0 0 10px rgba(255,255,255,.82);
   }
 
-  #skyTempleBox button:hover{
-    box-shadow:
-      0 14px 26px rgba(72,47,133,.25),
-      0 0 24px rgba(255,255,255,.78),
-      0 0 20px rgba(218,207,255,.55),
-      inset 0 1px 0 rgba(255,255,255,.85),
-      inset 0 -10px 18px rgba(88,62,146,.18);
-  }
-
   .leaflet-bottom.leaflet-right .legend{
     position:fixed !important;
     top:calc(var(--pc-header-height) + 516px) !important;
     right:var(--pc-side-right) !important;
     bottom:auto !important;
-    width:326px !important;
-    height:166px !important;
+    width:318px !important;
+    height:154px !important;
     margin:0 !important;
     padding:0 !important;
     overflow:hidden !important;
     border:2px solid rgba(255,226,126,.96) !important;
     border-radius:22px !important;
     background:
-      linear-gradient(110deg, transparent 0%, transparent 32%, rgba(255,236,145,.32) 45%, transparent 58%, transparent 100%),
-      linear-gradient(180deg, rgba(58,184,207,.94), rgba(23,92,134,.96)),
+      linear-gradient(180deg, rgba(52,177,203,.92), rgba(23,92,134,.95)),
       linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,212,89,.18)) !important;
-    background-size:220% 100%, 100% 100%, 100% 100% !important;
-    background-position:-70% 50%, center, center !important;
     z-index:1650 !important;
     filter:none !important;
     box-shadow:
@@ -2051,20 +1934,6 @@ margin-top:10px;
       0 0 16px rgba(255,238,145,.56),
       inset 0 1px 0 rgba(255,255,255,.68),
       inset 0 -12px 20px rgba(6,53,86,.28) !important;
-    transition:
-      transform .26s ease,
-      box-shadow .26s ease,
-      background-position .8s ease;
-  }
-
-  .leaflet-bottom.leaflet-right .legend:hover{
-    transform:translateY(-4px) scale(1.015);
-    background-position:120% 50%, center, center !important;
-    box-shadow:
-      0 18px 32px rgba(12,54,82,.42),
-      0 0 24px rgba(255,226,111,.75),
-      inset 0 1px 0 rgba(255,255,255,.78),
-      inset 0 -12px 20px rgba(6,53,86,.22) !important;
   }
 
   .leaflet-bottom.leaflet-right .legend::before{
@@ -2097,13 +1966,227 @@ margin-top:10px;
   }
 
   #totalPostsCount{
-    top:82px !important;
-    font-size:58px !important;
+    top:78px !important;
+    font-size:52px !important;
     color:#ffd35c !important;
     text-shadow:
       0 3px 5px rgba(47,35,5,.78),
       0 0 8px rgba(255,255,255,.9),
       0 0 18px rgba(255,226,111,.85) !important;
+  }
+}
+/* === PC Left Rail Remodel === */
+@media (min-width: 768px) {
+
+  :root{
+    --pc-left:18px;
+    --pc-left-width:304px;
+  }
+
+  .leaflet-top.leaflet-left{
+    z-index:1700;
+  }
+
+  .leaflet-top.leaflet-left .legend{
+    position:relative !important;
+    width:var(--pc-left-width) !important;
+    height:auto !important;
+    min-height:374px !important;
+    margin-top:16px !important;
+    margin-left:var(--pc-left) !important;
+    padding:66px 18px 18px !important;
+    overflow:hidden !important;
+    border:2px solid rgba(255,226,126,.92) !important;
+    border-radius:24px !important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.36), rgba(255,244,206,.18)),
+      linear-gradient(145deg, rgba(69,177,181,.86), rgba(34,122,143,.9)) !important;
+    box-shadow:
+      0 16px 30px rgba(18,73,84,.26),
+      0 0 18px rgba(255,255,255,.58),
+      inset 0 1px 0 rgba(255,255,255,.72),
+      inset 0 -12px 22px rgba(8,70,91,.2) !important;
+    color:#fff;
+    font-size:18px !important;
+    line-height:1.25 !important;
+    text-align:left !important;
+  }
+
+  .leaflet-top.leaflet-left .legend::before{
+    content:"宝カテゴリ";
+    position:absolute;
+    top:20px;
+    left:18px;
+    right:18px;
+    color:#fff8c9;
+    font-size:25px;
+    font-weight:900;
+    text-align:center;
+    letter-spacing:0;
+    text-shadow:
+      0 2px 4px rgba(18,65,45,.76),
+      0 0 10px rgba(255,230,140,.72);
+  }
+
+  .leaflet-top.leaflet-left .legend::after{
+    content:"";
+    position:absolute;
+    left:18px;
+    right:18px;
+    top:56px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,244,184,.8), transparent);
+  }
+
+  .leaflet-top.leaflet-left .legend br{
+    display:none;
+  }
+
+  .leaflet-top.leaflet-left .legend label{
+    display:flex;
+    align-items:center;
+    min-height:36px;
+    margin:0 0 7px;
+    padding:5px 8px;
+    border:1px solid rgba(255,255,255,.34);
+    border-radius:13px;
+    background:linear-gradient(90deg, rgba(255,255,255,.2), rgba(255,255,255,.08));
+    color:#fff;
+    font-size:18px;
+    font-weight:900;
+    cursor:pointer;
+    text-shadow:
+      0 2px 3px rgba(8,48,60,.76),
+      0 0 8px rgba(255,255,255,.24);
+    transition:
+      transform .2s ease,
+      background .2s ease,
+      box-shadow .2s ease,
+      border-color .2s ease;
+  }
+
+  .leaflet-top.leaflet-left .legend label:hover{
+    transform:translateX(3px);
+    border-color:rgba(255,236,148,.82);
+    background:linear-gradient(90deg, rgba(255,255,255,.32), rgba(255,232,128,.16));
+    box-shadow:
+      0 5px 12px rgba(9,57,68,.18),
+      inset 0 1px 0 rgba(255,255,255,.42);
+  }
+
+  .leaflet-top.leaflet-left .legend input[type="checkbox"]{
+    flex:0 0 auto;
+    width:21px;
+    height:21px;
+    margin:0 11px 0 2px;
+    cursor:pointer;
+    accent-color:#27b96b;
+    filter:drop-shadow(0 1px 2px rgba(0,0,0,.25));
+  }
+
+  .leaflet-top.leaflet-left .legend b{
+    display:block;
+    min-width:0;
+    white-space:nowrap;
+  }
+
+  #todayTreasureBox{
+    position:absolute;
+    left:var(--pc-left);
+    top:414px;
+    width:var(--pc-left-width);
+    z-index:2100;
+  }
+
+  .mapCleanMode #todayTreasureBox{
+    display:none !important;
+  }
+
+  #todayTreasureButton{
+    width:100%;
+    min-height:58px;
+    border:2px solid rgba(255,226,126,.94);
+    border-radius:999px;
+    background:
+      linear-gradient(110deg, transparent 0%, transparent 34%, rgba(255,255,255,.36) 46%, transparent 58%, transparent 100%),
+      linear-gradient(180deg, rgba(255,139,184,.96), rgba(225,72,128,.92));
+    background-size:220% 100%, 100% 100%;
+    background-position:-70% 50%, center;
+    color:#fff;
+    font-size:21px;
+    font-weight:900;
+    text-shadow:
+      0 2px 4px rgba(96,19,52,.62),
+      0 0 9px rgba(255,255,255,.5);
+    box-shadow:
+      0 12px 22px rgba(112,31,68,.22),
+      0 0 16px rgba(255,255,255,.55),
+      inset 0 1px 0 rgba(255,255,255,.7),
+      inset 0 -10px 18px rgba(117,20,65,.2);
+    cursor:pointer;
+    transition:
+      transform .24s ease,
+      box-shadow .24s ease,
+      background-position .7s ease,
+      filter .24s ease;
+  }
+
+  #todayTreasureButton:hover{
+    transform:translateY(-3px);
+    background-position:120% 50%, center;
+    filter:brightness(1.06);
+    box-shadow:
+      0 16px 28px rgba(112,31,68,.3),
+      0 0 22px rgba(255,204,226,.74),
+      inset 0 1px 0 rgba(255,255,255,.82),
+      inset 0 -10px 18px rgba(117,20,65,.16);
+  }
+
+  #mapSwitchBox{
+    left:var(--pc-left) !important;
+    top:488px !important;
+    bottom:auto !important;
+    width:var(--pc-left-width) !important;
+    z-index:2100 !important;
+  }
+
+  #mapSwitchBox .mapReturnButton{
+    width:100% !important;
+    min-height:58px !important;
+    border:2px solid rgba(178,235,158,.95) !important;
+    border-radius:999px !important;
+    background:
+      linear-gradient(110deg, transparent 0%, transparent 34%, rgba(255,255,255,.42) 46%, transparent 58%, transparent 100%),
+      linear-gradient(180deg, rgba(239,255,226,.98), rgba(96,190,104,.92)) !important;
+    background-size:220% 100%, 100% 100% !important;
+    background-position:-70% 50%, center !important;
+    color:#176b35 !important;
+    font-size:21px !important;
+    font-weight:900 !important;
+    text-shadow:
+      0 1px 0 rgba(255,255,255,.78),
+      0 0 8px rgba(255,255,255,.45) !important;
+    box-shadow:
+      0 12px 22px rgba(43,118,62,.22),
+      0 0 16px rgba(255,255,255,.55),
+      inset 0 1px 0 rgba(255,255,255,.78),
+      inset 0 -10px 18px rgba(32,120,51,.16) !important;
+    transition:
+      transform .24s ease,
+      box-shadow .24s ease,
+      background-position .7s ease,
+      filter .24s ease !important;
+  }
+
+  #mapSwitchBox .mapReturnButton:hover{
+    transform:translateY(-3px);
+    background-position:120% 50%, center !important;
+    filter:brightness(1.06);
+    box-shadow:
+      0 16px 28px rgba(43,118,62,.3),
+      0 0 22px rgba(210,255,190,.72),
+      inset 0 1px 0 rgba(255,255,255,.86),
+      inset 0 -10px 18px rgba(32,120,51,.12) !important;
   }
 }
 </style>
@@ -2558,6 +2641,52 @@ if (map.hasLayer(marker)) map.removeLayer(marker);
 return div;
 };
 legend.addTo(map);
+
+function openTodayTreasure() {
+  const candidates = markers.filter(marker => {
+    return marker &&
+      typeof marker.getLatLng === "function" &&
+      typeof marker.openPopup === "function" &&
+      activeCategories.has(marker.category) &&
+      map.hasLayer(marker);
+  });
+
+  if (!candidates.length) {
+    alert("表示中の宝がありません");
+    return;
+  }
+
+  const marker = candidates[Math.floor(Math.random() * candidates.length)];
+  const latlng = marker.getLatLng();
+
+  isResettingMap = true;
+  document.body.classList.remove("mapCleanMode");
+  map.setView(latlng, Math.max(map.getZoom(), 8), { animate: true });
+
+  setTimeout(() => {
+    marker.openPopup();
+    isResettingMap = false;
+  }, 520);
+}
+
+function setupTodayTreasureButton() {
+  if (!window.matchMedia("(min-width: 768px)").matches) return;
+  if (document.getElementById("todayTreasureBox")) return;
+
+  const box = document.createElement("div");
+  box.id = "todayTreasureBox";
+
+  const button = document.createElement("button");
+  button.id = "todayTreasureButton";
+  button.type = "button";
+  button.textContent = "🌸 今日の宝さがし";
+  button.addEventListener("click", openTodayTreasure);
+
+  box.appendChild(button);
+  document.getElementById("mapContainer").appendChild(box);
+}
+
+setupTodayTreasureButton();
 
 </script>
 <script src="thanksPopup.js?v=1"></script>
