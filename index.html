@@ -1975,6 +1975,11 @@ margin-top:10px;
       0 0 18px rgba(255,226,111,.85) !important;
   }
 }
+
+#todayTreasureBox{
+  display:none;
+}
+
 /* === PC Left Rail Remodel === */
 @media (min-width: 768px) {
 
@@ -2091,6 +2096,7 @@ margin-top:10px;
   }
 
   #todayTreasureBox{
+    display:block;
     position:absolute;
     left:var(--pc-left);
     top:414px;
@@ -2255,6 +2261,10 @@ margin-top:10px;
 </div>
   </div>
 </div>
+  
+  <div id="todayTreasureBox">
+    <button id="todayTreasureButton" type="button">🌸 今日の宝さがし</button>
+  </div>
   
   <div id="mapSwitchBox">
     <button id="mapSwitchButton" class="mapReturnButton" onclick="showMapB()">🌷成長地図▶</button>
@@ -2670,20 +2680,10 @@ function openTodayTreasure() {
 }
 
 function setupTodayTreasureButton() {
-  if (!window.matchMedia("(min-width: 768px)").matches) return;
-  if (document.getElementById("todayTreasureBox")) return;
+  const button = document.getElementById("todayTreasureButton");
+  if (!button) return;
 
-  const box = document.createElement("div");
-  box.id = "todayTreasureBox";
-
-  const button = document.createElement("button");
-  button.id = "todayTreasureButton";
-  button.type = "button";
-  button.textContent = "🌸 今日の宝さがし";
   button.addEventListener("click", openTodayTreasure);
-
-  box.appendChild(button);
-  document.getElementById("mapContainer").appendChild(box);
 }
 
 setupTodayTreasureButton();
