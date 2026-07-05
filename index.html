@@ -1433,6 +1433,190 @@ margin-top:10px;
 
 }
 
+/* === Level Up Effects === */
+.levelLightFlash{
+  position:fixed;
+  inset:0;
+  z-index:999998;
+  pointer-events:none;
+  background:radial-gradient(
+    circle,
+    rgba(255,255,255,0.95) 0%,
+    rgba(255,245,180,0.55) 28%,
+    rgba(255,255,255,0) 70%
+  );
+  animation:levelLightFlash 1.2s ease-out forwards;
+}
+
+@keyframes levelLightFlash{
+  0%{
+    opacity:0;
+    transform:scale(0.4);
+  }
+  25%{
+    opacity:1;
+    transform:scale(1);
+  }
+  100%{
+    opacity:0;
+    transform:scale(1.5);
+  }
+}
+
+.levelPetal{
+  position:fixed;
+  z-index:999999;
+  pointer-events:none;
+  font-size:26px;
+  opacity:0;
+  animation:levelPetalFloat 2.8s ease-out forwards;
+}
+
+@keyframes levelPetalFloat{
+  0%{
+    opacity:0;
+    transform:translateY(30px) rotate(0deg) scale(0.8);
+  }
+  15%{
+    opacity:1;
+  }
+  100%{
+    opacity:0;
+    transform:translateY(-180px) translateX(var(--drift)) rotate(360deg) scale(1.2);
+  }
+}
+
+.levelSparkle{
+  position:fixed;
+  z-index:999999;
+  pointer-events:none;
+  font-size:22px;
+  opacity:0;
+  animation:levelSparkleFloat 2s ease-out forwards;
+}
+
+@keyframes levelSparkleFloat{
+  0%{
+    opacity:0;
+    transform:scale(0.3);
+  }
+  20%{
+    opacity:1;
+    transform:scale(1.2);
+  }
+  100%{
+    opacity:0;
+    transform:
+      translateY(-80px)
+      translateX(var(--sparkX))
+      rotate(180deg)
+      scale(0.8);
+  }
+}
+
+.levelUpOverlay{
+  position:fixed;
+  inset:0;
+  z-index:999997;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+
+.levelUpBox{
+  min-width:240px;
+  max-width:82vw;
+  padding:24px 28px 26px;
+  border-radius:28px;
+  text-align:center;
+  background:rgba(255,255,255,0.94);
+  border:2px solid rgba(255,230,150,0.9);
+  box-shadow:
+    0 0 22px rgba(255,255,255,0.95),
+    0 0 45px rgba(255,220,140,0.85),
+    0 8px 24px rgba(0,0,0,0.18);
+  animation:levelPanelAppear 2.5s ease forwards;
+}
+
+.levelUpTitle{
+  font-size:24px;
+  font-weight:bold;
+  color:#ff4fa0;
+  margin-bottom:12px;
+  text-shadow:
+    0 0 6px white,
+    0 0 12px rgba(255,180,220,0.9);
+}
+
+.levelUpLevel{
+  font-size:22px;
+  font-weight:bold;
+  color:#7a3a00;
+  margin-bottom:10px;
+  text-shadow:
+    0 0 6px white,
+    0 0 10px rgba(255,220,120,0.8);
+}
+
+.levelUpRank{
+  display:block;
+  width:100%;
+  text-align:center;
+
+  font-size:24px;
+  font-weight:bold;
+  color:#4b3fb0;
+
+  margin-top:8px;
+
+  text-shadow:
+    0 0 6px white,
+    0 0 12px rgba(180,170,255,0.8);
+}
+
+@keyframes levelPanelAppear{
+  0%{
+    opacity:0;
+    transform:translateY(18px) scale(0.75);
+  }
+  18%{
+    opacity:1;
+    transform:translateY(0) scale(1.06);
+  }
+  32%{
+    transform:translateY(0) scale(1);
+  }
+  82%{
+    opacity:1;
+  }
+  100%{
+    opacity:0;
+    transform:translateY(-8px) scale(0.96);
+  }
+}
+
+/* === New Pin Badge === */
+.newPinWrap{
+  position:relative;
+  text-align:center;
+}
+
+.newBadge{
+  position:absolute;
+  left:50%;
+  top:-18px;
+  transform:translateX(-50%);
+  background:#ff3b6b;
+  color:white;
+  font-size:11px;
+  font-weight:900;
+  padding:2px 7px;
+  border-radius:999px;
+  border:2px solid white;
+  box-shadow:0 1px 5px rgba(0,0,0,.25);
+  white-space:nowrap;
+}
 /* === PC Header / Right Rail Remodel === */
 @media (min-width: 768px) {
 
@@ -1677,191 +1861,6 @@ margin-top:10px;
       0 0 7px white,
       0 0 16px rgba(255,230,140,.8) !important;
   }
-}
-
-/* === Level Up Effects === */
-.levelLightFlash{
-  position:fixed;
-  inset:0;
-  z-index:999998;
-  pointer-events:none;
-  background:radial-gradient(
-    circle,
-    rgba(255,255,255,0.95) 0%,
-    rgba(255,245,180,0.55) 28%,
-    rgba(255,255,255,0) 70%
-  );
-  animation:levelLightFlash 1.2s ease-out forwards;
-}
-
-@keyframes levelLightFlash{
-  0%{
-    opacity:0;
-    transform:scale(0.4);
-  }
-  25%{
-    opacity:1;
-    transform:scale(1);
-  }
-  100%{
-    opacity:0;
-    transform:scale(1.5);
-  }
-}
-
-.levelPetal{
-  position:fixed;
-  z-index:999999;
-  pointer-events:none;
-  font-size:26px;
-  opacity:0;
-  animation:levelPetalFloat 2.8s ease-out forwards;
-}
-
-@keyframes levelPetalFloat{
-  0%{
-    opacity:0;
-    transform:translateY(30px) rotate(0deg) scale(0.8);
-  }
-  15%{
-    opacity:1;
-  }
-  100%{
-    opacity:0;
-    transform:translateY(-180px) translateX(var(--drift)) rotate(360deg) scale(1.2);
-  }
-}
-
-.levelSparkle{
-  position:fixed;
-  z-index:999999;
-  pointer-events:none;
-  font-size:22px;
-  opacity:0;
-  animation:levelSparkleFloat 2s ease-out forwards;
-}
-
-@keyframes levelSparkleFloat{
-  0%{
-    opacity:0;
-    transform:scale(0.3);
-  }
-  20%{
-    opacity:1;
-    transform:scale(1.2);
-  }
-  100%{
-    opacity:0;
-    transform:
-      translateY(-80px)
-      translateX(var(--sparkX))
-      rotate(180deg)
-      scale(0.8);
-  }
-}
-
-.levelUpOverlay{
-  position:fixed;
-  inset:0;
-  z-index:999997;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  pointer-events:none;
-}
-
-.levelUpBox{
-  min-width:240px;
-  max-width:82vw;
-  padding:24px 28px 26px;
-  border-radius:28px;
-  text-align:center;
-  background:rgba(255,255,255,0.94);
-  border:2px solid rgba(255,230,150,0.9);
-  box-shadow:
-    0 0 22px rgba(255,255,255,0.95),
-    0 0 45px rgba(255,220,140,0.85),
-    0 8px 24px rgba(0,0,0,0.18);
-  animation:levelPanelAppear 2.5s ease forwards;
-}
-
-.levelUpTitle{
-  font-size:24px;
-  font-weight:bold;
-  color:#ff4fa0;
-  margin-bottom:12px;
-  text-shadow:
-    0 0 6px white,
-    0 0 12px rgba(255,180,220,0.9);
-}
-
-.levelUpLevel{
-  font-size:22px;
-  font-weight:bold;
-  color:#7a3a00;
-  margin-bottom:10px;
-  text-shadow:
-    0 0 6px white,
-    0 0 10px rgba(255,220,120,0.8);
-}
-
-.levelUpRank{
-  display:block;
-  width:100%;
-  text-align:center;
-
-  font-size:24px;
-  font-weight:bold;
-  color:#4b3fb0;
-
-  margin-top:8px;
-
-  text-shadow:
-    0 0 6px white,
-    0 0 12px rgba(180,170,255,0.8);
-}
-
-@keyframes levelPanelAppear{
-  0%{
-    opacity:0;
-    transform:translateY(18px) scale(0.75);
-  }
-  18%{
-    opacity:1;
-    transform:translateY(0) scale(1.06);
-  }
-  32%{
-    transform:translateY(0) scale(1);
-  }
-  82%{
-    opacity:1;
-  }
-  100%{
-    opacity:0;
-    transform:translateY(-8px) scale(0.96);
-  }
-}
-
-/* === New Pin Badge === */
-.newPinWrap{
-  position:relative;
-  text-align:center;
-}
-
-.newBadge{
-  position:absolute;
-  left:50%;
-  top:-18px;
-  transform:translateX(-50%);
-  background:#ff3b6b;
-  color:white;
-  font-size:11px;
-  font-weight:900;
-  padding:2px 7px;
-  border-radius:999px;
-  border:2px solid white;
-  box-shadow:0 1px 5px rgba(0,0,0,.25);
-  white-space:nowrap;
 }
 </style>
 </head>
