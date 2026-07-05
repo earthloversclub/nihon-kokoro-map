@@ -60,7 +60,7 @@ let popup = `
 
   ${data["投稿者"] ? `<div style="font-size:16px; margin-top:8px;">投稿者：${data["投稿者"]}</div>` : ""}
 
-  ${data["投稿日"] ? `<div style="font-size:16px;">投稿日：${data["投稿日"]}</div>` : ""}
+  ${data["投稿日"] ? `<div style="font-size:16px;">投稿日：${formatPostDate(data["投稿日"])}</div>` : ""}
 
 </div>
 
@@ -89,6 +89,14 @@ return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
 return url;
 }
 
+function formatPostDate(dateText) {
+  if (!dateText) return "";
+
+  return String(dateText)
+    .substring(0, 10)
+    .replace(/-/g, "/");
+}
+  
 const imageUrls = [];
 
 if (data["画像"] && data["画像"] !== data["動画"]) {
