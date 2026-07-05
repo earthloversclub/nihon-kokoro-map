@@ -2363,6 +2363,372 @@ margin-top:10px;
       inset 0 -10px 18px rgba(32,120,51,.12) !important;
   }
 }
+
+/* === Growth Map PC Remodel === */
+@media (min-width: 768px) {
+
+  #growthMap{
+    --growth-left-width:292px;
+    --growth-right-width:300px;
+    --growth-map-width:min(760px, 52vw);
+    --growth-map-height:min(620px, calc(100vh - 210px));
+    position:relative;
+    min-height:calc(100vh - 24px);
+    padding:5px 24px 24px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 50% 42%, rgba(255,255,255,.75), rgba(219,251,255,.42) 34%, rgba(255,255,255,0) 60%),
+      linear-gradient(180deg, rgba(241,255,248,.72), rgba(225,249,255,.54));
+  }
+
+  #growthMapContainer{
+    position:relative;
+    width:var(--growth-map-width);
+    max-width:none;
+    height:var(--growth-map-height);
+    min-height:540px;
+    margin:28px auto 0;
+    overflow:visible;
+    z-index:2;
+  }
+
+  #growthMapContainer::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:34px;
+    background:
+      radial-gradient(circle at 50% 42%, rgba(255,255,255,.8), rgba(155,227,213,.24) 52%, rgba(255,255,255,0) 72%);
+    filter:blur(.2px);
+    pointer-events:none;
+    z-index:-1;
+  }
+
+  #japanGrowthMap{
+    width:100%;
+    max-width:none;
+    height:100%;
+    min-height:540px;
+    margin:0 auto;
+    position:relative;
+    overflow:visible;
+    filter:
+      drop-shadow(0 18px 24px rgba(39,105,120,.18))
+      drop-shadow(0 0 18px rgba(255,255,255,.76));
+  }
+
+  #rankingBox,
+  #achievementBox,
+  #thanksEnergyLegend,
+  #thanksFlowerBox{
+    border:2px solid rgba(255,226,126,.88);
+    border-radius:24px;
+    background:
+      linear-gradient(125deg, rgba(255,255,255,.38), rgba(62,176,188,.58) 48%, rgba(22,98,135,.72)),
+      linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.08)) !important;
+    background-image:none !important;
+    box-shadow:
+      0 16px 30px rgba(17,69,91,.24),
+      0 0 18px rgba(255,255,255,.56),
+      inset 0 1px 0 rgba(255,255,255,.72),
+      inset 0 -12px 22px rgba(8,58,84,.2);
+    color:#fff;
+    text-shadow:
+      0 2px 4px rgba(10,48,62,.72),
+      0 0 8px rgba(255,255,255,.2);
+    box-sizing:border-box;
+    transition:
+      transform .24s ease,
+      box-shadow .24s ease,
+      filter .24s ease;
+  }
+
+  #rankingBox:hover,
+  #achievementBox:hover,
+  #thanksEnergyLegend:hover,
+  #thanksFlowerBox:hover{
+    transform:translateY(-3px);
+    filter:brightness(1.06) saturate(1.05);
+    box-shadow:
+      0 20px 34px rgba(17,69,91,.31),
+      0 0 24px rgba(255,238,145,.62),
+      inset 0 1px 0 rgba(255,255,255,.84),
+      inset 0 -12px 22px rgba(8,58,84,.16);
+  }
+
+  #rankingBox{
+    position:absolute;
+    left:28px;
+    top:128px;
+    z-index:5;
+    width:var(--growth-left-width);
+    min-height:274px;
+    padding:24px 22px;
+    overflow:hidden;
+    font-size:18px;
+    line-height:1.55;
+    font-weight:800;
+    text-align:left;
+  }
+
+  #rankingBox::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(110deg, transparent 0%, transparent 36%, rgba(255,255,255,.28) 49%, transparent 62%, transparent 100%);
+    background-size:230% 100%;
+    background-position:-90% 50%;
+    pointer-events:none;
+    transition:background-position .8s ease;
+  }
+
+  #rankingBox:hover::before{
+    background-position:130% 50%;
+  }
+
+  #rankingBox span{
+    color:#fff7c8;
+    font-size:20px !important;
+    font-weight:900 !important;
+    text-shadow:
+      0 2px 4px rgba(47,38,9,.72),
+      0 0 10px rgba(255,226,126,.72);
+  }
+
+  #achievementBox{
+    --achievement-deg:0deg;
+    position:absolute;
+    left:calc(28px - 24vw);
+    top:304px;
+    bottom:auto;
+    z-index:6;
+    width:var(--growth-left-width);
+    height:172px;
+    padding:58px 20px 22px 132px;
+    transform:none;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+    gap:7px;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+
+  #achievementBox:hover{
+    transform:translateY(-3px);
+  }
+
+  #achievementBox::before{
+    content:"";
+    position:absolute;
+    left:24px;
+    top:58px;
+    width:86px;
+    height:86px;
+    border-radius:50%;
+    background:
+      radial-gradient(circle, rgba(14,79,103,.94) 0 51%, transparent 52%),
+      conic-gradient(#ffd35c var(--achievement-deg), rgba(255,255,255,.2) 0deg);
+    box-shadow:
+      0 0 0 7px rgba(255,255,255,.18),
+      0 0 18px rgba(255,226,126,.68),
+      inset 0 0 12px rgba(255,255,255,.24);
+  }
+
+  #achievementBox::after{
+    content:"全国達成率";
+    position:absolute;
+    top:22px;
+    left:22px;
+    right:22px;
+    color:#fff7c8;
+    font-size:20px;
+    font-weight:900;
+    text-align:left;
+    text-shadow:
+      0 2px 4px rgba(47,38,9,.74),
+      0 0 10px rgba(255,226,126,.72);
+  }
+
+  #achievementCount{
+    display:block;
+    color:rgba(255,255,255,.94);
+    font-size:18px;
+    font-weight:900;
+  }
+
+  #achievementPercent{
+    display:block;
+    color:#ffd35c;
+    font-size:40px;
+    font-weight:900;
+    line-height:1;
+    text-shadow:
+      0 3px 5px rgba(47,35,5,.72),
+      0 0 10px rgba(255,255,255,.86),
+      0 0 18px rgba(255,226,111,.78);
+  }
+
+  #growthBackBox{
+    left:calc(28px - 24vw) !important;
+    top:auto !important;
+    bottom:18px !important;
+    width:var(--growth-left-width) !important;
+    z-index:7 !important;
+  }
+
+  #growthBackBox .mapReturnButton{
+    width:100% !important;
+    min-height:62px !important;
+    border:2px solid rgba(255,226,126,.92) !important;
+    border-radius:999px !important;
+    background:
+      linear-gradient(110deg, transparent 0%, transparent 34%, rgba(255,255,255,.42) 46%, transparent 58%, transparent 100%),
+      linear-gradient(180deg, rgba(255,255,255,.98), rgba(80,195,135,.94)) !important;
+    background-size:220% 100%, 100% 100% !important;
+    background-position:-70% 50%, center !important;
+    color:#176b35 !important;
+    font-size:22px !important;
+    font-weight:900 !important;
+    box-shadow:
+      0 14px 24px rgba(37,118,70,.26),
+      0 0 18px rgba(255,255,255,.68),
+      inset 0 1px 0 rgba(255,255,255,.84),
+      inset 0 -10px 18px rgba(32,120,51,.16) !important;
+    transition:
+      transform .24s ease,
+      box-shadow .24s ease,
+      background-position .72s ease,
+      filter .24s ease !important;
+  }
+
+  #growthBackBox .mapReturnButton:hover{
+    transform:translateY(-3px);
+    background-position:120% 50%, center !important;
+    filter:brightness(1.07);
+    box-shadow:
+      0 18px 30px rgba(37,118,70,.34),
+      0 0 24px rgba(210,255,190,.78),
+      inset 0 1px 0 rgba(255,255,255,.9),
+      inset 0 -10px 18px rgba(32,120,51,.1) !important;
+  }
+
+  #thanksEnergyLegend{
+    display:block;
+    position:absolute;
+    top:128px;
+    right:28px;
+    z-index:5;
+    width:var(--growth-right-width);
+    height:304px;
+    padding:62px 22px 22px;
+    overflow:hidden;
+  }
+
+  #thanksEnergyLegend::before{
+    content:"感謝エネルギー";
+    position:absolute;
+    top:22px;
+    left:22px;
+    right:22px;
+    color:#fff7c8;
+    font-size:21px;
+    font-weight:900;
+    text-align:center;
+    text-shadow:
+      0 2px 4px rgba(47,38,9,.74),
+      0 0 10px rgba(255,226,126,.72);
+  }
+
+  #thanksFlowerBox{
+    position:absolute;
+    top:402px;
+    left:auto;
+    right:calc(28px - 24vw);
+    z-index:6;
+    width:var(--growth-right-width);
+    height:194px;
+    transform:none;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:54px 22px 24px;
+    overflow:hidden;
+    color:#fff;
+  }
+
+  #thanksFlowerBox::before{
+    content:"ありがとうの花";
+    position:absolute;
+    top:22px;
+    left:22px;
+    right:22px;
+    color:#fff7c8;
+    font-size:21px;
+    font-weight:900;
+    text-align:center;
+    text-shadow:
+      0 2px 4px rgba(47,38,9,.74),
+      0 0 10px rgba(255,226,126,.72);
+  }
+
+  #thanksFlowerBox::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(110deg, transparent 0%, transparent 36%, rgba(255,255,255,.28) 50%, transparent 64%, transparent 100%);
+    background-size:230% 100%;
+    background-position:-90% 50%;
+    pointer-events:none;
+    transition:background-position .8s ease;
+  }
+
+  #thanksFlowerBox:hover::after{
+    background-position:130% 50%;
+  }
+
+  .thanks-flower-count{
+    position:relative;
+    z-index:1;
+    margin:0;
+    color:#fff;
+    font-size:28px;
+    font-weight:900;
+    line-height:1;
+    text-shadow:
+      0 2px 4px rgba(84,29,54,.62),
+      0 0 12px rgba(255,255,255,.84);
+  }
+
+  #thanksTotal{
+    display:inline-block;
+    color:#ffd35c;
+    font-size:64px;
+    font-weight:900;
+    letter-spacing:0;
+    line-height:.9;
+    text-shadow:
+      0 4px 7px rgba(75,46,5,.72),
+      0 0 12px rgba(255,255,255,.9),
+      0 0 22px rgba(255,214,93,.78);
+  }
+
+  @media (min-width: 1462px) {
+    #achievementBox{
+      left:calc(408px - 50vw);
+    }
+
+    #growthBackBox{
+      left:calc(408px - 50vw) !important;
+    }
+
+    #thanksFlowerBox{
+      right:calc(408px - 50vw);
+    }
+  }
+}
 </style>
 </head>
 
@@ -2884,6 +3250,34 @@ loadRanking();
 
 const thanksCount = Number(localStorage.getItem("myThanksCount") || 0);
 document.getElementById("myRecordThanks").textContent = thanksCount + "回";  
+
+function updateAchievementMeter() {
+  const box = document.getElementById("achievementBox");
+  const percentEl = document.getElementById("achievementPercent");
+  if (!box || !percentEl) return;
+
+  const percent = Math.max(0, Math.min(100, parseFloat(percentEl.textContent) || 0));
+  box.style.setProperty("--achievement-deg", `${percent * 3.6}deg`);
+}
+
+function setupAchievementMeter() {
+  const percentEl = document.getElementById("achievementPercent");
+  if (!percentEl) return;
+
+  updateAchievementMeter();
+
+  const observer = new MutationObserver(updateAchievementMeter);
+  observer.observe(percentEl, {
+    childList: true,
+    characterData: true,
+    subtree: true
+  });
+
+  setTimeout(updateAchievementMeter, 300);
+  setTimeout(updateAchievementMeter, 1000);
+}
+
+setupAchievementMeter();
 
 </script>
 </body>
