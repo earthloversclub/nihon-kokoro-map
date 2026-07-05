@@ -1974,6 +1974,174 @@ margin-top:10px;
       0 0 8px rgba(255,255,255,.9),
       0 0 18px rgba(255,226,111,.85) !important;
   }
+
+  #searchBox,
+  #myRecordBox,
+  #rainbowBox button,
+  #skyTempleBox button,
+  .leaflet-bottom.leaflet-right .legend{
+    transition:
+      transform .24s ease,
+      box-shadow .24s ease,
+      filter .24s ease,
+      background-position .78s ease;
+    will-change:transform;
+  }
+
+  #searchBox{
+    background:
+      linear-gradient(110deg, transparent 0%, transparent 35%, rgba(255,255,255,.42) 48%, transparent 61%, transparent 100%),
+      linear-gradient(180deg, rgba(255,255,255,.96), rgba(225,255,227,.92)),
+      linear-gradient(90deg, rgba(89,201,93,.65), rgba(255,225,99,.38));
+    background-size:230% 100%, 100% 100%, 100% 100%;
+    background-position:-90% 50%, center, center;
+  }
+
+  #searchBox:hover,
+  #searchBox:focus-within{
+    transform:translateY(-3px);
+    background-position:130% 50%, center, center;
+    filter:brightness(1.05) saturate(1.04);
+    box-shadow:
+      0 15px 28px rgba(46,135,76,.25),
+      0 0 20px rgba(217,255,211,.72),
+      inset 0 1px 0 rgba(255,255,255,.92);
+  }
+
+  #searchBox button{
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+    transition:
+      transform .22s ease,
+      box-shadow .22s ease,
+      filter .22s ease;
+  }
+
+  #searchBox button::before{
+    content:"";
+    position:absolute;
+    inset:-45% -70%;
+    z-index:0;
+    background:linear-gradient(115deg, transparent 32%, rgba(255,255,255,.52) 48%, transparent 64%);
+    transform:translateX(-72%) rotate(10deg);
+    transition:transform .68s ease;
+    pointer-events:none;
+  }
+
+  #searchBox button:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.08);
+    box-shadow:
+      0 7px 14px rgba(42,132,70,.34),
+      0 0 14px rgba(190,255,185,.58),
+      inset 0 1px 0 rgba(255,255,255,.78);
+  }
+
+  #searchBox button:hover::before{
+    transform:translateX(72%) rotate(10deg);
+  }
+
+  #myRecordBox{
+    pointer-events:auto;
+    cursor:default;
+  }
+
+  #myRecordBox:hover{
+    transform:translateY(-3px);
+    filter:brightness(1.05) saturate(1.06);
+    box-shadow:
+      0 18px 32px rgba(16,79,111,.4),
+      0 0 24px rgba(255,246,178,.62),
+      inset 0 1px 0 rgba(255,255,255,.78),
+      inset 0 -12px 18px rgba(10,70,104,.18);
+  }
+
+  #rainbowBox button,
+  #skyTempleBox button{
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+  }
+
+  #rainbowBox button{
+    background-size:100% 100%, 240% 100%;
+    background-position:center, 0% 50%;
+    animation:pcRainbowFlow 8s linear infinite;
+  }
+
+  #rainbowBox button:hover{
+    transform:translateY(-3px);
+    filter:brightness(1.08) saturate(1.1);
+    box-shadow:
+      0 15px 28px rgba(87,58,142,.24),
+      0 0 18px rgba(255,255,255,.68),
+      0 0 26px rgba(255,135,205,.44),
+      0 0 30px rgba(118,215,255,.42),
+      inset 0 1px 0 rgba(255,255,255,.72),
+      inset 0 -10px 18px rgba(12,36,49,.18);
+  }
+
+  #skyTempleBox button::before{
+    content:"";
+    position:absolute;
+    inset:-48%;
+    z-index:0;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,.88) 0%, rgba(255,255,255,.42) 26%, rgba(255,255,255,0) 62%);
+    opacity:0;
+    transform:scale(.28);
+    transition:
+      opacity .45s ease,
+      transform .68s ease;
+    pointer-events:none;
+  }
+
+  #skyTempleBox button:hover{
+    transform:translateY(-3px);
+    filter:brightness(1.07);
+    box-shadow:
+      0 15px 28px rgba(72,47,133,.25),
+      0 0 22px rgba(255,255,255,.78),
+      0 0 32px rgba(210,220,255,.55),
+      inset 0 1px 0 rgba(255,255,255,.88),
+      inset 0 -10px 18px rgba(82,55,141,.18);
+  }
+
+  #skyTempleBox button:hover::before{
+    opacity:.58;
+    transform:scale(1);
+  }
+
+  .leaflet-bottom.leaflet-right .legend{
+    background:
+      linear-gradient(110deg, transparent 0%, transparent 36%, rgba(255,220,94,.48) 48%, rgba(255,255,255,.32) 52%, transparent 64%, transparent 100%),
+      linear-gradient(180deg, rgba(52,177,203,.92), rgba(23,92,134,.95)),
+      linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,212,89,.18)) !important;
+    background-size:235% 100%, 100% 100%, 100% 100% !important;
+    background-position:-92% 50%, center, center !important;
+  }
+
+  .leaflet-bottom.leaflet-right .legend:hover{
+    transform:translateY(-3px);
+    background-position:132% 50%, center, center !important;
+    filter:brightness(1.06) saturate(1.05) !important;
+    box-shadow:
+      0 18px 32px rgba(12,54,82,.4),
+      0 0 20px rgba(255,238,145,.72),
+      0 0 28px rgba(255,201,78,.34),
+      inset 0 1px 0 rgba(255,255,255,.78),
+      inset 0 -12px 20px rgba(6,53,86,.22) !important;
+  }
+
+  @keyframes pcRainbowFlow{
+    0%{
+      background-position:center, 0% 50%;
+    }
+    100%{
+      background-position:center, 240% 50%;
+    }
+  }
 }
 
 #todayTreasureBox{
