@@ -1621,10 +1621,10 @@ margin-top:10px;
 @media (min-width: 768px) {
 
   :root{
-    --pc-header-height:112px;
-    --pc-side-right:28px;
-    --pc-side-width:300px;
-    --pc-side-gap:12px;
+    --pc-header-height:136px;
+    --pc-side-right:22px;
+    --pc-side-width:320px;
+    --pc-side-gap:14px;
     --pc-glass-bg:
       linear-gradient(145deg, rgba(255,255,255,.34), rgba(48,92,104,.42) 46%, rgba(18,45,58,.5)),
       linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,.07));
@@ -1639,12 +1639,13 @@ margin-top:10px;
   header{
     height:var(--pc-header-height);
     padding:0;
+    position:relative;
     display:flex;
     align-items:center;
     justify-content:center;
     overflow:hidden;
     background:
-      linear-gradient(180deg, rgba(248,255,251,.96), rgba(226,246,237,.94));
+      linear-gradient(180deg, rgba(244,255,251,.96), rgba(221,244,235,.94));
     color:transparent;
     font-size:0;
     line-height:0;
@@ -1655,10 +1656,13 @@ margin-top:10px;
 
   header::before{
     content:"";
+    position:absolute;
+    inset:0;
     display:block;
-    width:min(960px, calc(100% - 56px));
+    width:100%;
     height:100%;
-    background:url("images/header.png") center center / contain no-repeat;
+    background:url("images/header.png") center center / cover no-repeat;
+    filter:drop-shadow(0 4px 10px rgba(35,95,80,.18));
   }
 
   header span{
@@ -1667,6 +1671,27 @@ margin-top:10px;
 
   #mapContainer{
     height:calc(100vh - var(--pc-header-height));
+  }
+
+  #mapContainer::after{
+    content:"";
+    position:absolute;
+    top:12px;
+    right:14px;
+    width:calc(var(--pc-side-width) + 28px);
+    height:min(690px, calc(100% - 24px));
+    z-index:1500;
+    pointer-events:none;
+    border:1px solid rgba(255,242,190,.34);
+    border-radius:26px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.04)),
+      linear-gradient(145deg, rgba(44,112,130,.18), rgba(28,62,79,.16));
+    box-shadow:
+      0 18px 36px rgba(14,42,52,.16),
+      inset 0 1px 0 rgba(255,255,255,.34);
+    backdrop-filter:blur(3px);
+    -webkit-backdrop-filter:blur(3px);
   }
 
   #searchBox,
@@ -1678,18 +1703,18 @@ margin-top:10px;
   }
 
   #searchBox{
-    top:16px;
+    top:18px;
     left:auto;
     bottom:auto;
     z-index:2100;
     display:flex;
     align-items:center;
     gap:8px;
-    padding:10px 11px;
+    padding:11px 12px;
     white-space:nowrap;
     background:var(--pc-glass-bg);
     border:1px solid var(--pc-gold-line);
-    border-radius:18px;
+    border-radius:20px;
     box-shadow:var(--pc-panel-shadow);
     backdrop-filter:blur(9px) saturate(1.15);
     -webkit-backdrop-filter:blur(9px) saturate(1.15);
@@ -1699,9 +1724,9 @@ margin-top:10px;
     flex:1 1 auto;
     width:auto;
     min-width:0;
-    padding:8px 10px;
+    padding:10px 12px;
     border:1px solid rgba(255,255,255,.36);
-    border-radius:13px;
+    border-radius:15px;
     background:rgba(255,255,255,.88);
     color:#20383c;
     font-size:16px;
@@ -1716,9 +1741,9 @@ margin-top:10px;
 
   #searchBox button{
     flex:0 0 auto;
-    padding:8px 13px;
+    padding:10px 15px;
     border:1px solid rgba(255,236,184,.82);
-    border-radius:13px;
+    border-radius:15px;
     background:linear-gradient(180deg, #fff5c8, #d9b95b);
     color:#385038;
     font-size:16px;
@@ -1730,10 +1755,10 @@ margin-top:10px;
   }
 
   #searchResultsBox{
-    top:75px;
+    top:84px;
     right:var(--pc-side-right);
     width:var(--pc-side-width);
-    max-height:330px;
+    max-height:350px;
     z-index:3200;
     padding:9px;
     background:rgba(255,255,255,.94);
@@ -1753,48 +1778,48 @@ margin-top:10px;
   }
 
   #myRecordBox{
-    top:88px;
+    top:98px;
     right:var(--pc-side-right);
     width:var(--pc-side-width);
     z-index:1900;
-    padding:12px 14px 13px;
+    padding:15px 16px 16px;
     background:var(--pc-glass-bg);
     border:1px solid var(--pc-gold-line);
-    border-radius:22px;
+    border-radius:24px;
     box-shadow:var(--pc-panel-shadow);
   }
 
   #myRecordBox::before{
-    border-radius:20px;
+    border-radius:22px;
   }
 
   .myRecordTitle{
-    margin-bottom:7px;
+    margin-bottom:9px;
   }
 
   .myRecordTopRow,
   .myRecordRow,
   .myRecordPointRow{
-    min-height:30px;
+    min-height:34px;
   }
 
   .myRecordRow{
-    margin:4px 0;
+    margin:5px 0;
   }
 
   .myRecordPointRow{
-    margin-top:5px;
+    margin-top:7px;
   }
 
   #rainbowBox{
-    top:306px;
+    top:334px;
     left:auto;
     bottom:auto;
     z-index:1700;
   }
 
   #skyTempleBox{
-    top:376px;
+    top:414px;
     left:auto;
     right:var(--pc-side-right);
     bottom:auto;
@@ -1805,14 +1830,14 @@ margin-top:10px;
   #rainbowBox button,
   #skyTempleBox button{
     width:100%;
-    height:58px;
+    height:66px;
     display:flex;
     align-items:center;
     justify-content:center;
     border:1px solid rgba(255,236,184,.78);
-    border-radius:18px;
+    border-radius:20px;
     color:#fffdf2;
-    font-size:18px;
+    font-size:20px;
     font-weight:900;
     line-height:1.12;
     text-shadow:
@@ -1839,27 +1864,27 @@ margin-top:10px;
 
   .leaflet-bottom.leaflet-right .legend{
     position:fixed !important;
-    top:calc(var(--pc-header-height) + 446px) !important;
+    top:calc(var(--pc-header-height) + 504px) !important;
     right:var(--pc-side-right) !important;
     bottom:auto !important;
     width:var(--pc-side-width) !important;
-    height:132px !important;
+    height:205px !important;
     margin:0 !important;
-    background-size:contain !important;
+    background-size:100% 100% !important;
     z-index:1650 !important;
     filter:
-      drop-shadow(0 10px 18px rgba(13,34,45,.24))
-      drop-shadow(0 0 12px rgba(255,255,255,.45));
+      drop-shadow(0 14px 24px rgba(13,34,45,.28))
+      drop-shadow(0 0 18px rgba(255,255,255,.58));
   }
 
   #totalPostsCount{
-    top:67px !important;
-    font-size:34px !important;
+    top:110px !important;
+    font-size:56px !important;
     color:#ffad33 !important;
     text-shadow:
-      0 1px 3px rgba(85,42,0,.55),
-      0 0 7px white,
-      0 0 16px rgba(255,230,140,.8) !important;
+      0 2px 4px rgba(85,42,0,.58),
+      0 0 8px white,
+      0 0 22px rgba(255,230,140,.92) !important;
   }
 }
 </style>
