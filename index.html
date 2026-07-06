@@ -4769,6 +4769,37 @@ function setupAchievementMeter() {
 
 setupAchievementMeter();
 
+function updateRainbowNewBadge() {
+  if (typeof loadHeartData !== "function") return;
+
+  loadHeartData(function(rows, headers) {
+    const hasUnread = rows.slice(1).some(row => {
+      const data = {};
+      headers.forEach((h, i) => data[h] = row[i] || "");
+
+      if (data["表示"] !== "表示") return false;
+      if (!data["ID"]) return false;
+
+      return !localStorage.getItem("heart_viewed_" + data["ID"]);
+    });
+
+    const rainbowBox = document.getElementById("rainbowBox");
+    if (!rainbowBox) return;
+
+    const oldBadge = document.getElementById("rainbowNewBadge");
+    if (oldBadge) oldBadge.remove();
+
+    if (hasUnread) {
+      rainbowBox.insertAdjacentHTML(
+        "afterbegin",
+        `<span id="rainbowNewBadge" class="rainbowNewBadge">NEW!</span>`
+      );
+    }
+  });
+}
+
+updateRainbowNewBadge();
+  
 </script>
 </body>
 </html>
