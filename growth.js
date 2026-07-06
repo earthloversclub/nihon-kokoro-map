@@ -26,7 +26,9 @@ document.getElementById("thanksEnergyLegend").style.display = "block";
 
 setTimeout(function() {
 loadJapanGrowthMap();
-}, 100);
+loadRanking();
+loadAchievement();
+}, 800);
 }
 
 
@@ -34,7 +36,14 @@ loadJapanGrowthMap();
 // === Growth Map ===
 
 function loadAchievement() {
+
+if (!prefectureCounts || Object.keys(prefectureCounts).length === 0) {
+  setTimeout(loadAchievement, 500);
+  return;
+}
+
 const total = 47;
+  
 const achieved = Object.keys(prefectureCounts).length;
 
 document.getElementById("achievementCount").textContent =
