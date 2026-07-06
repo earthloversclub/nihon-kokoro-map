@@ -4159,6 +4159,34 @@ margin-top:10px;
     z-index:8 !important;
   }
 
+  /* 成長地図スマホ：地図とポップアップを最前面にする */
+  #growthMap[style*="block"] #growthMapContainer{
+    z-index:50 !important;
+  }
+
+  #growthMap[style*="block"] #japanGrowthMap{
+    position:relative !important;
+    z-index:60 !important;
+  }
+
+  #growthMap[style*="block"] .leaflet-pane,
+  #growthMap[style*="block"] .leaflet-map-pane,
+  #growthMap[style*="block"] .leaflet-popup-pane{
+    z-index:9999 !important;
+  }
+
+  #growthMap[style*="block"] .leaflet-popup{
+    z-index:10000 !important;
+  }
+
+  #growthMap[style*="block"] #rankingBox,
+  #growthMap[style*="block"] #thanksEnergyLegend,
+  #growthMap[style*="block"] #thanksFlowerBox,
+  #growthMap[style*="block"] #achievementBox,
+  #growthMap[style*="block"] #growthBackBox{
+    z-index:10 !important;
+  }
+  
 }
 </style>
 </head>
