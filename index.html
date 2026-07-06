@@ -1928,70 +1928,105 @@ body.mapCleanMode #mapContainer::after{
     width:318px !important;
     height:154px !important;
     margin:0 !important;
-    padding:0 !important;
+    padding:14px 18px 16px !important;
     overflow:hidden !important;
-    border:2px solid rgba(255,226,126,.96) !important;
-    border-radius:22px !important;
-background:
-  linear-gradient(
-    180deg,
-    rgba(110,220,240,.96),
-    rgba(65,175,220,.95),
-    rgba(28,110,175,.96)
-  ),
-  linear-gradient(
-    135deg,
-    rgba(255,255,255,.45),
-    rgba(255,235,150,.30)
-  );
+    isolation:isolate;
+    display:flex !important;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    box-sizing:border-box !important;
+    border:2px solid rgba(255,232,137,.96) !important;
+    border-radius:24px !important;
+    background:
+      linear-gradient(110deg, transparent 0%, transparent 35%, rgba(255,255,255,.40) 48%, rgba(255,226,126,.28) 52%, transparent 65%, transparent 100%),
+      linear-gradient(180deg, rgba(104,217,232,.96), rgba(38,137,166,.94)),
+      linear-gradient(145deg, rgba(255,255,255,.40), rgba(17,79,113,.32)) !important;
+    background-size:235% 100%, 100% 100%, 100% 100% !important;
+    background-position:-92% 50%, center, center !important;
     z-index:1650 !important;
     filter:none !important;
     box-shadow:
-     box-shadow:
-  0 16px 30px rgba(12,54,82,.28),
-  0 0 22px rgba(255,245,180,.90),
-  0 0 38px rgba(255,220,120,.45),
-      inset 0 1px 0 rgba(255,255,255,.68),
-      inset 0 -12px 20px rgba(6,53,86,.28) !important;
+      0 14px 26px rgba(16,79,111,.34),
+      0 0 18px rgba(255,255,255,.62),
+      0 0 26px rgba(255,232,137,.48),
+      inset 0 1px 0 rgba(255,255,255,.72),
+      inset 0 -12px 18px rgba(10,70,104,.24) !important;
   }
 
   .leaflet-bottom.leaflet-right .legend::before{
-    content:"🌎地球の宝物🗾";
+    content:"";
     position:absolute;
-    top:18px;
-    left:0;
-    right:0;
-    text-align:center;
-    color:#fff7c8;
-    font-size:30px;
-    font-weight:900;
-    line-height:1;
-    text-shadow:
-      0 2px 4px rgba(35,38,10,.72),
-      0 0 10px rgba(255,235,135,.75);
+    inset:2px;
+    z-index:0;
+    border:1px solid rgba(255,255,255,.36);
+    border-radius:22px;
+    box-shadow:
+      inset 0 0 18px rgba(255,255,255,.2),
+      inset 0 1px 0 rgba(255,255,255,.46);
+    pointer-events:none;
   }
 
   .leaflet-bottom.leaflet-right .legend::after{
-    content:"📝総投稿数✐";
+    content:"";
     position:absolute;
-    top:50px;
-    left:0;
-    right:0;
-    text-align:center;
-    color:#fff8d0;
-    font-size:20px;
+    left:18px;
+    right:18px;
+    top:0;
+    z-index:0;
+    height:48px;
+    background:linear-gradient(180deg, rgba(255,255,255,.50), rgba(255,255,255,0));
+    opacity:.76;
+    pointer-events:none;
+  }
+
+  .leaflet-bottom.leaflet-right .legend > *{
+    position:relative;
+    z-index:1;
+  }
+
+  .treasureTitle{
+    color:#fffbe3;
+    font-size:25px;
     font-weight:900;
-    text-shadow:0 1px 3px rgba(10,44,62,.7);
+    line-height:1.05;
+    text-align:center;
+    text-shadow:
+      0 2px 4px rgba(6,65,92,.72),
+      0 0 11px rgba(255,246,178,.9);
+  }
+
+  .treasureSubTitle{
+    margin-top:5px;
+    color:#fff8d0;
+    font-size:18px;
+    font-weight:900;
+    line-height:1.05;
+    text-align:center;
+    text-shadow:
+      0 1px 3px rgba(10,44,62,.72),
+      0 0 8px rgba(255,255,255,.62);
   }
 
   #totalPostsCount{
-    top:78px !important;
-    font-size:62px !important;
-    color:#ffd35c !important;
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    transform:none !important;
+    display:block;
+    margin-top:8px;
+    margin-bottom:6px;
+    color:#ffe77a !important;
+    font-size:58px !important;
+    font-weight:900 !important;
+    letter-spacing:0;
+    line-height:.92;
     text-shadow:
-      0 3px 5px rgba(47,35,5,.78),
-      0 0 8px rgba(255,255,255,.9),
-      0 0 18px rgba(255,226,111,.85) !important;
+      0 4px 0 rgba(156,103,14,.74),
+      0 6px 10px rgba(38,35,8,.52),
+      0 0 8px rgba(255,255,255,.96),
+      0 0 18px rgba(255,243,155,.95),
+      0 0 28px rgba(255,202,65,.72) !important;
   }
 
   #searchBox,
@@ -2133,11 +2168,6 @@ background:
   }
 
   .leaflet-bottom.leaflet-right .legend{
-    background:
-      linear-gradient(110deg, transparent 0%, transparent 36%, rgba(255,220,94,.48) 48%, rgba(255,255,255,.32) 52%, transparent 64%, transparent 100%),
-      linear-gradient(180deg, rgba(52,177,203,.92), rgba(23,92,134,.95)),
-      linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,212,89,.18)) !important;
-    background-size:235% 100%, 100% 100%, 100% 100% !important;
     background-position:-92% 50%, center, center !important;
   }
 
@@ -2147,8 +2177,8 @@ background:
     filter:brightness(1.06) saturate(1.05) !important;
     box-shadow:
       0 18px 32px rgba(12,54,82,.4),
-      0 0 20px rgba(255,238,145,.72),
-      0 0 28px rgba(255,201,78,.34),
+      0 0 22px rgba(255,248,190,.76),
+      0 0 32px rgba(255,211,82,.42),
       inset 0 1px 0 rgba(255,255,255,.78),
       inset 0 -12px 20px rgba(6,53,86,.22) !important;
   }
@@ -3923,15 +3953,22 @@ div.style.padding = "0";
 div.style.marginBottom = "40px";
 div.style.marginRight = "-40px";
 
+if (isPC) {
+div.innerHTML = `
+<div class="treasureTitle">🌎地球の宝物🗾</div>
+<div class="treasureSubTitle">📝総投稿数✐</div>
+<div id="totalPostsCount">0件</div>
+`;
+} else {
 div.innerHTML = `
 <div style="text-align:center; position:relative; height:100%;">
 <div id="totalPostsCount"
 style="
 position:absolute;
-top:${isPC ? "135px" : "107px"};
+top:107px;
 left:50%;
 transform:translateX(-50%);
-font-size:${isPC ? "48px" : "35px"};
+font-size:35px;
 font-weight:900;
 color:#ff8c00;
 text-shadow:
@@ -3943,6 +3980,7 @@ text-shadow:
 </div>
 </div>
 `;
+}
 
 return div;
 };
