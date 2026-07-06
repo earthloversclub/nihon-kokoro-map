@@ -4010,15 +4010,18 @@ margin-top:10px;
 <style id="growth-mobile-position-fix">
 @media (max-width: 767px) {
 
-  #growthMap[style*="block"]{
-    display:grid !important;
-    grid-template-columns:minmax(0, 1fr) !important;
-    grid-template-rows:auto auto auto !important;
-    position:relative !important;
-    overflow:visible !important;
-    padding:5px 10px 260px !important;
-    box-sizing:border-box !important;
-  }
+#growthMap[style*="block"]{
+  display:grid !important;
+  grid-template-columns:minmax(0, 1fr) !important;
+  grid-template-rows:auto auto auto !important;
+  position:relative !important;
+  overflow:visible !important;
+
+  /* ←ここだけ変更 */
+  padding:5px 10px 340px !important;
+
+  box-sizing:border-box !important;
+}
 
   #growthMap[style*="block"] .growthTitle{
     grid-column:1 !important;
