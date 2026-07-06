@@ -4010,62 +4010,37 @@ margin-top:10px;
 <style id="growth-mobile-position-fix">
 @media (max-width: 767px) {
 
-#growthMap[style*="block"]{
-  display:grid !important;
-  grid-template-columns:minmax(0, 1fr) !important;
-  grid-template-rows:auto auto auto !important;
-  position:relative !important;
-  overflow:visible !important;
-  padding:5px 10px 260px !important;
-  box-sizing:border-box !important;
-}
-
-  #growthMap[style*="block"] .growthTitle{
-    grid-column:1 !important;
-    grid-row:1 !important;
+  #growthMap[style*="block"]{
+    position:relative !important;
+    overflow:visible !important;
+    padding:5px 10px 300px !important;
+    box-sizing:border-box !important;
   }
 
-  #growthMap[style*="block"] .growthMapHint{
-    grid-column:1 !important;
-    grid-row:2 !important;
-  }
-
-  #growthMap[style*="block"] #growthMapContainer,
-  #growthMap[style*="block"] #growthLeftColumn,
-  #growthMap[style*="block"] #growthRightColumn{
-    grid-column:1 !important;
-    grid-row:3 !important;
-    justify-self:center !important;
+  #growthMap[style*="block"] #growthMapContainer{
+    position:relative !important;
     width:100% !important;
     max-width:700px !important;
     height:520px !important;
-    min-height:0 !important;
     margin:25px auto 0 !important;
-    position:relative !important;
-    left:auto !important;
-    top:auto !important;
-    right:auto !important;
-    bottom:auto !important;
-    transform:none !important;
     overflow:visible !important;
-    box-sizing:border-box !important;
-  }
-  
-  #growthMap[style*="block"] #growthMapContainer{
-    z-index:1 !important;
   }
 
   #growthMap[style*="block"] #japanGrowthMap{
     width:100% !important;
-    max-width:700px !important;
     height:520px !important;
-    min-height:0 !important;
     margin:0 auto !important;
   }
 
   #growthMap[style*="block"] #growthLeftColumn,
   #growthMap[style*="block"] #growthRightColumn{
-    display:block !important;
+    position:absolute !important;
+    left:0 !important;
+    top:0 !important;
+    width:100% !important;
+    height:520px !important;
+    margin:0 !important;
+    transform:none !important;
     pointer-events:none !important;
     z-index:2 !important;
   }
@@ -4083,11 +4058,23 @@ margin-top:10px;
     font-size:0 !important;
   }
 
+  #growthMap[style*="block"] #rankingBox{
+    display:block !important;
+    position:absolute !important;
+    left:0px !important;
+    top:140px !important;
+    width:165px !important;
+    right:auto !important;
+    bottom:auto !important;
+    transform:none !important;
+    z-index:7 !important;
+  }
+
   #growthMap[style*="block"] #thanksEnergyLegend{
     display:block !important;
     position:absolute !important;
     top:50% !important;
-    right:0 !important;
+    right:0px !important;
     left:auto !important;
     bottom:auto !important;
     width:90px !important;
@@ -4095,16 +4082,7 @@ margin-top:10px;
     transform:translateY(-50%) !important;
     background:url("images/energy-frame.png") center center no-repeat !important;
     background-size:contain !important;
-    border:none !important;
-    box-shadow:none !important;
-    padding:0 !important;
     z-index:4 !important;
-  }
-
-  #growthMap[style*="block"] #thanksEnergyLegend::before,
-  #growthMap[style*="block"] #thanksEnergyLegend::after{
-    content:none !important;
-    display:none !important;
   }
 
   #growthMap[style*="block"] #thanksEnergyLegend .energyMeter{
@@ -4114,18 +4092,15 @@ margin-top:10px;
   #growthMap[style*="block"] #thanksFlowerBox{
     display:flex !important;
     position:absolute !important;
+    right:-10px !important;
+    bottom:-50px !important;
     left:auto !important;
     top:auto !important;
-    right:-10px !important;
-    bottom:-130px !important;
     width:min(72vw, 358px) !important;
     height:154px !important;
     transform:none !important;
     background:url("images/thanks-frame.png") center center no-repeat !important;
     background-size:100% 100% !important;
-    border:none !important;
-    box-shadow:none !important;
-    padding:0 !important;
     z-index:5 !important;
   }
 
@@ -4133,16 +4108,14 @@ margin-top:10px;
     display:flex !important;
     position:absolute !important;
     left:50% !important;
+    bottom:-30px !important;
     top:auto !important;
     right:auto !important;
-    bottom:-30px !important;
     width:min(96vw, 420px) !important;
     height:118px !important;
     transform:translateX(-50%) !important;
     background:url("images/achievement-frame.png") center center no-repeat !important;
     background-size:contain !important;
-    border:none !important;
-    box-shadow:none !important;
     padding:24px 0 0 !important;
     font-size:17px !important;
     z-index:6 !important;
@@ -4152,30 +4125,14 @@ margin-top:10px;
     display:flex !important;
     position:absolute !important;
     left:10px !important;
+    bottom:-70px !important;
     top:auto !important;
     right:auto !important;
-    bottom:-70px !important;
     width:auto !important;
     transform:none !important;
-    z-index:7 !important;
+    z-index:8 !important;
   }
 
-  body #growthMap[style*="block"] #growthLeftColumn #rankingBox{
-    display:block !important;
-    position:absolute !important;
-    left:0px !important;
-    top:-30px !important;
-    right:auto !important;
-    bottom:auto !important;
-    width:165px !important;
-    transform:none !important;
-    z-index:20 !important;
-
-    background-image:url("images/ranking-frame.png") !important;
-    background-size:100% 100% !important;
-    background-repeat:no-repeat !important;
-  }
-  
 }
 </style>
 </head>
