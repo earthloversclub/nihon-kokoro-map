@@ -4159,33 +4159,40 @@ margin-top:10px;
     z-index:8 !important;
   }
 
-  /* 成長地図スマホ：地図とポップアップを最前面にする */
-  #growthMap[style*="block"] #growthMapContainer{
-    z-index:50 !important;
-  }
+/* 成長地図スマホ：重なり順 */
+#growthMap[style*="block"] #growthMapContainer{
+  z-index:auto !important;
+}
 
-  #growthMap[style*="block"] #japanGrowthMap{
-    position:relative !important;
-    z-index:60 !important;
-  }
+#growthMap[style*="block"] #growthLeftColumn,
+#growthMap[style*="block"] #growthRightColumn{
+  z-index:auto !important;
+}
 
-  #growthMap[style*="block"] .leaflet-pane,
-  #growthMap[style*="block"] .leaflet-map-pane,
-  #growthMap[style*="block"] .leaflet-popup-pane{
-    z-index:9999 !important;
-  }
+/* グレー背景・地図タイルは一番下 */
+#growthMap[style*="block"] .leaflet-tile-pane{
+  z-index:1 !important;
+}
 
-  #growthMap[style*="block"] .leaflet-popup{
-    z-index:10000 !important;
-  }
+/* フレーム類 */
+#growthMap[style*="block"] #rankingBox,
+#growthMap[style*="block"] #thanksEnergyLegend,
+#growthMap[style*="block"] #thanksFlowerBox,
+#growthMap[style*="block"] #achievementBox,
+#growthMap[style*="block"] #growthBackBox{
+  z-index:20 !important;
+}
 
-  #growthMap[style*="block"] #rankingBox,
-  #growthMap[style*="block"] #thanksEnergyLegend,
-  #growthMap[style*="block"] #thanksFlowerBox,
-  #growthMap[style*="block"] #achievementBox,
-  #growthMap[style*="block"] #growthBackBox{
-    z-index:10 !important;
-  }
+/* 日本列島だけ前面 */
+#growthMap[style*="block"] .leaflet-overlay-pane{
+  z-index:40 !important;
+}
+
+/* ポップアップ最前面 */
+#growthMap[style*="block"] .leaflet-popup-pane,
+#growthMap[style*="block"] .leaflet-popup{
+  z-index:100 !important;
+}
   
 }
 </style>
