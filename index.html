@@ -1693,9 +1693,11 @@ margin-top:10px;
       inset 0 1px 0 rgba(255,255,255,.6);
   }
 
-  .mapCleanMode #mapContainer::after{
-    display:none !important;
-  }
+body.mapCleanMode #mapContainer::after{
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
 
   #searchBox,
   #myRecordBox,
