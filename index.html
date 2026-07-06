@@ -1674,28 +1674,9 @@ margin-top:10px;
   }
 
   #mapContainer::after{
-    content:"";
-    position:absolute;
-    top:12px;
-    right:14px;
-    width:calc(var(--pc-side-width) + 24px);
-    height:min(668px, calc(100% - 24px));
-    z-index:1500;
-    pointer-events:none;
-    border:1px solid rgba(255,235,156,.7);
-    border-radius:28px;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,.28), rgba(227,251,255,.18) 32%, rgba(24,102,129,.16)),
-      linear-gradient(145deg, rgba(28,131,158,.3), rgba(255,214,113,.16) 50%, rgba(160,115,215,.2));
-    box-shadow:
-      0 18px 36px rgba(13,59,82,.2),
-      0 0 20px rgba(255,255,255,.42),
-      inset 0 1px 0 rgba(255,255,255,.6);
+    content:none !important;
+    display:none !important;
   }
-
-body.mapCleanMode #mapContainer::after{
-  content:none !important;
-}
 
   #searchBox,
   #myRecordBox,
@@ -2218,16 +2199,21 @@ body.mapCleanMode #mapContainer::after{
     margin-left:var(--pc-left) !important;
     padding:66px 18px 18px !important;
     overflow:hidden !important;
-    border:2px solid rgba(255,226,126,.92) !important;
+    isolation:isolate;
+    border:2px solid rgba(255,232,137,.96) !important;
     border-radius:24px !important;
     background:
-      linear-gradient(180deg, rgba(255,255,255,.36), rgba(255,244,206,.18)),
-      linear-gradient(145deg, rgba(69,177,181,.86), rgba(34,122,143,.9)) !important;
+      linear-gradient(110deg, transparent 0%, transparent 35%, rgba(255,255,255,.38) 48%, rgba(255,226,126,.24) 52%, transparent 65%, transparent 100%),
+      linear-gradient(180deg, rgba(104,217,232,.92), rgba(38,137,166,.9)),
+      linear-gradient(145deg, rgba(255,255,255,.38), rgba(17,79,113,.3)) !important;
+    background-size:235% 100%, 100% 100%, 100% 100% !important;
+    background-position:-92% 50%, center, center !important;
     box-shadow:
-      0 16px 30px rgba(18,73,84,.26),
-      0 0 18px rgba(255,255,255,.58),
+      0 14px 28px rgba(16,79,111,.32),
+      0 0 18px rgba(255,255,255,.62),
+      0 0 26px rgba(255,232,137,.42),
       inset 0 1px 0 rgba(255,255,255,.72),
-      inset 0 -12px 22px rgba(8,70,91,.2) !important;
+      inset 0 -12px 18px rgba(10,70,104,.22) !important;
     color:#fff;
     font-size:18px !important;
     line-height:1.25 !important;
@@ -2240,6 +2226,7 @@ body.mapCleanMode #mapContainer::after{
     top:20px;
     left:18px;
     right:18px;
+    z-index:2;
     color:#fff8c9;
     font-size:25px;
     font-weight:900;
@@ -2255,9 +2242,24 @@ body.mapCleanMode #mapContainer::after{
     position:absolute;
     left:18px;
     right:18px;
-    top:56px;
-    height:1px;
-    background:linear-gradient(90deg, transparent, rgba(255,244,184,.8), transparent);
+    top:0;
+    z-index:0;
+    height:58px;
+    border-top:1px solid rgba(255,255,255,.44);
+    border-radius:22px 22px 0 0;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.48), rgba(255,255,255,0) 72%),
+      linear-gradient(90deg, transparent 0%, rgba(255,244,184,.72) 50%, transparent 100%);
+    background-size:100% 100%, 100% 1px;
+    background-position:center, center bottom;
+    background-repeat:no-repeat;
+    opacity:.78;
+    pointer-events:none;
+  }
+
+  .leaflet-top.leaflet-left .legend > *{
+    position:relative;
+    z-index:1;
   }
 
   .leaflet-top.leaflet-left .legend br{
@@ -2270,9 +2272,11 @@ body.mapCleanMode #mapContainer::after{
     min-height:36px;
     margin:0 0 7px;
     padding:5px 8px;
-    border:1px solid rgba(255,255,255,.34);
+    border:1px solid rgba(255,255,255,.46);
     border-radius:13px;
-    background:linear-gradient(90deg, rgba(255,255,255,.2), rgba(255,255,255,.08));
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.08)),
+      linear-gradient(90deg, rgba(9,89,123,.28), rgba(255,255,255,.16));
     color:#fff;
     font-size:18px;
     font-weight:900;
@@ -2290,7 +2294,9 @@ body.mapCleanMode #mapContainer::after{
   .leaflet-top.leaflet-left .legend label:hover{
     transform:translateX(3px);
     border-color:rgba(255,236,148,.82);
-    background:linear-gradient(90deg, rgba(255,255,255,.32), rgba(255,232,128,.16));
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.32), rgba(255,255,255,.12)),
+      linear-gradient(90deg, rgba(255,232,128,.2), rgba(9,89,123,.28));
     box-shadow:
       0 5px 12px rgba(9,57,68,.18),
       inset 0 1px 0 rgba(255,255,255,.42);
@@ -3631,7 +3637,7 @@ body.mapCleanMode #mapContainer::after{
 </div>
   
   <div id="todayTreasureBox">
-    <button id="todayTreasureButton" type="button">🌸 今日の宝さがし</button>
+    <button id="todayTreasureButton" type="button">🎈 今日の宝探し 🎁</button>
   </div>
   
   <div id="mapSwitchBox">
