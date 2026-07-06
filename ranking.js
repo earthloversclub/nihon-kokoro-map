@@ -1,4 +1,9 @@
 function loadRanking() {
+if (!prefectureThanks || Object.keys(prefectureThanks).length === 0) {
+  setTimeout(loadRanking, 500);
+  return;
+}
+
 const ranking = Object.keys(prefectureThanks)
 .map(pref => ({
 pref: pref,
