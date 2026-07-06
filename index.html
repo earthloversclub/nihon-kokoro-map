@@ -3309,8 +3309,8 @@ margin-top:10px;
     align-self:start;
   }
 
-  #growthMap[style*="block"] #thanksEnergyLegend::after{
-    content:"HIGH\A\A\A\A LOW";
+#growthMap[style*="block"] #thanksEnergyLegend::after{
+    content:"HIGH\A\A\A\A\A\A LOW";
     white-space:pre;
     position:absolute;
     left:30px;
@@ -3334,13 +3334,28 @@ margin-top:10px;
     font-weight:900;
     line-height:1;
     text-align:center;
-    box-shadow:
-      0 0 0 8px rgba(255,255,255,.42),
-      0 10px 20px rgba(72,87,68,.18),
-      inset 0 1px 0 rgba(255,255,255,.4);
-    padding-top:8px;
+    padding-top:10px;
     box-sizing:border-box;
-  }
+    box-shadow:
+      0 8px 18px rgba(80,70,35,.18),
+      inset 0 0 0 4px rgba(255,255,255,.52);
+}
+
+  #growthMap[style*="block"] #thanksEnergyLegend::before{
+    content:"都道府県ごとの\Aエネルギーレベルが\A色で表示されます✨\A\A県をクリックで成長記録を\A読むことができます😊";
+    white-space:pre;
+    position:absolute;
+    left:132px;
+    top:82px;
+    width:150px;
+    color:#225f55;
+    font-size:16px;
+    font-weight:900;
+    line-height:1.65;
+    text-align:center;
+    text-shadow:
+      0 1px 0 rgba(255,255,255,.8);
+}
 
   #growthMap[style*="block"] #thanksEnergyLegend{
     background:
