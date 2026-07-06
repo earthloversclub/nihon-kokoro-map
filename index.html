@@ -2922,52 +2922,59 @@ margin-top:10px;
     transform:translateY(-3px);
   }
 
-  #achievementBox::before{
+#achievementBox::before{
     content:"";
     position:absolute;
     left:24px;
-    top:78px;
-    width:82px;
-    height:82px;
+    top:76px;
+    width:92px;
+    height:92px;
     border-radius:50%;
     background:
-      radial-gradient(circle, rgba(232,249,235,.96) 0 48%, transparent 49%),
-      conic-gradient(#54ad3b var(--achievement-deg), rgba(236,246,238,.34) 0deg);
+      radial-gradient(circle, rgba(250,255,250,.98) 0 50%, transparent 51%),
+      conic-gradient(#2fa83a var(--achievement-deg), rgba(255,255,255,.9) 0deg);
     box-shadow:
-      0 0 0 8px rgba(255,255,255,.14),
-      0 0 16px rgba(255,226,126,.48),
-      inset 0 0 10px rgba(3,60,63,.16);
-  }
+      0 0 0 9px rgba(255,255,255,.42),
+      0 0 18px rgba(80,170,70,.35),
+      inset 0 0 8px rgba(0,60,40,.12);
+}
 
-  #achievementBox::after{
+#achievementBox::after{
     content:"🌈 全国達成率 🌈";
     position:absolute;
-    top:23px;
+    top:20px;
     left:20px;
     right:20px;
-    color:#ffeaa0;
-    font-size:19px;
+    color:#09665e;
+    font-size:22px;
     font-weight:900;
     text-align:center;
-    text-shadow:0 2px 3px rgba(39,43,8,.68);
-  }
+    text-shadow:
+      0 1px 0 #ffffff,
+      0 0 6px rgba(255,255,255,.75);
+}
 
-  #achievementPercent{
+#achievementPercent{
     display:block;
-    color:#7fdb55;
-    font-size:42px;
+    color:#2fa83a;
+    font-size:46px;
     font-weight:900;
     line-height:.95;
-    text-shadow:0 2px 3px rgba(5,52,31,.46);
-  }
+    text-shadow:
+      0 2px 0 #ffffff,
+      0 0 8px rgba(255,255,255,.8),
+      0 3px 8px rgba(54,150,50,.28);
+}
 
-  #achievementCount{
+#achievementCount{
     display:block;
-    color:#eaffef;
-    font-size:21px;
+    color:#09665e;
+    font-size:22px;
     font-weight:900;
-    text-shadow:0 1px 2px rgba(0,39,45,.78);
-  }
+    text-shadow:
+      0 1px 0 #ffffff,
+      0 0 5px rgba(255,255,255,.7);
+}
 
   #growthBackBox{
     left:calc(0px - var(--growth-side-width) - var(--growth-gap)) !important;
