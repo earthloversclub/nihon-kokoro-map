@@ -4012,21 +4012,19 @@ margin-top:10px;
 
   #growthMap[style*="block"]{
     display:grid !important;
-    grid-template-columns:minmax(0, 1fr) !important;
+    grid-template-columns:1fr !important;
     grid-template-rows:auto auto auto !important;
     position:relative !important;
     overflow:visible !important;
-    padding:5px 10px 230px !important;
+    padding:5px 10px 250px !important;
     box-sizing:border-box !important;
   }
 
   #growthMap[style*="block"] .growthTitle{
-    grid-column:1 !important;
     grid-row:1 !important;
   }
 
   #growthMap[style*="block"] .growthMapHint{
-    grid-column:1 !important;
     grid-row:2 !important;
   }
 
@@ -4036,23 +4034,18 @@ margin-top:10px;
     grid-column:1 !important;
     grid-row:3 !important;
     justify-self:center !important;
+    position:relative !important;
     width:100% !important;
     max-width:700px !important;
     height:520px !important;
     margin:25px auto 0 !important;
-    position:relative !important;
     overflow:visible !important;
+    transform:none !important;
     box-sizing:border-box !important;
   }
 
   #growthMap[style*="block"] #growthMapContainer{
     z-index:1 !important;
-  }
-
-  #growthMap[style*="block"] #japanGrowthMap{
-    width:100% !important;
-    height:520px !important;
-    margin:0 auto !important;
   }
 
   #growthMap[style*="block"] #growthLeftColumn,
@@ -4066,6 +4059,12 @@ margin-top:10px;
     pointer-events:auto !important;
   }
 
+  #growthMap[style*="block"] #japanGrowthMap{
+    width:100% !important;
+    height:520px !important;
+    margin:0 auto !important;
+  }
+
   #growthMap .energyHigh,
   #growthMap .energyLow{
     display:none !important;
@@ -4074,6 +4073,7 @@ margin-top:10px;
     font-size:0 !important;
   }
 
+  /* 地図内：満開ランキング */
   #growthMap[style*="block"] #rankingBox{
     display:block !important;
     position:absolute !important;
@@ -4084,6 +4084,7 @@ margin-top:10px;
     z-index:7 !important;
   }
 
+  /* 地図内：感謝エネルギー */
   #growthMap[style*="block"] #thanksEnergyLegend{
     display:block !important;
     position:absolute !important;
@@ -4101,11 +4102,12 @@ margin-top:10px;
     display:none !important;
   }
 
+  /* 地図内：ありがとうの花 */
   #growthMap[style*="block"] #thanksFlowerBox{
     display:flex !important;
     position:absolute !important;
     right:-12px !important;
-    bottom:8px !important;
+    bottom:35px !important;
     width:min(72vw, 358px) !important;
     height:154px !important;
     transform:none !important;
@@ -4114,6 +4116,7 @@ margin-top:10px;
     z-index:5 !important;
   }
 
+  /* 地図外：全国達成率 */
   #growthMap[style*="block"] #achievementBox{
     display:flex !important;
     position:absolute !important;
@@ -4129,6 +4132,7 @@ margin-top:10px;
     z-index:6 !important;
   }
 
+  /* 地図外：宝物地図ボタン */
   #growthMap[style*="block"] #growthBackBox{
     display:flex !important;
     position:absolute !important;
