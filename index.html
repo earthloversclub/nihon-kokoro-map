@@ -1706,11 +1706,13 @@ margin-top:10px;
     left:auto;
     bottom:auto;
     z-index:2100;
-    display:flex;
+    display:flex !important;
     align-items:center;
     gap:8px;
     padding:10px 12px;
     white-space:nowrap;
+    box-sizing:border-box;
+    overflow:hidden;
     background:
       linear-gradient(180deg, rgba(255,255,255,.96), rgba(225,255,227,.92)),
       linear-gradient(90deg, rgba(89,201,93,.65), rgba(255,225,99,.38));
@@ -1723,9 +1725,10 @@ margin-top:10px;
   }
 
   #searchInput{
-    flex:1 1 auto;
-    width:auto;
+    flex:1 1 0 !important;
+    width:0 !important;
     min-width:0;
+    box-sizing:border-box;
     padding:10px 12px;
     border:1px solid rgba(255,255,255,.36);
     border-radius:15px;
@@ -1742,7 +1745,8 @@ margin-top:10px;
   }
 
   #searchBox button{
-    flex:0 0 auto;
+    flex:0 0 auto !important;
+    box-sizing:border-box;
     padding:10px 15px;
     border:1px solid rgba(255,255,255,.88);
     border-radius:15px;
