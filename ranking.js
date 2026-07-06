@@ -42,15 +42,15 @@ nearFull +
 /* ===== PC版 ===== */
 const rankingHtmlPc =
 
-'<div class="rankingTitle">🌸満開ランキング🌸</div>' +
+'<div style="text-align:center;font-size:23px;font-weight:900;color:#0b5f66;margin:0 0 16px;text-shadow:0 1px 0 #fff;">🌸満開ランキング🌸</div>' +
 
 '<div style="margin-top:0px;">' +
 top3 +
 '</div>' +
 
-'<hr class="rankingDivider">' +
+'<hr style="border:none;border-top:2px solid rgba(180,160,80,.55);margin:18px 0;">' +
 
-'<div class="rankingTitle">⭐注目の県⭐</div>' +
+'<div style="text-align:center;font-size:22px;font-weight:900;color:#0b5f66;margin:0 0 14px;text-shadow:0 1px 0 #fff;">⭐注目の県⭐</div>' +
 
 '<div style="text-align:center; line-height:1.35;">' +
 nearFull +
