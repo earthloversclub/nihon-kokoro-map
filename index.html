@@ -1661,7 +1661,7 @@ margin-top:10px;
     display:block;
     width:100%;
     height:100%;
-    background:url("images/header.png") center 48% / min(1640px, 65vw) auto no-repeat;
+    background:url("images/header.png") center 48% / min(1640px, 88vw) auto no-repeat;
     filter:none;
   }
 
@@ -2469,25 +2469,6 @@ margin-top:10px;
     line-height:1.55;
     font-weight:800;
     text-align:left;
-    color:#0b4f4a;
-  }
-
-    .rankingTitle{
-    display:block;
-    text-align:center;
-    font-size:22px;
-    font-weight:900;
-    color:#0b5f66;
-    margin:4px 0 14px;
-    text-shadow:
-      0 1px 0 #fff,
-      0 0 8px rgba(255,255,255,.75);
-  }
-
-  .rankingDivider{
-    border:none;
-    border-top:2px solid rgba(206,170,67,.45);
-    margin:18px 0;
   }
 
   #rankingBox::before{
@@ -2643,6 +2624,21 @@ margin-top:10px;
     height:304px;
     padding:62px 22px 22px;
     overflow:hidden;
+  }
+
+  #thanksEnergyLegend::before{
+    content:"感謝エネルギー";
+    position:absolute;
+    top:22px;
+    left:22px;
+    right:22px;
+    color:#fff7c8;
+    font-size:21px;
+    font-weight:900;
+    text-align:center;
+    text-shadow:
+      0 2px 4px rgba(47,38,9,.74),
+      0 0 10px rgba(255,226,126,.72);
   }
 
   #thanksFlowerBox{
@@ -2881,20 +2877,12 @@ margin-top:10px;
     pointer-events:none;
   }
 
-#rankingBox span{
-  display:block;
-  text-align:center;
-
-  color:#0b5f66;
-  font-size:24px !important;
-  font-weight:900 !important;
-
-  margin-bottom:18px;
-
-  text-shadow:
-    0 1px 0 #fff,
-    0 0 8px rgba(255,255,255,.8);
-}
+  #rankingBox span{
+    color:#ffeaa0;
+    font-size:20px !important;
+    font-weight:900 !important;
+    text-shadow:0 2px 3px rgba(39,43,8,.68);
+  }
 
   #achievementBox{
     --achievement-deg:0deg;
@@ -2915,66 +2903,59 @@ margin-top:10px;
     overflow:hidden;
     white-space:nowrap;
     background:
-      linear-gradient(180deg, rgba(226,255,213,.97), rgba(173,236,159,.95)) !important;
+      linear-gradient(180deg, rgba(26,139,120,.94), rgba(8,86,89,.98)) !important;
   }
 
   #achievementBox:hover{
     transform:translateY(-3px);
   }
 
-#achievementBox::before{
+  #achievementBox::before{
     content:"";
     position:absolute;
     left:24px;
-    top:76px;
-    width:92px;
-    height:92px;
+    top:78px;
+    width:82px;
+    height:82px;
     border-radius:50%;
     background:
-      radial-gradient(circle, rgba(250,255,250,.98) 0 50%, transparent 51%),
-      conic-gradient(#2fa83a var(--achievement-deg), rgba(255,255,255,.9) 0deg);
+      radial-gradient(circle, rgba(232,249,235,.96) 0 48%, transparent 49%),
+      conic-gradient(#54ad3b var(--achievement-deg), rgba(236,246,238,.34) 0deg);
     box-shadow:
-      0 0 0 9px rgba(255,255,255,.42),
-      0 0 18px rgba(80,170,70,.35),
-      inset 0 0 8px rgba(0,60,40,.12);
-}
+      0 0 0 8px rgba(255,255,255,.14),
+      0 0 16px rgba(255,226,126,.48),
+      inset 0 0 10px rgba(3,60,63,.16);
+  }
 
-#achievementBox::after{
+  #achievementBox::after{
     content:"🌈 全国達成率 🌈";
     position:absolute;
-    top:20px;
+    top:23px;
     left:20px;
     right:20px;
-    color:#09665e;
-    font-size:22px;
+    color:#ffeaa0;
+    font-size:19px;
     font-weight:900;
     text-align:center;
-    text-shadow:
-      0 1px 0 #ffffff,
-      0 0 6px rgba(255,255,255,.75);
-}
+    text-shadow:0 2px 3px rgba(39,43,8,.68);
+  }
 
-#achievementPercent{
+  #achievementPercent{
     display:block;
-    color:#2fa83a;
-    font-size:46px;
+    color:#7fdb55;
+    font-size:42px;
     font-weight:900;
     line-height:.95;
-    text-shadow:
-      0 2px 0 #ffffff,
-      0 0 8px rgba(255,255,255,.8),
-      0 3px 8px rgba(54,150,50,.28);
-}
+    text-shadow:0 2px 3px rgba(5,52,31,.46);
+  }
 
-#achievementCount{
+  #achievementCount{
     display:block;
-    color:#09665e;
-    font-size:22px;
+    color:#eaffef;
+    font-size:21px;
     font-weight:900;
-    text-shadow:
-      0 1px 0 #ffffff,
-      0 0 5px rgba(255,255,255,.7);
-}
+    text-shadow:0 1px 2px rgba(0,39,45,.78);
+  }
 
   #growthBackBox{
     left:calc(0px - var(--growth-side-width) - var(--growth-gap)) !important;
@@ -2984,32 +2965,30 @@ margin-top:10px;
     z-index:7 !important;
   }
 
-#growthMap[style*="block"] #growthBackBox .mapReturnButton{
-  width:100% !important;
-  min-height:58px !important;
-
-  border:2px solid rgba(116,205,116,.8) !important;
-  border-radius:999px !important;
-
-  background:
-    linear-gradient(180deg, #eaffdf 0%, #b9f4ad 48%, #6fcf75 100%) !important;
-
-  color:#176b35 !important;
-  font-size:22px !important;
-  font-weight:900 !important;
-
-  text-shadow:
-    0 1px 0 rgba(255,255,255,.9),
-    0 0 6px rgba(255,255,255,.75) !important;
-
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,.85),
-    inset 0 -8px 16px rgba(52,150,68,.18),
-    0 8px 18px rgba(64,150,80,.22),
-    0 0 16px rgba(255,255,255,.65) !important;
-
-  cursor:pointer !important;
-}
+  #growthBackBox .mapReturnButton{
+    width:100% !important;
+    min-height:66px !important;
+    border:3px solid rgba(221,177,82,.96) !important;
+    border-radius:16px !important;
+    background:
+      linear-gradient(110deg, transparent 0%, transparent 36%, rgba(255,255,255,.28) 49%, transparent 62%, transparent 100%),
+      linear-gradient(180deg, rgba(25,153,139,.98), rgba(5,97,104,.98)) !important;
+    background-size:230% 100%, 100% 100% !important;
+    background-position:-90% 50%, center !important;
+    color:#f7fff3 !important;
+    font-size:23px !important;
+    font-weight:900 !important;
+    text-shadow:0 2px 3px rgba(0,47,50,.72) !important;
+    box-shadow:
+      0 14px 24px rgba(7,63,76,.28),
+      0 0 0 1px rgba(255,255,255,.3) inset,
+      0 0 18px rgba(228,190,91,.42) !important;
+    transition:
+      transform .22s ease,
+      box-shadow .22s ease,
+      background-position .74s ease,
+      filter .22s ease !important;
+  }
 
   #growthBackBox .mapReturnButton:hover{
     transform:translateY(-3px);
@@ -3038,7 +3017,7 @@ margin-top:10px;
   }
 
   #thanksEnergyLegend::before{
-    content:"💗  💗";
+    content:"💗 感謝エネルギー 💗";
     position:absolute;
     top:22px;
     left:18px;
@@ -3202,73 +3181,14 @@ margin-top:10px;
     color:#0f4f4d !important;
     text-shadow:none !important;
     background:
-  linear-gradient(
-    180deg,
-    rgba(255,248,250,.97),
-    rgba(255,240,246,.95)
-  ) !important;
-        border:2px solid rgba(233,170,195,.65);
-
-    border-radius:28px;
-
-    box-shadow:
-      0 12px 28px rgba(233,170,195,.22),
-      inset 0 0 18px rgba(255,255,255,.55);
+      linear-gradient(180deg, rgba(250,255,250,.96), rgba(221,245,239,.92)) !important;
   }
 
-  #growthMap[style*="block"] #rankingBox .rankingTitle{
+  #growthMap[style*="block"] #rankingBox span{
+    color:#09665e !important;
+    text-shadow:0 1px 0 rgba(255,255,255,.85) !important;
+  }
 
-  display:block;
-
-  text-align:center;
-
-  font-size:24px;
-
-  font-weight:900;
-
-  color:#0b5f66;
-
-  margin:6px 0 14px;
-
-  text-shadow:
-    0 1px 0 #ffffff,
-    0 0 6px rgba(255,255,255,.8);
-
-}
-
-#growthMap[style*="block"] #rankingBox .rankingDivider{
-
-  border:none;
-
-  border-top:2px solid rgba(180,160,80,.45);
-
-  margin:18px 0;
-
-}
-
-#growthMap[style*="block"] #rankingBox > *{
-  position:relative;
-  z-index:1;
-}
-
-#growthMap[style*="block"] #rankingBox .rankingTitle{
-  display:block !important;
-  text-align:center !important;
-  font-size:24px !important;
-  font-weight:900 !important;
-  color:#0b5f66 !important;
-  margin:6px 0 14px !important;
-  text-shadow:
-    0 1px 0 #fff,
-    0 0 6px rgba(255,255,255,.8) !important;
-}
-
-#growthMap[style*="block"] #rankingBox .rankingDivider{
-  display:block !important;
-  border:none !important;
-  border-top:2px solid rgba(180,160,80,.55) !important;
-  margin:18px 0 !important;
-}
   #growthMap[style*="block"] #achievementBox{
     position:absolute !important;
     left:calc(0px - var(--growth-side-width) - var(--growth-gap)) !important;
@@ -3289,111 +3209,62 @@ margin-top:10px;
     transform:none !important;
   }
 
-#growthMap[style*="block"] #thanksEnergyLegend{
-  grid-column:5;
-  grid-row:3;
-  position:relative !important;
-  left:auto !important;
-  top:auto !important;
-  right:auto !important;
-  bottom:auto !important;
-  width:100% !important;
-  height:318px !important;
-  transform:none !important;
-  align-self:start;
+  #growthMap[style*="block"] #thanksEnergyLegend{
+    grid-column:5;
+    grid-row:3;
+    position:relative !important;
+    left:auto !important;
+    top:auto !important;
+    right:auto !important;
+    bottom:auto !important;
+    width:100% !important;
+    height:318px !important;
+    transform:none !important;
+    align-self:start;
+  }
 
-  background:
-    linear-gradient(180deg, rgba(250,241,207,.96), rgba(224,244,225,.94)) !important;
-}
+  #growthMap[style*="block"] #thanksEnergyLegend::after{
+    content:"HIGH\A\A\A\A LOW";
+    white-space:pre;
+    position:absolute;
+    left:30px;
+    top:70px;
+    width:82px;
+    height:204px;
+    border:3px solid rgba(221,177,82,.78);
+    border-radius:12px;
+    background:
+      linear-gradient(
+        180deg,
+        #f43d70 0 17%,
+        #ff8747 17% 34%,
+        #ffd958 34% 51%,
+        #73c85f 51% 68%,
+        #65b7d9 68% 85%,
+        #f7fbff 85% 100%
+      );
+    color:#765f35;
+    font-size:13px;
+    font-weight:900;
+    line-height:1;
+    text-align:center;
+    box-shadow:
+      0 0 0 8px rgba(255,255,255,.42),
+      0 10px 20px rgba(72,87,68,.18),
+      inset 0 1px 0 rgba(255,255,255,.4);
+    padding-top:8px;
+    box-sizing:border-box;
+  }
 
-/* タイトル */
-#growthMap[style*="block"] #thanksEnergyLegend::before{
-  content:"💗 感謝エネルギー 💗";
-  position:absolute;
-  top:24px;
-  left:0;
-  right:0;
-  text-align:center;
-  color:#09665e;
-  font-size:22px;
-  font-weight:900;
-  z-index:3;
-  text-shadow:
-    0 1px 0 #ffffff,
-    0 0 6px rgba(255,255,255,.75);
-}
+  #growthMap[style*="block"] #thanksEnergyLegend{
+    background:
+      linear-gradient(180deg, rgba(250,241,207,.96), rgba(224,244,225,.94)) !important;
+  }
 
-/* 説明文 */
-#growthMap[style*="block"] #thanksEnergyLegend::after{
-  content:"都道府県ごとの\Aエネルギーレベルが\A色で表示されます✨\A\A県をクリックで\A成長記録を\A読むことができます😊";
-  white-space:pre;
-  position:absolute;
-  left:132px;
-  top:100px;
-  width:160px;
-  color:#09665e;
-  font-size:16px;
-  font-weight:900;
-  line-height:1.7;
-  text-align:center;
-  z-index:2;
-  text-shadow:
-    0 1px 0 rgba(255,255,255,.85);
-}
+  #growthMap[style*="block"] #thanksEnergyLegend::before{
+    color:#09665e;
+  }
 
-/* 9段階メーター */
-#growthMap[style*="block"] .energyMeter{
-  position:absolute;
-  left:32px;
-  top:86px;
-  width:82px;
-  height:214px;
-  border:3px solid rgba(221,177,82,.78);
-  border-radius:12px;
-  overflow:hidden;
-  z-index:2;
-
-  background:
-    linear-gradient(
-      180deg,
-      #ff3333 0 11.11%,
-      #ff8acb 11.11% 22.22%,
-      #ff9800 22.22% 33.33%,
-      #fff176 33.33% 44.44%,
-      #66cc66 44.44% 55.55%,
-      #4da3ff 55.55% 66.66%,
-      #aeefff 66.66% 77.77%,
-      #ffffff 77.77% 88.88%,
-      #dddddd 88.88% 100%
-    );
-
-  box-shadow:
-    0 8px 18px rgba(80,70,35,.18),
-    inset 0 0 0 4px rgba(255,255,255,.52);
-}
-
-#growthMap[style*="block"] .energyHigh{
-  position:absolute;
-  top:9px;
-  left:0;
-  right:0;
-  text-align:center;
-  color:#765f35;
-  font-size:13px;
-  font-weight:900;
-}
-
-#growthMap[style*="block"] .energyLow{
-  position:absolute;
-  bottom:9px;
-  left:0;
-  right:0;
-  text-align:center;
-  color:#765f35;
-  font-size:13px;
-  font-weight:900;
-}
-  
   #growthMap[style*="block"] #thanksFlowerBox{
     position:absolute !important;
     left:auto !important;
@@ -3403,6 +3274,117 @@ margin-top:10px;
     width:var(--growth-right-width) !important;
     height:256px !important;
     transform:none !important;
+  }
+}
+
+#growthLeftColumn,
+#growthRightColumn{
+  display:contents;
+}
+
+/* === Growth Map PC Flex Columns Override === */
+@media (min-width: 768px) {
+
+  #growthMap[style*="block"]{
+    --growth-side-width:318px;
+    --growth-center-width:min(900px, calc(100vw - 720px));
+    --growth-column-gap:24px;
+    display:grid !important;
+    grid-template-columns:
+      var(--growth-side-width)
+      minmax(620px, var(--growth-center-width))
+      var(--growth-side-width);
+    grid-template-rows:auto auto auto;
+    column-gap:var(--growth-column-gap);
+    row-gap:18px;
+    justify-content:center;
+    align-items:start;
+    padding:24px 24px 28px;
+  }
+
+  #growthMap[style*="block"] .growthTitle{
+    grid-column:1 / -1;
+    grid-row:1;
+  }
+
+  #growthMap[style*="block"] .growthMapHint{
+    grid-column:1 / -1;
+    grid-row:2;
+  }
+
+  #growthMap[style*="block"] #growthLeftColumn,
+  #growthMap[style*="block"] #growthRightColumn{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    min-width:0;
+    align-self:start;
+  }
+
+  #growthMap[style*="block"] #growthLeftColumn{
+    grid-column:1;
+    grid-row:3;
+  }
+
+  #growthMap[style*="block"] #growthMapContainer{
+    grid-column:2;
+    grid-row:3;
+    width:100%;
+    height:clamp(560px, calc(100vh - 255px), 680px);
+    min-height:560px;
+    max-width:none;
+    margin:0;
+    position:relative;
+    overflow:visible;
+  }
+
+  #growthMap[style*="block"] #growthRightColumn{
+    grid-column:3;
+    grid-row:3;
+  }
+
+  #growthMap[style*="block"] #rankingBox,
+  #growthMap[style*="block"] #achievementBox,
+  #growthMap[style*="block"] #growthBackBox,
+  #growthMap[style*="block"] #thanksEnergyLegend,
+  #growthMap[style*="block"] #thanksFlowerBox{
+    position:relative !important;
+    left:auto !important;
+    top:auto !important;
+    right:auto !important;
+    bottom:auto !important;
+    width:100% !important;
+    transform:none !important;
+    align-self:stretch;
+  }
+
+  #growthMap[style*="block"] #rankingBox{
+    min-height:300px;
+    padding:28px 24px 24px;
+  }
+
+  #growthMap[style*="block"] #achievementBox{
+    min-height:220px;
+    height:auto !important;
+    padding:68px 22px 24px 130px;
+  }
+
+  #growthMap[style*="block"] #growthBackBox{
+    z-index:7 !important;
+  }
+
+  #growthMap[style*="block"] #growthBackBox .mapReturnButton{
+    width:100% !important;
+  }
+
+  #growthMap[style*="block"] #thanksEnergyLegend{
+    min-height:318px;
+    height:auto !important;
+  }
+
+  #growthMap[style*="block"] #thanksFlowerBox{
+    min-height:252px;
+    height:auto !important;
   }
 }
 </style>
@@ -3535,51 +3517,46 @@ margin-top:10px;
 
   <div id="japanGrowthMap">
 
-    <div id="thanksFlowerBox">
-      <div class="thanks-flower-count">
-        <span id="thanksTotal">読み込み中...</span> 輪
-      </div>
-    </div>
-
-    <div id="achievementBox">
-      <span id="achievementCount">0/47県</span>&nbsp;&nbsp;&nbsp;&nbsp;
-      <span id="achievementPercent">0%</span>
-    </div>
-
   </div>
 
-<div id="growthBackBox">
+</div>
+
+<div id="growthLeftColumn">
+  <div id="rankingBox">
+<span style="font-size:15px;font-weight:bold;">
+🏆満開ランキング
+</span><br>
+
+🥇 埼玉 742輪<br>
+🥈 静岡 518輪<br>
+🥉 北海道 412輪<br><br>
+
+<span style="font-size:15px;font-weight:bold;">
+☀️注目の県⭐
+</span><br>
+
+4位 東京<br>
+5位 福岡<br>
+6位 神奈川
+  </div>
+
+  <div id="achievementBox">
+    <span id="achievementCount">0/47県</span>&nbsp;&nbsp;&nbsp;&nbsp;
+    <span id="achievementPercent">0%</span>
+  </div>
+
+  <div id="growthBackBox">
     <button id="growthMapSwitchButton" class="mapReturnButton" onclick="showMapA()">◀宝物地図🌎</button>
+  </div>
 </div>
 
-</div>
+<div id="growthRightColumn">
+  <div id="thanksEnergyLegend"></div>
 
-<div id="rankingBox">
-
-<div class="rankingTitle">
-🌸満開ランキング🌸
-</div>
-
-🥇 埼玉　742輪<br>
-🥈 静岡　518輪<br>
-🥉 北海道　412輪
-
-<hr class="rankingDivider">
-
-<div class="rankingTitle">
-⭐注目の県⭐
-</div>
-
-4位　東京<br>
-5位　福岡<br>
-6位　神奈川
-
-</div>
-
-<div id="thanksEnergyLegend">
-  <div class="energyMeter">
-    <span class="energyHigh">HIGH</span>
-    <span class="energyLow">LOW</span>
+  <div id="thanksFlowerBox">
+    <div class="thanks-flower-count">
+      <span id="thanksTotal">読み込み中...</span> 輪
+    </div>
   </div>
 </div>
 </div>
@@ -3910,7 +3887,7 @@ setupTodayTreasureButton();
 </script>
 <script src="thanksPopup.js?v=1"></script>
 <script src="growth.js?v=1"></script>
-<script src="ranking.js?v=2"></script>
+<script src="ranking.js?v=1"></script>
 <script src="myRecord.js?v=1"></script>
 <script>
 
