@@ -4011,19 +4011,42 @@ margin-top:10px;
 @media (max-width: 767px) {
 
   #growthMap[style*="block"]{
+    display:grid !important;
+    grid-template-columns:minmax(0, 1fr) !important;
+    grid-template-rows:auto auto auto !important;
     position:relative !important;
     overflow:visible !important;
-    padding:5px 10px 300px !important;
+    padding:5px 10px 230px !important;
     box-sizing:border-box !important;
   }
 
-  #growthMap[style*="block"] #growthMapContainer{
-    position:relative !important;
+  #growthMap[style*="block"] .growthTitle{
+    grid-column:1 !important;
+    grid-row:1 !important;
+  }
+
+  #growthMap[style*="block"] .growthMapHint{
+    grid-column:1 !important;
+    grid-row:2 !important;
+  }
+
+  #growthMap[style*="block"] #growthMapContainer,
+  #growthMap[style*="block"] #growthLeftColumn,
+  #growthMap[style*="block"] #growthRightColumn{
+    grid-column:1 !important;
+    grid-row:3 !important;
+    justify-self:center !important;
     width:100% !important;
     max-width:700px !important;
     height:520px !important;
     margin:25px auto 0 !important;
+    position:relative !important;
     overflow:visible !important;
+    box-sizing:border-box !important;
+  }
+
+  #growthMap[style*="block"] #growthMapContainer{
+    z-index:1 !important;
   }
 
   #growthMap[style*="block"] #japanGrowthMap{
@@ -4034,15 +4057,8 @@ margin-top:10px;
 
   #growthMap[style*="block"] #growthLeftColumn,
   #growthMap[style*="block"] #growthRightColumn{
-    position:absolute !important;
-    left:0 !important;
-    top:0 !important;
-    width:100% !important;
-    height:520px !important;
-    margin:0 !important;
-    transform:none !important;
-    pointer-events:none !important;
     z-index:2 !important;
+    pointer-events:none !important;
   }
 
   #growthMap[style*="block"] #growthLeftColumn > *,
@@ -4062,10 +4078,8 @@ margin-top:10px;
     display:block !important;
     position:absolute !important;
     left:0px !important;
-    top:100px !important;
+    top:118px !important;
     width:165px !important;
-    right:auto !important;
-    bottom:auto !important;
     transform:none !important;
     z-index:7 !important;
   }
@@ -4075,8 +4089,6 @@ margin-top:10px;
     position:absolute !important;
     top:50% !important;
     right:0px !important;
-    left:auto !important;
-    bottom:auto !important;
     width:90px !important;
     height:420px !important;
     transform:translateY(-50%) !important;
@@ -4092,10 +4104,8 @@ margin-top:10px;
   #growthMap[style*="block"] #thanksFlowerBox{
     display:flex !important;
     position:absolute !important;
-    right:0px !important;
-    bottom:0px !important;
-    left:auto !important;
-    top:auto !important;
+    right:-12px !important;
+    bottom:8px !important;
     width:min(72vw, 358px) !important;
     height:154px !important;
     transform:none !important;
@@ -4108,9 +4118,7 @@ margin-top:10px;
     display:flex !important;
     position:absolute !important;
     left:50% !important;
-    bottom:0px !important;
-    top:auto !important;
-    right:auto !important;
+    bottom:-92px !important;
     width:min(96vw, 420px) !important;
     height:118px !important;
     transform:translateX(-50%) !important;
@@ -4125,9 +4133,7 @@ margin-top:10px;
     display:flex !important;
     position:absolute !important;
     left:10px !important;
-    bottom:-40px !important;
-    top:auto !important;
-    right:auto !important;
+    bottom:-122px !important;
     width:auto !important;
     transform:none !important;
     z-index:8 !important;
