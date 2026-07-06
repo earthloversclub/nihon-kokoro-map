@@ -3309,69 +3309,93 @@ margin-top:10px;
     align-self:start;
   }
 
+#growthMap[style*="block"] #thanksEnergyLegend{
+  background:
+    linear-gradient(180deg, rgba(250,241,207,.96), rgba(224,244,225,.94)) !important;
+}
+
+#growthMap[style*="block"] #thanksEnergyLegend::before{
+  content:"💗 感謝エネルギー 💗";
+  position:absolute;
+  top:26px;
+  left:0;
+  right:0;
+  text-align:center;
+  color:#09665e;
+  font-size:22px;
+  font-weight:900;
+  text-shadow:
+    0 1px 0 #ffffff,
+    0 0 6px rgba(255,255,255,.75);
+}
+
 #growthMap[style*="block"] #thanksEnergyLegend::after{
-    content:"HIGH\A\A\A\A\A\A\A\A\A LOW";
-    white-space:pre;
-    position:absolute;
-    left:30px;
-    top:70px;
-    width:82px;
-    height:204px;
-    border:3px solid rgba(221,177,82,.78);
-    border-radius:12px;
-
-    background:
-      linear-gradient(
-        180deg,
-        #ff3333 0 11.11%,
-        #ff8acb 11.11% 22.22%,
-        #ff9800 22.22% 33.33%,
-        #fff176 33.33% 44.44%,
-        #66cc66 44.44% 55.55%,
-        #4da3ff 55.55% 66.66%,
-        #aeefff 66.66% 77.77%,
-        #ffffff 77.77% 88.88%,
-        #dddddd 88.88% 100%
-      );
-
-    color:#765f35;
-    font-size:13px;
-    font-weight:900;
-    line-height:1;
-    text-align:center;
-    padding-top:10px;
-    box-sizing:border-box;
-
-    box-shadow:
-      0 8px 18px rgba(80,70,35,.18),
-      inset 0 0 0 4px rgba(255,255,255,.52);
+  content:"都道府県ごとの\Aエネルギーレベルが\A色で表示されます✨\A\A県をクリックで成長記録を\A読むことができます😊";
+  white-space:pre;
+  position:absolute;
+  left:132px;
+  top:112px;
+  width:154px;
+  color:#09665e;
+  font-size:16px;
+  font-weight:900;
+  line-height:1.7;
+  text-align:center;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.85);
 }
 
-  #growthMap[style*="block"] #thanksEnergyLegend::before{
-    content:"💗  💗\A\A都道府県ごとの\Aエネルギーレベルが\A色で表示されます✨\A\A県をクリックで成長記録を\A読むことができます😊";
-    white-space:pre;
-    position:absolute;
-    left:132px;
-    top:82px;
-    width:150px;
-    color:#225f55;
-    font-size:16px;
-    font-weight:900;
-    line-height:1.65;
-    text-align:center;
-    text-shadow:
-      0 1px 0 rgba(255,255,255,.8);
+#growthMap[style*="block"] .energyMeter{
+  position:absolute;
+  left:32px;
+  top:92px;
+  width:82px;
+  height:214px;
+  border:3px solid rgba(221,177,82,.78);
+  border-radius:12px;
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ff3333 0 11.11%,
+      #ff8acb 11.11% 22.22%,
+      #ff9800 22.22% 33.33%,
+      #fff176 33.33% 44.44%,
+      #66cc66 44.44% 55.55%,
+      #4da3ff 55.55% 66.66%,
+      #aeefff 66.66% 77.77%,
+      #ffffff 77.77% 88.88%,
+      #dddddd 88.88% 100%
+    );
+
+  box-shadow:
+    0 8px 18px rgba(80,70,35,.18),
+    inset 0 0 0 4px rgba(255,255,255,.52);
 }
 
-  #growthMap[style*="block"] #thanksEnergyLegend{
-    background:
-      linear-gradient(180deg, rgba(250,241,207,.96), rgba(224,244,225,.94)) !important;
-  }
+#growthMap[style*="block"] .energyHigh{
+  position:absolute;
+  top:10px;
+  left:0;
+  right:0;
+  text-align:center;
+  color:#765f35;
+  font-size:13px;
+  font-weight:900;
+}
 
-  #growthMap[style*="block"] #thanksEnergyLegend::before{
-    color:#09665e;
-  }
-
+#growthMap[style*="block"] .energyLow{
+  position:absolute;
+  bottom:10px;
+  left:0;
+  right:0;
+  text-align:center;
+  color:#765f35;
+  font-size:13px;
+  font-weight:900;
+}
+  
   #growthMap[style*="block"] #thanksFlowerBox{
     position:absolute !important;
     left:auto !important;
@@ -3554,7 +3578,12 @@ margin-top:10px;
 
 </div>
 
-<div id="thanksEnergyLegend"></div>
+<div id="thanksEnergyLegend">
+  <div class="energyMeter">
+    <span class="energyHigh">HIGH</span>
+    <span class="energyLow">LOW</span>
+  </div>
+</div>
 </div>
 
 </div>
