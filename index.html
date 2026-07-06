@@ -3241,11 +3241,29 @@ margin-top:10px;
 
 }
 
-  #growthMap[style*="block"] #rankingBox span{
-    color:#09665e !important;
-    text-shadow:0 1px 0 rgba(255,255,255,.85) !important;
-  }
+#growthMap[style*="block"] #rankingBox > *{
+  position:relative;
+  z-index:1;
+}
 
+#growthMap[style*="block"] #rankingBox .rankingTitle{
+  display:block !important;
+  text-align:center !important;
+  font-size:24px !important;
+  font-weight:900 !important;
+  color:#0b5f66 !important;
+  margin:6px 0 14px !important;
+  text-shadow:
+    0 1px 0 #fff,
+    0 0 6px rgba(255,255,255,.8) !important;
+}
+
+#growthMap[style*="block"] #rankingBox .rankingDivider{
+  display:block !important;
+  border:none !important;
+  border-top:2px solid rgba(180,160,80,.55) !important;
+  margin:18px 0 !important;
+}
   #growthMap[style*="block"] #achievementBox{
     position:absolute !important;
     left:calc(0px - var(--growth-side-width) - var(--growth-gap)) !important;
