@@ -3295,65 +3295,69 @@ margin-top:10px;
     transform:none !important;
   }
 
-  #growthMap[style*="block"] #thanksEnergyLegend{
-    grid-column:5;
-    grid-row:3;
-    position:relative !important;
-    left:auto !important;
-    top:auto !important;
-    right:auto !important;
-    bottom:auto !important;
-    width:100% !important;
-    height:318px !important;
-    transform:none !important;
-    align-self:start;
-  }
-
 #growthMap[style*="block"] #thanksEnergyLegend{
+  grid-column:5;
+  grid-row:3;
+  position:relative !important;
+  left:auto !important;
+  top:auto !important;
+  right:auto !important;
+  bottom:auto !important;
+  width:100% !important;
+  height:318px !important;
+  transform:none !important;
+  align-self:start;
+
   background:
     linear-gradient(180deg, rgba(250,241,207,.96), rgba(224,244,225,.94)) !important;
 }
 
+/* タイトル */
 #growthMap[style*="block"] #thanksEnergyLegend::before{
   content:"💗 感謝エネルギー 💗";
   position:absolute;
-  top:26px;
+  top:24px;
   left:0;
   right:0;
   text-align:center;
   color:#09665e;
   font-size:22px;
   font-weight:900;
+  z-index:3;
   text-shadow:
     0 1px 0 #ffffff,
     0 0 6px rgba(255,255,255,.75);
 }
 
+/* 説明文 */
 #growthMap[style*="block"] #thanksEnergyLegend::after{
   content:"都道府県ごとの\Aエネルギーレベルが\A色で表示されます✨\A\A県をクリックで成長記録を\A読むことができます😊";
   white-space:pre;
   position:absolute;
   left:132px;
-  top:112px;
-  width:154px;
+  top:100px;
+  width:160px;
   color:#09665e;
   font-size:16px;
   font-weight:900;
   line-height:1.7;
   text-align:center;
+  z-index:2;
   text-shadow:
     0 1px 0 rgba(255,255,255,.85);
 }
 
+/* 9段階メーター */
 #growthMap[style*="block"] .energyMeter{
   position:absolute;
   left:32px;
-  top:92px;
+  top:86px;
   width:82px;
   height:214px;
   border:3px solid rgba(221,177,82,.78);
   border-radius:12px;
   overflow:hidden;
+  z-index:2;
 
   background:
     linear-gradient(
@@ -3376,7 +3380,7 @@ margin-top:10px;
 
 #growthMap[style*="block"] .energyHigh{
   position:absolute;
-  top:10px;
+  top:9px;
   left:0;
   right:0;
   text-align:center;
@@ -3387,7 +3391,7 @@ margin-top:10px;
 
 #growthMap[style*="block"] .energyLow{
   position:absolute;
-  bottom:10px;
+  bottom:9px;
   left:0;
   right:0;
   text-align:center;
