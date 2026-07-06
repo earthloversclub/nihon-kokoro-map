@@ -74,7 +74,7 @@ function showLevelUpEffect(level, title) {
     <div class="levelUpBox">
 
       <div class="levelUpTitle">
-        🎉 レベルアップ 🎉
+        🎉レベルアップしました🎉
       </div>
 
             <div class="levelUpLevel">
