@@ -4102,36 +4102,36 @@ margin-top:10px;
     display:none !important;
   }
 
-  /* 地図内：ありがとうの花 */
-  #growthMap[style*="block"] #growthRightColumn #thanksFlowerBox{
-    display:flex !important;
-    position:absolute !important;
+/* 地図内：ありがとうの花 */
+#growthMap[style*="block"] #growthRightColumn #thanksFlowerBox{
+  display:flex !important;
+  position:absolute !important;
 
-    top:auto !important;
-    left:auto !important;
-    right:-12px !important;
-    bottom:15px !important;
+  top:auto !important;
+  left:50% !important;
+  right:auto !important;
+  bottom:15px !important;
 
-    width:min(72vw, 358px) !important;
-    height:154px !important;
+  width:min(72vw, 358px) !important;
+  height:154px !important;
 
-    transform:none !important;
-    background:url("images/thanks-frame.png") center center no-repeat !important;
-    background-size:100% 100% !important;
+  transform:translateX(-50%) !important;
+  background:url("images/thanks-frame.png") center center no-repeat !important;
+  background-size:100% 100% !important;
 
-    border:none !important;
-    box-shadow:none !important;
-    padding:0 !important;
+  border:none !important;
+  box-shadow:none !important;
+  padding:0 !important;
 
-    z-index:5 !important;
-  }
+  z-index:5 !important;
+}
 
   /* 地図外：全国達成率 */
   #growthMap[style*="block"] #achievementBox{
     display:flex !important;
     position:absolute !important;
-    left:60% !important;
-    bottom:-122px !important;
+    left:70% !important;
+    bottom:-142px !important;
     width:min(96vw, 420px) !important;
     height:118px !important;
     transform:translateX(-50%) !important;
