@@ -2372,17 +2372,49 @@ white-space: nowrap;
 
 #guideBtn{
   width:100%;
-  min-height:54px;
+  min-height:58px;
   border:2px solid rgba(255,226,126,.94);
   border-radius:999px;
-  background:linear-gradient(180deg, #fff4b8, #ffd45a);
+  background:
+    linear-gradient(110deg, transparent 0%, transparent 34%, rgba(255,255,255,.36) 46%, transparent 58%, transparent 100%),
+    linear-gradient(180deg, rgba(255,244,184,.96), rgba(255,212,90,.92));
+  background-size:220% 100%, 100% 100%;
+  background-position:-70% 50%, center;
+
   color:#7b4a00;
-  font-size:20px;
+
+  font-size:21px;
   font-weight:900;
+
+  text-shadow:
+    0 2px 4px rgba(122,74,0,.35),
+    0 0 9px rgba(255,255,255,.5);
+
   box-shadow:
-    0 12px 22px rgba(112,80,20,.22),
-    inset 0 1px 0 rgba(255,255,255,.8);
+    0 12px 22px rgba(168,128,20,.22),
+    0 0 16px rgba(255,255,255,.55),
+    inset 0 1px 0 rgba(255,255,255,.7),
+    inset 0 -10px 18px rgba(170,130,20,.2);
+
   cursor:pointer;
+
+  transition:
+    transform .24s ease,
+    box-shadow .24s ease,
+    background-position .7s ease,
+    filter .24s ease;
+}
+
+#guideBtn:hover{
+  transform:translateY(-3px);
+  background-position:120% 50%, center;
+  filter:brightness(1.06);
+
+  box-shadow:
+    0 16px 28px rgba(168,128,20,.3),
+    0 0 22px rgba(255,236,170,.74),
+    inset 0 1px 0 rgba(255,255,255,.82),
+    inset 0 -10px 18px rgba(170,130,20,.16);
 }
   
   #todayTreasureBox{
