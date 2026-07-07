@@ -244,12 +244,22 @@ marker.addTo(map);
 marker.on("popupopen", function(){
   document.getElementById("mapSwitchBox").style.visibility = "hidden";
 
+  const guideBox = document.getElementById("guideBox");
+  if (guideBox) {
+    guideBox.style.display = "none";
+  }
+
   localStorage.setItem("viewed_" + spotId, "true");
   marker.setIcon(markerIcon);
 });
 
 marker.on("popupclose", function(){
-  document.getElementById("mapSwitchBox").style.display = "flex";
+  document.getElementById("mapSwitchBox").style.visibility = "visible";
+
+  const guideBox = document.getElementById("guideBox");
+  if (guideBox) {
+    guideBox.style.display = "block";
+  }
 });
 
 markers.push(marker);
