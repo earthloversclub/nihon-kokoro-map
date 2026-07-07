@@ -1381,6 +1381,33 @@ margin-top:10px;
   z-index: 1000;
 }
 
+ #guideBox{
+  position:absolute;
+  left:10px;
+  bottom:156px;
+  z-index:3000;
+}
+
+#guideBtn{
+  width:135px;
+  height:34px;
+
+  border:none;
+  border-radius:20px;
+
+  background:linear-gradient(#ffe89b,#ffd45a);
+
+  color:#7b4a00;
+  font-weight:bold;
+  font-size:14px;
+
+  box-shadow:
+    0 0 10px rgba(255,220,120,.8),
+    inset 0 2px 2px rgba(255,255,255,.8);
+
+  cursor:pointer;
+} 
+  
   #rainbowBox button,
   #skyTempleBox button {
     width: 96px;
@@ -2331,6 +2358,30 @@ margin-top:10px;
     white-space:nowrap;
   }
 
+#guideBox{
+  display:block;
+  position:absolute;
+  left:var(--pc-left);
+  top:348px;
+  width:var(--pc-left-width);
+  z-index:2100;
+}
+
+#guideBtn{
+  width:100%;
+  min-height:54px;
+  border:2px solid rgba(255,226,126,.94);
+  border-radius:999px;
+  background:linear-gradient(180deg, #fff4b8, #ffd45a);
+  color:#7b4a00;
+  font-size:20px;
+  font-weight:900;
+  box-shadow:
+    0 12px 22px rgba(112,80,20,.22),
+    inset 0 1px 0 rgba(255,255,255,.8);
+  cursor:pointer;
+}
+  
   #todayTreasureBox{
     display:block;
     position:absolute;
@@ -4292,6 +4343,19 @@ margin-top:10px;
   ※名前はいつでも変更できます😊
 </div>
   </div>
+</div>
+
+<div id="guideBox">
+  <button
+    id="guideBtn"
+    type="button"
+    onclick="location.href='guide.html'">
+    📖宝地図の楽しみ方
+  </button>
+</div>
+
+<div id="todayTreasureBox">
+  <button id="todayTreasureButton" type="button">🎈 今日の宝探し 🎁</button>
 </div>
   
   <div id="todayTreasureBox">
