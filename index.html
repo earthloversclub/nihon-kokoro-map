@@ -4804,6 +4804,8 @@ return div;
 legend.addTo(map);
 
 function openTodayTreasure() {
+  map.closePopup();
+
   const candidates = markers.filter(marker => {
     return marker &&
       typeof marker.getLatLng === "function" &&
@@ -4822,19 +4824,23 @@ function openTodayTreasure() {
 
   isResettingMap = true;
   document.body.classList.remove("mapCleanMode");
+
   map.setView(latlng, Math.max(map.getZoom(), 8), { animate: true });
 
   setTimeout(() => {
     marker.openPopup();
-    isResettingMap = false;
-  }, 520);
+
+    setTimeout(() => {
+      isResettingMap = false;
+    }, 200);
+  }, 650);
 }
 
 function setupTodayTreasureButton() {
   const button = document.getElementById("todayTreasureButton");
   if (!button) return;
 
-  button.addEventListener("click", openTodayTreasure);
+  button.onclick = openTodayTreasure;
 }
 
 setupTodayTreasureButton();
