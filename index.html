@@ -4750,7 +4750,14 @@ const legend = L.control({ position: 'topleft' });
 
 legend.onAdd = function () {
 const div = L.DomUtil.create('div', 'legend');
+  
+L.DomEvent.disableClickPropagation(div);
+L.DomEvent.disableScrollPropagation(div);
 
+div.addEventListener("dblclick", function(e){
+  e.preventDefault();
+  e.stopPropagation();
+});
 const isPC = window.innerWidth >= 768;
 
 div.style.marginTop = isPC ? "-10px" : "-28px";
