@@ -120,7 +120,6 @@ box.style.display = "none";
 document.getElementById("searchBox").style.display = "none";
 document.getElementById("rainbowBox").style.display = "none";
 document.getElementById("skyTempleBox").style.display = "none";  
-document.getElementById("skyTempleBox").style.display = "none";
 document.getElementById("mapSwitchBox").style.display = "none";
 document.getElementById("myRecordBox").style.display = "none";
 const button =
