@@ -272,3 +272,10 @@ markers.push(marker);
 updateTotalPostsCount();
 
 });
+
+loadAchievement();
+loadRanking();
+loadThanksTotal();
+loadMyRecordPosts();
+
+});
