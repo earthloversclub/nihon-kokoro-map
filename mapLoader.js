@@ -263,15 +263,10 @@ marker.on("popupclose", function(){
 });
 
 markers.push(marker);
-marker.on("popupclose", function(){ 
-  document.getElementById("mapSwitchBox").style.visibility = "visible";
 
-  const guideBox = document.getElementById("guideBox");
-  if (guideBox) {
-    guideBox.style.display = "block";
-  }
+updateTotalPostsCount();
+
 });
-
 markers.push(marker);
 
 updateTotalPostsCount();
