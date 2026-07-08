@@ -259,3 +259,4 @@ document.getElementById("thanksTotal").textContent = data.total || 0;
 .catch(() => {
   document.getElementById("thanksTotal").textContent = "0";
 });
+}
