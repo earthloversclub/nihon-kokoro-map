@@ -263,10 +263,20 @@ marker.on("popupclose", function(){
 });
 
 markers.push(marker);
+marker.on("popupclose", function(){ 
+  document.getElementById("mapSwitchBox").style.visibility = "visible";
 
+  const guideBox = document.getElementById("guideBox");
+  if (guideBox) {
+    guideBox.style.display = "block";
+  }
 });
 
+markers.push(marker);
+
 updateTotalPostsCount();
+
+});
 
 function updateTotalPostsCount() {
   const totalPostsCountEl =
@@ -276,4 +286,4 @@ function updateTotalPostsCount() {
     totalPostsCountEl.textContent =
       markers.length + "件";
   }
-}
+}            
