@@ -264,10 +264,6 @@ marker.on("popupclose", function(){
 
 markers.push(marker);
 
-updateTotalPostsCount();
-
-});
-
 });
 
 function updateTotalPostsCount() {
