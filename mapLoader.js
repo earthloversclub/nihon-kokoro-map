@@ -264,7 +264,13 @@ marker.on("popupclose", function(){
 
 markers.push(marker);
 
-updateTotalPostsCount();
+const totalPostsCountEl =
+document.getElementById("totalPostsCount");
+
+if (totalPostsCountEl) {
+totalPostsCountEl.textContent =
+markers.length + "件";
+}
 
 });
 
@@ -272,13 +278,3 @@ loadAchievement();
 loadRanking();
 
 });
-
-function updateTotalPostsCount() {
-  const totalPostsCountEl =
-    document.getElementById("totalPostsCount");
-
-  if (totalPostsCountEl) {
-    totalPostsCountEl.textContent =
-      markers.length + "件";
-  }
-}
