@@ -240,7 +240,7 @@ allSpots.push({
 marker.category = category;
 
 marker.addTo(map);
-
+  
 marker.on("popupopen", function(){
   document.getElementById("mapSwitchBox").style.visibility = "hidden";
 
@@ -264,17 +264,18 @@ marker.on("popupclose", function(){
 
 markers.push(marker);
 
-const totalPostsCountEl =
-document.getElementById("totalPostsCount");
+updateTotalPostsCount();
 
-if (totalPostsCountEl) {
-totalPostsCountEl.textContent =
-markers.length + "件";
+});
+
+});
+
+function updateTotalPostsCount() {
+  const totalPostsCountEl =
+    document.getElementById("totalPostsCount");
+
+  if (totalPostsCountEl) {
+    totalPostsCountEl.textContent =
+      markers.length + "件";
+  }
 }
-
-});
-
-loadAchievement();
-loadRanking();
-
-});
