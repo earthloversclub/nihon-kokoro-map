@@ -255,7 +255,7 @@ fetch("https://script.google.com/macros/s/AKfycbybLspt-tzGEuWKZuEi4dukk4chmcU03j
 .then(data => {
 document.getElementById("thanksTotal").textContent = data.total || 0;
 })
-.catch(error => {
-document.getElementById("thanksTotal").textContent = "0";
+  
+.catch(() => {
+  document.getElementById("thanksTotal").textContent = "0";
 });
-}
