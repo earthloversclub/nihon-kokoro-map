@@ -266,6 +266,8 @@ markers.push(marker);
 
 });
 
+updateTotalPostsCount();
+
 function updateTotalPostsCount() {
   const totalPostsCountEl =
     document.getElementById("totalPostsCount");
