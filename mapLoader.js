@@ -277,13 +277,3 @@ markers.push(marker);
 updateTotalPostsCount();
 
 });
-
-function updateTotalPostsCount() {
-  const totalPostsCountEl =
-    document.getElementById("totalPostsCount");
-
-  if (totalPostsCountEl) {
-    totalPostsCountEl.textContent =
-      markers.length + "件";
-  }
-}            
