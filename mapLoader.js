@@ -240,7 +240,7 @@ allSpots.push({
 marker.category = category;
 
 marker.addTo(map);
-  
+
 marker.on("popupopen", function(){
   document.getElementById("mapSwitchBox").style.visibility = "hidden";
 
@@ -267,11 +267,6 @@ markers.push(marker);
 updateTotalPostsCount();
 
 });
-markers.push(marker);
-
-updateTotalPostsCount();
-
-});
 
 loadAchievement();
 loadRanking();
@@ -279,3 +274,13 @@ loadThanksTotal();
 loadMyRecordPosts();
 
 });
+
+function updateTotalPostsCount() {
+  const totalPostsCountEl =
+    document.getElementById("totalPostsCount");
+
+  if (totalPostsCountEl) {
+    totalPostsCountEl.textContent =
+      markers.length + "件";
+  }
+}
