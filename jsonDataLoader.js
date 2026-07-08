@@ -23,18 +23,3 @@ function getJsonCache(cacheKey, timeKey, limit) {
     return null;
   }
 }
-
-async function loadJsonData(url, cacheKey, timeKey, limit) {
-  const cachedData = getJsonCache(cacheKey, timeKey, limit);
-
-  if (cachedData) {
-    return cachedData;
-  }
-
-  const res = await fetch(url);
-  const data = await res.json();
-
-  saveJsonCache(cacheKey, timeKey, data);
-
-  return data;
-}
