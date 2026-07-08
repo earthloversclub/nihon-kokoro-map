@@ -270,8 +270,6 @@ updateTotalPostsCount();
 
 loadAchievement();
 loadRanking();
-loadThanksTotal();
-loadMyRecordPosts();
 
 });
 
