@@ -4051,6 +4051,12 @@ white-space: nowrap;
     z-index:1 !important;
   }
 
+  #growthMap[style*="block"] #growthLeftColumn,
+  #growthMap[style*="block"] #growthRightColumn{
+    z-index:2 !important;
+    pointer-events:none !important;
+  }
+
   #growthMap[style*="block"] #growthLeftColumn > *,
   #growthMap[style*="block"] #growthRightColumn > *{
     pointer-events:auto !important;
