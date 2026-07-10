@@ -81,3 +81,4 @@ function loadHeartData(callback) {
         console.error("heart cache error:", cacheError);
       }
     });
+}
