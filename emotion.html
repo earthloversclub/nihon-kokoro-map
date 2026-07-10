@@ -464,6 +464,43 @@
       box-shadow: 0 2px 6px rgba(0,0,0,.25);
       z-index: 5;
     }
+
+    /* Pagination */
+    #pagination {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      margin: 26px 0 8px;
+    }
+
+    .pageButton {
+      min-width: 42px;
+      height: 42px;
+      padding: 0 12px;
+      border: 2px solid #ffd6ec;
+      border-radius: 999px;
+      background: white;
+      color: #7f4bb3;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    .pageButton.current {
+      background: #eddcff;
+      border-color: #c99bea;
+      color: #63348e;
+      cursor: default;
+    }
+
+    .pageButton:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+    
   </style>
 </head>
 
@@ -485,7 +522,10 @@
 
   <div id="treasureList"></div>
 
+  <div id="pagination"></div>
+
   <div class="buttonArea">
+    
     <a class="backButton" href="heart.html">💗心の宝箱へ戻る</a>
     <a class="backButton" href="index.html?return=true">🌎宝物地図へ戻る</a>
   </div>
@@ -615,20 +655,66 @@ function getVideoThumb(url) {
     : "";
 }
 
-/* Treasure loading */
+/* Treasure loading and pagination */
+const POSTS_PER_PAGE = 10;
+let currentPage = 1;
+
 function loadEmotionTreasures(rows, headers) {
-  const list = document.getElementById("treasureList");
+  treasures = [];
 
   rows.slice(1).forEach(row => {
     const data = {};
-    headers.forEach((h, i) => data[h] = row[i] || "");
+
+    headers.forEach((h, i) => {
+      data[h] = row[i] || "";
+    });
 
     if (data["表示"] !== "表示") return;
     if (data["島カテゴリ"] !== "🏝感動の島") return;
 
     treasures.push(data);
+  });
 
-    const index = treasures.length - 1;
+  /* スプレッドシートの下側にある新しい投稿を先頭へ移動 */
+  treasures.reverse();
+
+  currentPage = 1;
+  renderTreasurePage();
+}
+
+function renderTreasurePage() {
+  const list = document.getElementById("treasureList");
+  const pagination = document.getElementById("pagination");
+
+  list.innerHTML = "";
+  pagination.innerHTML = "";
+
+  if (treasures.length === 0) {
+    list.innerHTML =
+      `<div class="message">まだ感動の宝物はありません🌱</div>`;
+    return;
+  }
+
+  const totalPages =
+    Math.ceil(treasures.length / POSTS_PER_PAGE);
+
+  if (currentPage < 1) {
+    currentPage = 1;
+  }
+
+  if (currentPage > totalPages) {
+    currentPage = totalPages;
+  }
+
+  const startIndex =
+    (currentPage - 1) * POSTS_PER_PAGE;
+
+  const endIndex =
+    Math.min(startIndex + POSTS_PER_PAGE, treasures.length);
+
+  for (let index = startIndex; index < endIndex; index++) {
+    const data = treasures[index];
+
     const postId = data["ID"];
     const viewedKey = "heart_viewed_" + postId;
     const isViewed = localStorage.getItem(viewedKey);
@@ -642,7 +728,11 @@ function loadEmotionTreasures(rows, headers) {
       (hasVideo ? getVideoThumb(hasVideo) : "");
 
     list.innerHTML += `
-<div class="miniCard" onclick="openDetail(${index})">
+<div
+  class="miniCard"
+  data-treasure-index="${index}"
+  onclick="openDetail(${index})"
+>
 ${!isViewed ? `<div class="heartNewBadge">NEW!</div>` : ""}
 
 ${thumb ? `
@@ -652,19 +742,80 @@ ${thumb ? `
   </div>
 ` : ""}
 
-<div class="miniTitle">${escapeHtml(data["タイトル"] || "")}</div>
+<div class="miniTitle">
+  ${escapeHtml(data["タイトル"] || "")}
+</div>
 
 <div class="miniPoster">
-投稿者：${escapeHtml(data["投稿者"] || "匿名さん")}
+  投稿者：${escapeHtml(data["投稿者"] || "匿名さん")}
 </div>
 
 </div>
     `;
-  });
-
-  if (!list.innerHTML.trim()) {
-    list.innerHTML = `<div class="message">まだ感動の宝物はありません🌱</div>`;
   }
+
+  renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+  const pagination = document.getElementById("pagination");
+
+  pagination.innerHTML = "";
+
+  if (totalPages <= 1) return;
+
+  const previousButton = document.createElement("button");
+
+  previousButton.type = "button";
+  previousButton.className = "pageButton";
+  previousButton.textContent = "前へ";
+  previousButton.disabled = currentPage === 1;
+
+  previousButton.onclick = function() {
+    changeTreasurePage(currentPage - 1);
+  };
+
+  pagination.appendChild(previousButton);
+
+  for (let page = 1; page <= totalPages; page++) {
+    const pageButton = document.createElement("button");
+
+    pageButton.type = "button";
+    pageButton.className =
+      "pageButton" + (page === currentPage ? " current" : "");
+
+    pageButton.textContent = page;
+    pageButton.disabled = page === currentPage;
+
+    pageButton.onclick = function() {
+      changeTreasurePage(page);
+    };
+
+    pagination.appendChild(pageButton);
+  }
+
+  const nextButton = document.createElement("button");
+
+  nextButton.type = "button";
+  nextButton.className = "pageButton";
+  nextButton.textContent = "次へ";
+  nextButton.disabled = currentPage === totalPages;
+
+  nextButton.onclick = function() {
+    changeTreasurePage(currentPage + 1);
+  };
+
+  pagination.appendChild(nextButton);
+}
+
+function changeTreasurePage(page) {
+  currentPage = page;
+  renderTreasurePage();
+
+  document.getElementById("treasureList").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 }
 
 loadHeartData(function(rows, headers) {
@@ -733,7 +884,9 @@ function openDetail(index) {
   const viewedKey = "heart_viewed_" + postId;
   localStorage.setItem(viewedKey, "true");
 
-  const currentCard = document.querySelectorAll(".miniCard")[index];
+  const currentCard =
+    document.querySelector(`.miniCard[data-treasure-index="${index}"]`);
+  
   if (currentCard) {
     const badge = currentCard.querySelector(".heartNewBadge");
     if (badge) badge.remove();
