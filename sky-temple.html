@@ -27,10 +27,6 @@ body.temple-loading {
   opacity: 0;
 }
 
-body.temple-ready {
-  opacity: 1;
-}
-
 .templeTop {
   width: 100%;
   margin: 0 auto;
@@ -844,7 +840,6 @@ Promise.all([
   document.querySelector(".topRankingArea").style.visibility = "visible";
   document.querySelector(".bottomRankingArea").style.visibility = "visible";
   document.body.classList.remove("temple-loading");
-  document.body.classList.add("temple-ready");
 })
   
 .catch(() => {
