@@ -42,16 +42,42 @@ function loadHeartData(callback) {
   }
 
   fetch(HEART_JSON_URL + "&t=" + Date.now())
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("心の宝箱データの取得に失敗しました");
+      }
+
+      return response.json();
+    })
     .then(data => {
       const headers = data.length > 0 ? Object.keys(data[0]) : [];
+
       const rows = [
         headers,
-        ...data.map(item => headers.map(header => item[header] ?? ""))
+        ...data.map(item =>
+          headers.map(header => item[header] ?? "")
+        )
       ];
 
       saveHeartData(rows, headers);
 
       callback(rows, headers);
+    })
+    .catch(error => {
+      console.error("loadHeartData error:", error);
+
+      const oldCacheJson =
+        localStorage.getItem(HEART_CACHE_KEY);
+
+      if (!oldCacheJson) return;
+
+      try {
+        const oldCache = JSON.parse(oldCacheJson);
+
+        if (oldCache.rows && oldCache.headers) {
+          callback(oldCache.rows, oldCache.headers);
+        }
+      } catch (cacheError) {
+        console.error("heart cache error:", cacheError);
+      }
     });
-}
