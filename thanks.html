@@ -688,7 +688,7 @@ function loadEmotionTreasures(rows, headers) {
     });
 
     if (data["表示"] !== "表示") return;
-    if (data["島カテゴリ"] !== "🏝感動の島") return;
+    if (data["島カテゴリ"] !== "🏝感謝の島") return;
 
     treasures.push(data);
   });
@@ -709,7 +709,7 @@ function renderTreasurePage() {
 
   if (treasures.length === 0) {
     list.innerHTML =
-      `<div class="message">まだ感動の宝物はありません🌱</div>`;
+      `<div class="message">まだ感謝の宝物はありません🌱</div>`;
     return;
   }
 
