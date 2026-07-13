@@ -651,6 +651,15 @@ function escapeHtml(text) {
     .replace(/"/g, "&quot;");
 }
 
+function linkifyText(text) {
+  return escapeHtml(text)
+    .replace(
+      /(https?:\/\/[^\s<]+)/g,
+      '<a href="$1" target="_blank" rel="noopener noreferrer" style="color:#0066cc;text-decoration:underline;" onclick="event.stopPropagation();">$1</a>'
+    )
+    .replace(/\n/g, "<br>");
+}
+  
 function getDriveId(url) {
   const match = url.match(/\/d\/([^/]+)/);
   return match ? match[1] : "";
@@ -893,8 +902,8 @@ function openDetail(index) {
 
   document.getElementById("modalVideoBox").innerHTML = "";
 
-  document.getElementById("modalText").innerHTML =
-    escapeHtml(data["本文"] || "").replace(/\n/g, "<br>");
+document.getElementById("modalText").innerHTML =
+  linkifyText(data["本文"] || "");
 
   const postId = data["ID"];
   const viewedKey = "heart_viewed_" + postId;
