@@ -16,7 +16,16 @@ function makeNewIcon(baseIcon) {
     popupAnchor: popupAnchor
   });
 }
-  
+
+function linkifyDescription(text) {
+  return String(text || "")
+    .replace(
+      /(https?:\/\/[^\s<>"']+)/g,
+      '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+    )
+    .replace(/\n/g, "<br>");
+}
+
 // === Treasure Data / Markers ===
   
 loadMapData(function(rows, headers) {
@@ -55,7 +64,7 @@ let popup = `
   ${category ? `<div style="font-size:17px; font-weight:bold;">カテゴリ：${category}</div>` : ""}
 
   ${data["説明"]
-  ? `<div style="margin-top:8px;">${data["説明"].replace(/\n/g, "<br>")}</div>`
+  ? `<div style="margin-top:8px;">${linkifyDescription(data["説明"])}</div>`
   : ""}
 
   ${data["投稿者"] ? `<div style="font-size:16px; margin-top:8px;">投稿者：${data["投稿者"]}</div>` : ""}
