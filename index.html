@@ -4426,11 +4426,11 @@ document.getElementById("passwordError").textContent = "合言葉が違います
   
 const map = L.map('map', { zoomControl: false }).setView([37.8, 138.5], 5);
 L.tileLayer(
-  'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+  'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
   {
-    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-    subdomains: 'abcd',
-    maxZoom: 20
+    attribution: '地理院タイル（国土地理院）',
+    minZoom: 5,
+    maxZoom: 18
   }
 ).addTo(map);
 
