@@ -101,9 +101,25 @@ return url;
 function formatPostDate(dateText) {
   if (!dateText) return "";
 
-  return String(dateText)
-    .substring(0, 10)
-    .replace(/-/g, "/");
+  const text = String(dateText).trim();
+
+  // すでに yyyy/MM/dd または yyyy-MM-dd なら、そのまま整形
+  if (/^\d{4}[\/-]\d{2}[\/-]\d{2}$/.test(text)) {
+    return text.replace(/-/g, "/");
+  }
+
+  const date = new Date(text);
+
+  if (isNaN(date.getTime())) {
+    return text.substring(0, 10).replace(/-/g, "/");
+  }
+
+  return new Intl.DateTimeFormat("ja-JP", {
+    timeZone: "Asia/Tokyo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(date).replace(/\./g, "/");
 }
   
 const imageUrls = [];
